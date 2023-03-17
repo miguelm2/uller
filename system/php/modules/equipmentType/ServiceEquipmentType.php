@@ -85,4 +85,18 @@ class ServiceEquipmentType extends System
             return $tableHtml;
         }
     }
+
+    public static function getSelectEquipmentType()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'tickets.php' || basename($_SERVER['PHP_SELF']) == 'ticket.php') {
+            $tableHtml = "";
+
+            $modelResponse = TipoEquipo::listTipoEquipo();
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<option value="'.$valor->getId_tipo().'">'.$valor->getNombre().'</option>';
+            }
+            return $tableHtml;
+        }
+    }
 }

@@ -3,7 +3,7 @@
   <ul class="sidebar-nav" id="sidebar-nav">
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="index">
+      <a class="nav-link collapsed" href="../admin/index">
         <i class="bi bi-grid"></i>
         <span>Inicio</span>
       </a>
@@ -15,36 +15,50 @@
         <span>Configuración</span>
       </a>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="tools">Herramientas / Equipos</a></li>
-        <li><a class="dropdown-item" href="materials">Materiales</a></li>
-        <li><a class="dropdown-item" href="equipmentTypes">Tipos de equipo</a></li>
-        <li><a class="dropdown-item" href="serviceTypes">Tipos de servicio</a></li>
+        <li><a class="dropdown-item" href="../admin/tools">Herramientas / Equipos</a></li>
+        <li><a class="dropdown-item" href="../admin/materials">Materiales</a></li>
+        <li><a class="dropdown-item" href="../admin/equipmentTypes">Tipos de equipo</a></li>
+        <li><a class="dropdown-item" href="../admin/serviceTypes">Tipos de servicio</a></li>
       </ul>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="administrators">
+      <a class="nav-link collapsed" href="../admin/administrators">
         <i class="bi bi-people-fill"></i>
         <span>Administradores</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="users">
+      <a class="nav-link collapsed" href="../admin/users">
         <i class="bi bi-person-lines-fill"></i>
         <span>Usuarios</span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="messages">
+      <a class="nav-link collapsed" href="../admin/technicians">
+        <i class="bi bi-tools"></i>
+        <span>Tecnicos</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../operation/tickets">
+        <i class="bi bi-ticket-detailed"></i>
+        <span>Tickets</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/messages">
         <i class="bi bi-envelope"></i>
         <span>Mensajes <?= $contadorMensajes; ?></span>
       </a>
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="users-profile">
+      <a class="nav-link collapsed" href="../admin/users-profile">
         <i class="bi bi-person"></i>
         <span>Perfil</span>
       </a>
@@ -56,7 +70,7 @@
 
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="information">
+      <a class="nav-link collapsed" href="../admin/information">
         <i class="bi bi-box-arrow-in-right"></i>
         <span>Informacion</span>
       </a>

@@ -32,18 +32,18 @@ class ServiceUser extends System
         $confirmPass = parent::limpiarString($confirmPass);
 
         try {
-                $cedula = $_SESSION['cedula'];
-                $pass_hash = parent::hash($pass);
-                $result = Usuario::getUser($cedula, $pass_hash);
+            $cedula = $_SESSION['cedula'];
+            $pass_hash = parent::hash($pass);
+            $result = Usuario::getUser($cedula, $pass_hash);
 
-                if ($result) {
-                    $id_usuario = $_SESSION['id'];
-                    $pass_hash = parent::hash($newPass);
-                    $result = Usuario::setUserPass($id_usuario, $pass_hash);
-                    if ($result) return  '<script>swal("' . Constants::$UPDATE_PASS . '", "", "success");</script>';
-                } else {
-                    return  '<script>swal("' . Constants::$CURRENT_PASS . '", "", "error");</script>';
-                }
+            if ($result) {
+                $id_usuario = $_SESSION['id'];
+                $pass_hash = parent::hash($newPass);
+                $result = Usuario::setUserPass($id_usuario, $pass_hash);
+                if ($result) return  '<script>swal("' . Constants::$UPDATE_PASS . '", "", "success");</script>';
+            } else {
+                return  '<script>swal("' . Constants::$CURRENT_PASS . '", "", "error");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -138,20 +138,22 @@ class ServiceUser extends System
     public static function getTablaUsuarios()
     {
         try {
-            $tableHtml = "";
-            $modelResponse = Usuario::listUser();
+            if (basename($_SERVER['PHP_SELF']) == 'users.php') {
+                $tableHtml = "";
+                $modelResponse = Usuario::listUser();
 
-            foreach ($modelResponse as $valor) {
-                $tableHtml .= '<tr>';
-                $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
-                $tableHtml .= '<td>' . $valor->getCorreo() . '</td>';
-                $tableHtml .= '<td>' . $valor->getTelefono() . '</td>';
-                $tableHtml .= '<td>' . $valor->getCedula() . '</td>';
-                $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
-                $tableHtml .= '<td>' . Elements::crearBotonVer("user", $valor->getId_usuario()) . '</td>';
-                $tableHtml .= '</tr>';
+                foreach ($modelResponse as $valor) {
+                    $tableHtml .= '<tr>';
+                    $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getCorreo() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getTelefono() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getCedula() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
+                    $tableHtml .= '<td>' . Elements::crearBotonVer("user", $valor->getId_usuario()) . '</td>';
+                    $tableHtml .= '</tr>';
+                }
+                return $tableHtml;
             }
-            return $tableHtml;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

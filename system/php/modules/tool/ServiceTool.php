@@ -88,4 +88,18 @@ class ServiceTool extends System
             return $tableHtml;
         }
     }
+
+    public static function getSelectTools()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'ticket.php') {
+            $tableHtml = "";
+
+            $modelResponse = Herramienta::listHerramienta();
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<option value="'.$valor->getId_herramienta().'">'.$valor->getNombre().' ('.$valor->getTipo()[1].')</option>';
+            }
+            return $tableHtml;
+        }
+    }
 }

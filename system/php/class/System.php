@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/app.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Mail.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Administrador.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Usuario.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Elements.php';
 
 
@@ -115,6 +116,7 @@ abstract  class System
     {
         $administrador  = Administrador::getAdministrador($user, $pass_hash);
         $usuario        = Usuario::getUser($user, $pass_hash);
+        $tecnico        = Tecnico::getTecnico($user, $pass_hash);
 
 
         if ($administrador != null) {
@@ -142,6 +144,19 @@ abstract  class System
             $_SESSION['usuario'] = "Usuario";
 
             header("Location:/system/views/user/index");
+        }
+        if ($tecnico != null) {
+            session_start();
+            $_SESSION['id']     =   $tecnico->getId_tecnico();
+            $_SESSION['nombre'] =   $tecnico->getNombre();
+            $_SESSION['correo'] =   $tecnico->getCorreo();
+            $_SESSION['cedula'] =   $tecnico->getCedula();
+            $_SESSION['telefono'] = $tecnico->getTelefono();
+            $_SESSION['tipo']   =   $tecnico->getTipo();
+            $_SESSION['fecha_registro'] = $tecnico->getFecha_registro();
+            $_SESSION['usuario'] = "Técnico";
+
+            header("Location:/system/views/technician/index");
         }
         return false;
     }

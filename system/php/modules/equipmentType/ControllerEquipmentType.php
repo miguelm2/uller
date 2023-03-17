@@ -19,7 +19,8 @@ if(isset($_POST['getEquipmentType'])){
 }
 
 if(isset($_GET)){
-    $tablaTipoEquipos = ServiceEquipmentType::getTableEquipmentType();
+    $tablaTipoEquipos  = ServiceEquipmentType::getTableEquipmentType();
+    $selectTipoEquipos = ServiceEquipmentType::getSelectEquipmentType();
 }
 
 

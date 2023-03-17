@@ -33,6 +33,16 @@ class TipoEquipo extends System
         return  $stmt->fetch();
     }
 
+    public static function getTipoEquipoById($id_tipo)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM TipoEquipo WHERE id_tipo = :id_tipo");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'TipoEquipoDTO');
+        $stmt->execute();
+        return  $stmt->fetch();
+    }
+
     public static function listTipoEquipo()
     {
         $dbh             = parent::Conexion();

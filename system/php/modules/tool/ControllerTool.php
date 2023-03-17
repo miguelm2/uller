@@ -19,6 +19,7 @@ if(isset($_POST['getTool'])){
 }
 
 if(isset($_GET)){
-    $tablaHerramientas = ServiceTool::getTablaTools();
+    $tablaHerramientas  = ServiceTool::getTablaTools();
+    $selectHerramientas = ServiceTool::getSelectTools();
 }
 ?>

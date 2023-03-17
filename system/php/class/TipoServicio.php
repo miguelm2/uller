@@ -33,6 +33,16 @@ class TipoServicio extends System
         return  $stmt->fetch();
     }
 
+    public static function getTipoServicioById($id_tipo)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM TipoServicio WHERE id_tipo = :id_tipo");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'TipoServicioDTO');
+        $stmt->execute();
+        return  $stmt->fetch();
+    }
+
     public static function listTipoServicio()
     {
         $dbh             = parent::Conexion();

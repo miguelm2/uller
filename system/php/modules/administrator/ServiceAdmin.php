@@ -141,20 +141,22 @@ class ServiceAdmin extends System
 
     public static function getTablaAdministradores()
     {
-        $tableHtml = "";
-        $adminId = $_SESSION["id"];
-        $modelResponse = Administrador::listAdministrador($adminId);
+        if (basename($_SERVER['PHP_SELF']) == 'administrators.php') {
+            $tableHtml = "";
+            $adminId = $_SESSION["id"];
+            $modelResponse = Administrador::listAdministrador($adminId);
 
-        foreach ($modelResponse as $valor) {
-            $tableHtml .= '<tr>';
-            $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
-            $tableHtml .= '<td>' . $valor->getCorreo() . '</td>';
-            $tableHtml .= '<td>' . $valor->getTelefono() . '</td>';
-            $tableHtml .= '<td>' . $valor->getCedula() . '</td>';
-            $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
-            $tableHtml .= '<td>' . Elements::crearBotonVer("administrator", $valor->getId_administrador()) . '</td>';
-            $tableHtml .= '</tr>';
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<tr>';
+                $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
+                $tableHtml .= '<td>' . $valor->getCorreo() . '</td>';
+                $tableHtml .= '<td>' . $valor->getTelefono() . '</td>';
+                $tableHtml .= '<td>' . $valor->getCedula() . '</td>';
+                $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
+                $tableHtml .= '<td>' . Elements::crearBotonVer("administrator", $valor->getId_administrador()) . '</td>';
+                $tableHtml .= '</tr>';
+            }
+            return $tableHtml;
         }
-        return $tableHtml;
     }
 }

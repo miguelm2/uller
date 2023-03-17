@@ -2,7 +2,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="<?= $listUrl[1] ?>" class="logo d-flex align-items-center">
         <img src="../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Uller</span>
       </a>
@@ -32,7 +32,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="<?= $listUrl[2]  ?>">
                 <i class="bi bi-person"></i>
                 <span>Mi perfil</span>
               </a>

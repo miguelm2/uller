@@ -85,4 +85,18 @@ class ServiceType extends System
             return $tableHtml;
         }
     }
+
+    public static function getSelectServiceType()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'tickets.php' || basename($_SERVER['PHP_SELF']) == 'ticket.php') {
+            $tableHtml = "";
+
+            $modelResponse = TipoServicio::listTipoServicio();
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<option value="'.$valor->getId_tipo().'">'.$valor->getNombre().'</option>';
+            }
+            return $tableHtml;
+        }
+    }
 }

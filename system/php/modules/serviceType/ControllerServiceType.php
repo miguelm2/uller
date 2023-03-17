@@ -19,7 +19,8 @@ if(isset($_POST['getServiceType'])){
 }
 
 if(isset($_GET)){
-    $tablaTipoServicios = ServiceType::getTableServiceType();
+    $tablaTipoServicios  = ServiceType::getTableServiceType();
+    $selectTipoServicios = ServiceType::getSelectServiceType();
 }
 
 
