@@ -15,4 +15,12 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/information/Controll
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/message/ControllerMessage.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/tool/ControllerTool.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/material/ControllerMaterial.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/equipmentType/ControllerEquipmentType.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/serviceType/ControllerServiceType.php';
+
 ?>
