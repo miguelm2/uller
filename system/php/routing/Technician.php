@@ -10,4 +10,10 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTic
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/tool/ControllerTool.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/material/ControllerMaterial.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/technician/ControllerTechnician.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/diagnosis/ControllerDiagnosis.php';
+
 ?>

@@ -35,6 +35,16 @@ class Herramienta extends System
         return  $stmt->fetch();
     }
 
+    public static function getHerramientaById($id_herramienta)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Herramienta WHERE id_herramienta = :id_herramienta");
+        $stmt->bindParam(':id_herramienta', $id_herramienta);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'HerramientaDTO');
+        $stmt->execute();
+        return  $stmt->fetch();
+    }
+
     public static function listHerramienta()
     {
         $dbh             = parent::Conexion();

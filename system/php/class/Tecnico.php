@@ -97,6 +97,16 @@ class Tecnico extends System
         return  $stmt->fetchAll();
     }
 
+    public static function listTecnicosActivosById($id_tecnico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE estado = 1 AND id_tecnico != :id_tecnico");
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'TecnicoDTO');
+        $stmt->execute();
+        return  $stmt->fetchAll();
+    }
+
     public static function deleteTecnico($id_tecnico)
     {
         $dbh             = parent::Conexion();

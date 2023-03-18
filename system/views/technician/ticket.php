@@ -117,24 +117,14 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="herramienta">Herramienta / Equipo</label>
-                                    <select class="form-select" name="herramienta" id="herramienta">
-                                        <?= $selectHerramientas; ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="material">Materiales</label>
-                                    <select class="form-select" name="material" id="material">
-                                        <?= $selectHerramientas; ?>
-                                    </select>
-                                </div>
+                            <div class="col-md-12 form-group">
+                                <label for="descripcion">Descripción</label>
+                                <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newDiagnostico" class="btn btn-primary"><i class="bi bi-plus-square"></i> Nuevo Diagnostico</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
+                            <button type="submit" name="newDiagnosis" class="btn btn-primary"><i class="bi bi-check-circle"></i> Nuevo Diagnostico</button>
                         </div>
                     </div>
                 </div>

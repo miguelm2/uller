@@ -91,7 +91,7 @@ class ServiceTool extends System
 
     public static function getSelectTools()
     {
-        if (basename($_SERVER['PHP_SELF']) == 'ticket.php') {
+        if (basename($_SERVER['PHP_SELF']) == 'ticket.php' || basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
             $tableHtml = "";
 
             $modelResponse = Herramienta::listHerramienta();

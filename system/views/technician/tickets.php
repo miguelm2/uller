@@ -66,7 +66,7 @@
                                         <th>Usuario</th>
                                         <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
-                                        <th>Fecha_registro</th>
+                                        <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
                                 </thead>
@@ -76,7 +76,7 @@
                                         <th>Usuario</th>
                                         <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
-                                        <th>Fecha_registro</th>
+                                        <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
                                 </tfoot>

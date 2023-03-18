@@ -25,6 +25,7 @@ if(isset($_GET['technician'])){
 if(isset($_GET)){
     $tablaTecnicos  = ServiceTechnician::getTableTechnicians();
     $selectTecnicos = ServiceTechnician::getSelectTechnicians();
+    $selectAyudantes= ServiceTechnician::getSelectTechniciansById();
 } 
 
 ?>

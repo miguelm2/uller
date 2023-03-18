@@ -85,4 +85,18 @@ class ServiceMaterial extends System
             return $tableHtml;
         }
     }
+
+    public static function getSelectMaterials()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
+            $tableHtml = "";
+
+            $modelResponse = Material::listMaterial();
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<option value="'.$valor->getId_material().'">'.$valor->getNombre().'</option>';
+            }
+            return $tableHtml;
+        }
+    }
 }

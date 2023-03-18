@@ -121,4 +121,19 @@ class ServiceTechnician extends System
             return $tableHtml;
         }
     }
+
+    public static function getSelectTechniciansById()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
+            $tableHtml = "";
+            $id_tecnico = $_SESSION['id'];
+
+            $modelResponse = Tecnico::listTecnicosActivosById($id_tecnico);
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<option value="' . $valor->getId_tecnico() . '">' . $valor->getNombre() . '</option>';
+            }
+            return $tableHtml;
+        }
+    }
 }

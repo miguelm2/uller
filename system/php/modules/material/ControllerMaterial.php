@@ -20,5 +20,6 @@ if(isset($_POST['getMaterial'])){
 
 if(isset($_GET)){
     $tablaMateriales = ServiceMaterial::getTablaMaterials();
+    $selectMateriales= ServiceMaterial::getSelectMaterials();
 }
 ?>

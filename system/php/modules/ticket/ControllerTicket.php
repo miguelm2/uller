@@ -1,7 +1,4 @@
 <?php
-
-use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
-
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/ticket/ServiceTicket.php';
 
 if(isset($_POST['newTicket'])){

@@ -33,6 +33,16 @@ class Material extends System
         return  $stmt->fetch();
     }
 
+    public static function getMaterialById($id_material)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Material WHERE id_material = :id_material");
+        $stmt->bindParam(':id_material', $id_material);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'MaterialDTO');
+        $stmt->execute();
+        return  $stmt->fetch();
+    }
+
     public static function listMaterial()
     {
         $dbh             = parent::Conexion();
