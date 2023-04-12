@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoServicio.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TecnicoTicket.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Diagnostico.php';
 
 class ServiceTicket extends System
 {
@@ -182,6 +183,76 @@ class ServiceTicket extends System
                         </div>
                     </div>';
                 }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosis($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+            $html = '';
+
+            if (basename($_SERVER['PHP_SELF']) == 'ticket.php' && $_SESSION['tipo']==3) {
+
+                $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+
+                if (!$validar) {
+                    $html .= '';
+                }else{
+                    $html .= '';
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosisTechnician($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
+
+            if($validateDiagnostico > 0){
+                $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
+                $html = '<a href="diagnosis?diagnosis='.$id_diagnostico.'&ticket='.$id_ticket.'" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
+            } else{
+                $html = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDiagnostico"><i class="bi bi-journal-plus"></i> Crear Diagnostico</button>';
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosisUsers($id_ticket)
+    {
+        try {
+            $id_ticket    = parent::limpiarString($id_ticket);
+            $tipo_usuario = $_SESSION['tipo'];
+            $html = '';
+
+            $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
+
+            if($validateDiagnostico > 0){
+
+                if($tipo_usuario==0 || $tipo_usuario==5){
+                    $usuario = 'admin';
+                }else{
+                    $usuario = 'user';
+                }
+
+                $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
+                $html = '<a href="../'.$usuario.'/diagnosis?diagnosis='.$id_diagnostico.'&ticket='.$id_ticket.'" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
             }
 
             return $html;

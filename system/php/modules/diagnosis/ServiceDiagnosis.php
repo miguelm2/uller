@@ -10,19 +10,51 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/AyudanteDiagnostico.
 
 class ServiceDiagnosis extends System
 {
-    public static function newDiagnosis($id_ticket, $descripcion)
+    public static function newDiagnosis($id_ticket, $numero_horas, $numero_ayudantes, $descripcion)
     {
-        $id_ticket      = parent::limpiarString($id_ticket);
-        $descripcion    = parent::limpiarString($descripcion);
-        $fecha_registro = date('Y-m-d H:i:s');
+        $id_ticket        = parent::limpiarString($id_ticket);
+        $numero_horas     = parent::limpiarString($numero_horas);
+        $numero_ayudantes = parent::limpiarString($numero_ayudantes);
+        $descripcion      = parent::limpiarString($descripcion);
+        $fecha_registro   = date('Y-m-d H:i:s');
 
         try {
-            $result = Diagnostico::newDiagnostico($id_ticket, $descripcion, $fecha_registro);
+            $result = Diagnostico::newDiagnostico($id_ticket, $numero_horas, $numero_ayudantes, $descripcion, $fecha_registro);
 
             if ($result) {
                 $id_diagnostico = Diagnostico::getLastDiagnostico();
                 header('Location:diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket);
             }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function setDiagnosis($id_diagnostico, $numero_horas, $numero_ayudantes, $descripcion)
+    {
+        $id_diagnostico   = parent::limpiarString($id_diagnostico);
+        $numero_horas     = parent::limpiarString($numero_horas);
+        $numero_ayudantes = parent::limpiarString($numero_ayudantes);
+        $descripcion      = parent::limpiarString($descripcion);
+
+        try {
+            $result = Diagnostico::setDiagnostico($id_diagnostico, $numero_horas, $numero_ayudantes, $descripcion);
+
+            if($result) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function setPrecioDiagnosis($id_diagnostico, $precio)
+    {
+        $id_diagnostico   = parent::limpiarString($id_diagnostico);
+        $precio           = parent::limpiarString($precio);
+
+        try {
+            $result = Diagnostico::setPrecioDiagnostico($id_diagnostico, $precio);
+
+            if($result) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -40,15 +72,16 @@ class ServiceDiagnosis extends System
         }
     }
 
-    public static function addToolDiagnosis($id_diagnostico, $id_ticket, $id_herramienta)
+    public static function addToolDiagnosis($id_diagnostico, $id_ticket, $id_herramienta, $cantidad)
     {
         $id_diagnostico = parent::limpiarString($id_diagnostico);
         $id_ticket      = parent::limpiarString($id_ticket);
         $id_herramienta = parent::limpiarString($id_herramienta);
+        $cantidad       = parent::limpiarString($cantidad);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = HerramientaDiagnostico::newHerramientaDiagnostico($id_diagnostico, $id_ticket, $id_herramienta, $fecha_registro);
+            $result = HerramientaDiagnostico::newHerramientaDiagnostico($id_diagnostico, $id_ticket, $id_herramienta, $cantidad, $fecha_registro);
 
             if ($result) return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -56,31 +89,17 @@ class ServiceDiagnosis extends System
         }
     }
 
-    public static function addMaterialDiagnosis($id_diagnostico, $id_ticket, $id_material)
+    public static function addMaterialDiagnosis($id_diagnostico, $id_ticket, $id_material, $cantidad, $unidad_medida)
     {
         $id_diagnostico = parent::limpiarString($id_diagnostico);
         $id_ticket      = parent::limpiarString($id_ticket);
-        $id_material = parent::limpiarString($id_material);
+        $id_material    = parent::limpiarString($id_material);
+        $cantidad       = parent::limpiarString($cantidad);
+        $unidad_medida  = parent::limpiarString($unidad_medida);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = MaterialDiagnostico::newMaterialDiagnostico($id_diagnostico, $id_ticket, $id_material, $fecha_registro);
-
-            if ($result) return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function addAssistantDiagnosis($id_diagnostico, $id_ticket, $id_ayudante)
-    {
-        $id_diagnostico = parent::limpiarString($id_diagnostico);
-        $id_ticket      = parent::limpiarString($id_ticket);
-        $id_ayudante = parent::limpiarString($id_ayudante);
-        $fecha_registro = date('Y-m-d H:i:s');
-
-        try {
-            $result = AyudanteDiagnostico::newAyudanteDiagnostico($id_diagnostico, $id_ticket, $id_ayudante, $fecha_registro);
+            $result = MaterialDiagnostico::newMaterialDiagnostico($id_diagnostico, $id_ticket, $id_material, $cantidad, $unidad_medida, $fecha_registro);
 
             if ($result) return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -105,10 +124,29 @@ class ServiceDiagnosis extends System
         }
     }
 
+    public static function deleteDiagnosis($id_diagnostico, $id_ticket)
+    {
+        $id_diagnostico = parent::limpiarString($id_diagnostico);
+        $id_ticket      = parent::limpiarString($id_ticket);
+
+        try {
+            $deleteHerramientas = HerramientaDiagnostico::deleteHerramientaByDiagnostico($id_diagnostico);
+            $deleteMateriales   = MaterialDiagnostico::deleteMaterialByDiagnostico($id_diagnostico);
+            $deleteDiagnostico  = Diagnostico::deleteDiagnostico($id_diagnostico);
+
+            if ($deleteHerramientas && $deleteMateriales && $deleteDiagnostico) {
+                header('Location:ticket?ticket='.$id_ticket.'&delete');
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public static function getTableHerramientas($lstHerramientas)
     {
         if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
             $tableHtml = "";
+            $tipo_usuario = $_SESSION['tipo'];
 
             $modelResponse = $lstHerramientas;
 
@@ -117,8 +155,11 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '<td>' . $valor->getId_herramienta_diagnostico() . '</td>';
                 $tableHtml .= '<td>' . $valor->getHerramientaDTO()->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getHerramientaDTO()->getTipo()[1] . '</td>';
+                $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("HerramientaDiagnostico", "id_herramienta_diagnostico", $valor->getId_herramienta_diagnostico()) . '</td>';
+                if($tipo_usuario==3){
+                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("HerramientaDiagnostico", "id_herramienta_diagnostico", $valor->getId_herramienta_diagnostico()) . '</td>';
+                }
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -129,6 +170,7 @@ class ServiceDiagnosis extends System
     {
         if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
             $tableHtml = "";
+            $tipo_usuario = $_SESSION['tipo'];
 
             $modelResponse = $lstMateriales;
 
@@ -136,27 +178,12 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '<tr>';
                 $tableHtml .= '<td>' . $valor->getId_material_diagnostico() . '</td>';
                 $tableHtml .= '<td>' . $valor->getMaterialDTO()->getNombre() . '</td>';
+                $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
+                $tableHtml .= '<td>' . $valor->getUnidad_medida() . '</td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("MaterialDiagnostico", "id_material_diagnostico", $valor->getId_material_diagnostico()) . '</td>';
-                $tableHtml .= '</tr>';
-            }
-            return $tableHtml;
-        }
-    }
-
-    public static function getTableAyudantes($lstAyudantes)
-    {
-        if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
-            $tableHtml = "";
-
-            $modelResponse = $lstAyudantes;
-
-            foreach ($modelResponse as $valor) {
-                $tableHtml .= '<tr>';
-                $tableHtml .= '<td>' . $valor->getId_ayudante_diagnostico() . '</td>';
-                $tableHtml .= '<td>' . $valor->getAyudanteDTO()->getNombre() . '</td>';
-                $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("AyudanteDiagnostico", "id_ayudante_diagnostico", $valor->getId_ayudante_diagnostico()) . '</td>';
+                if($tipo_usuario==3){
+                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("MaterialDiagnostico", "id_material_diagnostico", $valor->getId_material_diagnostico()) . '</td>';
+                }
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -168,7 +195,13 @@ class ServiceDiagnosis extends System
         if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
             try {
                 $id_ticket = parent::limpiarString($id_ticket);
-                return "ticket?ticket=".$id_ticket;
+                $tipo_usuario = $_SESSION['tipo'];
+
+                if($tipo_usuario==3){
+                    return "ticket?ticket=".$id_ticket;
+                }else{
+                    return "../operation/ticket?ticket=".$id_ticket;
+                }
             } catch (\Exception $e) {
                 throw new Exception($e->getMessage());
             }

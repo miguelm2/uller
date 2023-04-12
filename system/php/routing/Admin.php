@@ -27,4 +27,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/serviceType/Controll
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/technician/ControllerTechnician.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/diagnosis/ControllerDiagnosis.php';
+
 ?>

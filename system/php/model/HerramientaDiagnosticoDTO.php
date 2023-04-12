@@ -5,6 +5,7 @@ class HerramientaDiagnosticoDTO
     protected $id_diagnostico;
     protected $id_ticket;
     protected $herramientaDTO;
+    protected $cantidad;
     protected $fecha_registro;
     
 
@@ -84,6 +85,26 @@ class HerramientaDiagnosticoDTO
     public function setHerramientaDTO($herramientaDTO)
     {
         $this->herramientaDTO = $herramientaDTO;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cantidad
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * Set the value of cantidad
+     *
+     * @return  self
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
 
         return $this;
     }

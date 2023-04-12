@@ -3,11 +3,13 @@ class DiagnosticoDTO
 {
     protected $id_diagnostico;
     protected $id_ticket;
+    protected $numero_horas;
+    protected $numero_ayudantes;
     protected $descripcion;
+    protected $precio;
     protected $fecha_registro;
     protected $lstHerramientas;
     protected $lstMateriales;
-    protected $lstAyudantes;
     
 
     /**
@@ -51,6 +53,46 @@ class DiagnosticoDTO
     }
 
     /**
+     * Get the value of numero_horas
+     */
+    public function getNumero_horas()
+    {
+        return $this->numero_horas;
+    }
+
+    /**
+     * Set the value of numero_horas
+     *
+     * @return  self
+     */
+    public function setNumero_horas($numero_horas)
+    {
+        $this->numero_horas = $numero_horas;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of numero_ayudantes
+     */
+    public function getNumero_ayudantes()
+    {
+        return $this->numero_ayudantes;
+    }
+
+    /**
+     * Set the value of numero_ayudantes
+     *
+     * @return  self
+     */
+    public function setNumero_ayudantes($numero_ayudantes)
+    {
+        $this->numero_ayudantes = $numero_ayudantes;
+
+        return $this;
+    }
+
+    /**
      * Get the value of descripcion
      */ 
     public function getDescripcion()
@@ -66,6 +108,26 @@ class DiagnosticoDTO
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of precio
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    /**
+     * Set the value of precio
+     *
+     * @return  self
+     */
+    public function setPrecio($precio)
+    {
+        $this->precio = $precio;
 
         return $this;
     }
@@ -126,26 +188,6 @@ class DiagnosticoDTO
     public function setLstMateriales($lstMateriales)
     {
         $this->lstMateriales = $lstMateriales;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of lstAyudantes
-     */ 
-    public function getLstAyudantes()
-    {
-        return $this->lstAyudantes;
-    }
-
-    /**
-     * Set the value of lstAyudantes
-     *
-     * @return  self
-     */ 
-    public function setLstAyudantes($lstAyudantes)
-    {
-        $this->lstAyudantes = $lstAyudantes;
 
         return $this;
     }

@@ -3,14 +3,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/HerramientaDiagnosti
 
 class HerramientaDiagnostico extends System
 {
-    public static function newHerramientaDiagnostico($id_diagnostico, $id_ticket, $id_herramienta, $fecha_registro)
+    public static function newHerramientaDiagnostico($id_diagnostico, $id_ticket, $id_herramienta, $cantidad, $fecha_registro)
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO HerramientaDiagnostico (id_diagnostico, id_ticket, id_herramienta, fecha_registro) 
-                                VALUES (:id_diagnostico, :id_ticket, :id_herramienta, :fecha_registro)");
+        $stmt = $dbh->prepare("INSERT INTO HerramientaDiagnostico (id_diagnostico, id_ticket, id_herramienta, cantidad, fecha_registro) 
+                                VALUES (:id_diagnostico, :id_ticket, :id_herramienta, :cantidad, :fecha_registro)");
         $stmt->bindParam(':id_diagnostico', $id_diagnostico);
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->bindParam(':id_herramienta', $id_herramienta);
+        $stmt->bindParam(':cantidad', $cantidad);
         $stmt->bindParam(':fecha_registro', $fecha_registro);
         return  $stmt->execute();
     }
@@ -34,6 +35,7 @@ class HerramientaDiagnostico extends System
             $herramientaDTO->setId_diagnostico($result['id_diagnostico']);
             $herramientaDTO->setId_ticket($result['id_ticket']);
             $herramientaDTO->setHerramientaDTO(Herramienta::getHerramientaById($result['id_herramienta']));
+            $herramientaDTO->setCantidad($result['cantidad']);
             $herramientaDTO->setFecha_registro($result['fecha_registro']);
 
 
@@ -41,6 +43,14 @@ class HerramientaDiagnostico extends System
             $intCount++;
         }
         return $lstHerramienta;
+    }
+
+    public static function deleteHerramientaByDiagnostico($id_diagnostico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM HerramientaDiagnostico WHERE id_diagnostico = :id_diagnostico ");
+        $stmt->bindParam(':id_diagnostico', $id_diagnostico);
+        return  $stmt->execute();
     }
 
 }

@@ -5,6 +5,8 @@ class MaterialDiagnosticoDTO
     protected $id_diagnostico;
     protected $id_ticket;
     protected $materialDTO;
+    protected $cantidad;
+    protected $unidad_medida;
     protected $fecha_registro;
     
 
@@ -84,6 +86,46 @@ class MaterialDiagnosticoDTO
     public function setMaterialDTO($materialDTO)
     {
         $this->materialDTO = $materialDTO;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of cantidad
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * Set the value of cantidad
+     *
+     * @return  self
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of unidad_medida
+     */
+    public function getUnidad_medida()
+    {
+        return $this->unidad_medida;
+    }
+
+    /**
+     * Set the value of unidad_medida
+     *
+     * @return  self
+     */
+    public function setUnidad_medida($unidad_medida)
+    {
+        $this->unidad_medida = $unidad_medida;
 
         return $this;
     }

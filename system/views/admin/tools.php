@@ -148,10 +148,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="id_herramienta">Id herramienta / equipo</label>
-                                    <input type="text" class="form-control" name="id_herramienta" id="id_herramienta" readonly required>
-                                </div>
+                                <input type="hidden" class="form-control" name="id_herramienta" id="id_herramienta" readonly required>
                                 <div class="col-md-12 form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" name="nombre_tool" id="nombre_tool" maxlength="255" required>

@@ -26,8 +26,11 @@ if(isset($_POST['deleteTicket'])){
 }
 
 if(isset($_GET['ticket'])){
-    $ticket     = ServiceTicket::getTicket($_GET['ticket']);
-    $btnTecnico = ServiceTicket::getButtonTechnician($_GET['ticket']);
+    $ticket                = ServiceTicket::getTicket($_GET['ticket']);
+    $btnTecnico            = ServiceTicket::getButtonTechnician($_GET['ticket']);
+    $btnDiagnostico        = ServiceTicket::getButtonDiagnosis($_GET['ticket']);
+    $btnDiagnosticoTecnico = ServiceTicket::getButtonDiagnosisTechnician($_GET['ticket']);
+    $btnDiagnosticoUsers   = ServiceTicket::getButtonDiagnosisUsers($_GET['ticket']);
 }
 
 if(isset($_GET)){

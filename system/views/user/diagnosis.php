@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Technician.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-technician.php'; ?>
+    <?php include '../../assets/html/sidebar-user.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -53,10 +53,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Ticket</h5>
+                                <h4 class="text-primary">Diagnostico</h4>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="tickets" class="btn btn-secondary">
+                                <a href="<?=$btnAtras;?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -64,83 +64,87 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <!-- Vertical Form -->
-                        <form class="row g-3" method="post">
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_equipo">Tipo de equipo</label>
-                                <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_equipoDTO()->getNombre() ?>">
+                        <form method="post">
+                            <div class="row g-2">
+                                <div class="col-md-6 form-group">
+                                    <label for="numero_horas">Número de horas</label>
+                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required value="<?= $diagnostico->getNumero_horas(); ?>" disabled>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="numero_ayudantes">Número de ayudantes</label>
+                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required value="<?= $diagnostico->getNumero_ayudantes(); ?>" disabled>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="descripcion">Descripción</label>
+                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required disabled><?= $diagnostico->getDescripcion(); ?></textarea>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required value="<?= $diagnostico->getPrecio(); ?>" disabled>
+                                </div>
                             </div>
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_servicio">Tipo de servicio</label>
-                                <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_servicioDTO()->getNombre() ?>">
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label for="estado">Estado</label>
-                                <select class="form-select" name="estado" id="estado">
-                                    <option value="<?= $ticket->getEstado()[0] ?>"><?= $ticket->getEstado()[1] ?></option>
-                                    <option value="1">Creado</option>
-                                    <option value="2">Verificado</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label for="descripcion">Descripción</label>
-                                <textarea class="form-control" rows="3" maxlength="255" disabled><?= $ticket->getDescripcion() ?></textarea>
-                            </div>
-
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
-
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoTecnico;?>
-                            </div>
-
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-success" name="setEstadoTicket"><i class="bi bi-save"></i> Actualizar Estado</button>
-                            </div>
-                        </form><!-- Vertical Form -->
+                        </form>
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Herramientas / Equipos</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-diagnosis" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Herramienta / Equipo</th>
+                                        <th>Tipo</th>
+                                        <th>Cantidad</th>
+                                        <th>Fecha registro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?= $tablaHerramientas; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Materiales</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-diagnosis" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Material</th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad de medida</th>
+                                        <th>Fecha registro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?= $tablaMateriales; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </section>
-
-        <!-- ======= Basic Modal ======= -->
-        <form method="POST">
-            <div class="modal fade" id="newDiagnostico" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Nuevo Diagnostico</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row g-2">
-                                <div class="col-md-12 form-group">
-                                    <label for="numero_horas">Número de horas</label>
-                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="numero_ayudantes">Número de ayudantes</label>
-                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="descripcion">Descripción</label>
-                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
-                            <button type="submit" name="newDiagnosis" class="btn btn-primary"><i class="bi bi-check-circle"></i> Nuevo Diagnostico</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Basic Modal-->
 
 
     </main><!-- End #main -->

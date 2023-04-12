@@ -139,10 +139,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="id_herramienta">Id material</label>
-                                    <input type="text" class="form-control" name="id_material" id="id_material" readonly required>
-                                </div>
+                                <input type="hidden" class="form-control" name="id_material" id="id_material" readonly required>
                                 <div class="col-md-12 form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" name="nombre" id="nombre_material" maxlength="255" required>
