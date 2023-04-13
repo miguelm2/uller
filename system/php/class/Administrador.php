@@ -5,10 +5,11 @@ class Administrador extends System
 
     public static function newAdministrator($nombre, $correo, $telefono, $cedula, $pass_hash, $estado, $tipo, $fecha_registro)
     {
-        $validarAdmin = self::validateAdministrator($cedula, $correo, null);
-        $validarUser = Usuario::validateUser($cedula, $correo, null);
+        $validarAdmin   = self::validateAdministrator($cedula, $correo, null);
+        $validarUser    = Usuario::validateUser($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("INSERT INTO Administrador (nombre, correo, telefono, cedula, pass, estado, tipo, fecha_registro) 
                                 VALUES (:nombre, :correo, :telefono, :cedula, :pass, :estado, :tipo, :fecha_registro)");
@@ -28,10 +29,11 @@ class Administrador extends System
 
     public static function setAdministrator($id_administrador, $nombre, $correo, $telefono, $cedula, $estado)
     {
-        $validarAdmin = self::validateAdministrator($cedula, $correo, $id_administrador);
-        $validarUser = Usuario::validateUser($cedula, $correo, null);
+        $validarAdmin   = self::validateAdministrator($cedula, $correo, $id_administrador);
+        $validarUser    = Usuario::validateUser($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("UPDATE Administrador SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, estado = :estado WHERE id_administrador = :id_administrador ");
             $stmt->bindParam(':id_administrador', $id_administrador);
@@ -103,10 +105,11 @@ class Administrador extends System
 
     public static function setAdministratorProfile($id_administrador, $nombre, $correo, $telefono, $cedula)
     {
-        $validarAdmin = self::validateAdministrator($cedula, $correo, $id_administrador);
-        $validarUser = Usuario::validateUser($cedula, $correo, null);
+        $validarAdmin   = self::validateAdministrator($cedula, $correo, $id_administrador);
+        $validarUser    = Usuario::validateUser($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("UPDATE Administrador SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula WHERE id_administrador = :id_administrador ");
             $stmt->bindParam(':id_administrador', $id_administrador);

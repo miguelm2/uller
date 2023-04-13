@@ -5,10 +5,11 @@ class Usuario extends System
 {
     public static function newUser($nombre, $correo, $telefono, $cedula, $pass_hash, $estado, $tipo, $fecha_registro)
     {
-        $validarUser = self::validateUser($cedula, $correo, null);
-        $validarAdmin = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarUser    = self::validateUser($cedula, $correo, null);
+        $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("INSERT INTO Usuario (nombre, correo, telefono, cedula, pass, estado, tipo, fecha_registro) 
                                 VALUES (:nombre, :correo, :telefono, :cedula, :pass, :estado, :tipo, :fecha_registro)");
@@ -28,10 +29,11 @@ class Usuario extends System
 
     public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $estado)
     {
-        $validarUser = self::validateUser($cedula, $correo, $id_usuario);
-        $validarAdmin = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
+        $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, estado = :estado WHERE id_usuario = :id_usuario ");
             $stmt->bindParam(':id_usuario', $id_usuario);
@@ -102,10 +104,11 @@ class Usuario extends System
 
     public static function setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula)
     {
-        $validarUser = self::validateUser($cedula, $correo, $id_usuario);
-        $validarAdmin = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
+        $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, null);
 
-        if (!$validarAdmin && !$validarUser) {
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
             $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula WHERE id_usuario = :id_usuario ");
             $stmt->bindParam(':id_usuario', $id_usuario);

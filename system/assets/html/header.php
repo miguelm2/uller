@@ -2,7 +2,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="<?= $listUrl[1] ?>" class="logo d-flex align-items-center">
         <img src="../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Uller</span>
       </a>
@@ -18,7 +18,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <i class="bi bi-person-circle"></i>
             <span class="d-none d-md-block dropdown-toggle ps-2"><?= $_SESSION['nombre'] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -32,7 +32,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="<?= $listUrl[2]  ?>">
                 <i class="bi bi-person"></i>
                 <span>Mi perfil</span>
               </a>
