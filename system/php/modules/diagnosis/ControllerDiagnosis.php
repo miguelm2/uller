@@ -10,7 +10,7 @@ if(isset($_POST['setDiagnosis'])){
 }
 
 if(isset($_POST['setPrecioDiagnosis'])){
-    $response = ServiceDiagnosis::setPrecioDiagnosis($_GET['diagnosis'], $_POST['precio']);
+    $response = ServiceDiagnosis::setPrecioDiagnosis($_GET['diagnosis'], $_GET['ticket'], $_POST['precio']);
 }
 
 if(isset($_POST['addTool'])){

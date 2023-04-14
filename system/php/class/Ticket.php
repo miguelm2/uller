@@ -18,15 +18,14 @@ class Ticket extends System
         return  $stmt->execute();
     }
 
-    public static function setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion, $estado)
+    public static function setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion)
     {
         $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("UPDATE Ticket SET id_tipo_equipo = :id_tipo_equipo, id_tipo_servicio = :id_tipo_servicio, descripcion = :descripcion, estado = :estado WHERE id_ticket = :id_ticket ");
+        $stmt = $dbh->prepare("UPDATE Ticket SET id_tipo_equipo = :id_tipo_equipo, id_tipo_servicio = :id_tipo_servicio, descripcion = :descripcion WHERE id_ticket = :id_ticket ");
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->bindParam(':id_tipo_equipo', $tipo_equipo);
         $stmt->bindParam(':id_tipo_servicio', $tipo_servicio);
         $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':estado', $estado);
         return  $stmt->execute();
     }
 

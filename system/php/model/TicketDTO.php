@@ -136,9 +136,10 @@ class TicketDTO
      */ 
     public function getEstado()
     {
-        if ($this->estado == 1) return explode(";", $this->estado . ';Creado');
-        if ($this->estado == 2) return explode(";", $this->estado . ';Verificado');
-        if ($this->estado == 3) return explode(";", $this->estado . ';Finalizado');
+        if ($this->estado == 1) return explode(";", $this->estado . ';Iniciado');
+        if ($this->estado == 2) return explode(";", $this->estado . ';Asignado');
+        if ($this->estado == 3) return explode(";", $this->estado . ';Diagnosticado');
+        if ($this->estado == 4) return explode(";", $this->estado . ';Cotizado');
 
         return $this->estado;
     }

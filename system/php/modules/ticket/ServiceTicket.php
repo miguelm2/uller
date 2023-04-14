@@ -4,6 +4,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoServicio.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TecnicoTicket.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Herramienta.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Material.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/HerramientaDiagnostico.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Diagnostico.php';
 
 class ServiceTicket extends System
@@ -27,30 +31,15 @@ class ServiceTicket extends System
         }
     }
 
-    public static function setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion, $estado)
+    public static function setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion)
     {
         $id_ticket      = parent::limpiarString($id_ticket);
         $tipo_equipo    = parent::limpiarString($tipo_equipo);
         $tipo_servicio  = parent::limpiarString($tipo_servicio);
         $descripcion    = parent::limpiarString($descripcion);
-        $estado         = parent::limpiarString($estado);
 
         try {
-            $result = Ticket::setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion, $estado);
-
-            if ($result) return  '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function setEstadoTicket($id_ticket, $estado)
-    {
-        $id_ticket      = parent::limpiarString($id_ticket);
-        $estado         = parent::limpiarString($estado);
-
-        try {
-            $result = Ticket::setEstadoTicket($id_ticket, $estado);
+            $result = Ticket::setTicket($id_ticket, $tipo_equipo, $tipo_servicio, $descripcion);
 
             if ($result) return  '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -67,7 +56,10 @@ class ServiceTicket extends System
         try {
             $result = TecnicoTicket::newTecnicoTicket($id_ticket, $tecnico, $fecha_registro);
 
-            if ($result) return  '<script>swal("' . Constants::$TECHNICIAN_ASSIGN . '", "", "success");</script>';
+            if ($result) {
+                $estado = Ticket::setEstadoTicket($id_ticket, 2);
+                return  '<script>swal("' . Constants::$TECHNICIAN_ASSIGN . '", "", "success");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -102,13 +94,17 @@ class ServiceTicket extends System
         }
     }
 
-    public static function deleteTecnicoTicket($id_tecnico_ticket)
+    public static function deleteTecnicoTicket($id_tecnico_ticket, $id_ticket)
     {
         $id_tecnico_ticket = parent::limpiarString($id_tecnico_ticket);
+        $id_ticket         = parent::limpiarString($id_ticket);
 
         try {
             $result = TecnicoTicket::deleteTecnicoTicket($id_tecnico_ticket);
-            if ($result) return  '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            if ($result) {
+                Ticket::setEstadoTicket($id_ticket, 1);
+                return  '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -142,11 +138,28 @@ class ServiceTicket extends System
 
 
                 foreach ($modelResponse as $valor) {
+
+                    switch ($valor->getEstado()[0]) {
+                        case '1':
+                            $style = 'alert alert-secondary';
+                            break;
+                        case '2':
+                            $style = 'alert alert-warning';
+                            break;
+                        case '3':
+                            $style = 'alert alert-primary';
+                            break;
+                        case '4':
+                            $style = 'alert alert-danger';
+                            break;
+                    }
+
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
                     $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_equipoDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 '.$style.'">' . $valor->getEstado()[1] . '</label></td>';
                     $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
                     $tableHtml .= '</tr>';
@@ -173,13 +186,13 @@ class ServiceTicket extends System
                     <div class="col-md-6 d-grid gap-2 mt-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AsignarTecnico"><i class="bi bi-person-add"></i> Asignar Tecnico</button>
                     </div>';
-                }else{
+                } else {
                     $html .= '
                     <div class="col-md-12 form-group">
                         <label for="tecnico">Técnico</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-describedby="button-tecnico" value="'.$validar->getTecnicoDTO()->getNombre().'" disabled>
-                            <button class="btn btn-danger" type="button" id="button-tecnico" value="'.$validar->getId_tecnico_ticket().'"><i class="bi bi-trash-fill"></i></button>
+                            <input type="text" class="form-control" aria-describedby="button-tecnico" value="' . $validar->getTecnicoDTO()->getNombre() . '" disabled>
+                            <button class="btn btn-danger" type="button" id="button-tecnico" value="' . $validar->getId_tecnico_ticket() . '"><i class="bi bi-trash-fill"></i></button>
                         </div>
                     </div>';
                 }
@@ -197,13 +210,13 @@ class ServiceTicket extends System
             $id_ticket = parent::limpiarString($id_ticket);
             $html = '';
 
-            if (basename($_SERVER['PHP_SELF']) == 'ticket.php' && $_SESSION['tipo']==3) {
+            if (basename($_SERVER['PHP_SELF']) == 'ticket.php' && $_SESSION['tipo'] == 3) {
 
                 $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
 
                 if (!$validar) {
                     $html .= '';
-                }else{
+                } else {
                     $html .= '';
                 }
             }
@@ -221,10 +234,10 @@ class ServiceTicket extends System
 
             $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
 
-            if($validateDiagnostico > 0){
+            if ($validateDiagnostico > 0) {
                 $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
-                $html = '<a href="diagnosis?diagnosis='.$id_diagnostico.'&ticket='.$id_ticket.'" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
-            } else{
+                $html = '<a href="diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
+            } else {
                 $html = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDiagnostico"><i class="bi bi-journal-plus"></i> Crear Diagnostico</button>';
             }
 
@@ -234,25 +247,20 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getButtonDiagnosisUsers($id_ticket)
+    public static function getButtonDiagnosisAdmin($id_ticket)
     {
         try {
             $id_ticket    = parent::limpiarString($id_ticket);
             $tipo_usuario = $_SESSION['tipo'];
             $html = '';
 
-            $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
+            if ($tipo_usuario == 0 || $tipo_usuario == 5) {
+                $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
 
-            if($validateDiagnostico > 0){
-
-                if($tipo_usuario==0 || $tipo_usuario==5){
-                    $usuario = 'admin';
-                }else{
-                    $usuario = 'user';
+                if ($validateDiagnostico > 0) {
+                    $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
+                    $html = '<a href="../admin/diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
                 }
-
-                $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
-                $html = '<a href="../'.$usuario.'/diagnosis?diagnosis='.$id_diagnostico.'&ticket='.$id_ticket.'" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
             }
 
             return $html;
@@ -264,24 +272,159 @@ class ServiceTicket extends System
     public static function getTableTicketsTechnician()
     {
         try {
-            if (basename($_SERVER['PHP_SELF']) == 'tickets.php' && $_SESSION['tipo']==3) {
+            if (basename($_SERVER['PHP_SELF']) == 'tickets.php' && $_SESSION['tipo'] == 3) {
                 $tableHtml  = "";
                 $id_tecnico = $_SESSION['id'];
 
                 $modelResponse = Ticket::listTicketsByTecnico($id_tecnico);
 
                 foreach ($modelResponse as $valor) {
+
+                    switch ($valor->getEstado()[0]) {
+                        case '1':
+                            $style = 'alert alert-secondary';
+                            break;
+                        case '2':
+                            $style = 'alert alert-warning';
+                            break;
+                        case '3':
+                            $style = 'alert alert-primary';
+                            break;
+                        case '4':
+                            $style = 'alert alert-danger';
+                            break;
+                    }
+
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
                     $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_equipoDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 '.$style.'">' . $valor->getEstado()[1] . '</label></td>';
                     $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
                     $tableHtml .= '</tr>';
                 }
                 return $tableHtml;
             }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getDiagnosisUser($id_ticket)
+    {
+        $id_ticket = parent::limpiarString($id_ticket);
+        $html      = '';
+
+        try {
+            if ($_SESSION['tipo'] == 1) {
+                $validarDiagnostico = Diagnostico::getCountDiagnosticoCotizadoByTicket($id_ticket);
+
+                if ($validarDiagnostico > 0) {
+                    $diagnosticoDTO   = Diagnostico::getDiagnosticoByTicket($id_ticket);
+                    $listHerramientas = $diagnosticoDTO->getLstHerramientas();
+                    $listMateriales   = $diagnosticoDTO->getLstMateriales();
+
+                    $html .= '
+                                <div class="col-md-12">
+                                    <br><br>
+                                </div>
+                                <div class="col-md-12">
+                                    <h4 class="text-primary">Diagnostico</h4>
+                                </div>
+                                <div class="col-md-12">
+                                    <label><strong>Número de horas:</strong> ' . $diagnosticoDTO->getNumero_horas() . '</label>
+                                    <br>
+                                    <label><strong>Número de ayudantes:</strong> ' . $diagnosticoDTO->getNumero_ayudantes() . '</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <br>
+                                </div>
+                                <div class="col-md-12">
+                                    <label><strong>Descripción:</strong></label>
+                                    <br>
+                                    <p>' . $diagnosticoDTO->getDescripcion() . '</p>
+                                </div>';
+
+                    if (count($listHerramientas) > 0) {
+                        $html .= '
+                                <div class="col-md-12">
+                                    <br>
+                                </div>
+                                <div class="col-md-12">
+                                    <label><strong>Herramientas o equipos necesarios:</strong></label>
+                                </div>
+                                <div class="col-md-12" style="margin-top:5px;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Tipo</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody';
+                        foreach ($listHerramientas as $value) {
+                            $html .= '
+                                    <tr>
+                                        <td>' . $value->getHerramientaDTO()->getNombre() . '</td>
+                                        <td>' . $value->getHerramientaDTO()->getTipo()[1] . '</td>
+                                        <td>' . $value->getCantidad() . '</td>
+                                    </tr>
+                            ';
+                        }
+                        $html .= '
+                                        </tbody>
+                                    </table>
+                                </div>';
+                    }
+
+                    if (count($listMateriales) > 0) {
+                        $html .= '
+                                <div class="col-md-12">
+                                    <br><br>
+                                </div>
+                                <div class="col-md-12">
+                                    <label><strong>Materiales necesarios:</strong></label>
+                                </div>
+                                <div class="col-md-12" style="margin-top:5px;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Cantidad</th>
+                                                <th>Unidad de medida</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody';
+                        foreach ($listMateriales as $value) {
+                            $html .= '
+                                    <tr>
+                                        <td>' . $value->getMaterialDTO()->getNombre() . '</td>
+                                        <td>' . $value->getCantidad() . '</td>
+                                        <td>' . $value->getUnidad_medida() . '</td>
+                                    </tr>
+                            ';
+                        }
+                        $html .= '
+                                        </tbody>
+                                    </table>
+                                </div>';
+                    }
+
+                    $html .= '
+                                <div class="col-md-12">
+                                    <br><hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <label><h4>Precio final: $' . $diagnosticoDTO->getPrecio() . '</h4></label>
+                                </div>
+                    ';
+                }
+            }
+
+            return $html;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

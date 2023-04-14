@@ -72,6 +72,32 @@ class Diagnostico extends System
         return null;
     }
 
+    public static function getDiagnosticoByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Diagnostico WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        if ($result) {
+            $diagnosticoDTO = new DiagnosticoDTO();
+
+            $diagnosticoDTO->setId_diagnostico($result['id_diagnostico']);
+            $diagnosticoDTO->setId_ticket($result['id_ticket']);
+            $diagnosticoDTO->setNumero_horas($result['numero_horas']);
+            $diagnosticoDTO->setNumero_ayudantes($result['numero_ayudantes']);
+            $diagnosticoDTO->setDescripcion($result['descripcion']);
+            $diagnosticoDTO->setPrecio($result['precio']);
+            $diagnosticoDTO->setFecha_registro($result['fecha_registro']);
+            $diagnosticoDTO->setLstHerramientas(HerramientaDiagnostico::listHerramientaDiagnosticoById($result['id_diagnostico']));
+            $diagnosticoDTO->setLstMateriales(MaterialDiagnostico::listMaterialDiagnosticoById($result['id_diagnostico']));
+
+            return $diagnosticoDTO;
+        }
+        return null;
+    }
+
     public static function deleteComponenteDiagnostico($tabla, $campo, $id)
     {
         $dbh             = parent::Conexion();
@@ -84,6 +110,18 @@ class Diagnostico extends System
     {
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("SELECT COUNT(id_diagnostico) AS total FROM Diagnostico WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['total'];
+    }
+
+    public static function getCountDiagnosticoCotizadoByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(d.id_diagnostico) AS total FROM Diagnostico AS d, Ticket AS t 
+                                WHERE d.id_ticket = :id_ticket AND d.id_ticket = t.id_ticket AND t.estado = '4'");
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->execute();
         $result =  $stmt->fetch();

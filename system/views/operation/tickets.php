@@ -70,6 +70,7 @@
                                         <th>Usuario</th>
                                         <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
@@ -80,6 +81,7 @@
                                         <th>Usuario</th>
                                         <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>

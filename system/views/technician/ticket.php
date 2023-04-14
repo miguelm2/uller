@@ -64,8 +64,7 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <!-- Vertical Form -->
-                        <form class="row g-3" method="post">
+                        <div class="row">
                             <div class="col-md-4 form-group">
                                 <label for="tipo_equipo">Tipo de equipo</label>
                                 <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_equipoDTO()->getNombre() ?>">
@@ -76,12 +75,7 @@
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="estado">Estado</label>
-                                <select class="form-select" name="estado" id="estado">
-                                    <option value="<?= $ticket->getEstado()[0] ?>"><?= $ticket->getEstado()[1] ?></option>
-                                    <option value="1">Creado</option>
-                                    <option value="2">Verificado</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getEstado()[1] ?>">
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="descripcion">Descripción</label>
@@ -92,14 +86,10 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoTecnico;?>
+                            <div class="col-md-12 d-grid gap-2 mt-3">
+                                <?= $btnDiagnosticoTecnico; ?>
                             </div>
-
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-success" name="setEstadoTicket"><i class="bi bi-save"></i> Actualizar Estado</button>
-                            </div>
-                        </form><!-- Vertical Form -->
+                        </div>
                     </div>
                 </div>
 

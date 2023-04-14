@@ -6,11 +6,7 @@ if(isset($_POST['newTicket'])){
 }
 
 if(isset($_POST['setTicket'])){
-    $response = ServiceTicket::setTicket($_GET['ticket'], $_POST['tipo_equipo'], $_POST['tipo_servicio'], $_POST['descripcion'], $_POST['estado']);
-}
-
-if(isset($_POST['setEstadoTicket'])){
-    $response = ServiceTicket::setEstadoTicket($_GET['ticket'], $_POST['estado']);
+    $response = ServiceTicket::setTicket($_GET['ticket'], $_POST['tipo_equipo'], $_POST['tipo_servicio'], $_POST['descripcion']);
 }
 
 if(isset($_POST['assignTechnician'])){
@@ -18,7 +14,7 @@ if(isset($_POST['assignTechnician'])){
 }
 
 if(isset($_POST['deleteTecnicoTicket'])){
-    $response = ServiceTicket::deleteTecnicoTicket($_POST['id_tecnico_ticket']);
+    $response = ServiceTicket::deleteTecnicoTicket($_POST['id_tecnico_ticket'], $_GET['ticket']);
 }
 
 if(isset($_POST['deleteTicket'])){
@@ -30,7 +26,8 @@ if(isset($_GET['ticket'])){
     $btnTecnico            = ServiceTicket::getButtonTechnician($_GET['ticket']);
     $btnDiagnostico        = ServiceTicket::getButtonDiagnosis($_GET['ticket']);
     $btnDiagnosticoTecnico = ServiceTicket::getButtonDiagnosisTechnician($_GET['ticket']);
-    $btnDiagnosticoUsers   = ServiceTicket::getButtonDiagnosisUsers($_GET['ticket']);
+    $btnDiagnosticoAdmin   = ServiceTicket::getButtonDiagnosisAdmin($_GET['ticket']);
+    $diagnosticoUsuario    = ServiceTicket::getDiagnosisUser($_GET['ticket']);
 }
 
 if(isset($_GET)){

@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/HerramientaDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/AyudanteDiagnostico.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceDiagnosis extends System
 {
@@ -23,6 +24,7 @@ class ServiceDiagnosis extends System
 
             if ($result) {
                 $id_diagnostico = Diagnostico::getLastDiagnostico();
+                $estado         = Ticket::setEstadoTicket($id_ticket, 3);
                 header('Location:diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket);
             }
         } catch (\Exception $e) {
@@ -46,15 +48,19 @@ class ServiceDiagnosis extends System
         }
     }
 
-    public static function setPrecioDiagnosis($id_diagnostico, $precio)
+    public static function setPrecioDiagnosis($id_diagnostico, $id_ticket, $precio)
     {
         $id_diagnostico   = parent::limpiarString($id_diagnostico);
+        $id_ticket        = parent::limpiarString($id_ticket);
         $precio           = parent::limpiarString($precio);
 
         try {
             $result = Diagnostico::setPrecioDiagnostico($id_diagnostico, $precio);
 
-            if($result) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
+            if($result){
+                Ticket::setEstadoTicket($id_ticket, 4);
+                return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -82,12 +82,7 @@
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="estado">Estado</label>
-                                <select class="form-select" name="estado" id="estado">
-                                    <option value="<?= $ticket->getEstado()[0] ?>"><?= $ticket->getEstado()[1] ?></option>
-                                    <option value="1">Creado</option>
-                                    <option value="2">Verificado</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
+                                <input type="text" class="form-control" name="estado" maxlength="255" disabled value="<?= $ticket->getEstado()[1] ?>">
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="descripcion">Descripción</label>
@@ -109,10 +104,13 @@
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoUsers;?>
+                                <?=$btnDiagnosticoAdmin;?>
                             </div>
 
                         </form><!-- Vertical Form -->
+                        <div class="row">
+                            <?=$diagnosticoUsuario;?>
+                        </div>
                     </div>
                 </div>
 
