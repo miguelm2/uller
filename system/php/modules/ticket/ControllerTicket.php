@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/ticket/ServiceTicket.php';
 
 if(isset($_POST['newTicket'])){
-    $response = ServiceTicket::newTicket( $_POST['tipo_equipo'], $_POST['tipo_servicio'], $_POST['descripcion']);
+    $response = ServiceTicket::newTicket( $_POST['id_usuario'], $_POST['tipo_servicio'], $_POST['descripcion']);
 }
 
 if(isset($_POST['setTicket'])){
@@ -17,6 +17,14 @@ if(isset($_POST['deleteTecnicoTicket'])){
     $response = ServiceTicket::deleteTecnicoTicket($_POST['id_tecnico_ticket'], $_GET['ticket']);
 }
 
+if(isset($_POST['addEquiposTicket'])){
+    $response = ServiceTicket::addEquiposTicket($_POST['equipoTicket']);
+}
+
+if(isset($_POST['deleteEquipmentTicket'])){
+    $response = ServiceTicket::deleteEquipmentTicket($_POST['id_equipo_ticket']);
+}
+
 if(isset($_POST['deleteTicket'])){
     $response = ServiceTicket::deleteTicket($_GET['ticket']);
 }
@@ -28,11 +36,14 @@ if(isset($_GET['ticket'])){
     $btnDiagnosticoTecnico = ServiceTicket::getButtonDiagnosisTechnician($_GET['ticket']);
     $btnDiagnosticoAdmin   = ServiceTicket::getButtonDiagnosisAdmin($_GET['ticket']);
     $diagnosticoUsuario    = ServiceTicket::getDiagnosisUser($_GET['ticket']);
+    $listEquiposTicket     = ServiceTicket::getListEquiposTicket($_GET['ticket']);
+    $tablaEquiposTicket    = ServiceTicket::getTableEquiposTicket($_GET['ticket']);
 }
 
 if(isset($_GET)){
     $tablaTickets          = ServiceTicket::getTableTickets();
     $tablaTicketsTecnicos  = ServiceTicket::getTableTicketsTechnician();
+    $selectUsersTicket     = ServiceTicket::getUsersTickets();
 }
 
 ?>

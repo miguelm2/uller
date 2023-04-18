@@ -26,7 +26,8 @@ if(isset($_POST['deleteUser'])){
 }
 
 if(isset($_GET['user'])){
-    $user = ServiceUser::getUsuario($_GET['user']);
+    $user         = ServiceUser::getUsuario($_GET['user']);
+    $tablaEquipos = ServiceUser::getTableEquipmentType($_GET['user']);
 }
 
 if(isset($_GET)){

@@ -25,5 +25,5 @@ function printView(resultado){
 $('.btn-eliminar').on('click', function() {
     var id_tipo = $(this).val();
     $('#id_tipo_delete').val(id_tipo);
-    $("#eliminar").modal("show");
+    $("#eliminarEquipo").modal("show");
 });

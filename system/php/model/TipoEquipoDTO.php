@@ -2,6 +2,7 @@
 class TipoEquipoDTO
 {
     protected $id_tipo;
+    protected $id_usuario;
     protected $nombre;
     protected $descripcion;
     protected $fecha_registro;
@@ -25,6 +26,26 @@ class TipoEquipoDTO
 
         return $this;
     }
+
+    /**
+         * Get the value of id_usuario
+         */ 
+        public function getId_usuario()
+        {
+                return $this->id_usuario;
+        }
+
+        /**
+         * Set the value of id_usuario
+         *
+         * @return  self
+         */ 
+        public function setId_usuario($id_usuario)
+        {
+                $this->id_usuario = $id_usuario;
+
+                return $this;
+        }
 
     /**
      * Get the value of nombre

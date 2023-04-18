@@ -97,7 +97,7 @@
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cambiarPass"><i class="bi bi-lock-fill"></i> Cambiar Contraseña</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cambiarPass"><i class="bi bi-lock-fill"></i> Cambiar Contraseña</button>
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
@@ -109,6 +109,48 @@
                             </div>
 
                         </form><!-- Vertical Form -->
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="text-primary">Equipos</h5>
+                            </div>
+                            <div class="col-md-4 text-right d-grid">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th width="10px">Ver</th>
+                                        <th width="10px">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th width="10px">Ver</th>
+                                        <th width="10px">Eliminar</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?= $tablaEquipos; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -175,8 +217,95 @@
         <!-- End Basic Modal-->
 
 
+        <!-- ======= Nuevo Equipo ======= -->
+        <form method="POST">
+            <div class="modal fade" id="newType" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nuevo Equipo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-md-12 form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" maxlength="255" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Descripcion</label>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Fin Nuevo Equipo-->
 
+        <!-- ======= Modal Editar Equipo ======= -->
+        <form method="POST" id="form_tool">
+            <div class="modal fade" id="editTypes" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar tipo de equipo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo" readonly required>
+                                <div class="col-md-12 form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre_tipo" maxlength="255" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Descripcion</label>
+                                    <textarea class="form-control" name="descripcion" id="descripcion_tipo" rows="3" maxlength="255" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Tipo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Modal Editar Equipo-->
 
+        <!-- Modal Eliminar Equipo-->
+        <form method="post">
+            <div class="modal fade" id="eliminarEquipo" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-group">
+                                <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo_delete" readonly required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="deleteEquipmentType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Modal Eliminar Equipo-->
 
 
 
@@ -206,6 +335,7 @@
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/functions.js"></script>
+    <script src="../../js/equipmentTypes.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

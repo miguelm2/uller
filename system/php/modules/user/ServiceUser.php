@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
 
 class ServiceUser extends System
 {
@@ -154,6 +155,30 @@ class ServiceUser extends System
                 }
                 return $tableHtml;
             }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getTableEquipmentType($id_usuario)
+    {
+        try {
+            $id_usuario = parent::limpiarString($id_usuario);
+            $tableHtml = "";
+
+            $modelResponse = TipoEquipo::listTipoEquipoByUser($id_usuario);
+
+            foreach ($modelResponse as $valor) {
+                $tableHtml .= '<tr>';
+                $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
+                $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
+                $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) .'</td>';
+                $tableHtml .= '</tr>';
+            }
+            
+            return $tableHtml;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

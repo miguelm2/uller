@@ -65,15 +65,11 @@
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <div class="row">
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_equipo">Tipo de equipo</label>
-                                <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_equipoDTO()->getNombre() ?>">
-                            </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
                                 <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_servicioDTO()->getNombre() ?>">
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="estado">Estado</label>
                                 <input type="text" class="form-control" disabled value="<?= $ticket->getEstado()[1] ?>">
                             </div>

@@ -9,21 +9,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Material.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/HerramientaDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Diagnostico.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 
 class ServiceTicket extends System
 {
-    public static function newTicket($tipo_equipo, $tipo_servicio, $descripcion)
+    public static function newTicket($id_usuario, $tipo_servicio, $descripcion)
     {
-        $id_user        = $_SESSION['id'];
-        $tipo_equipo    = parent::limpiarString($tipo_equipo);
+        $id_usuario    = parent::limpiarString($id_usuario);
         $tipo_servicio  = parent::limpiarString($tipo_servicio);
         $descripcion    = parent::limpiarString($descripcion);
-        $tipo_usuario   = $_SESSION['tipo'];
         $estado         = 1;
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = Ticket::newTicket($id_user, $tipo_equipo, $tipo_servicio, $descripcion, $tipo_usuario, $estado, $fecha_registro);
+            $result = Ticket::newTicket($id_usuario, $tipo_servicio, $descripcion, $estado, $fecha_registro);
 
             if ($result) return  '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -133,7 +132,7 @@ class ServiceTicket extends System
                     $modelResponse = Ticket::listTickets();
                 } else {
                     $id_usuario    = $_SESSION['id'];
-                    $modelResponse = Ticket::listTicketsByUser($id_usuario, $tipo);
+                    $modelResponse = Ticket::listTicketsByUser($id_usuario);
                 }
 
 
@@ -157,9 +156,8 @@ class ServiceTicket extends System
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
                     $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getTipo_equipoDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td><label class="p-1 col-md-12 '.$style.'">' . $valor->getEstado()[1] . '</label></td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">' . $valor->getEstado()[1] . '</label></td>';
                     $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
                     $tableHtml .= '</tr>';
@@ -298,9 +296,8 @@ class ServiceTicket extends System
                     $tableHtml .= '<tr>';
                     $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
                     $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getTipo_equipoDTO()->getNombre() . '</td>';
                     $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td><label class="p-1 col-md-12 '.$style.'">' . $valor->getEstado()[1] . '</label></td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">' . $valor->getEstado()[1] . '</label></td>';
                     $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
                     $tableHtml .= '</tr>';
@@ -425,6 +422,114 @@ class ServiceTicket extends System
             }
 
             return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getUsersTickets()
+    {
+        try {
+
+            if (basename($_SERVER['PHP_SELF']) == 'tickets.php') {
+                $html = '';
+
+                if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
+                    $listUsuarios = Usuario::listUser();
+                    $html = '
+                                <div class="col-md-12 form-group">
+                                    <label for="tipo_equipo">Usuario</label>
+                                    <select class="form-select" name="id_usuario" id="id_usuario">';
+
+                    foreach ($listUsuarios as $value) {
+                        $html .= '<option value="' . $value->getId_usuario() . '">' . $value->getNombre() . '</option>';
+                    }
+
+                    $html .= '
+                                </select>
+                                </div>';
+                }else{
+                    $id_usuario = $_SESSION['id'];
+                    $html = '<input type="hidden" class="form-control" name="id_usuario" value="'.$id_usuario.'">';
+                }
+                return $html;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+
+    public static function getListEquiposTicket($id_ticket)
+    {
+        try {
+            $id_ticket      = parent::limpiarString($id_ticket);
+            $ticketDTO      = Ticket::getTicket($id_ticket);
+            $listTipoEquipo = TipoEquipo::listTipoEquipoByUser($ticketDTO->getUsuarioDTO()->getId_usuario());
+            $html = '';
+
+            foreach ($listTipoEquipo as $value) {
+                $html .= '
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="' . $id_ticket . '-' . $value->getId_tipo() . '" id="' . $value->getId_tipo() . '" name="equipoTicket[]">
+                                <label class="form-check-label" for="' . $value->getId_tipo() . '">
+                                    ' . $value->getNombre() . '
+                                </label>
+                            </div>';
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function addEquiposTicket($lista_equipos)
+    {
+        try {
+            $fecha_registro = date('Y-m-d H:i:s');
+
+            foreach ($lista_equipos as $value) {
+                $result = explode("-", $value);
+                $modelResponse = EquipoTicket::newEquipoTicket($result[0], $result[1], $fecha_registro);
+            }
+
+            if ($modelResponse) return '<script>swal("' . Constants::$REGISTER_ADD . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getTableEquiposTicket($id_ticket)
+    {
+        try {
+            $id_ticket  = parent::limpiarString($id_ticket);
+            $tableHtml  = '';
+
+            $modelResponse = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
+
+            foreach ($modelResponse as $valor) {
+
+                $tableHtml .= '<tr>';
+                $tableHtml .= '<td>' . $valor->getEquipoDTO()->getNombre() . '</td>';
+                $tableHtml .= '<td>' . $valor->getEquipoDTO()->getDescripcion() . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_equipo_ticket()) . '</td>';
+                $tableHtml .= '</tr>';
+            }
+            return $tableHtml;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function deleteEquipmentTicket($id_equipo_ticket)
+    {
+        $id_equipo_ticket = parent::limpiarString($id_equipo_ticket);
+
+        try {
+            $result = EquipoTicket::deleteEquipoTicket($id_equipo_ticket);
+            
+            if($result) return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -49,6 +49,7 @@ class Constants{
     static $REGISTER_NEW        = "Registro creado exitosamente";
     static $REGISTER_UPDATE     = "Registro actualizado correctamente";
     static $MESSAGE_NEW         = "Mensaje enviado exitosamente, pronto nos pondremos en contacto contigo";
+    static $REGISTER_ADD        = "Registro agregado exitosamente";
     static $TECHNICIAN_NEW      = "Técnico creado exitosamente";
     static $TECHNICIAN_UPDATE   = "Técnico actualizado correctamente";
     static $TECHNICIAN_ASSIGN   = "Técnico asignado correctamente";

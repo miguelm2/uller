@@ -4,14 +4,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
 
 class ServiceEquipmentType extends System
 {
-    public static function newEquipmentType($nombre, $descripcion)
+    public static function newEquipmentType($id_usuario, $nombre, $descripcion)
     {
+        $id_usuario     = parent::limpiarString($id_usuario);
         $nombre         = parent::limpiarString($nombre);
         $descripcion    = parent::limpiarString($descripcion);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = TipoEquipo::newTipoEquipo($nombre, $descripcion, $fecha_registro);
+            $result = TipoEquipo::newTipoEquipo($id_usuario, $nombre, $descripcion, $fecha_registro);
 
             if ($result) {
                 return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';

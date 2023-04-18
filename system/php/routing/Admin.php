@@ -11,8 +11,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/dashboard/Controller
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/administrator/ControllerAdmin.php';
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/user/ControllerUser.php';
-
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/information/ControllerInformation.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/message/ControllerMessage.php';
@@ -22,6 +20,8 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/tool/ControllerTool.
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/material/ControllerMaterial.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/equipmentType/ControllerEquipmentType.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/user/ControllerUser.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/serviceType/ControllerServiceType.php';
 

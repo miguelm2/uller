@@ -3,11 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/TipoEquipoDTO.php';
 
 class TipoEquipo extends System
 {
-    public static function newTipoEquipo($nombre, $descripcion, $fecha_registro)
+    public static function newTipoEquipo($id_usuario, $nombre, $descripcion, $fecha_registro)
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO TipoEquipo (nombre, descripcion, fecha_registro) 
-                                VALUES (:nombre, :descripcion, :fecha_registro)");
+        $stmt = $dbh->prepare("INSERT INTO TipoEquipo (id_usuario, nombre, descripcion, fecha_registro) 
+                                VALUES (:id_usuario, :nombre, :descripcion, :fecha_registro)");
+        $stmt->bindParam(':id_usuario', $id_usuario);
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':descripcion', $descripcion);
         $stmt->bindParam(':fecha_registro', $fecha_registro);
@@ -47,6 +48,16 @@ class TipoEquipo extends System
     {
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("SELECT * FROM TipoEquipo");
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'TipoEquipoDTO');
+        $stmt->execute();
+        return  $stmt->fetchAll();
+    }
+
+    public static function listTipoEquipoByUser($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM TipoEquipo WHERE id_usuario = :id_usuario");
+        $stmt->bindParam(':id_usuario', $id_usuario);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'TipoEquipoDTO');
         $stmt->execute();
         return  $stmt->fetchAll();

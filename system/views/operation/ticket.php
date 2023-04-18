@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-        <?= include $listUrl[0]; ?>
+    <?= include $listUrl[0]; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -66,21 +66,14 @@
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3" method="post">
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_equipo">Tipo de equipo</label>
-                                <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                <option value="<?= $ticket->getTipo_equipoDTO()->getId_tipo() ?>"><?= $ticket->getTipo_equipoDTO()->getNombre() ?></option>
-                                    <?= $selectTipoEquipos; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
                                 <select class="form-select" name="tipo_servicio" id="tipo_servicio">
-                                <option value="<?= $ticket->getTipo_servicioDTO()->getId_tipo() ?>"><?= $ticket->getTipo_servicioDTO()->getNombre() ?></option>
+                                    <option value="<?= $ticket->getTipo_servicioDTO()->getId_tipo() ?>"><?= $ticket->getTipo_servicioDTO()->getNombre() ?></option>
                                     <?= $selectTipoServicios; ?>
                                 </select>
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="estado">Estado</label>
                                 <input type="text" class="form-control" name="estado" maxlength="255" disabled value="<?= $ticket->getEstado()[1] ?>">
                             </div>
@@ -89,7 +82,7 @@
                                 <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required><?= $ticket->getDescripcion() ?></textarea>
                             </div>
 
-                                <?= $btnTecnico; ?>
+                            <?= $btnTecnico; ?>
 
                             <div class="col-md-12">
                                 <hr>
@@ -104,12 +97,42 @@
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoAdmin;?>
+                                <?= $btnDiagnosticoAdmin; ?>
                             </div>
 
                         </form><!-- Vertical Form -->
                         <div class="row">
-                            <?=$diagnosticoUsuario;?>
+                            <?= $diagnosticoUsuario; ?>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="text-primary">Equipos</h5>
+                            </div>
+                            <div class="col-md-4 text-right d-grid">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEquipos"><i class="bi bi-plus-square"></i> Agregar Equipos</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                        <th width="10px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?=$tablaEquiposTicket;?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -197,6 +220,64 @@
         <!-- End Modal Eliminar Tecnico-->
 
 
+        <!-- Modal Agregar Equipos-->
+        <form method="post">
+            <div class="modal fade" id="addEquipos" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Agregar Equipos</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-dm-12">
+                                    <label><i>Por favor seleccione los equipos:</i></label>
+                                    <br><br>
+                                </div>
+                                <div class="col-dm-12">
+                                    <?=$listEquiposTicket;?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
+                            <button type="submit" name="addEquiposTicket" class="btn btn-primary"><i class="bi bi-check-circle"></i> Agregar Equipos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Modal Agregar Equipos-->
+
+        <!-- Modal Eliminar Equipo-->
+        <form method="post">
+            <div class="modal fade" id="eliminarEquipo" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-group">
+                                <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="hidden" class="form-control" name="id_equipo_ticket" id="id_tipo_delete" readonly required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="deleteEquipmentTicket" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Modal Eliminar Equipo-->
+
+
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
@@ -223,6 +304,7 @@
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/tickets.js"></script>
+    <script src="../../js/equipmentTypes.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

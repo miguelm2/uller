@@ -68,7 +68,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
@@ -79,7 +78,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
@@ -112,12 +110,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="tipo_equipo">Tipo de equipo</label>
-                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                        <?= $selectTipoEquipos; ?>
-                                    </select>
-                                </div>
+                                <?=$selectUsersTicket;?>
+
                                 <div class="col-md-12 form-group">
                                     <label for="tipo_servicio">Tipo de servicio</label>
                                     <select class="form-select" name="tipo_servicio" id="tipo_servicio">

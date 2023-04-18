@@ -64,7 +64,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
@@ -75,7 +74,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>

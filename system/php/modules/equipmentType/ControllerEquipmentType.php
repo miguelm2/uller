@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/equipmentType/ServiceEquipmentType.php';
 
 if(isset($_POST['newEquipmentType'])){
-    $response = ServiceEquipmentType::newEquipmentType($_POST['nombre'], $_POST['descripcion']);
+    $response = ServiceEquipmentType::newEquipmentType($_GET['user'], $_POST['nombre'], $_POST['descripcion']);
 }
 
 if(isset($_POST['setEquipmentType'])){
@@ -20,7 +20,6 @@ if(isset($_POST['getEquipmentType'])){
 
 if(isset($_GET)){
     $tablaTipoEquipos  = ServiceEquipmentType::getTableEquipmentType();
-    $selectTipoEquipos = ServiceEquipmentType::getSelectEquipmentType();
 }
 
 
