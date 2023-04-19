@@ -66,7 +66,7 @@
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3" method="post">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="name" class="form-label">Nombre completo</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" maxlength="150" required value="<?= $user->getNombre(); ?>">
                             </div>
@@ -81,6 +81,18 @@
                             <div class="col-6">
                                 <label for="cedula" class="form-label">Cedula</label>
                                 <input type="text" class="form-control" id="cedula" name="cedula" maxlength="20" required value="<?= $user->getCedula(); ?>">
+                            </div>
+                            <div class="col-6 form-group">
+                                <label for="direccion" class="form-label">Direccion</label>
+                                <input type="text" class="form-control" name="direccion" maxlength="255" required value="<?= $user->getDireccion(); ?>">
+                            </div>
+                            <div class="col-6 form-group">
+                                <label for="ciudad" class="form-label">Ciudad</label>
+                                <input type="text" class="form-control" name="ciudad" maxlength="255" required value="<?= $user->getCiudad(); ?>">
+                            </div>
+                            <div class="col-6 form-group">
+                                <label for="departamento" class="form-label">Departamento</label>
+                                <input type="text" class="form-control" name="departamento" maxlength="255" required value="<?= $user->getDepartamento(); ?>">
                             </div>
                             <div class="col-6">
                                 <label for="estado" class="form-label">Estado</label>
@@ -120,7 +132,7 @@
                                 <h5 class="text-primary">Equipos</h5>
                             </div>
                             <div class="col-md-4 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
                             </div>
                         </div>
                     </div>
@@ -240,7 +252,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
+                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
                         </div>
                     </div>
                 </div>
@@ -254,7 +266,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Editar tipo de equipo</h5>
+                            <h5 class="modal-title">Editar Equipo</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -272,7 +284,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Tipo</button>
+                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Equipo</button>
                         </div>
                     </div>
                 </div>

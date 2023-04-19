@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Operation.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Admin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?= include $listUrl[0]; ?>
+    <?php include '../../assets/html/sidebar-admin.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -101,9 +101,6 @@
                             </div>
 
                         </form><!-- Vertical Form -->
-                        <div class="row">
-                            <?= $diagnosticoUsuario; ?>
-                        </div>
                     </div>
                 </div>
 
@@ -111,11 +108,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <h5 class="text-primary">Equipos</h5>
-                            </div>
-                            <div class="col-md-4 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEquipos"><i class="bi bi-plus-square"></i> Agregar Equipos</button>
                             </div>
                         </div>
                     </div>
@@ -218,37 +212,6 @@
             </div>
         </form>
         <!-- End Modal Eliminar Tecnico-->
-
-
-        <!-- Modal Agregar Equipos-->
-        <form method="post">
-            <div class="modal fade" id="addEquipos" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Agregar Equipos</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-dm-12">
-                                    <label><i>Por favor seleccione los equipos:</i></label>
-                                    <br><br>
-                                </div>
-                                <div class="col-dm-12">
-                                    <?=$listEquiposTicket;?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
-                            <button type="submit" name="addEquiposTicket" class="btn btn-primary"><i class="bi bi-check-circle"></i> Agregar Equipos</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Agregar Equipos-->
 
         <!-- Modal Eliminar Equipo-->
         <form method="post">

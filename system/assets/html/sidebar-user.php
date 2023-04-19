@@ -19,7 +19,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="../operation/tickets">
+            <a class="nav-link collapsed" href="../user/tickets">
                 <i class="bi bi-ticket-detailed"></i>
                 <span>Tickets</span>
             </a>

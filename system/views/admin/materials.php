@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Materiales</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newMaterials"><i class="bi bi-person-plus"></i> Nuevo Material</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newMaterials"><i class="bi bi-plus-square"></i> Nuevo Material</button>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 
 class ServiceTicket extends System
 {
-    public static function newTicket($id_usuario, $tipo_servicio, $descripcion)
+    public static function newTicket($id_usuario, $tipo_servicio, $descripcion, $lista_equipos)
     {
         $id_usuario    = parent::limpiarString($id_usuario);
         $tipo_servicio  = parent::limpiarString($tipo_servicio);
@@ -22,9 +22,29 @@ class ServiceTicket extends System
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
+            //Agregamos primero el ticket
             $result = Ticket::newTicket($id_usuario, $tipo_servicio, $descripcion, $estado, $fecha_registro);
 
-            if ($result) return  '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
+            if ($result) {
+                $id_ticket  = Ticket::getIdLastTicket(); //Obtenemos el id de ticket agregado
+                $addEquipos = self::addEquiposTicket($id_ticket, $lista_equipos, $fecha_registro); //Agregams los equipos pertenecientes al ticket
+
+                if ($addEquipos) header('Location:ticket?ticket=' . $id_ticket);
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    private static function addEquiposTicket($id_ticket, $lista_equipos, $fecha_registro)
+    {
+        try {
+
+            foreach ($lista_equipos as $value) {
+                $modelResponse = EquipoTicket::newEquipoTicket($id_ticket, $value, $fecha_registro);
+            }
+
+            if ($modelResponse) return true;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -73,6 +93,10 @@ class ServiceTicket extends System
                 self::validatePermisoUsuario($id_ticket);
             }
 
+            if($_SESSION['tipo'] == 3){
+                self::validatePermisoTecnico($id_ticket);
+            }
+
             $modelResponse = Ticket::getTicket($id_ticket);
             return $modelResponse;
         } catch (\Exception $e) {
@@ -84,9 +108,18 @@ class ServiceTicket extends System
     {
         try {
             $id_usuario = $_SESSION['id'];
-            $tipo       = $_SESSION['tipo'];
+            $modelResponse = Ticket::getValidarTicket($id_ticket, $id_usuario);
+            if (!$modelResponse) header('Location:tickets');
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 
-            $modelResponse = Ticket::getValidarTicket($id_ticket, $id_usuario, $tipo);
+    private static function validatePermisoTecnico($id_ticket)
+    {
+        try {
+            $id_tecnico = $_SESSION['id'];
+            $modelResponse = TecnicoTicket::getValidarTecnicoHasTicket($id_ticket, $id_tecnico);
             if (!$modelResponse) header('Location:tickets');
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -427,74 +460,28 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getUsersTickets()
+    public static function getListEquiposTicket()
     {
         try {
+            if (basename($_SERVER['PHP_SELF']) == 'tickets.php' && $_SESSION['tipo'] == 1) {
 
-            if (basename($_SERVER['PHP_SELF']) == 'tickets.php') {
+                $id_usuario = $_SESSION['id'];
                 $html = '';
 
-                if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
-                    $listUsuarios = Usuario::listUser();
-                    $html = '
-                                <div class="col-md-12 form-group">
-                                    <label for="tipo_equipo">Usuario</label>
-                                    <select class="form-select" name="id_usuario" id="id_usuario">';
+                $listTipoEquipo = TipoEquipo::listTipoEquipoByUser($id_usuario);
 
-                    foreach ($listUsuarios as $value) {
-                        $html .= '<option value="' . $value->getId_usuario() . '">' . $value->getNombre() . '</option>';
-                    }
-
+                foreach ($listTipoEquipo as $value) {
                     $html .= '
-                                </select>
-                                </div>';
-                }else{
-                    $id_usuario = $_SESSION['id'];
-                    $html = '<input type="hidden" class="form-control" name="id_usuario" value="'.$id_usuario.'">';
-                }
-                return $html;
-            }
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-
-    public static function getListEquiposTicket($id_ticket)
-    {
-        try {
-            $id_ticket      = parent::limpiarString($id_ticket);
-            $ticketDTO      = Ticket::getTicket($id_ticket);
-            $listTipoEquipo = TipoEquipo::listTipoEquipoByUser($ticketDTO->getUsuarioDTO()->getId_usuario());
-            $html = '';
-
-            foreach ($listTipoEquipo as $value) {
-                $html .= '
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="' . $id_ticket . '-' . $value->getId_tipo() . '" id="' . $value->getId_tipo() . '" name="equipoTicket[]">
+                                <input class="form-check-input" type="checkbox" value="' . $value->getId_tipo() . '" id="' . $value->getId_tipo() . '" name="equipoTicket[]" onchange="validateCheckEquipos()">
                                 <label class="form-check-label" for="' . $value->getId_tipo() . '">
                                     ' . $value->getNombre() . '
                                 </label>
                             </div>';
+                }
+
+                return $html;
             }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function addEquiposTicket($lista_equipos)
-    {
-        try {
-            $fecha_registro = date('Y-m-d H:i:s');
-
-            foreach ($lista_equipos as $value) {
-                $result = explode("-", $value);
-                $modelResponse = EquipoTicket::newEquipoTicket($result[0], $result[1], $fecha_registro);
-            }
-
-            if ($modelResponse) return '<script>swal("' . Constants::$REGISTER_ADD . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -513,7 +500,9 @@ class ServiceTicket extends System
                 $tableHtml .= '<tr>';
                 $tableHtml .= '<td>' . $valor->getEquipoDTO()->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getEquipoDTO()->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_equipo_ticket()) . '</td>';
+                if($_SESSION['tipo'] != 3){
+                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_equipo_ticket()) . '</td>';
+                }
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -528,8 +517,18 @@ class ServiceTicket extends System
 
         try {
             $result = EquipoTicket::deleteEquipoTicket($id_equipo_ticket);
-            
-            if($result) return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+
+            if ($result) return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getListEquiposTicketAdmin($id_usuario)
+    {
+        try {
+            $listTipoEquipo = TipoEquipo::listTipoEquipoByUserJs($id_usuario);
+            return json_encode($listTipoEquipo);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

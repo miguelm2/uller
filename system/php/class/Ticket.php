@@ -165,4 +165,14 @@ class Ticket extends System
         }
         
     }
+
+    public static function getIdLastTicket()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_ticket AS id FROM Ticket ORDER BY id_ticket DESC LIMIT 1");
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['id'];
+    }
 }

@@ -89,6 +89,31 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Equipos</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?=$tablaEquiposTicket;?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </section>

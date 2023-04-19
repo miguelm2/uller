@@ -53,10 +53,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h5 class="text-primary">Tipos de equipo</h5>
+                                <h5 class="text-primary">Tickets</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-person-plus"></i> Nuevo Tipo</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTicket"><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
                             </div>
                         </div>
                     </div>
@@ -67,23 +67,25 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo de servicio</th>
+                                        <th>Estado</th>
+                                        <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
-                                        <th width="10px">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Descripción</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo de servicio</th>
+                                        <th>Estado</th>
+                                        <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
-                                        <th width="10px">Eliminar</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <?= $tablaTipoEquipos; ?>
+                                    <?= $tablaTickets; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -99,93 +101,46 @@
         <!-- Modal -->
         <!-- ======= Basic Modal ======= -->
         <form method="POST">
-            <div class="modal fade" id="newType" tabindex="-1">
+            <div class="modal fade" id="newTicket" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Nuevo tipo de equipo</h5>
+                            <h5 class="modal-title">Nuevo Ticket</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-md-12 form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" maxlength="255" required>
+                                    <label for="id_usuario">Usuario</label>
+                                    <select class="form-select" name="id_usuario" id="id_usuario">
+                                        <?=$selectUsers;?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="tipo_servicio">Tipo de servicio</label>
+                                    <select class="form-select" name="tipo_servicio" id="tipo_servicio">
+                                        <?= $selectTipoServicios; ?>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <label for="descripcion">Descripcion</label>
+                                    <label for="descripcion">Descripción</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
+                                </div>
+                                <div class="col-dm-12 form-group" id="contentEquipos">
+                                    
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
+                            <button type="submit" name="newTicket" id="botonNewTicket" class="btn btn-success" disabled><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         <!-- End Basic Modal-->
-
-        <!-- ======= Modal Editar ======= -->
-        <form method="POST" id="form_tool">
-            <div class="modal fade" id="editTypes" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar tipo de equipo</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo" readonly required>
-                                <div class="col-md-12 form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre_tipo" maxlength="255" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion_tipo" rows="3" maxlength="255" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Tipo</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- Modal Editar-->
-
-        <!-- Modal Eliminar Registro-->
-        <form method="post">
-            <div class="modal fade" id="eliminar" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Eliminar Registro</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12 form-group">
-                                <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo_delete" readonly required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="deleteEquipmentType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- Modal Eliminar Registro-->
 
 
 
@@ -216,11 +171,11 @@
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
 
-    <!-- JS PAGE -->
-    <script src="../../js/equipmentTypes.js"></script>
-
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>
+    <script src="../../js/ticketsAdmin.js"></script>
+    <script src="../../js/ticketsFunction.js"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?= $response ?>
 </body>

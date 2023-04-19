@@ -7,6 +7,9 @@
         protected $cedula;
         protected $correo;
         protected $telefono;
+        protected $direccion;
+        protected $ciudad;
+        protected $departamento;
         protected $pass;
         protected $estado;
         protected $tipo;
@@ -199,6 +202,66 @@
         public function setFecha_registro($fecha_registro)
         {
                 $this->fecha_registro = $fecha_registro;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of direccion
+         */ 
+        public function getDireccion()
+        {
+                return $this->direccion;
+        }
+
+        /**
+         * Set the value of direccion
+         *
+         * @return  self
+         */ 
+        public function setDireccion($direccion)
+        {
+                $this->direccion = $direccion;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of ciudad
+         */ 
+        public function getCiudad()
+        {
+                return $this->ciudad;
+        }
+
+        /**
+         * Set the value of ciudad
+         *
+         * @return  self
+         */ 
+        public function setCiudad($ciudad)
+        {
+                $this->ciudad = $ciudad;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of departamento
+         */ 
+        public function getDepartamento()
+        {
+                return $this->departamento;
+        }
+
+        /**
+         * Set the value of departamento
+         *
+         * @return  self
+         */ 
+        public function setDepartamento($departamento)
+        {
+                $this->departamento = $departamento;
 
                 return $this;
         }

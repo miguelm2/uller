@@ -10,6 +10,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href="../technician/users-profile">
+        <i class="bi bi-person"></i>
+        <span>Perfil</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" href="../technician/tickets">
         <i class="bi bi-ticket-detailed"></i>
         <span>Tickets</span>

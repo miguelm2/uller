@@ -42,7 +42,7 @@ class ServiceDiagnosis extends System
         try {
             $result = Diagnostico::setDiagnostico($id_diagnostico, $numero_horas, $numero_ayudantes, $descripcion);
 
-            if($result) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
+            if ($result) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -57,7 +57,7 @@ class ServiceDiagnosis extends System
         try {
             $result = Diagnostico::setPrecioDiagnostico($id_diagnostico, $precio);
 
-            if($result){
+            if ($result) {
                 Ticket::setEstadoTicket($id_ticket, 4);
                 return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
             }
@@ -71,8 +71,23 @@ class ServiceDiagnosis extends System
         $id_diagnostico = parent::limpiarString($id_diagnostico);
 
         try {
+            if($_SESSION['tipo'] == 3){
+                self::validatePermisoTecnico($id_diagnostico);
+            }
+
             $modelResponse = Diagnostico::getDiagnosticoById($id_diagnostico);
             return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    private static function validatePermisoTecnico($id_diagnostico)
+    {
+        try {
+            $id_tecnico = $_SESSION['id'];
+            $modelResponse = TecnicoTicket::getValidarTecnicoHasDiagnosis($id_diagnostico, $id_tecnico);
+            if (!$modelResponse) header('Location:tickets');
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -141,7 +156,7 @@ class ServiceDiagnosis extends System
             $deleteDiagnostico  = Diagnostico::deleteDiagnostico($id_diagnostico);
 
             if ($deleteHerramientas && $deleteMateriales && $deleteDiagnostico) {
-                header('Location:ticket?ticket='.$id_ticket.'&delete');
+                header('Location:ticket?ticket=' . $id_ticket . '&delete');
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -163,7 +178,7 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '<td>' . $valor->getHerramientaDTO()->getTipo()[1] . '</td>';
                 $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                if($tipo_usuario==3){
+                if ($tipo_usuario == 3) {
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("HerramientaDiagnostico", "id_herramienta_diagnostico", $valor->getId_herramienta_diagnostico()) . '</td>';
                 }
                 $tableHtml .= '</tr>';
@@ -187,7 +202,7 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
                 $tableHtml .= '<td>' . $valor->getUnidad_medida() . '</td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                if($tipo_usuario==3){
+                if ($tipo_usuario == 3) {
                     $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("MaterialDiagnostico", "id_material_diagnostico", $valor->getId_material_diagnostico()) . '</td>';
                 }
                 $tableHtml .= '</tr>';
@@ -201,13 +216,7 @@ class ServiceDiagnosis extends System
         if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
             try {
                 $id_ticket = parent::limpiarString($id_ticket);
-                $tipo_usuario = $_SESSION['tipo'];
-
-                if($tipo_usuario==3){
-                    return "ticket?ticket=".$id_ticket;
-                }else{
-                    return "../operation/ticket?ticket=".$id_ticket;
-                }
+                return "ticket?ticket=" . $id_ticket;
             } catch (\Exception $e) {
                 throw new Exception($e->getMessage());
             }

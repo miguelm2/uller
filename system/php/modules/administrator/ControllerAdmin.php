@@ -32,5 +32,6 @@ if(isset($_GET['administrator'])){
 }
 
 if(isset($_GET)){
+    $perfilAdmin          = ServiceAdmin::getPerfilAdministrador();
     $tablaAdministradores = ServiceAdmin::getTablaAdministradores();
 }

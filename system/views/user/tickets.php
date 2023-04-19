@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Operation.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-        <?= include $listUrl[0]; ?>
+    <?php include '../../assets/html/sidebar-user.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Tickets</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTicket"><i class="bi bi-person-plus"></i> Nuevo Ticket</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTicket"><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
                             </div>
                         </div>
                     </div>
@@ -110,8 +110,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <?=$selectUsersTicket;?>
-
+                                <input type="hidden" class="form-control" name="id_usuario" value="<?=$id_usuario;?>">
                                 <div class="col-md-12 form-group">
                                     <label for="tipo_servicio">Tipo de servicio</label>
                                     <select class="form-select" name="tipo_servicio" id="tipo_servicio">
@@ -122,11 +121,15 @@
                                     <label for="descripcion">Descripción</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
                                 </div>
+                                <div class="col-dm-12 form-group">
+                                    <label>Por favor seleccione los equipos:</label>
+                                        <?=$listCheckEquipos;?>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newTicket" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
+                            <button type="submit" name="newTicket" id="botonNewTicket" class="btn btn-success" disabled><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
                         </div>
                     </div>
                 </div>
@@ -165,6 +168,8 @@
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>
+    <script src="../../js/ticketsFunction.js"></script>
+    
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?= $response ?>
 </body>

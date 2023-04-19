@@ -3,6 +3,62 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 
 class ServiceTechnician extends System
 {
+
+    //FUNCION PARA VALIDAR EL USUARIO QUE ACCEDE POR URL
+    public static function validateSessionTechnician()
+    {
+        if ($_SESSION['tipo'] != 3) {
+            parent::logout();
+        }
+    }
+
+    public static function setProfile($nombre, $correo, $telefono, $cedula)
+    {
+        $nombre     = parent::limpiarString($nombre);
+        $correo     = parent::limpiarString($correo);
+        $telefono   = parent::limpiarString($telefono);
+        $cedula     = parent::limpiarString($cedula);
+        $id_tecnico = $_SESSION['id'];
+
+        if (Tecnico::setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula)) {
+            $tecnico = Tecnico::getTecnicoById($id_tecnico);
+            $_SESSION['id']     =   $tecnico->getId_tecnico();
+            $_SESSION['nombre'] =   $tecnico->getNombre();
+            $_SESSION['correo'] =   $tecnico->getCorreo();
+            $_SESSION['cedula'] =   $tecnico->getCedula();
+            $_SESSION['telefono'] = $tecnico->getTelefono();
+            $_SESSION['tipo']   =   $tecnico->getTipo();
+            $_SESSION['fecha_registro'] = $tecnico->getFecha_registro();
+            return  '<script>swal("' . Constants::$INFORMATION_NEW . '", "", "success");</script>';
+        } else {
+            return  '<script>swal("' . Constants::$ADMIN_REPEAT . '", "", "error");</script>';
+        }
+    }
+
+    public static function setPassProfile($pass, $newPass, $confirmPass)
+    {
+        $pass        = parent::limpiarString($pass);
+        $newPass     = parent::limpiarString($newPass);
+        $confirmPass = parent::limpiarString($confirmPass);
+
+        try {
+            $cedula     = $_SESSION['cedula'];
+            $pass_hash  = parent::hash($pass);
+            $result     = Tecnico::getTecnico($cedula, $pass_hash);
+
+            if ($result) {
+                $id_tecnico = $_SESSION['id'];
+                $pass_hash  = parent::hash($newPass);
+                $result     = Tecnico::setTecnicoPass($id_tecnico, $pass_hash);
+                if ($result) return  '<script>swal("' . Constants::$UPDATE_PASS . '", "", "success");</script>';
+            } else {
+                return  '<script>swal("' . Constants::$CURRENT_PASS . '", "", "error");</script>';
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public static function newTechnician($nombre, $correo, $telefono, $cedula, $pass)
     {
         $nombre = parent::limpiarString($nombre);
@@ -71,6 +127,19 @@ class ServiceTechnician extends System
         try {
             $modelResponse = Tecnico::getTecnicoById($id_tecnico);
             return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getPerfilTecnico()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'users-profile.php' && $_SESSION['tipo'] == 3) {
+                $id_tecnico = $_SESSION['id'];
+                $result = Tecnico::getTecnicoById($id_tecnico);
+                return $result;
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

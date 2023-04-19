@@ -63,6 +63,15 @@ class TipoEquipo extends System
         return  $stmt->fetchAll();
     }
 
+    public static function listTipoEquipoByUserJs($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM TipoEquipo WHERE id_usuario = :id_usuario");
+        $stmt->bindParam(':id_usuario', $id_usuario);
+        $stmt->execute();
+        return  $stmt->fetchAll();
+    }
+
     public static function deleteTipoEquipo($id_tipo)
     {
         $dbh             = parent::Conexion();
