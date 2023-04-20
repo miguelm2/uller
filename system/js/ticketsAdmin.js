@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 $('#id_usuario').on('change', function() {
     const id_usuario = $(this).val();
+    $('#botonNewTicket').prop({disabled: true}); 
     getListEquipos(id_usuario);
 });
 

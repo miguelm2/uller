@@ -98,6 +98,9 @@ class TicketDTO
         if ($this->estado == 2) return explode(";", $this->estado . ';Asignado');
         if ($this->estado == 3) return explode(";", $this->estado . ';Diagnosticado');
         if ($this->estado == 4) return explode(";", $this->estado . ';Cotizado');
+        if ($this->estado == 5) return explode(";", $this->estado . ';Servicio Aceptado');
+        if ($this->estado == 6) return explode(";", $this->estado . ';Servicio Rechazado');
+        if ($this->estado == 7) return explode(";", $this->estado . ';Servicio Finalizado');
 
         return $this->estado;
     }

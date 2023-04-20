@@ -183,6 +183,53 @@
         </form>
         <!-- Modal Eliminar Equipo-->
 
+        <!-- Modal Aceptar Servicio-->
+        <form method="post">
+            <div class="modal fade" id="modalAceptarServicio" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Aceptar Servicio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea aceptar el servicio por el costo establecido?</label>
+                            <input type="hidden" class="form-control" name="aceptar_servicio" maxlength="3" value="Si">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                            <button type="submit" name="setAcceptTicket" class="btn btn-success"><i class="bi bi-check-lg"></i> Aceptar Servicio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Finf Modal Aceptar Servicio-->
+
+
+        <!-- Modal Rechazar Servicio-->
+        <form method="post">
+            <div class="modal fade" id="modalRechazarServicio" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Rechazar Servicio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea rechazar el servicio?</label>
+                            <input type="hidden" class="form-control" name="aceptar_servicio" maxlength="3" value="No">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                            <button type="submit" name="setAcceptTicket" class="btn btn-danger"><i class="bi bi-check-lg"></i> Rechazar Servicio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Finf Modal Rechazar Servicio-->
+
 
     </main><!-- End #main -->
 

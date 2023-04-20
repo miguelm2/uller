@@ -82,8 +82,11 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-12 d-grid gap-2 mt-3">
+                            <div class="col-md-6 d-grid gap-2 mt-3">
                                 <?= $btnDiagnosticoTecnico; ?>
+                            </div>
+                            <div class="col-md-6 d-grid gap-2 mt-3">
+                                <?= $btnInformeTecnico; ?>
                             </div>
                         </div>
                     </div>

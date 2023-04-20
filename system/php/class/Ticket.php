@@ -175,4 +175,15 @@ class Ticket extends System
 
         return $result['id'];
     }
+
+    public static function getEstadoTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT estado AS estado FROM Ticket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['estado'];
+    }
 }

@@ -121,7 +121,7 @@ class Diagnostico extends System
     {
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("SELECT COUNT(d.id_diagnostico) AS total FROM Diagnostico AS d, Ticket AS t 
-                                WHERE d.id_ticket = :id_ticket AND d.id_ticket = t.id_ticket AND t.estado = '4'");
+                                WHERE d.id_ticket = :id_ticket AND d.id_ticket = t.id_ticket AND t.estado >= '4'");
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->execute();
         $result =  $stmt->fetch();
