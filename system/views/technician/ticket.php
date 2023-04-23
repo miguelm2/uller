@@ -82,11 +82,14 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
+                            <div class="col-md-4 d-grid gap-2 mt-3">
                                 <?= $btnDiagnosticoTecnico; ?>
                             </div>
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <?= $btnInformeTecnico; ?>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnOrdenTecnico; ?>
+                            </div>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnInformeServTecnico; ?>
                             </div>
                         </div>
                     </div>

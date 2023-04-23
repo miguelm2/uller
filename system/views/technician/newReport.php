@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Nuevo Informe de Servicio</h5>
+                                <h5 class="text-primary">Nueva Orden de Servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
                                 <a href="<?=$btnAtrasTicket;?>" class="btn btn-secondary">
@@ -113,7 +113,7 @@
                                     <hr>
                                 </div>
                                 <div class="col-md-12 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-success" name="newReportTicket"><i class="bi bi-plus-square"></i> Crear Informe</button>
+                                    <button type="submit" class="btn btn-success" name="newReportTicket"><i class="bi bi-plus-square"></i> Crear Orden</button>
                                 </div>
                             </div>
                         </form>

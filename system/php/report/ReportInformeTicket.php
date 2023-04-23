@@ -154,7 +154,7 @@ abstract class ReportInformeTicket
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getTelefono().'
                     </td>
                     <td class="negrilla">
-                        Dirección servicio
+                        Correo
                     </td>
                     <td>
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getCorreo().'

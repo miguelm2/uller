@@ -11,8 +11,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Diagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/InformeTicket.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/ReporteFinal.php';
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeTicket.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeFinal.php';
 
 class ServiceTicket extends System
 {
@@ -177,196 +179,30 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getTableTickets()
+    public static function deleteEquipmentTicket($id_equipo_ticket)
     {
+        $id_equipo_ticket = parent::limpiarString($id_equipo_ticket);
+
         try {
-            if (basename($_SERVER['PHP_SELF']) == 'tickets.php') {
-                $tableHtml = "";
-                $tipo      = $_SESSION['tipo'];
+            $result = EquipoTicket::deleteEquipoTicket($id_equipo_ticket);
 
-                if ($tipo == 0 || $tipo == 5) {
-                    $modelResponse = Ticket::listTickets();
-                } else {
-                    $id_usuario    = $_SESSION['id'];
-                    $modelResponse = Ticket::listTicketsByUser($id_usuario);
-                }
-
-
-                foreach ($modelResponse as $valor) {
-
-                    switch ($valor->getEstado()[0]) {
-                        case '1':
-                            $style = 'alert alert-secondary';
-                            break;
-                        case '2':
-                            $style = 'alert alert-warning';
-                            break;
-                        case '3':
-                            $style = 'alert alert-primary';
-                            break;
-                        case '4':
-                            $style = 'alert alert-danger';
-                            break;
-                        case '5':
-                            $style = 'alert alert-info';
-                            break;
-                        case '6':
-                            $style = 'alert alert-danger';
-                            break;
-                        case '7':
-                            $style = 'alert alert-danger';
-                            break;
-                    }
-
-                    $tableHtml .= '<tr>';
-                    $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">' . $valor->getEstado()[1] . '</label></td>';
-                    $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
-                    $tableHtml .= '</tr>';
-                }
-                return $tableHtml;
-            }
+            if ($result) return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public static function getBtnAtrasTicket($id_ticket)
+    public static function getListEquiposTicketAdmin($id_usuario)
     {
         try {
-            $id_ticket = parent::limpiarString($id_ticket);
-
-            return "ticket?ticket=" . $id_ticket;
+            $listTipoEquipo = TipoEquipo::listTipoEquipoByUserJs($id_usuario);
+            return json_encode($listTipoEquipo);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public static function getButtonTechnician($id_ticket)
-    {
-        try {
-            $id_ticket = parent::limpiarString($id_ticket);
-            $html = '';
-
-            if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
-
-                $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
-
-                if (!$validar) {
-                    $html .= '
-                    <div class="col-md-6 d-grid gap-2 mt-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AsignarTecnico"><i class="bi bi-person-add"></i> Asignar Tecnico</button>
-                    </div>';
-                } else {
-                    $html .= '
-                    <div class="col-md-12 form-group">
-                        <label for="tecnico">Técnico</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-describedby="button-tecnico" value="' . $validar->getTecnicoDTO()->getNombre() . '" disabled>
-                            <button class="btn btn-danger" type="button" id="button-tecnico" value="' . $validar->getId_tecnico_ticket() . '"><i class="bi bi-trash-fill"></i></button>
-                        </div>
-                    </div>';
-                }
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getButtonDiagnosis($id_ticket)
-    {
-        try {
-            $id_ticket = parent::limpiarString($id_ticket);
-            $html = '';
-
-            if (basename($_SERVER['PHP_SELF']) == 'ticket.php' && $_SESSION['tipo'] == 3) {
-
-                $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
-
-                if (!$validar) {
-                    $html .= '';
-                } else {
-                    $html .= '';
-                }
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getButtonDiagnosisTechnician($id_ticket)
-    {
-        try {
-            $id_ticket = parent::limpiarString($id_ticket);
-
-            $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
-
-            if ($validateDiagnostico > 0) {
-                $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
-                $html = '<a href="diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
-            } else {
-                $html = '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDiagnostico"><i class="bi bi-journal-plus"></i> Crear Diagnostico</button>';
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getButtonDiagnosisAdmin($id_ticket)
-    {
-        try {
-            $id_ticket    = parent::limpiarString($id_ticket);
-            $tipo_usuario = $_SESSION['tipo'];
-            $html = '';
-
-            if ($tipo_usuario == 0 || $tipo_usuario == 5) {
-                $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
-
-                if ($validateDiagnostico > 0) {
-                    $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
-                    $html = '<a href="../admin/diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
-                }
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getButtonReportTechnician($id_ticket)
-    {
-        try {
-            $id_ticket = parent::limpiarString($id_ticket);
-            $html = '';
-
-            $estadoTicket = Ticket::getEstadoTicket($id_ticket);
-
-            if ($estadoTicket >= 5 && $estadoTicket != 6) {
-                $informeDTO = InformeTicket::getInformeTicketByTicket($id_ticket);
-
-                if ($informeDTO) {
-                    $html = '<a href="reportTicket?reportTicket=' . $informeDTO->getId_informe() . '&ticket=' . $id_ticket . '" class="btn btn-success"><i class="bi bi-info-circle"></i> Ver informe de servicio</a>';
-                } else {
-                    $html = '<a href="newReport?ticket=' . $id_ticket . '" class="btn btn-success"><i class="bi bi-info-circle"></i> Crear informe de servicio</a>';
-                }
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
+    //ORDEN DE SERVICIO DE UN TICKET ----------------------------------------------------------
     public static function newReportTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $tipo_equipo, $presenta_falla, $capacidad, $marca, $notas, $observaciones)
     {
         $id_ticket          = parent::limpiarString($id_ticket);
@@ -418,56 +254,168 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getTableTicketsTechnician()
+    public static function getReportTicket($id_informe)
     {
+        $id_informe = parent::limpiarString($id_informe);
+
         try {
-            if (basename($_SERVER['PHP_SELF']) == 'tickets.php' && $_SESSION['tipo'] == 3) {
-                $tableHtml  = "";
-                $id_tecnico = $_SESSION['id'];
-
-                $modelResponse = Ticket::listTicketsByTecnico($id_tecnico);
-
-                foreach ($modelResponse as $valor) {
-
-                    switch ($valor->getEstado()[0]) {
-                        case '1':
-                            $style = 'alert alert-secondary';
-                            break;
-                        case '2':
-                            $style = 'alert alert-warning';
-                            break;
-                        case '3':
-                            $style = 'alert alert-primary';
-                            break;
-                        case '4':
-                            $style = 'alert alert-danger';
-                            break;
-                        case '5':
-                            $style = 'alert alert-info';
-                            break;
-                        case '6':
-                            $style = 'alert alert-danger';
-                            break;
-                        case '7':
-                            $style = 'alert alert-danger';
-                            break;
-                    }
-
-                    $tableHtml .= '<tr>';
-                    $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
-                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">'. $valor->getEstado()[1] . '</label></td>';
-                    $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
-                    $tableHtml .= '</tr>';
-                }
-                return $tableHtml;
-            }
+            $modelResponse = InformeTicket::getInformeTicketById($id_informe);
+            return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
+
+    public static function getPdfReportTicket($id_informe)
+    {
+        $id_informe = parent::limpiarString($id_informe);
+
+        try {
+            $informeDTO       = InformeTicket::getInformeTicketById($id_informe);
+            $ticketDTO        = Ticket::getTicket($informeDTO->getId_ticket());
+            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($informeDTO->getId_ticket());
+
+            $modelResponse = ReportInformeTicket::generatePdf($informeDTO, $ticketDTO, $tecnicoTicketDTO);
+            return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    //FIN ORDEN DE SERVICIO DE UN TICKET ----------------------------------------------------------
+
+
+    //INFORME FINAL DE SERVICIO DE UN TICKET ------------------------------------------------------
+    public static function newInformTicket(
+        $id_ticket,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+        $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
+        $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
+        $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
+        $repuestos,$insumos,$tarjetas_electronicas,$estimado_horas,$observaciones
+    )
+    {
+        $id_ticket                  = parent::limpiarString($id_ticket);
+        $fecha_servicio             = parent::limpiarString($fecha_servicio);
+        $serial                     = parent::limpiarString($serial);
+        $year_compra                = parent::limpiarString($year_compra);
+        $voltaje                    = parent::limpiarString($voltaje);
+        $amperaje                   = parent::limpiarString($amperaje);
+        $fases                      = parent::limpiarString($fases);
+        $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
+        $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
+        $limpieza_general           = parent::limpiarString($limpieza_general);
+        $limpieza_filtros           = parent::limpiarString($limpieza_filtros);
+        $limpieza_serpentin         = parent::limpiarString($limpieza_serpentin);
+        $limpieza_bandeja           = parent::limpiarString($limpieza_bandeja);
+        $serpentin_condensador      = parent::limpiarString($serpentin_condensador);
+        $limpieza_drenaje           = parent::limpiarString($limpieza_drenaje);
+        $verificacion               = parent::limpiarString($verificacion);
+        $estado_carcasa             = parent::limpiarString($estado_carcasa);
+        $estado_equipo              = parent::limpiarString($estado_equipo);
+        $equipo_opera_fin           = parent::limpiarString($equipo_opera_fin);
+        $mantenimiento_correctivo   = parent::limpiarString($mantenimiento_correctivo);
+        $falla_encontrada           = parent::limpiarString($falla_encontrada);
+        $repuestos                  = parent::limpiarString($repuestos);
+        $insumos                    = parent::limpiarString($insumos);
+        $tarjetas_electronicas      = parent::limpiarString($tarjetas_electronicas);
+        $estimado_horas             = parent::limpiarString($estimado_horas);
+        $observaciones              = parent::limpiarString($observaciones);
+        $fecha_registro = date('Y-m-d H:i:s');
+
+        try {
+            $modelResponse = ReporteFinal::newReporteFinal($id_ticket,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+                                                            $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
+                                                            $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
+                                                            $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
+                                                            $repuestos,$insumos,$tarjetas_electronicas,$estimado_horas,$observaciones, $fecha_registro);
+            
+            if($modelResponse){
+                $id_reporte_final = ReporteFinal::getIdLastReporteFinal();
+                Ticket::setEstadoTicket($id_ticket, 8);
+                header('Location:informTicket?informTicket=' . $id_reporte_final . '&ticket=' . $id_ticket);
+            }            
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function setInformTicket(
+        $id_reporte_final,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+        $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
+        $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
+        $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
+        $repuestos,$insumos,$tarjetas_electronicas,$estimado_horas,$observaciones
+    )
+    {
+        $id_reporte_final           = parent::limpiarString($id_reporte_final);
+        $fecha_servicio             = parent::limpiarString($fecha_servicio);
+        $serial                     = parent::limpiarString($serial);
+        $year_compra                = parent::limpiarString($year_compra);
+        $voltaje                    = parent::limpiarString($voltaje);
+        $amperaje                   = parent::limpiarString($amperaje);
+        $fases                      = parent::limpiarString($fases);
+        $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
+        $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
+        $limpieza_general           = parent::limpiarString($limpieza_general);
+        $limpieza_filtros           = parent::limpiarString($limpieza_filtros);
+        $limpieza_serpentin         = parent::limpiarString($limpieza_serpentin);
+        $limpieza_bandeja           = parent::limpiarString($limpieza_bandeja);
+        $serpentin_condensador      = parent::limpiarString($serpentin_condensador);
+        $limpieza_drenaje           = parent::limpiarString($limpieza_drenaje);
+        $verificacion               = parent::limpiarString($verificacion);
+        $estado_carcasa             = parent::limpiarString($estado_carcasa);
+        $estado_equipo              = parent::limpiarString($estado_equipo);
+        $equipo_opera_fin           = parent::limpiarString($equipo_opera_fin);
+        $mantenimiento_correctivo   = parent::limpiarString($mantenimiento_correctivo);
+        $falla_encontrada           = parent::limpiarString($falla_encontrada);
+        $repuestos                  = parent::limpiarString($repuestos);
+        $insumos                    = parent::limpiarString($insumos);
+        $tarjetas_electronicas      = parent::limpiarString($tarjetas_electronicas);
+        $estimado_horas             = parent::limpiarString($estimado_horas);
+        $observaciones              = parent::limpiarString($observaciones);
+
+        try {
+            $modelResponse = ReporteFinal::setReporteFinal($id_reporte_final,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+                                                            $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
+                                                            $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
+                                                            $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
+                                                            $repuestos,$insumos,$tarjetas_electronicas,$estimado_horas,$observaciones);
+            
+            if($modelResponse) return '<script>swal("'.Constants::$REGISTER_UPDATE.'", "", "success");</script>';       
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getInformTicket($id_reporte_final)
+    {
+        $id_reporte_final = parent::limpiarString($id_reporte_final);
+
+        try {
+            $modelResponse = ReporteFinal::getReporteFinalById($id_reporte_final);
+            return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getPdfInform($id_reporte_final)
+    {
+        $id_reporte_final = parent::limpiarString($id_reporte_final);
+
+        try {
+            $reporteFinalDTO = ReporteFinal::getReporteFinalById($id_reporte_final);
+            $ordenDTO        = InformeTicket::getInformeTicketByTicket($reporteFinalDTO->getId_ticket());
+            $ticketDTO       = Ticket::getTicket($reporteFinalDTO->getId_ticket());
+            $tecnicoTicketDTO= TecnicoTicket::getValidarTecnicoTicket($reporteFinalDTO->getId_ticket());
+            $modelResponse   = ReportInformeFinal::generatePdf($reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO);
+            return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    //FIN INFORME FINAL DE SERVICIO DE UN TICKET ------------------------------------------------------
 
     public static function getDiagnosisUser($id_ticket)
     {
@@ -596,9 +544,168 @@ class ServiceTicket extends System
                         $informeDTO = InformeTicket::getInformeTicketByTicket($id_ticket);
                         $html .= '
                                 <div class="col-md-12 d-grid gap-2 mt-3">
-                                    <a href="ticket?ticket=' . $id_ticket . '&getPdfReportTicket=' . $informeDTO->getId_informe() . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Ver informe de servicio</a>
+                                    <a href="ticket?ticket=' . $id_ticket . '&getPdfReportTicket=' . $informeDTO->getId_informe() . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Ver Orden Servicio</a>
                                 </div>';
                     }
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    //LISTAS, TABLAS Y BOTONES----------------------------------------------------------------------------
+
+    public static function getBtnAtrasTicket($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            return "ticket?ticket=" . $id_ticket;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonTechnician($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+            $html = '';
+
+            if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
+
+                $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+
+                if (!$validar) {
+                    $html .= '
+                    <div class="col-md-6 d-grid gap-2 mt-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AsignarTecnico"><i class="bi bi-person-add"></i> Asignar Tecnico</button>
+                    </div>';
+                } else {
+                    $html .= '
+                    <div class="col-md-12 form-group">
+                        <label for="tecnico">Técnico</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" aria-describedby="button-tecnico" value="' . $validar->getTecnicoDTO()->getNombre() . '" disabled>
+                            <button class="btn btn-danger" type="button" id="button-tecnico" value="' . $validar->getId_tecnico_ticket() . '"><i class="bi bi-trash-fill"></i></button>
+                        </div>
+                    </div>';
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosis($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+            $html = '';
+
+            if (basename($_SERVER['PHP_SELF']) == 'ticket.php' && $_SESSION['tipo'] == 3) {
+
+                $validar = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+
+                if (!$validar) {
+                    $html .= '';
+                } else {
+                    $html .= '';
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosisAdmin($id_ticket)
+    {
+        try {
+            $id_ticket    = parent::limpiarString($id_ticket);
+            $tipo_usuario = $_SESSION['tipo'];
+            $html = '';
+
+            if ($tipo_usuario == 0 || $tipo_usuario == 5) {
+                $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
+
+                if ($validateDiagnostico > 0) {
+                    $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
+                    $html = '<a href="../admin/diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonDiagnosisTechnician($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
+
+            if ($validateDiagnostico > 0) {
+                $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
+                $html = '<a href="diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-secondary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
+            } else {
+                $html = '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#newDiagnostico"><i class="bi bi-journal-plus"></i> Crear Diagnostico</button>';
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonReportTechnician($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+            $html = '';
+
+            $estadoTicket = Ticket::getEstadoTicket($id_ticket);
+
+            if ($estadoTicket >= 5 && $estadoTicket != 6) {
+                $informeDTO = InformeTicket::getInformeTicketByTicket($id_ticket);
+
+                if ($informeDTO) {
+                    $html = '<a href="reportTicket?reportTicket=' . $informeDTO->getId_informe() . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Orden Servicio</a>';
+                } else {
+                    $html = '<a href="newReport?ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Crear Orden Servicio</a>';
+                }
+            }
+
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonInformeFinal($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+            $html = '';
+
+            $estadoTicket = Ticket::getEstadoTicket($id_ticket);
+
+            if ($estadoTicket >= 7) {
+                $reporteFinalDTO = ReporteFinal::getReporteFinalByTicket($id_ticket);
+
+                if ($reporteFinalDTO) {
+                    $html = '<a href="informTicket?informTicket='.$reporteFinalDTO->getId_reporte_final().'&ticket='.$id_ticket.'" class="btn btn-success"><i class="bi bi-info-circle"></i> Ver Informe Final</a>';
+                } else {
+                    $html = '<a href="newInform?ticket='.$id_ticket.'" class="btn btn-success"><i class="bi bi-info-circle"></i> Crear Informe Final</a>';
                 }
             }
 
@@ -635,6 +742,114 @@ class ServiceTicket extends System
         }
     }
 
+    public static function getTableTickets()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'tickets.php') {
+                $tableHtml = "";
+                $tipo      = $_SESSION['tipo'];
+
+                if ($tipo == 0 || $tipo == 5) {
+                    $modelResponse = Ticket::listTickets();
+                } else {
+                    $id_usuario    = $_SESSION['id'];
+                    $modelResponse = Ticket::listTicketsByUser($id_usuario);
+                }
+
+
+                foreach ($modelResponse as $valor) {
+
+                    switch ($valor->getEstado()[0]) {
+                        case '1':
+                            $style = 'alert alert-secondary';
+                            break;
+                        case '2':
+                            $style = 'alert alert-warning';
+                            break;
+                        case '3':
+                            $style = 'alert alert-primary';
+                            break;
+                        case '4':
+                            $style = 'alert alert-danger';
+                            break;
+                        case '5':
+                            $style = 'alert alert-info';
+                            break;
+                        case '6':
+                            $style = 'alert alert-danger';
+                            break;
+                        case '7':
+                            $style = 'alert alert-primary';
+                            break;
+                    }
+
+                    $tableHtml .= '<tr>';
+                    $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">' . $valor->getEstado()[1] . '</label></td>';
+                    $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
+                    $tableHtml .= '</tr>';
+                }
+                return $tableHtml;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getTableTicketsTechnician()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'tickets.php' && $_SESSION['tipo'] == 3) {
+                $tableHtml  = "";
+                $id_tecnico = $_SESSION['id'];
+
+                $modelResponse = Ticket::listTicketsByTecnico($id_tecnico);
+
+                foreach ($modelResponse as $valor) {
+
+                    switch ($valor->getEstado()[0]) {
+                        case '1':
+                            $style = 'alert alert-secondary';
+                            break;
+                        case '2':
+                            $style = 'alert alert-warning';
+                            break;
+                        case '3':
+                            $style = 'alert alert-primary';
+                            break;
+                        case '4':
+                            $style = 'alert alert-danger';
+                            break;
+                        case '5':
+                            $style = 'alert alert-info';
+                            break;
+                        case '6':
+                            $style = 'alert alert-danger';
+                            break;
+                        case '7':
+                            $style = 'alert alert-primary';
+                            break;
+                    }
+
+                    $tableHtml .= '<tr>';
+                    $tableHtml .= '<td>' . $valor->getId_ticket() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td>' . $valor->getTipo_servicioDTO()->getNombre() . '</td>';
+                    $tableHtml .= '<td><label class="p-1 col-md-12 ' . $style . '">'. $valor->getEstado()[1] . '</label></td>';
+                    $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+                    $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("ticket", $valor->getId_ticket()) . '</td>';
+                    $tableHtml .= '</tr>';
+                }
+                return $tableHtml;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public static function getTableEquiposTicket($id_ticket)
     {
         try {
@@ -654,57 +869,6 @@ class ServiceTicket extends System
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function deleteEquipmentTicket($id_equipo_ticket)
-    {
-        $id_equipo_ticket = parent::limpiarString($id_equipo_ticket);
-
-        try {
-            $result = EquipoTicket::deleteEquipoTicket($id_equipo_ticket);
-
-            if ($result) return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getListEquiposTicketAdmin($id_usuario)
-    {
-        try {
-            $listTipoEquipo = TipoEquipo::listTipoEquipoByUserJs($id_usuario);
-            return json_encode($listTipoEquipo);
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getReportTicket($id_informe)
-    {
-        $id_informe = parent::limpiarString($id_informe);
-
-        try {
-            $modelResponse = InformeTicket::getInformeTicketById($id_informe);
-            return $modelResponse;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getPdfReportTicket($id_informe)
-    {
-        $id_informe = parent::limpiarString($id_informe);
-
-        try {
-            $informeDTO       = InformeTicket::getInformeTicketById($id_informe);
-            $ticketDTO        = Ticket::getTicket($informeDTO->getId_ticket());
-            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($informeDTO->getId_ticket());
-
-            $modelResponse = ReportInformeTicket::generatePdf($informeDTO, $ticketDTO, $tecnicoTicketDTO);
-            return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

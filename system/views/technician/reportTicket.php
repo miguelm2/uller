@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Informe de Servicio</h5>
+                                <h5 class="text-primary">Orden de Servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
                                 <a href="<?=$btnAtrasTicket;?>" class="btn btn-secondary">
