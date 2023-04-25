@@ -219,7 +219,7 @@
                                     <button type="submit" class="btn btn-success" name="setInformTicket"><i class="bi bi-save"></i> Actualizar Informe</button>
                                 </div>
                                 <div class="col-md-6 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-secondary" name="getPdfInform"><i class="bi bi-filetype-pdf"></i> Generar Pdf</button>
+                                    <button type="submit" class="btn btn-secondary" name="getPdfInform"><i class="bi bi-filetype-pdf"></i> Generar Informe</button>
                                 </div>
                             </div>
                         </form>

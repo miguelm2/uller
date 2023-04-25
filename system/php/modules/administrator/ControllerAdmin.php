@@ -23,12 +23,12 @@ if(isset($_POST['setPassword'])){
     $response = ServiceAdmin::setPassAdministrator($_GET['administrator'],$_POST['newPass'], $_POST['confirmPass']);
 }
 
-if(isset($_POST['deleteAdministrator'])){
-    $response = ServiceAdmin::deleteAdministrator($_GET['administrator']);
-}
-
 if(isset($_GET['administrator'])){
     $administrator = ServiceAdmin::getAdministrator($_GET['administrator']);
+}
+
+if(isset($_POST['deleteAdministrator'])){
+    $response = ServiceAdmin::deleteAdministrator($_GET['administrator']);
 }
 
 if(isset($_GET)){

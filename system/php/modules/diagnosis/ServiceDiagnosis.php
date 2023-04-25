@@ -8,6 +8,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/HerramientaDiagnosti
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/AyudanteDiagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TecnicoTicket.php';
 
 class ServiceDiagnosis extends System
 {
@@ -24,8 +25,8 @@ class ServiceDiagnosis extends System
 
             if ($result) {
                 $id_diagnostico = Diagnostico::getLastDiagnostico();
-                $estado         = Ticket::setEstadoTicket($id_ticket, 3);
-                header('Location:diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket);
+                Ticket::setEstadoTicket($id_ticket, 3);
+                header('Location:diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket.'&new');
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -71,9 +72,7 @@ class ServiceDiagnosis extends System
         $id_diagnostico = parent::limpiarString($id_diagnostico);
 
         try {
-            if($_SESSION['tipo'] == 3){
-                self::validatePermisoTecnico($id_diagnostico);
-            }
+            //self::validatePermisoTecnico($id_diagnostico);
 
             $modelResponse = Diagnostico::getDiagnosticoById($id_diagnostico);
             return $modelResponse;
@@ -85,9 +84,11 @@ class ServiceDiagnosis extends System
     private static function validatePermisoTecnico($id_diagnostico)
     {
         try {
-            $id_tecnico = $_SESSION['id'];
-            $modelResponse = TecnicoTicket::getValidarTecnicoHasDiagnosis($id_diagnostico, $id_tecnico);
-            if (!$modelResponse) header('Location:tickets');
+            if ($_SESSION['tipo'] == 3) {
+                $id_tecnico = $_SESSION['id'];
+                $modelResponse = TecnicoTicket::getValidarTecnicoHasDiagnosis($id_diagnostico, $id_tecnico);
+                if (!$modelResponse) header('Location:tickets');
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -154,22 +155,23 @@ class ServiceDiagnosis extends System
             $deleteHerramientas = HerramientaDiagnostico::deleteHerramientaByDiagnostico($id_diagnostico);
             $deleteMateriales   = MaterialDiagnostico::deleteMaterialByDiagnostico($id_diagnostico);
             $deleteDiagnostico  = Diagnostico::deleteDiagnostico($id_diagnostico);
-
+            
             if ($deleteHerramientas && $deleteMateriales && $deleteDiagnostico) {
-                header('Location:ticket?ticket=' . $id_ticket . '&delete');
+                Ticket::setEstadoTicket($id_ticket, 2);
+                header('Location:ticket?ticket=' . $id_ticket.'&delete');
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public static function getTableHerramientas($lstHerramientas)
+    public static function getTableHerramientas($id_diagnostico)
     {
-        if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
+            $id_diagnostico = parent::limpiarString($id_diagnostico);
             $tableHtml = "";
             $tipo_usuario = $_SESSION['tipo'];
 
-            $modelResponse = $lstHerramientas;
+            $modelResponse = HerramientaDiagnostico::listHerramientaDiagnosticoById($id_diagnostico);
 
             foreach ($modelResponse as $valor) {
                 $tableHtml .= '<tr>';
@@ -184,16 +186,16 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
-        }
+        
     }
 
-    public static function getTableMateriales($lstMateriales)
+    public static function getTableMateriales($id_diagnostico)
     {
-        if (basename($_SERVER['PHP_SELF']) == 'diagnosis.php') {
+            $id_diagnostico = parent::limpiarString($id_diagnostico);
             $tableHtml = "";
             $tipo_usuario = $_SESSION['tipo'];
 
-            $modelResponse = $lstMateriales;
+            $modelResponse = MaterialDiagnostico::listMaterialDiagnosticoById($id_diagnostico);
 
             foreach ($modelResponse as $valor) {
                 $tableHtml .= '<tr>';
@@ -208,7 +210,6 @@ class ServiceDiagnosis extends System
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
-        }
     }
 
     public static function getBackButton($id_ticket)

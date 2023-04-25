@@ -21,13 +21,14 @@ if(isset($_POST['setPasswordTechnician'])){
     $response = ServiceTechnician::setPassTechnician($_GET['technician'],$_POST['newPass'], $_POST['confirmPass']);
 }
 
+if(isset($_GET['technician'])){
+    $tecnico = ServiceTechnician::getTechnician($_GET['technician']);
+}
+
 if(isset($_POST['deleteTechnician'])){
     $response = ServiceTechnician::deleteTechnician($_GET['technician']);
 }
 
-if(isset($_GET['technician'])){
-    $tecnico = ServiceTechnician::getTechnician($_GET['technician']);
-}
 
 if(isset($_GET)){
     $perfilTecnico  = ServiceTechnician::getPerfilTecnico();

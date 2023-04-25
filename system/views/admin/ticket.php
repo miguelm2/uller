@@ -65,7 +65,31 @@
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
-                        <form class="row g-3" method="post">
+                        <form class="row g-2" method="post">
+                            <div class="col-md-6 form-group">
+                                <label for="nombre_cliente">Nombre cliente</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getNombre() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="documento">Documento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCedula() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="telefono">Telefono</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getTelefono() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDireccion() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCiudad() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="departamento">Departamento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDepartamento() ?>">
+                            </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
                                 <select class="form-select" name="tipo_servicio" id="tipo_servicio">
@@ -88,17 +112,19 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-4 d-grid gap-2 mt-3">
+                            <div class="col-md-3 d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-success" name="setTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
                             </div>
 
-                            <div class="col-md-4 d-grid gap-2 mt-3">
+                            <div class="col-md-3 d-grid gap-2 mt-3">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                             </div>
 
-                            <div class="col-md-4 d-grid gap-2 mt-3">
+                            <div class="col-md-3 d-grid gap-2 mt-3">
                                 <?= $btnDiagnosticoAdmin; ?>
                             </div>
+
+                            <?= $btnOrdenInforme; ?>
 
                         </form><!-- Vertical Form -->
                     </div>

@@ -64,7 +64,31 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <div class="row">
+                        <div class="row g-2">
+                            <div class="col-md-6 form-group">
+                                <label for="nombre_cliente">Nombre cliente</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getNombre() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="documento">Documento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCedula() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="telefono">Telefono</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getTelefono() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDireccion() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCiudad() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="departamento">Departamento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDepartamento() ?>">
+                            </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
                                 <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_servicioDTO()->getNombre() ?>">

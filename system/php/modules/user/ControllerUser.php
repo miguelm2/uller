@@ -21,13 +21,13 @@ if(isset($_POST['setPassUser'])){
     $response = ServiceUser::setPassUser($_GET['user'], $_POST['newPass'], $_POST['confirmPass']);
 }
 
-if(isset($_POST['deleteUser'])){
-    $response = ServiceUser::deleteUser($_GET['user']);
-}
-
 if(isset($_GET['user'])){
     $user         = ServiceUser::getUsuario($_GET['user']);
     $tablaEquipos = ServiceUser::getTableEquipmentType($_GET['user']);
+}
+
+if(isset($_POST['deleteUser'])){
+    $response = ServiceUser::deleteUser($_GET['user']);
 }
 
 if(isset($_GET)){

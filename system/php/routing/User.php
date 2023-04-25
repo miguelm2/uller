@@ -9,8 +9,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/page/ControllerPage.
 
 System::validarSession();
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/dashboard/ControllerDashboard.php';
-
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/user/ControllerUser.php';
 
 ServiceUser::validateSessionUser();

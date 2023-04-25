@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader
 
 abstract class ReportInformeFinal
 {
-    public static function generatePdf($reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO)
     {
         Dompdf\Autoloader::register();
         $pdfName = 'Informe_Final_Servicio_' . date('Y-m-d') . '.pdf';
@@ -30,13 +30,20 @@ abstract class ReportInformeFinal
         }
         .lineFirma{
             margin-right: 30pt;
+            margin-top: 40pt;
             background-color:#000000;
+        }
+        .justificar{
+            text-align: justify;
         }
         </style>
         <div>
             <table class="default" style="width:100%">
                 <tr>
-                    <th colspan="4">
+                    <th colspan="1">
+                        <img src="' . $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen() . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
+                    </th>
+                    <th colspan="3">
                         MANTENIMIENTO CORRECTIVO Y PREVENTIVO
                         DE EQUIPOS DE AIRE ACONDICIONADO Y REFRIGERACION
                         (INFORME FINAL DE SERVICIO)
@@ -56,9 +63,17 @@ abstract class ReportInformeFinal
                         <span style="margin-right: 10pt;">Preventivo ( '.self::validateSi($reporteDTO->getMantenimiento_preventivo()[0]).' )</span><span>Correctivo ( '.self::validateSi($reporteDTO->getMantenimiento_correctivo()[0]).' )</span> 
                     </td>
                 </tr>
+            </table>
+            <br>
+            <table class="default" style="width:100%">
+                <tr>
+                    <th colspan="4">
+                        Datos del cliente
+                    </th>
+                </tr>
                 <tr>
                     <td class="negrilla">
-                        Nombre cliente
+                        Nombre
                     </td>
                     <td>
                         '.$ticketDTO->getUsuarioDTO()->getNombre().'
@@ -98,9 +113,17 @@ abstract class ReportInformeFinal
                         '.$ticketDTO->getUsuarioDTO()->getDepartamento().'
                     </td>
                 </tr>
+            </table>
+            <br>
+            <table class="default" style="width:100%">
+                <tr>
+                    <th colspan="4">
+                        Datos del técnico
+                    </th>
+                </tr>
                 <tr>
                     <td class="negrilla">
-                        Nombre técnico
+                        Nombre
                     </td>
                     <td>
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getNombre().'
@@ -222,7 +245,7 @@ abstract class ReportInformeFinal
                         </th>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Equipo opera adecuadamente antes del servicio
                         </td>
                         <td colspan="1">
@@ -233,7 +256,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Limpieza general
                         </td>
                         <td colspan="1">
@@ -244,7 +267,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Limpieza filtros
                         </td>
                         <td colspan="1">
@@ -255,7 +278,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Limpieza Serpentin evaporador
                         </td>
                         <td colspan="1">
@@ -266,7 +289,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Limpieza bandeja
                         </td>
                         <td colspan="1">
@@ -277,7 +300,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Serpentin condensador
                         </td>
                         <td colspan="1">
@@ -288,7 +311,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Limpieza drenaje
                         </td>
                         <td colspan="1">
@@ -299,7 +322,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Verificación
                         </td>
                         <td colspan="1">
@@ -310,7 +333,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Estado carcasa interior
                         </td>
                         <td colspan="1">
@@ -321,7 +344,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Estado equipo exterior
                         </td>
                         <td colspan="1">
@@ -332,7 +355,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" class="justificar">
                             Equipo queda operando adecuadamente despues del servicio
                         </td>
                         <td colspan="1">
@@ -355,7 +378,7 @@ abstract class ReportInformeFinal
                         </th>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="justificar">
                             Falla encontrada
                         </td>
                         <td>
@@ -363,7 +386,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="justificar">
                             Repuestos requeridos
                         </td>
                         <td>
@@ -371,7 +394,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="justificar">
                             Insumos requeridos (refrigerante, aceite, otros)
                         </td>
                         <td>
@@ -379,7 +402,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="justificar">
                             Tarjetas electronicas 
                         </td>
                         <td>
@@ -387,7 +410,7 @@ abstract class ReportInformeFinal
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="justificar">
                             Estimado horas reparacion
                         </td>
                         <td>
@@ -407,29 +430,21 @@ abstract class ReportInformeFinal
                 </tr>
                 <tr>
                     <td>
-                        '.$reporteDTO->getObservaciones().'
+                        <p class="justificar" style="margin:5px;">'.$reporteDTO->getObservaciones().'</p>
                     </td>
                 </tr>
             </table>
-            <div style="page-break-after:always;"></div>
+            <br><br><br>
             <table class="default deleteBorder" style="width:100%">
                 <tr class="deleteBorder">
                     <th class="deleteBorder" style="text-align:justify;">
                         Firma de autorización
+                        <hr size="1px" class="lineFirma">
                     </th>
                     <th class="deleteBorder" style="text-align:justify;">
                         Firma de conformidad
+                        <hr size="1px" class="lineFirma">
                     </th>
-                </tr>
-                <tr class="deleteBorder">
-                    <td class="deleteBorder">
-                    <br><br><br>
-                        <hr size="1px" class="lineFirma">
-                    </td>
-                    <td class="deleteBorder">
-                    <br><br><br>
-                        <hr size="1px" class="lineFirma">
-                    </td>
                 </tr>
             </table>
             <br><br>

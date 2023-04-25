@@ -6,7 +6,7 @@ if(isset($_POST['newTicket'])){
 }
 
 if(isset($_POST['setTicket'])){
-    $response = ServiceTicket::setTicket($_GET['ticket'], $_POST['tipo_equipo'], $_POST['tipo_servicio'], $_POST['descripcion']);
+    $response = ServiceTicket::setTicket($_GET['ticket'], $_POST['tipo_servicio'], $_POST['descripcion']);
 }
 
 if(isset($_POST['assignTechnician'])){
@@ -23,10 +23,6 @@ if(isset($_POST['deleteEquipmentTicket'])){
 
 if(isset($_POST['setAcceptTicket'])){
     $response = ServiceTicket::setAcceptTicket($_GET['ticket'], $_POST['aceptar_servicio']);
-}
-
-if(isset($_POST['deleteTicket'])){
-    $response = ServiceTicket::deleteTicket($_GET['ticket']);
 }
 
 if(isset($_POST['getListEquiposTicket'])){
@@ -103,6 +99,10 @@ if(isset($_POST['getPdfInform'])){
     $response = ServiceTicket::getPdfInform($_GET['informTicket']);
 }
 
+if(isset($_GET['getPdfInform'])){
+    $response = ServiceTicket::getPdfInform($_GET['getPdfInform']);
+}
+
 if(isset($_GET['informTicket'])){
     $informTicket = ServiceTicket::getInformTicket($_GET['informTicket']);
 }
@@ -114,13 +114,17 @@ if(isset($_GET['ticket'])){
     $ticket                = ServiceTicket::getTicket($_GET['ticket']);
     $btnAtrasTicket        = ServiceTicket::getBtnAtrasTicket($_GET['ticket']);
     $btnTecnico            = ServiceTicket::getButtonTechnician($_GET['ticket']);
-    //$btnDiagnostico        = ServiceTicket::getButtonDiagnosis($_GET['ticket']);
     $btnDiagnosticoTecnico = ServiceTicket::getButtonDiagnosisTechnician($_GET['ticket']);
     $btnDiagnosticoAdmin   = ServiceTicket::getButtonDiagnosisAdmin($_GET['ticket']);
     $diagnosticoUsuario    = ServiceTicket::getDiagnosisUser($_GET['ticket']);
     $tablaEquiposTicket    = ServiceTicket::getTableEquiposTicket($_GET['ticket']);
+    $btnOrdenInforme       = ServiceTicket::getButtonReport($_GET['ticket']);
     $btnOrdenTecnico       = ServiceTicket::getButtonReportTechnician($_GET['ticket']);
-    $btnInformeServTecnico = ServiceTicket::getButtonInformeFinal($_GET['ticket']);
+    $btnInformeServTecnico = ServiceTicket::getButtonInformeFinalTechnician($_GET['ticket']);
+}
+
+if(isset($_POST['deleteTicket'])){
+    $response = ServiceTicket::deleteTicket($_GET['ticket']);
 }
 
 

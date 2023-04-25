@@ -25,14 +25,14 @@ if(isset($_POST['deleteComponentDiagnosis'])){
     $response = ServiceDiagnosis::deleteComponentDiagnosis($_POST['nombre_tabla'],$_POST['nombre_campo'],$_POST['id']);
 }
 
-if(isset($_POST['deleteDiagnosis'])){
-    $response = ServiceDiagnosis::deleteDiagnosis($_GET['diagnosis'], $_GET['ticket']);
+if(isset($_GET['diagnosis'])){
+    $diagnostico                  = ServiceDiagnosis::getDiagnosis($_GET['diagnosis']);
+    $tablaHerramientasDiagnostico = ServiceDiagnosis::getTableHerramientas($_GET['diagnosis']);
+    $tablaMaterialesDiagnostico   = ServiceDiagnosis::getTableMateriales($_GET['diagnosis']);
+    $btnAtras                     = ServiceDiagnosis::getBackButton($_GET['ticket']);
 }
 
-if(isset($_GET['diagnosis'])){
-    $diagnostico       = ServiceDiagnosis::getDiagnosis($_GET['diagnosis']);
-    $btnAtras          = ServiceDiagnosis::getBackButton($_GET['ticket']);
-    $tablaHerramientas = ServiceDiagnosis::getTableHerramientas($diagnostico->getLstHerramientas());
-    $tablaMateriales   = ServiceDiagnosis::getTableMateriales($diagnostico->getLstMateriales());
+if(isset($_POST['deleteDiagnosis'])){
+    $response = ServiceDiagnosis::deleteDiagnosis($_GET['diagnosis'], $_GET['ticket']);
 }
 ?>

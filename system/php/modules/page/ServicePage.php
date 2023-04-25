@@ -33,6 +33,36 @@ class ServicePage extends System
     {
         return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
     }
+
+
+
+    //Registrar nuevo usuario ----------------------------------------------------------------
+    public static function newAccountUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass)
+    {
+        $nombre       = parent::limpiarString($nombre);
+        $correo       = parent::limpiarString($correo);
+        $telefono     = parent::limpiarString($telefono);
+        $cedula       = parent::limpiarString($cedula);
+        $direccion    = parent::limpiarString($direccion);
+        $ciudad       = parent::limpiarString($ciudad);
+        $departamento = parent::limpiarString($departamento);
+        $pass         = parent::limpiarString($pass);
+        $pass_hash    = parent::hash($pass);
+        $estado = 1;
+        $tipo   = 1;
+        $fecha_registro = date('Y-m-d H:i:s');
+
+        try {
+            $result = Usuario::newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro);
+            if ($result) {
+                return  '<script>swal("' . Constants::$USER_NEW . '", "Haga clic en iniciar sesión", "success");</script>';
+            } else {
+                return  '<script>swal("' . Constants::$ADMIN_REPEAT . '", "", "error");</script>';
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }
 
 

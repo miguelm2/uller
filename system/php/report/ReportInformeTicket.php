@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader
 
 abstract class ReportInformeTicket
 {
-    public static function generatePdf($informeDTO, $ticketDTO, $tecnicoTicketDTO)
+    public static function generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO)
     {
         Dompdf\Autoloader::register();
         $pdfName = 'Informe_Servicio_' . date('Y-m-d') . '.pdf';
@@ -36,11 +36,17 @@ abstract class ReportInformeTicket
         .negrilla{
             font-weight: bold;
         }
+        .deleteBorder{
+            border: none;
+        }
         </style>
         <div>
             <table class="default" style="width:100%">
                 <tr>
-                    <th colspan="4">
+                    <th colspan="1">
+                        <img src="' . $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen() . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
+                    </th>
+                    <th colspan="3">
                         MANTENIMIENTO CORRECTIVO Y PREVENTIVO
                         DE EQUIPOS DE AIRE ACONDICIONADO Y REFRIGERACION
                         (ORDEN DE SERVICIO)

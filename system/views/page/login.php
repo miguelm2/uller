@@ -88,7 +88,8 @@
                     </div>
                     <div class="col-12" style="text-align: center;">
                       <hr>
-                      <p class="small mb-1"><a href="recovery"> ¿Olvido su contraseña?</a></p>
+                      <p class="small mb-0"><a href="recovery"> ¿Olvidaste tu contraseña?</a></p>
+                      <p class="small mb-0"><a href="registerAccount"> Crear cuenta</a></p>
                       <p class="small mb-0"><a href="../../../index"> Ir a la pagina principal</a></p>
                     </div>
                   </form>

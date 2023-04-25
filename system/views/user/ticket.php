@@ -86,13 +86,15 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
+                            <div class="col-md-3 d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-success" name="setTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
                             </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
+                            <div class="col-md-3 d-grid gap-2 mt-3">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                             </div>
+
+                            <?= $btnOrdenInforme; ?>
 
                         </form><!-- Vertical Form -->
                         <div class="row">

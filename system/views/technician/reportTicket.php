@@ -116,7 +116,7 @@
                                     <button type="submit" class="btn btn-success" name="setReportTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
                                 </div>
                                 <div class="col-md-6 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-secondary" name="getPdfReportTicket"><i class="bi bi-filetype-pdf"></i> Generar Pdf</button>
+                                    <button type="submit" class="btn btn-secondary" name="getPdfReportTicket"><i class="bi bi-filetype-pdf"></i> Generar Orden</button>
                                 </div>
                             </div>
                         </form>

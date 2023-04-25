@@ -84,5 +84,13 @@ class InformeTicket extends System
 
         return $result['id'];
     }
+
+    public static function deleteInformeTicketByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM InformeTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return  $stmt->execute();
+    }
 }
 ?>

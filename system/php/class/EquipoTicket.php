@@ -48,5 +48,13 @@ class EquipoTicket extends System
         $stmt->bindParam(':id_equipo_ticket', $id_equipo_ticket);
         return  $stmt->execute();
     }
+
+    public static function deleteEquipoTicketByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM EquipoTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return  $stmt->execute();
+    }
 }
 ?>

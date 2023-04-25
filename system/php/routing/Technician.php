@@ -12,12 +12,12 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/technician/Controlle
 
 ServiceTechnician::validateSessionTechnician();
 
-include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTicket.php';
-
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/tool/ControllerTool.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/material/ControllerMaterial.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/diagnosis/ControllerDiagnosis.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTicket.php';
 
 ?>

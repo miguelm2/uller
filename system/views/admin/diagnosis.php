@@ -117,7 +117,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?= $tablaHerramientas; ?>
+                                    <?= $tablaHerramientasDiagnostico; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -145,7 +145,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?= $tablaMateriales; ?>
+                                    <?= $tablaMaterialesDiagnostico; ?>
                                 </tbody>
                             </table>
                         </div>

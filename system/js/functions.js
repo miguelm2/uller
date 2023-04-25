@@ -12,3 +12,14 @@ function validatePassword() {
         return false;
     }
 }
+
+//FUNCION PARA VER LA CONTRASEÑA
+$('#verPass').on('click', function() {
+    var tipo = $('#pass').attr('type');
+    
+    if(tipo == "password"){
+        $('#pass').get(0).type="text";
+    }else{
+        $('#pass').get(0).type="password";
+    }
+});

@@ -131,5 +131,13 @@ class ReporteFinal extends System
 
         return $result['id'];
     }
+
+    public static function deleteReporteFinalByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM ReporteFinalTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return  $stmt->execute();
+    }
 }
 ?>

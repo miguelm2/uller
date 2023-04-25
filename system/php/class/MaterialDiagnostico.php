@@ -50,8 +50,16 @@ class MaterialDiagnostico extends System
     public static function deleteMaterialByDiagnostico($id_diagnostico)
     {
         $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("DELETE FROM MaterialDiagnostico WHERE id_diagnostico = :id_diagnostico ");
+        $stmt = $dbh->prepare("DELETE FROM MaterialDiagnostico WHERE id_diagnostico = :id_diagnostico");
         $stmt->bindParam(':id_diagnostico', $id_diagnostico);
+        return  $stmt->execute();
+    }
+
+    public static function deleteMaterialByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM MaterialDiagnostico WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
         return  $stmt->execute();
     }
 
