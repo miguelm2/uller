@@ -37,12 +37,67 @@ class TecnicoTicket extends System
         }
     }
 
+    public static function getValidarTecnicoHasTicket($id_ticket, $id_tecnico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM TecnicoTicket WHERE id_ticket = :id_ticket AND id_tecnico = :id_tecnico");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        if ($result) {
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public static function getValidarTecnicoHasDiagnosis($id_diagnostico, $id_tecnico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_tecnico_ticket) AS total FROM TecnicoTicket AS t, Diagnostico AS d
+                                                                        WHERE t.id_tecnico = :id_tecnico
+                                                                        AND t.id_ticket = d.id_ticket
+                                                                        AND d.id_diagnostico = :id_diagnostico");
+        $stmt->bindParam(':id_diagnostico', $id_diagnostico);
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        if ($result['total']>0) {
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
     public static function deleteTecnicoTicket($id_tecnico_ticket)
     {
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("DELETE FROM TecnicoTicket WHERE id_tecnico_ticket = :id_tecnico_ticket");
         $stmt->bindParam(':id_tecnico_ticket', $id_tecnico_ticket);
         return  $stmt->execute();
+    }
+
+    public static function deleteTecnicoTicketByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM TecnicoTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return  $stmt->execute();
+    }
+
+    public static function getValidateTecnicoTicketByTecnico($id_tecnico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_tecnico_ticket FROM TecnicoTicket WHERE id_tecnico = :id_tecnico");
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 }
 ?>

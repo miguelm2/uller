@@ -48,9 +48,27 @@ class HerramientaDiagnostico extends System
     public static function deleteHerramientaByDiagnostico($id_diagnostico)
     {
         $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("DELETE FROM HerramientaDiagnostico WHERE id_diagnostico = :id_diagnostico ");
+        $stmt = $dbh->prepare("DELETE FROM HerramientaDiagnostico WHERE id_diagnostico = :id_diagnostico");
         $stmt->bindParam(':id_diagnostico', $id_diagnostico);
         return  $stmt->execute();
+    }
+
+    public static function deleteHerramientaByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM HerramientaDiagnostico WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return  $stmt->execute();
+    }
+
+    public static function getValidateHerramientaDiagnosticoByHerramienta($id_herramienta)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_herramienta_diagnostico FROM HerramientaDiagnostico WHERE id_herramienta = :id_herramienta");
+        $stmt->bindParam(':id_herramienta', $id_herramienta);
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 
 }

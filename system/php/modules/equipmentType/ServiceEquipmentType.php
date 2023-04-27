@@ -1,17 +1,19 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 
 class ServiceEquipmentType extends System
 {
-    public static function newEquipmentType($nombre, $descripcion)
+    public static function newEquipmentType($id_usuario, $nombre, $descripcion)
     {
+        $id_usuario     = parent::limpiarString($id_usuario);
         $nombre         = parent::limpiarString($nombre);
         $descripcion    = parent::limpiarString($descripcion);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = TipoEquipo::newTipoEquipo($nombre, $descripcion, $fecha_registro);
+            $result = TipoEquipo::newTipoEquipo($id_usuario, $nombre, $descripcion, $fecha_registro);
 
             if ($result) {
                 return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
@@ -55,10 +57,15 @@ class ServiceEquipmentType extends System
         $id_tipo = parent::limpiarString($id_tipo);
 
         try {
-            $result = TipoEquipo::deleteTipoEquipo($id_tipo);
+            $validateTicket = EquipoTicket::getValidateEquipoTicketByEquipo($id_tipo);
 
-            if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            if (!$validateTicket) {
+                $result = TipoEquipo::deleteTipoEquipo($id_tipo);
+                if ($result) {
+                    return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                }
+            }else{
+                return '<script>swal("El equipo no se puede eliminar", "Existen servicios asociados al equipo", "warning");</script>';
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -68,18 +75,19 @@ class ServiceEquipmentType extends System
 
     public static function getTableEquipmentType()
     {
-        if (basename($_SERVER['PHP_SELF']) == 'equipmentTypes.php') {
+        if (basename($_SERVER['PHP_SELF']) == 'equipments.php' && $_SESSION['tipo'] == 1) {
             $tableHtml = "";
+            $id_usuario = $_SESSION['id'];
 
-            $modelResponse = TipoEquipo::listTipoEquipo();
+            $modelResponse = TipoEquipo::listTipoEquipoByUser($id_usuario);
 
             foreach ($modelResponse as $valor) {
                 $tableHtml .= '<tr>';
                 $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) .'</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -94,7 +102,7 @@ class ServiceEquipmentType extends System
             $modelResponse = TipoEquipo::listTipoEquipo();
 
             foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="'.$valor->getId_tipo().'">'.$valor->getNombre().'</option>';
+                $tableHtml .= '<option value="' . $valor->getId_tipo() . '">' . $valor->getNombre() . '</option>';
             }
             return $tableHtml;
         }

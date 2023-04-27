@@ -3,10 +3,8 @@ class TicketDTO
 {
     protected $id_ticket;
     protected $usuarioDTO;
-    protected $tipo_equipoDTO;
     protected $tipo_servicioDTO;
     protected $descripcion;
-    protected $tipo_usuario;
     protected $estado;
     protected $fecha_registro;
 
@@ -52,26 +50,6 @@ class TicketDTO
     }
 
     /**
-     * Get the value of tipo_equipoDTO
-     */ 
-    public function getTipo_equipoDTO()
-    {
-        return $this->tipo_equipoDTO;
-    }
-
-    /**
-     * Set the value of tipo_equipoDTO
-     *
-     * @return  self
-     */ 
-    public function setTipo_equipoDTO($tipo_equipoDTO)
-    {
-        $this->tipo_equipoDTO = $tipo_equipoDTO;
-
-        return $this;
-    }
-
-    /**
      * Get the value of tipo_servicioDTO
      */ 
     public function getTipo_servicioDTO()
@@ -112,33 +90,18 @@ class TicketDTO
     }
 
     /**
-     * Get the value of tipo_usuario
-     */ 
-    public function getTipo_usuario()
-    {
-        return $this->tipo_usuario;
-    }
-
-    /**
-     * Set the value of tipo_usuario
-     *
-     * @return  self
-     */ 
-    public function setTipo_usuario($tipo_usuario)
-    {
-        $this->tipo_usuario = $tipo_usuario;
-
-        return $this;
-    }
-
-    /**
      * Get the value of estado
      */ 
     public function getEstado()
     {
-        if ($this->estado == 1) return explode(";", $this->estado . ';Creado');
-        if ($this->estado == 2) return explode(";", $this->estado . ';Verificado');
-        if ($this->estado == 3) return explode(";", $this->estado . ';Finalizado');
+        if ($this->estado == 1) return explode(";", $this->estado . ';Iniciado');
+        if ($this->estado == 2) return explode(";", $this->estado . ';Asignado');
+        if ($this->estado == 3) return explode(";", $this->estado . ';Diagnosticado');
+        if ($this->estado == 4) return explode(";", $this->estado . ';Cotizado');
+        if ($this->estado == 5) return explode(";", $this->estado . ';Servicio Aceptado');
+        if ($this->estado == 6) return explode(";", $this->estado . ';Servicio Rechazado');
+        if ($this->estado == 7) return explode(";", $this->estado . ';Orden Generada');
+        if ($this->estado == 8) return explode(";", $this->estado . ';Servicio Finalizado');
 
         return $this->estado;
     }

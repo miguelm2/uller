@@ -117,7 +117,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?= $tablaHerramientas; ?>
+                                    <?= $tablaHerramientasDiagnostico; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -149,7 +149,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?= $tablaMateriales; ?>
+                                    <?= $tablaMaterialesDiagnostico; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -256,7 +256,7 @@
         </form>
 
         <!-- Modal Eliminar Registro-->
-        <form method="post">
+        <form method="POST">
             <div class="modal fade" id="modalEliminar" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">

@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Tipos de servicio</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-person-plus"></i> Nuevo Tipo</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Tipo</button>
                             </div>
                         </div>
                     </div>

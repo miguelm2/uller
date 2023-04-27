@@ -102,7 +102,7 @@
         <!-- ======= Basic Modal ======= -->
         <form method="post">
             <div class="modal fade" id="newUsuario" tabindex="-1">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Nuevo Usuario</h5>
@@ -110,23 +110,35 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" name="nombre" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Correo</label>
                                     <input type="email" name="correo" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="telefono">Telefono</label>
                                     <input type="number" name="telefono" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Cedula</label>
                                     <input type="text" name="cedula" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
+                                    <label for="direccion">Direccion</label>
+                                    <input type="text" name="direccion" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="ciudad" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="departamento">Departamento</label>
+                                    <input type="text" name="departamento" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Contraseña</label>
                                     <input type="password" name="pass" class="form-control" required>
                                 </div>

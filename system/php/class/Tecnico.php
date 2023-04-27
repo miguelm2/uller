@@ -58,6 +58,26 @@ class Tecnico extends System
         return  $stmt->execute();
     }
 
+    public static function setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula)
+    {
+        $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
+        $validarUser    = Usuario::validateUser($cedula, $correo, null);
+        $validarTecnico = self::validateTecnico($cedula, $id_tecnico);
+
+        if (!$validarAdmin && !$validarUser && !$validarTecnico) {
+            $dbh             = parent::Conexion();
+            $stmt = $dbh->prepare("UPDATE Tecnico SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula WHERE id_tecnico = :id_tecnico");
+            $stmt->bindParam(':id_tecnico', $id_tecnico);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->bindParam(':telefono', $telefono);
+            $stmt->bindParam(':cedula', $cedula);
+            return  $stmt->execute();
+        } else {
+            return false;
+        }
+    }
+
     public static function getTecnicoById($id_tecnico)
     {
         $dbh             = parent::Conexion();
@@ -135,5 +155,14 @@ class Tecnico extends System
         } else {
             return false;
         }
+    }
+
+    public static function getCountTecnicos()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_tecnico) AS total FROM Tecnico");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
     }
 }

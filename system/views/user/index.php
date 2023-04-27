@@ -35,11 +35,11 @@
 <body>
 
   <!-- ======= Header ======= -->
-    <?php include '../../assets/html/header.php'; ?>
+  <?php include '../../assets/html/header.php'; ?>
   <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+  <?php include '../../assets/html/sidebar-user.php'; ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -55,9 +55,51 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
- 
+
       <div class="row">
-    
+
+        <!-- Equipos Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Equipos</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-window-dock"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboardUser[0]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Equipos Card -->
+
+        <!-- Equipos Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Servicios</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-card-checklist"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboardUser[1]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Equipos Card -->
+
 
       </div>
 
@@ -67,7 +109,7 @@
 
   <!-- ======= Footer ======= -->
   <?php include_once '../../assets/html/footer.html'; ?>
-<!-- End Footer -->
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -84,7 +126,7 @@
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <?= $response ?>  
+  <?= $response ?>
 </body>
 
 </html>

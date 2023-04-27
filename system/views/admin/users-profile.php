@@ -89,31 +89,31 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Nombre completo</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['nombre'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getNombre() ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Correo</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['correo'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getCorreo() ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Telefono</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['telefono'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getTelefono() ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Cedula</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['cedula'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getCedula() ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Tipo</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['tipo'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getTipo() ?></div>
                   </div>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Fecha de Registro</div>
-                    <div class="col-lg-9 col-md-8"><?= $_SESSION['fecha_registro'] ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getFecha_registro() ?></div>
                   </div>
 
                 </div>
@@ -126,7 +126,7 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nombre Completo</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="nombre" type="text" class="form-control" value="<?= $_SESSION['nombre'] ?>">
+                        <input name="nombre" type="text" class="form-control" value="<?= $perfilAdmin->getNombre() ?>">
                       </div>
                     </div>
 
@@ -134,21 +134,21 @@
                     <div class="row mb-3">
                       <label for="company" class="col-md-4 col-lg-3 col-form-label">Correo</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="correo" type="text" class="form-control" value="<?= $_SESSION['correo'] ?>">
+                        <input name="correo" type="text" class="form-control" value="<?= $perfilAdmin->getCorreo() ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Job" class="col-md-4 col-lg-3 col-form-label">Telefono</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="telefono" type="number" class="form-control" value="<?= $_SESSION['telefono'] ?>">
+                        <input name="telefono" type="number" class="form-control" value="<?= $perfilAdmin->getTelefono() ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Cedula</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="cedula" type="number" class="form-control" value="<?= $_SESSION['cedula'] ?>">
+                        <input name="cedula" type="number" class="form-control" value="<?= $perfilAdmin->getCedula() ?>">
                       </div>
                     </div>
 

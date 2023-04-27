@@ -17,7 +17,6 @@
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="../admin/tools">Herramientas / Equipos</a></li>
         <li><a class="dropdown-item" href="../admin/materials">Materiales</a></li>
-        <li><a class="dropdown-item" href="../admin/equipmentTypes">Tipos de equipo</a></li>
         <li><a class="dropdown-item" href="../admin/serviceTypes">Tipos de servicio</a></li>
       </ul>
     </li>
@@ -44,9 +43,9 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="../operation/tickets">
+      <a class="nav-link collapsed" href="../admin/tickets">
         <i class="bi bi-ticket-detailed"></i>
-        <span>Tickets</span>
+        <span>Servicios</span>
       </a>
     </li>
 

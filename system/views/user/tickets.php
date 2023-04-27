@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Operation.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-        <?= include $listUrl[0]; ?>
+    <?php include '../../assets/html/sidebar-user.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -53,10 +53,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h5 class="text-primary">Tickets</h5>
+                                <h5 class="text-primary">Servicios</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTicket"><i class="bi bi-person-plus"></i> Nuevo Ticket</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTicket"><i class="bi bi-plus-square"></i> Nuevo Servicio</button>
                             </div>
                         </div>
                     </div>
@@ -68,8 +68,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
@@ -78,8 +78,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
@@ -105,17 +105,12 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Nuevo Ticket</h5>
+                            <h5 class="modal-title">Nuevo Servicio</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="tipo_equipo">Tipo de equipo</label>
-                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                        <?= $selectTipoEquipos; ?>
-                                    </select>
-                                </div>
+                                <input type="hidden" class="form-control" name="id_usuario" value="<?=$id_usuario;?>">
                                 <div class="col-md-12 form-group">
                                     <label for="tipo_servicio">Tipo de servicio</label>
                                     <select class="form-select" name="tipo_servicio" id="tipo_servicio">
@@ -126,11 +121,15 @@
                                     <label for="descripcion">Descripción</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
                                 </div>
+                                <div class="col-dm-12 form-group">
+                                    <label>Por favor seleccione los equipos:</label>
+                                        <?=$listCheckEquipos;?>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newTicket" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Ticket</button>
+                            <button type="submit" name="newTicket" id="botonNewTicket" class="btn btn-success" disabled><i class="bi bi-plus-square"></i> Nuevo Servicio</button>
                         </div>
                     </div>
                 </div>
@@ -169,6 +168,8 @@
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>
+    <script src="../../js/ticketsFunction.js"></script>
+    
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?= $response ?>
 </body>

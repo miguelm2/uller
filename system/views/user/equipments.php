@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Operation.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-        <?= include $listUrl[0]; ?>
+    <?php include '../../assets/html/sidebar-user.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -52,79 +52,112 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-10">
-                                <h5 class="text-primary">Ticket</h5>
+                            <div class="col-md-8">
+                                <h5 class="text-primary">Equipos</h5>
                             </div>
-                            <div class="col-md-2 text-right d-grid">
-                                <a href="tickets" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left-circle"></i>
-                                    <span class="text"> Atras</span>
-                                </a>
+                            <div class="col-md-4 text-right d-grid">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <!-- Vertical Form -->
-                        <form class="row g-3" method="post">
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_equipo">Tipo de equipo</label>
-                                <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                <option value="<?= $ticket->getTipo_equipoDTO()->getId_tipo() ?>"><?= $ticket->getTipo_equipoDTO()->getNombre() ?></option>
-                                    <?= $selectTipoEquipos; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_servicio">Tipo de servicio</label>
-                                <select class="form-select" name="tipo_servicio" id="tipo_servicio">
-                                <option value="<?= $ticket->getTipo_servicioDTO()->getId_tipo() ?>"><?= $ticket->getTipo_servicioDTO()->getNombre() ?></option>
-                                    <?= $selectTipoServicios; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                <label for="estado">Estado</label>
-                                <select class="form-select" name="estado" id="estado">
-                                    <option value="<?= $ticket->getEstado()[0] ?>"><?= $ticket->getEstado()[1] ?></option>
-                                    <option value="1">Creado</option>
-                                    <option value="2">Verificado</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <label for="descripcion">Descripción</label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required><?= $ticket->getDescripcion() ?></textarea>
-                            </div>
-
-                                <?= $btnTecnico; ?>
-
-                            <div class="col-md-12">
-                                <hr>
-                            </div>
-
-                            <div class="col-md-4 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-success" name="setTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
-                            </div>
-
-                            <div class="col-md-4 d-grid gap-2 mt-3">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
-                            </div>
-
-                            <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoUsers;?>
-                            </div>
-
-                        </form><!-- Vertical Form -->
+                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th width="10px">Ver</th>
+                                    <th width="10px">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th width="10px">Ver</th>
+                                    <th width="10px">Eliminar</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <?= $tablaEquiposUser; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
 
         </section>
 
 
+        <!-- ======= Nuevo Equipo ======= -->
+        <form method="POST">
+            <div class="modal fade" id="newType" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nuevo Equipo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-md-12 form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" maxlength="255" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Descripcion</label>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Fin Nuevo Equipo-->
 
-        <!-- Modal Eliminar Registro-->
+        <!-- ======= Modal Editar Equipo ======= -->
+        <form method="POST" id="form_tool">
+            <div class="modal fade" id="editTypes" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editar Equipo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <input type="hidden" class="form-control" id="validateUser" value="1U">
+                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo" readonly required>
+                                <div class="col-md-12 form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre_tipo" maxlength="255" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Descripcion</label>
+                                    <textarea class="form-control" name="descripcion" id="descripcion_tipo" rows="3" maxlength="255" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Equipo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Modal Editar Equipo-->
+
+        <!-- Modal Eliminar Equipo-->
         <form method="post">
-            <div class="modal fade" id="eliminar" tabindex="-1">
+            <div class="modal fade" id="eliminarEquipo" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -132,71 +165,23 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="deleteTicket" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Basic Modal-->
-
-
-        <!-- Modal Asignar Tecnico-->
-        <form method="post">
-            <div class="modal fade" id="AsignarTecnico" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Asignar Técnico</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
                             <div class="col-md-12 form-group">
-                                <label for="tecnico">Técnico</label>
-                                <select class="form-select" name="tecnico" id="tecnico">
-                                    <?= $selectTecnicos; ?>
-                                </select>
+                                <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo_delete" readonly required>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="assignTechnician" class="btn btn-primary"><i class="bi bi-check-circle"></i> Asignar Técnico</button>
+                            <button type="submit" name="deleteEquipmentType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
-        <!-- End Modal Asignar Tecnico-->
+        <!-- Modal Eliminar Equipo-->
 
-
-        <!-- Modal Eliminar Tecnico-->
-        <form method="post">
-            <div class="modal fade" id="eliminarTecnico" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Eliminar Tecnico</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <label class="form-label">¿Esta seguro que desea eliminar el técnico asignado?</label>
-                            <div class="col-md-12 form-group">
-                                <input type="hidden" class="form-control" name="id_tecnico_ticket" id="id_tecnico_ticket" readonly required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="deleteTecnicoTicket" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Técnico</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Eliminar Tecnico-->
 
 
     </main><!-- End #main -->
@@ -224,7 +209,8 @@
 
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
-    <script src="../../js/tickets.js"></script>
+    <script src="../../js/functions.js"></script>
+    <script src="../../js/equipmentTypes.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

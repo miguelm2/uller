@@ -26,10 +26,10 @@ class Constants{
 
 
     //Configuracion PHPMailer
-    static $MAIL_SMTP_SERVER = "mail.kondory.com";
-    static $MAIL_SMTP_USER   = "sistema@kondory.com";
-    static $MAIL_SMTP_PASS   = "JwnQ?O0#E}6A";
-    static $MAIL_SMTP_NAME   = "Aplicacion Web Kondory";
+    static $MAIL_SMTP_SERVER = "mail.kondori.co";
+    static $MAIL_SMTP_USER   = "soporte@kondori.co";
+    static $MAIL_SMTP_PASS   = "+[y#v(lIh~k{";
+    static $MAIL_SMTP_NAME   = "Aplicacion Web Uller";
 
 
     //Mensajes Sistema
@@ -49,6 +49,7 @@ class Constants{
     static $REGISTER_NEW        = "Registro creado exitosamente";
     static $REGISTER_UPDATE     = "Registro actualizado correctamente";
     static $MESSAGE_NEW         = "Mensaje enviado exitosamente, pronto nos pondremos en contacto contigo";
+    static $REGISTER_ADD        = "Registro agregado exitosamente";
     static $TECHNICIAN_NEW      = "Técnico creado exitosamente";
     static $TECHNICIAN_UPDATE   = "Técnico actualizado correctamente";
     static $TECHNICIAN_ASSIGN   = "Técnico asignado correctamente";

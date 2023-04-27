@@ -1,11 +1,37 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceAdmin extends System
 {
+    //FUNCION PARA VALIDAR EL USUARIO QUE ACCEDE POR URL
+    public static function validateSessionAdmin()
+    {
+        if ($_SESSION['tipo'] != 0 && $_SESSION['tipo'] != 5) {
+            parent::logout();
+        }
+    }
 
+    public static function getDataDashboard()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'index.php' && ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5)) {
 
-    static function setProfile($nombre, $correo, $telefono, $cedula)
+                $list = array();
+
+                $list[0] = Administrador::getCountAdministradores();
+                $list[1] = Usuario::getCountUsuarios();
+                $list[2] = Tecnico::getCountTecnicos();
+                $list[3] = Ticket::getCountTickets();
+
+                return $list;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function setProfile($nombre, $correo, $telefono, $cedula)
     {
         $nombre = parent::limpiarString($nombre);
         $correo = parent::limpiarString($correo);
@@ -27,7 +53,7 @@ class ServiceAdmin extends System
         }
     }
 
-    static function setPassProfile($pass, $newPass, $confirmPass)
+    public static function setPassProfile($pass, $newPass, $confirmPass)
     {
         $pass = parent::limpiarString($pass);
         $newPass = parent::limpiarString($newPass);
@@ -53,7 +79,7 @@ class ServiceAdmin extends System
 
 
 
-    static function newAdministrator($nombre, $correo, $telefono, $cedula, $pass)
+    public static function newAdministrator($nombre, $correo, $telefono, $cedula, $pass)
     {
         $nombre = parent::limpiarString($nombre);
         $correo = parent::limpiarString($correo);
@@ -78,7 +104,7 @@ class ServiceAdmin extends System
         }
     }
 
-    static function setAdministrator($id_administrador, $nombre, $correo, $telefono, $cedula, $estado)
+    public static function setAdministrator($id_administrador, $nombre, $correo, $telefono, $cedula, $estado)
     {
         $id_administrador = parent::limpiarString($id_administrador);
         $nombre = parent::limpiarString($nombre);
@@ -100,7 +126,7 @@ class ServiceAdmin extends System
         }
     }
 
-    static function setPassAdministrator($id_administrador, $pass, $confirmPass)
+    public static function setPassAdministrator($id_administrador, $pass, $confirmPass)
     {
         $id_administrador = parent::limpiarString($id_administrador);
         $pass = parent::limpiarString($pass);
@@ -122,6 +148,19 @@ class ServiceAdmin extends System
         try {
             $modelResponse = Administrador::getAdministradorById($id_administrador);
             return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getPerfilAdministrador()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'users-profile.php' && ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5)) {
+                $id_administrador = $_SESSION['id'];
+                $result = Administrador::getAdministradorById($id_administrador);
+                return $result;
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Technician.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+    <?php include '../../assets/html/sidebar-technician.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -53,10 +53,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h4 class="text-primary">Diagnostico</h4>
+                                <h5 class="text-primary">Nueva Orden de Servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?=$btnAtras;?>" class="btn btn-secondary">
+                                <a href="<?=$btnAtrasTicket;?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -64,84 +64,62 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <form method="post">
-                            <div class="row g-2">
+                        <form method="POST">
+                            <div class="row g-3">
                                 <div class="col-md-6 form-group">
-                                    <label for="numero_horas">Número de horas</label>
-                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required value="<?= $diagnostico->getNumero_horas(); ?>" disabled>
+                                    <label for="fecha_servicio">Fecha servicio</label>
+                                    <input type="date" class="form-control" name="fecha_servicio" required>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label for="numero_ayudantes">Número de ayudantes</label>
-                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required value="<?= $diagnostico->getNumero_ayudantes(); ?>" disabled>
+                                    <label for="fecha_ultimo_servicio">Fecha del ultimo servicio</label>
+                                    <input type="date" class="form-control" name="fecha_ultimo_servicio" required>
                                 </div>
-                                <div class="col-md-12">
-                                    <label for="descripcion">Descripción</label>
-                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required disabled><?= $diagnostico->getDescripcion(); ?></textarea>
+                                <div class="col-md-6 form-group">
+                                    <label for="ubicacion_equipo">Ubicación del equipo</label>
+                                    <input type="text" class="form-control" name="ubicacion_equipo" maxlength="150" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="tipo_uso">Tipo de uso</label>
+                                    <select class="form-select" name="tipo_uso">
+                                        <option value="1">Residencial</option>
+                                        <option value="2">Comercial</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="tipo_equipo">Tipo de equipo (msp, paq, split, otro)</label>
+                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="100" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="presenta_falla">Presenta falla</label>
+                                    <input type="text" class="form-control" name="presenta_falla" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="capacidad">Capacidad (Btuh/TR)</label>
+                                    <input type="text" class="form-control" name="capacidad" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="marca">Marca</label>
+                                    <input type="text" class="form-control" name="marca" maxlength="255" required>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <label for="precio">Precio</label>
-                                    <input type="number" class="form-control" name="precio" required value="<?= $diagnostico->getPrecio(); ?>" disabled>
+                                    <label for="notas">Notas</label>
+                                    <input type="text" class="form-control" name="notas" maxlength="255" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="observaciones">Observaciones</label>
+                                    <textarea class="form-control" name="observaciones" rows="3" maxlength="500" required></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr>
+                                </div>
+                                <div class="col-md-12 d-grid gap-2 mt-3">
+                                    <button type="submit" class="btn btn-success" name="newReportTicket"><i class="bi bi-plus-square"></i> Crear Orden</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="text-primary">Herramientas / Equipos</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body" style="padding-top: 5px;">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-diagnosis" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Herramienta / Equipo</th>
-                                        <th>Tipo</th>
-                                        <th>Cantidad</th>
-                                        <th>Fecha registro</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?= $tablaHerramientas; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="text-primary">Materiales</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body" style="padding-top: 5px;">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped table-diagnosis" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Material</th>
-                                        <th>Cantidad</th>
-                                        <th>Unidad de medida</th>
-                                        <th>Fecha registro</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?= $tablaMateriales; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </section>
@@ -169,9 +147,6 @@
     <script src="../../assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
-
-    <!-- Js page -->
-    <script src="../../js/selectRepeat.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

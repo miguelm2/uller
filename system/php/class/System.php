@@ -5,6 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Administrador.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Usuario.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Elements.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Informacion.php';
 
 
 abstract  class System
@@ -207,5 +208,15 @@ abstract  class System
             $pass[] = $alphabet[$n];
         }
         return implode($pass); //turn the array into a string
+    }
+
+    public static function validarDecimal($numero)
+    {
+        $lstnumeros = explode('.', $numero);
+        if (count($lstnumeros) > 1) {
+            return number_format($numero, 2, ',', '.');
+        } else {
+            return number_format($numero, 0, ',', '.');
+        }
     }
 }

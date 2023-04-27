@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Herramientas / Equipos</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTools"><i class="bi bi-person-plus"></i> Nueva Herramienta</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newTools"><i class="bi bi-plus-square"></i> Nueva Herramienta</button>
                             </div>
                         </div>
                     </div>

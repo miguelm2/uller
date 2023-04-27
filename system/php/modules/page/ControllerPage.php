@@ -29,4 +29,9 @@ if(isset($_GET['delete'])){
     $response = ServicePage::getAlertaEliminar();
 }
 
+
+//Registrar nuevo usuario
+if(isset($_POST['newAccountUser'])){
+    $response = ServicePage::newAccountUser($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['direccion'], $_POST['ciudad'], $_POST['departamento'], $_POST['pass']);
+}
 ?>

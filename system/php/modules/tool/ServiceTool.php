@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Herramienta.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/HerramientaDiagnostico.php';
 
 class ServiceTool extends System
 {
@@ -22,7 +23,7 @@ class ServiceTool extends System
         }
     }
 
-    public static function setTool($id_herramienta,$nombre, $tipo, $descripcion)
+    public static function setTool($id_herramienta, $nombre, $tipo, $descripcion)
     {
         $id_herramienta = parent::limpiarString($id_herramienta);
         $nombre         = parent::limpiarString($nombre);
@@ -57,10 +58,15 @@ class ServiceTool extends System
         $id_herramienta = parent::limpiarString($id_herramienta);
 
         try {
-            $result = Herramienta::deleteHerramienta($id_herramienta);
+            $validateTool = HerramientaDiagnostico::getValidateHerramientaDiagnosticoByHerramienta($id_herramienta);
 
-            if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            if (!$validateTool) {
+                $result = Herramienta::deleteHerramienta($id_herramienta);
+                if ($result) {
+                    return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                }
+            }else{
+                return '<script>swal("La herramienta no se puede eliminar", "Existen diagnosticos asociados a la herramienta", "warning");</script>';
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -81,8 +87,8 @@ class ServiceTool extends System
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getTipo()[1] . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_herramienta()) .'</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_herramienta()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_herramienta()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_herramienta()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -97,7 +103,7 @@ class ServiceTool extends System
             $modelResponse = Herramienta::listHerramienta();
 
             foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="'.$valor->getId_herramienta().'">'.$valor->getNombre().' ('.$valor->getTipo()[1].')</option>';
+                $tableHtml .= '<option value="' . $valor->getId_herramienta() . '">' . $valor->getNombre() . ' (' . $valor->getTipo()[1] . ')</option>';
             }
             return $tableHtml;
         }

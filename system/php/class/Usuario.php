@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/UsuarioDTO.php';
 
 class Usuario extends System
 {
-    public static function newUser($nombre, $correo, $telefono, $cedula, $pass_hash, $estado, $tipo, $fecha_registro)
+    public static function newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro)
     {
         $validarUser    = self::validateUser($cedula, $correo, null);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -11,12 +11,15 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("INSERT INTO Usuario (nombre, correo, telefono, cedula, pass, estado, tipo, fecha_registro) 
-                                VALUES (:nombre, :correo, :telefono, :cedula, :pass, :estado, :tipo, :fecha_registro)");
+            $stmt = $dbh->prepare("INSERT INTO Usuario (nombre, correo, telefono, cedula, direccion, ciudad, departamento, pass, estado, tipo, fecha_registro) 
+                                VALUES (:nombre, :correo, :telefono, :cedula, :direccion, :ciudad, :departamento, :pass, :estado, :tipo, :fecha_registro)");
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':ciudad', $ciudad);
+            $stmt->bindParam(':departamento', $departamento);
             $stmt->bindParam(':pass', $pass_hash);
             $stmt->bindParam(':estado', $estado);
             $stmt->bindParam(':tipo', $tipo);
@@ -27,7 +30,7 @@ class Usuario extends System
         }
     }
 
-    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $estado)
+    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $estado)
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -35,12 +38,15 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, estado = :estado WHERE id_usuario = :id_usuario ");
+            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, direccion = :direccion, ciudad = :ciudad, departamento = :departamento, estado = :estado WHERE id_usuario = :id_usuario ");
             $stmt->bindParam(':id_usuario', $id_usuario);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':ciudad', $ciudad);
+            $stmt->bindParam(':departamento', $departamento);
             $stmt->bindParam(':estado', $estado);
             return  $stmt->execute();
         } else {
@@ -102,7 +108,7 @@ class Usuario extends System
     }
 
 
-    public static function setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula)
+    public static function setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento)
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -110,12 +116,15 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula WHERE id_usuario = :id_usuario ");
+            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, direccion = :direccion, ciudad = :ciudad, departamento = :departamento WHERE id_usuario = :id_usuario ");
             $stmt->bindParam(':id_usuario', $id_usuario);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':ciudad', $ciudad);
+            $stmt->bindParam(':departamento', $departamento);
             return  $stmt->execute();
         } else {
             return false;
@@ -159,5 +168,14 @@ class Usuario extends System
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'UsuarioDTO');
         $stmt->execute();
         return  $stmt->fetch();
+    }
+
+    public static function getCountUsuarios()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_usuario) AS total FROM Usuario");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
     }
 }

@@ -160,4 +160,13 @@ class Administrador extends System
         $stmt->execute();
         return  $stmt->fetch();
     }
+
+    public static function getCountAdministradores()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_administrador) AS total FROM Administrador");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

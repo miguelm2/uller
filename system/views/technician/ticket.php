@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Ticket</h5>
+                                <h5 class="text-primary">Servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
                                 <a href="tickets" class="btn btn-secondary">
@@ -64,24 +64,38 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <!-- Vertical Form -->
-                        <form class="row g-3" method="post">
-                            <div class="col-md-4 form-group">
-                                <label for="tipo_equipo">Tipo de equipo</label>
-                                <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_equipoDTO()->getNombre() ?>">
+                        <div class="row g-2">
+                            <div class="col-md-6 form-group">
+                                <label for="nombre_cliente">Nombre cliente</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getNombre() ?>">
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
+                                <label for="documento">Documento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCedula() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="telefono">Telefono</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getTelefono() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDireccion() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="ciudad">Ciudad</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getCiudad() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="departamento">Departamento</label>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getUsuarioDTO()->getDepartamento() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
                                 <input type="text" class="form-control" disabled value="<?= $ticket->getTipo_servicioDTO()->getNombre() ?>">
                             </div>
-                            <div class="col-md-4 form-group">
+                            <div class="col-md-6 form-group">
                                 <label for="estado">Estado</label>
-                                <select class="form-select" name="estado" id="estado">
-                                    <option value="<?= $ticket->getEstado()[0] ?>"><?= $ticket->getEstado()[1] ?></option>
-                                    <option value="1">Creado</option>
-                                    <option value="2">Verificado</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
+                                <input type="text" class="form-control" disabled value="<?= $ticket->getEstado()[1] ?>">
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="descripcion">Descripción</label>
@@ -92,14 +106,41 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <?=$btnDiagnosticoTecnico;?>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnDiagnosticoTecnico; ?>
                             </div>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnOrdenTecnico; ?>
+                            </div>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnInformeServTecnico; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="col-md-6 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-success" name="setEstadoTicket"><i class="bi bi-save"></i> Actualizar Estado</button>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Equipos</h5>
                             </div>
-                        </form><!-- Vertical Form -->
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?=$tablaEquiposTicket;?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

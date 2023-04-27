@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-12">
-                                <h5 class="text-primary">Tickets</h5>
+                                <h5 class="text-primary">Servicios</h5>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
@@ -74,8 +74,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Usuario</th>
-                                        <th>Tipo de equipo</th>
                                         <th>Tipo de servicio</th>
+                                        <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
