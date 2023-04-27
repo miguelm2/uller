@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoServicio.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceType extends System
 {
@@ -55,10 +56,14 @@ class ServiceType extends System
         $id_tipo = parent::limpiarString($id_tipo);
 
         try {
-            $result = TipoServicio::deleteTipoServicio($id_tipo);
-
-            if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            $validateService = Ticket::getValidateTicketByTipoServicio($id_tipo);
+            if (!$validateService) {
+                $result = TipoServicio::deleteTipoServicio($id_tipo);
+                if ($result) {
+                    return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                }
+            }else{
+                return '<script>swal("El tipo de servicio no se puede eliminar", "Existen servicios asociados con este registro", "warning");</script>';
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -78,8 +83,8 @@ class ServiceType extends System
                 $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) .'</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -94,7 +99,7 @@ class ServiceType extends System
             $modelResponse = TipoServicio::listTipoServicio();
 
             foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="'.$valor->getId_tipo().'">'.$valor->getNombre().'</option>';
+                $tableHtml .= '<option value="' . $valor->getId_tipo() . '">' . $valor->getNombre() . '</option>';
             }
             return $tableHtml;
         }

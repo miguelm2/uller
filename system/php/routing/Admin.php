@@ -5,11 +5,10 @@ date_default_timezone_set('America/Bogota'); // CDT
 
 
 // Acceso a los modulos de la aplicacion web
-include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/page/ControllerPage.php';
-
-System::validarSession();
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/administrator/ControllerAdmin.php';
+
+System::validarSession();
 
 ServiceAdmin::validateSessionAdmin();
 
@@ -33,4 +32,5 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/diagnosis/Controller
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTicket.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/page/ControllerPage.php';
 ?>

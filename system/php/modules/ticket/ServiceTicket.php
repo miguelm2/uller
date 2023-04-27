@@ -658,8 +658,8 @@ class ServiceTicket extends System
                                 <div class="col-md-12">
                                     <br><hr>
                                 </div>
-                                <div class="col-md-12">
-                                    <center><label><h4>Precio final: $' . parent::validarDecimal($diagnosticoDTO->getPrecio()) . '</h4></label></center>
+                                <div class="col-md-12 alert alert-info">
+                                    <center><label><h3>Precio servicio: $' . parent::validarDecimal($diagnosticoDTO->getPrecio()) . '</h3></label></center>
                                 </div>
                                 <div class="col-md-12">
                                     <hr>
@@ -848,6 +848,29 @@ class ServiceTicket extends System
                     } else {
                         $html = '<a href="newInform?ticket=' . $id_ticket . '" class="btn btn-success"><i class="bi bi-info-circle"></i> Crear Informe Final</a>';
                     }
+                }
+
+                return $html;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonFirmaImform($id_reporte_final)
+    {
+        try {
+            if ($_SESSION['tipo'] == 3) {
+                $id_reporte_final = parent::limpiarString($id_reporte_final);
+                $html = '';
+
+                $firma = ReporteFinal::getFirmaByReporteFinal($id_reporte_final);
+
+                if(empty($firma)){
+                    $html = '
+                                <div class="col-md-4 d-grid gap-2 mt-3">
+                                    <button type="button" class="btn btn-warning text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Actualizar Firma</button>
+                                </div>';
                 }
 
                 return $html;

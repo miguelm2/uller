@@ -108,7 +108,8 @@ if(isset($_GET['getPdfInform'])){
 }
 
 if(isset($_GET['informTicket'])){
-    $informTicket = ServiceTicket::getInformTicket($_GET['informTicket']);
+    $informTicket   = ServiceTicket::getInformTicket($_GET['informTicket']);
+    $btnFirmaInform = ServiceTicket::getButtonFirmaImform($_GET['informTicket']);
 }
 
 //FIN INFORME FINAL DE SERVICIO DE UN TICKET --------------------------------------

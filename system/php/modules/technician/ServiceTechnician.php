@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TecnicoTicket.php';
 
 class ServiceTechnician extends System
 {
@@ -150,8 +151,14 @@ class ServiceTechnician extends System
         $id_tecnico = parent::limpiarString($id_tecnico);
 
         try {
-            $result = Tecnico::deleteTecnico($id_tecnico);
-            if ($result) header('Location:technicians?delete');
+            $validateTecnico = TecnicoTicket::getValidateTecnicoTicketByTecnico($id_tecnico);
+
+            if (!$validateTecnico) {
+                $result = Tecnico::deleteTecnico($id_tecnico);
+                if ($result) header('Location:technicians?delete');
+            } else {
+                return  '<script>swal("El técnico no se puede eliminar", "Existen servicios asociados al técnico", "warning");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

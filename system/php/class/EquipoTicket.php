@@ -56,5 +56,15 @@ class EquipoTicket extends System
         $stmt->bindParam(':id_ticket', $id_ticket);
         return  $stmt->execute();
     }
+
+    public static function getValidateEquipoTicketByEquipo($id_equipo)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_equipo_ticket FROM EquipoTicket WHERE id_equipo = :id_equipo");
+        $stmt->bindParam(':id_equipo', $id_equipo);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
 ?>

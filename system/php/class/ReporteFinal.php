@@ -148,5 +148,16 @@ class ReporteFinal extends System
         $stmt->bindParam(':id_ticket', $id_ticket);
         return  $stmt->execute();
     }
+
+    public static function getFirmaByReporteFinal($id_reporte_final)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT firma AS firma FROM ReporteFinalTicket WHERE id_reporte_final = :id_reporte_final");
+        $stmt->bindParam(':id_reporte_final', $id_reporte_final);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['firma'];
+    }
 }
 ?>

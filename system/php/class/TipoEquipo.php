@@ -80,6 +80,14 @@ class TipoEquipo extends System
         return  $stmt->execute();
     }
 
+    public static function deleteTipoEquipoByUser($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM TipoEquipo WHERE id_usuario = :id_usuario");
+        $stmt->bindParam(':id_usuario', $id_usuario);
+        return  $stmt->execute();
+    }
+
     public static function getCountEquiposByUser($id_usuario)
     {
         $dbh             = parent::Conexion();

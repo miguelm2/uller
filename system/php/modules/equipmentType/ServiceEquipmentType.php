@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 
 class ServiceEquipmentType extends System
 {
@@ -56,10 +57,15 @@ class ServiceEquipmentType extends System
         $id_tipo = parent::limpiarString($id_tipo);
 
         try {
-            $result = TipoEquipo::deleteTipoEquipo($id_tipo);
+            $validateTicket = EquipoTicket::getValidateEquipoTicketByEquipo($id_tipo);
 
-            if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            if (!$validateTicket) {
+                $result = TipoEquipo::deleteTipoEquipo($id_tipo);
+                if ($result) {
+                    return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                }
+            }else{
+                return '<script>swal("El equipo no se puede eliminar", "Existen servicios asociados al equipo", "warning");</script>';
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -80,8 +86,8 @@ class ServiceEquipmentType extends System
                 $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) .'</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -96,7 +102,7 @@ class ServiceEquipmentType extends System
             $modelResponse = TipoEquipo::listTipoEquipo();
 
             foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="'.$valor->getId_tipo().'">'.$valor->getNombre().'</option>';
+                $tableHtml .= '<option value="' . $valor->getId_tipo() . '">' . $valor->getNombre() . '</option>';
             }
             return $tableHtml;
         }

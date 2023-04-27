@@ -9,13 +9,13 @@ if(isset($_POST['setMaterial'])){
     $response = ServiceMaterial::setMaterial($_POST['id_material'], $_POST['nombre'], $_POST['descripcion']);
 }
 
-if(isset($_POST['deleteMaterial'])){
-    $response = ServiceMaterial::deleteMaterial($_POST['id_material']);
-}
-
 if(isset($_POST['getMaterial'])){
     $response = ServiceMaterial::getMaterial($_POST['id_material']);
     echo $response;
+}
+
+if(isset($_POST['deleteMaterial'])){
+    $response = ServiceMaterial::deleteMaterial($_POST['id_material']);
 }
 
 if(isset($_GET)){

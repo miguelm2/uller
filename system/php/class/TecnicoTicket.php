@@ -89,5 +89,15 @@ class TecnicoTicket extends System
         $stmt->bindParam(':id_ticket', $id_ticket);
         return  $stmt->execute();
     }
+
+    public static function getValidateTecnicoTicketByTecnico($id_tecnico)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_tecnico_ticket FROM TecnicoTicket WHERE id_tecnico = :id_tecnico");
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
 ?>

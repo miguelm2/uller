@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Material.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/MaterialDiagnostico.php';
 
 class ServiceMaterial extends System
 {
@@ -21,7 +22,7 @@ class ServiceMaterial extends System
         }
     }
 
-    public static function setMaterial($id_material,$nombre, $descripcion)
+    public static function setMaterial($id_material, $nombre, $descripcion)
     {
         $id_material    = parent::limpiarString($id_material);
         $nombre         = parent::limpiarString($nombre);
@@ -55,10 +56,15 @@ class ServiceMaterial extends System
         $id_material = parent::limpiarString($id_material);
 
         try {
-            $result = Material::deleteMaterial($id_material);
+            $valdiateMaterial = MaterialDiagnostico::getValidateMaterialDiagnosticoByMaterial($id_material);
 
-            if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+            if (!$valdiateMaterial) {
+                $result = Material::deleteMaterial($id_material);
+                if ($result) {
+                    return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                }
+            }else{
+                return '<script>swal("El material no se puede eliminar", "Existen diagnosticos asociados al material", "warning");</script>';
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -78,8 +84,8 @@ class ServiceMaterial extends System
                 $tableHtml .= '<td>' . $valor->getId_material() . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_material()) .'</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_material()) .'</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_material()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_material()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -94,7 +100,7 @@ class ServiceMaterial extends System
             $modelResponse = Material::listMaterial();
 
             foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="'.$valor->getId_material().'">'.$valor->getNombre().'</option>';
+                $tableHtml .= '<option value="' . $valor->getId_material() . '">' . $valor->getNombre() . '</option>';
             }
             return $tableHtml;
         }

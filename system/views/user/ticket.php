@@ -258,7 +258,6 @@
 
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
-    <script src="../../js/tickets.js"></script>
     <script src="../../js/equipmentTypes.js"></script>
 
     <!-- Template Main JS File -->

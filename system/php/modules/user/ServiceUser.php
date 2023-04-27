@@ -155,8 +155,15 @@ class ServiceUser extends System
         $id_usuario = parent::limpiarString($id_usuario);
 
         try {
-            $result = Usuario::deleteUser($id_usuario);
-            if ($result) header('Location:users?delete');
+            $validateTicket = Ticket::getValidateTicketByUser($id_usuario);
+
+            if (!$validateTicket) {
+                $delEquipos = TipoEquipo::deleteTipoEquipoByUser($id_usuario);
+                $delUser    = Usuario::deleteUser($id_usuario);
+                if ($delUser && $delEquipos) header('Location:users?delete');
+            }else{
+                return  '<script>swal("El usuario no se puede eliminar", "Existen servicios asociados al usuario", "warning");</script>';
+            }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

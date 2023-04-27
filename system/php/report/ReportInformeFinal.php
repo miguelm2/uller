@@ -49,17 +49,22 @@ abstract class ReportInformeFinal
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" rowspan="2">
                         Fecha de servicio
                     </td>
-                    <td>
+                    <td rowspan="2">
                         '.$reporteDTO->getFecha_servicio().'
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" colspan="2">
                         Mantenimiento
                     </td>
+                </tr>
+                <tr>
                     <td>
-                        <span style="margin-right: 10pt;">Preventivo ( '.self::validateSi($reporteDTO->getMantenimiento_preventivo()[0]).' )</span><span>Correctivo ( '.self::validateSi($reporteDTO->getMantenimiento_correctivo()[0]).' )</span> 
+                        <span>Preventivo ( '.self::validateSi($reporteDTO->getMantenimiento_preventivo()[0]).' )</span>
+                    </td>
+                    <td>
+                        <span>Correctivo ( '.self::validateSi($reporteDTO->getMantenimiento_correctivo()[0]).' )</span> 
                     </td>
                 </tr>
             </table>
@@ -445,10 +450,10 @@ abstract class ReportInformeFinal
                 </tr>
                 <tr class="deleteBorder">
                     <td class="deleteBorder" style="text-align:justify;">
-                        <hr size="1px" class="lineFirma">
+                        <hr size="1" class="lineFirma">
                     </td>
                     <td class="deleteBorder" style="text-align:justify;">
-                        <hr size="1px" class="lineFirma">
+                        <hr size="1" class="lineFirma">
                     </td>
                 </tr>
                 <tr class="deleteBorder">

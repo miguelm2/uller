@@ -63,5 +63,15 @@ class MaterialDiagnostico extends System
         return  $stmt->execute();
     }
 
+    public static function getValidateMaterialDiagnosticoByMaterial($id_material)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_material_diagnostico FROM MaterialDiagnostico WHERE id_material = :id_material");
+        $stmt->bindParam(':id_material', $id_material);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
 }
 ?>

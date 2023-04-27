@@ -61,5 +61,15 @@ class HerramientaDiagnostico extends System
         return  $stmt->execute();
     }
 
+    public static function getValidateHerramientaDiagnosticoByHerramienta($id_herramienta)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_herramienta_diagnostico FROM HerramientaDiagnostico WHERE id_herramienta = :id_herramienta");
+        $stmt->bindParam(':id_herramienta', $id_herramienta);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
 }
 ?>

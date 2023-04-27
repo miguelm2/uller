@@ -205,4 +205,24 @@ class Ticket extends System
         $result = $stmt->fetch();
         return $result['total'];
     }
+
+    public static function getValidateTicketByUser($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_ticket FROM Ticket WHERE id_user = :id_user");
+        $stmt->bindParam(':id_user', $id_usuario);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+    public static function getValidateTicketByTipoServicio($id_tipo_servicio)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT id_ticket FROM Ticket WHERE id_tipo_servicio = :id_tipo_servicio");
+        $stmt->bindParam(':id_tipo_servicio', $id_tipo_servicio);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }

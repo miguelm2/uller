@@ -9,13 +9,13 @@ if(isset($_POST['setTool'])){
     $response = ServiceTool::setTool($_POST['id_herramienta'],$_POST['nombre_tool'], $_POST['tipo_tool'], $_POST['descripcion_tool']);
 }
 
-if(isset($_POST['deleteTool'])){
-    $response = ServiceTool::deleteTool($_POST['id_herramienta']);
-}
-
 if(isset($_POST['getTool'])){
     $response = ServiceTool::getTool($_POST['id_herramienta']);
     echo $response;
+}
+
+if(isset($_POST['deleteTool'])){
+    $response = ServiceTool::deleteTool($_POST['id_herramienta']);
 }
 
 if(isset($_GET)){
