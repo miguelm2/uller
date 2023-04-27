@@ -17,11 +17,18 @@
             </a>
         </li><!-- End Profile Page Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="../user/equipments">
+                <i class="bi bi-collection"></i>
+                <span>Equipos</span>
+            </a>
+        </li>
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="../user/tickets">
                 <i class="bi bi-ticket-detailed"></i>
-                <span>Tickets</span>
+                <span>Servicios</span>
             </a>
         </li>
         

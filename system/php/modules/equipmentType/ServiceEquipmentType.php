@@ -69,10 +69,11 @@ class ServiceEquipmentType extends System
 
     public static function getTableEquipmentType()
     {
-        if (basename($_SERVER['PHP_SELF']) == 'equipmentTypes.php') {
+        if (basename($_SERVER['PHP_SELF']) == 'equipments.php' && $_SESSION['tipo'] == 1) {
             $tableHtml = "";
+            $id_usuario = $_SESSION['id'];
 
-            $modelResponse = TipoEquipo::listTipoEquipo();
+            $modelResponse = TipoEquipo::listTipoEquipoByUser($id_usuario);
 
             foreach ($modelResponse as $valor) {
                 $tableHtml .= '<tr>';

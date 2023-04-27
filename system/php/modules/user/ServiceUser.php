@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoEquipo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceUser extends System
 {
@@ -10,6 +11,24 @@ class ServiceUser extends System
     {
         if ($_SESSION['tipo'] != 1) {
             parent::logout();
+        }
+    }
+
+    public static function getDataDashboard()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'index.php' && $_SESSION['tipo'] == 1) {
+
+                $id_usuario = $_SESSION['id'];
+                $list = array();
+
+                $list[0] = TipoEquipo::getCountEquiposByUser($id_usuario);
+                $list[1] = Ticket::getCountTicketsByUser($id_usuario);
+
+                return $list;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 

@@ -32,6 +32,7 @@ if(isset($_POST['deleteAdministrator'])){
 }
 
 if(isset($_GET)){
+    $dashboarAdmin        = ServiceAdmin::getDataDashboard();
     $perfilAdmin          = ServiceAdmin::getPerfilAdministrador();
     $tablaAdministradores = ServiceAdmin::getTablaAdministradores();
 }

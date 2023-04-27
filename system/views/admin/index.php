@@ -35,11 +35,11 @@
 <body>
 
   <!-- ======= Header ======= -->
-    <?php include '../../assets/html/header.php'; ?>
+  <?php include '../../assets/html/header.php'; ?>
   <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-admin.php'; ?>
+  <?php include '../../assets/html/sidebar-admin.php'; ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -55,9 +55,92 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
- 
+
       <div class="row">
-    
+
+        <!-- Administradores Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Administradores</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-fill-check"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboarAdmin[0]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Administradores Card -->
+
+        <!-- Usuarios Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Usuarios</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboarAdmin[1]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Usuarios Card -->
+
+        <!-- Tecnicos Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Técnicos</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-person-fill-gear"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboarAdmin[2]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Tecnicos Card -->
+
+        <!-- Servicios Card -->
+        <div class="col-md-3">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Servicios</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-card-checklist"></i>
+                </div>
+                <div class="ps-3">
+                  <h6><?= $dashboarAdmin[3]; ?></h6>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- End Servicios Card -->
 
       </div>
 
@@ -67,7 +150,7 @@
 
   <!-- ======= Footer ======= -->
   <?php include_once '../../assets/html/footer.html'; ?>
-<!-- End Footer -->
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -84,7 +167,7 @@
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <?= $response ?>  
+  <?= $response ?>
 </body>
 
 </html>

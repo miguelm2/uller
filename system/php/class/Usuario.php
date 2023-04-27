@@ -169,4 +169,13 @@ class Usuario extends System
         $stmt->execute();
         return  $stmt->fetch();
     }
+
+    public static function getCountUsuarios()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_usuario) AS total FROM Usuario");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

@@ -6,7 +6,21 @@ $('.btn-editar').on('click', function() {
 });
 
 function getEquipmentType(id_tipo){
-    $.post("../../php/routing/Admin.php", {
+    const validateUser = $('#validateUser').val();
+    var ruta = "";
+    
+    switch (validateUser) {
+        case '0A':
+            ruta = "../../php/routing/Admin.php";
+            break;
+
+        case '1U':
+            ruta = "../../php/routing/User.php";
+            break;
+    }
+
+
+    $.post(ruta, {
         "getEquipmentType": true,
         "id_tipo": id_tipo
     }).done(function(data) {

@@ -45,7 +45,7 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/tickets">
         <i class="bi bi-ticket-detailed"></i>
-        <span>Tickets</span>
+        <span>Servicios</span>
       </a>
     </li>
 

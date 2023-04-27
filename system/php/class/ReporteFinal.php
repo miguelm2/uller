@@ -100,6 +100,15 @@ class ReporteFinal extends System
         return  $stmt->execute();
     }
 
+    public static function setFirmaReporteFinal($id_reporte_final, $firma)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("UPDATE ReporteFinalTicket SET firma = :firma WHERE id_reporte_final = :id_reporte_final");
+        $stmt->bindParam(':id_reporte_final', $id_reporte_final);
+        $stmt->bindParam(':firma', $firma);
+        return  $stmt->execute();
+    }
+
     public static function getReporteFinalById($id_reporte_final)
     {
         $dbh             = parent::Conexion();

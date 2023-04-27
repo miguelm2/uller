@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceAdmin extends System
 {
@@ -8,6 +9,25 @@ class ServiceAdmin extends System
     {
         if ($_SESSION['tipo'] != 0 && $_SESSION['tipo'] != 5) {
             parent::logout();
+        }
+    }
+
+    public static function getDataDashboard()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'index.php' && ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5)) {
+
+                $list = array();
+
+                $list[0] = Administrador::getCountAdministradores();
+                $list[1] = Usuario::getCountUsuarios();
+                $list[2] = Tecnico::getCountTecnicos();
+                $list[3] = Ticket::getCountTickets();
+
+                return $list;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 

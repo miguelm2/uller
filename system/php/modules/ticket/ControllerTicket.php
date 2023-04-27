@@ -95,6 +95,10 @@ if(isset($_POST['setInformTicket'])){
                                             $_POST['repuestos'],$_POST['insumos'],$_POST['tarjetas_electronicas'],$_POST['estimado_horas'],$_POST['observaciones']);
 }
 
+if(isset($_POST['newFirmaReport'])){
+    $response = ServiceTicket::addFirmaReport($_GET['informTicket'], $_POST['firma']);
+}
+
 if(isset($_POST['getPdfInform'])){
     $response = ServiceTicket::getPdfInform($_GET['informTicket']);
 }

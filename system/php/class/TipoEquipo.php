@@ -79,4 +79,14 @@ class TipoEquipo extends System
         $stmt->bindParam(':id_tipo', $id_tipo);
         return  $stmt->execute();
     }
+
+    public static function getCountEquiposByUser($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_tipo) AS total FROM TipoEquipo WHERE id_usuario = :id_usuario");
+        $stmt->bindParam(':id_usuario', $id_usuario);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

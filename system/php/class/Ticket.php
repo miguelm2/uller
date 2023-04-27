@@ -186,4 +186,23 @@ class Ticket extends System
 
         return $result['estado'];
     }
+
+    public static function getCountTickets()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_ticket) AS total FROM Ticket");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
+
+    public static function getCountTicketsByUser($id_usuario)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_ticket) AS total FROM Ticket WHERE id_user = :id_user");
+        $stmt->bindParam(':id_user', $id_usuario);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

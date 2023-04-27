@@ -29,8 +29,7 @@ abstract class ReportInformeFinal
             border: none;
         }
         .lineFirma{
-            margin-right: 30pt;
-            margin-top: 40pt;
+            margin-right: 40pt;
             background-color:#000000;
         }
         .justificar{
@@ -437,13 +436,29 @@ abstract class ReportInformeFinal
             <br><br><br>
             <table class="default deleteBorder" style="width:100%">
                 <tr class="deleteBorder">
-                    <th class="deleteBorder" style="text-align:justify;">
+                    <td class="deleteBorder" style="text-align:justify;">
+                        
+                    </td>
+                    <td class="deleteBorder" style="text-align:justify;">
+                        <img src="' . $reporteDTO->getFirma() . '" width="250px" style="max-width:300px; margin-top: 5pt;">
+                    </td>
+                </tr>
+                <tr class="deleteBorder">
+                    <td class="deleteBorder" style="text-align:justify;">
+                        <hr size="1px" class="lineFirma">
+                    </td>
+                    <td class="deleteBorder" style="text-align:justify;">
+                        <hr size="1px" class="lineFirma">
+                    </td>
+                </tr>
+                <tr class="deleteBorder">
+                    <th class="deleteBorder" style="text-align:justify; width: 50%">
                         Firma de autorización
-                        <hr size="1px" class="lineFirma">
+                        
                     </th>
-                    <th class="deleteBorder" style="text-align:justify;">
+                    <th class="deleteBorder" style="text-align:justify; width: 50%">
                         Firma de conformidad
-                        <hr size="1px" class="lineFirma">
+                        
                     </th>
                 </tr>
             </table>

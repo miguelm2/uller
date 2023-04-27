@@ -29,6 +29,7 @@ class ReporteFinalDTO
     protected $estimado_horas;
     protected $observaciones;
     protected $fecha_registro;
+    protected $firma;
 
     /**
      * Get the value of id_reporte_final
@@ -628,6 +629,26 @@ class ReporteFinalDTO
     public function setFecha_registro($fecha_registro)
     {
         $this->fecha_registro = $fecha_registro;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of firma
+     */ 
+    public function getFirma()
+    {
+        return $this->firma;
+    }
+
+    /**
+     * Set the value of firma
+     *
+     * @return  self
+     */ 
+    public function setFirma($firma)
+    {
+        $this->firma = $firma;
 
         return $this;
     }

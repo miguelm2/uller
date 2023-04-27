@@ -156,4 +156,13 @@ class Tecnico extends System
             return false;
         }
     }
+
+    public static function getCountTecnicos()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_tecnico) AS total FROM Tecnico");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['total'];
+    }
 }

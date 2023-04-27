@@ -1,0 +1,1 @@
+ALTER TABLE `ReporteFinalTicket` ADD `firma` TEXT NULL AFTER `observaciones`;

@@ -271,6 +271,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
+                                <input type="hidden" class="form-control" id="validateUser" value="0A">
                                 <input type="hidden" class="form-control" name="id_tipo" id="id_tipo" readonly required>
                                 <div class="col-md-12 form-group">
                                     <label for="nombre">Nombre</label>

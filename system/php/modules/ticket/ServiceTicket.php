@@ -235,8 +235,30 @@ class ServiceTicket extends System
             if ($modelResponse) {
                 $id_informe = InformeTicket::getIdLastInformeTicket();
                 Ticket::setEstadoTicket($id_ticket, 7);
+                self::sendCorreoOrdenServicio($id_ticket, $id_informe);
                 header('Location:reportTicket?reportTicket=' . $id_informe . '&ticket=' . $id_ticket . '&new');
             }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    private static function sendCorreoOrdenServicio($id_ticket, $id_informe){
+        try {
+            $ticketDTO = Ticket::getTicket($id_ticket);
+            $ordenDTO  = InformeTicket::getInformeTicketById($id_informe);
+
+            $asunto  = "ORDEN DE SERVICIO";
+            $mensaje = "Señor/a: ".$ticketDTO->getUsuarioDTO()->getNombre()."<br><br>";
+            $mensaje .= "Nos permitimos informarle que se genero una orden de servicio, para la fecha ".$ordenDTO->getFecha_servicio()."<br>";
+            $mensaje .= "para conocer la informacion completa sobre la orden de servicio es neceserio ingresar a la aplicacion web <br>";
+            $mensaje .= "de ULLER en el siguiente link: <a href='https://www.uller.co/'>www.uller.co</a>";
+            $mensaje .= "<br><br><br><hr>";
+            $mensaje .= "<small>Correo generado automáticamente por el sistema <strong>ULLER</strong> el " . date('Y-m-d') . " a las " . date('H:i:s') . " (No responder)</small>";
+            $correo  = $ticketDTO->getUsuarioDTO()->getCorreo();
+
+            Mail::sendEmail($asunto, $mensaje, $correo);
+
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -481,6 +503,19 @@ class ServiceTicket extends System
             );
 
             if ($modelResponse) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function addFirmaReport($id_reporte_final, $firma)
+    {
+        $id_reporte_final = parent::limpiarString($id_reporte_final);
+        $firma            = parent::limpiarString($firma);
+
+        try {
+            $modelResponse = ReporteFinal::setFirmaReporteFinal($id_reporte_final, $firma);
+            if($modelResponse) return '<script>swal("Firma agregada correctamente", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

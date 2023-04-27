@@ -31,6 +31,7 @@ if(isset($_POST['deleteUser'])){
 }
 
 if(isset($_GET)){
+    $dashboardUser = ServiceUser::getDataDashboard();
     $perfilUsuario = ServiceUser::getPerfilUsuario();
     $tablaUsuarios = ServiceUser::getTablaUsuarios();
     $selectUsers   = ServiceUser::getSelectUsers();

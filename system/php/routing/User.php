@@ -13,6 +13,8 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/user/ControllerUser.
 
 ServiceUser::validateSessionUser();
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/equipmentType/ControllerEquipmentType.php';
+
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/serviceType/ControllerServiceType.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTicket.php';
