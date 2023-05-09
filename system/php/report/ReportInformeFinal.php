@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
+use Dompdf\Options;
 
 abstract class ReportInformeFinal
 {
@@ -7,7 +8,10 @@ abstract class ReportInformeFinal
     {
         Dompdf\Autoloader::register();
         $pdfName = 'Informe_Final_Servicio_' . date('Y-m-d') . '.pdf';
-        $dompdf = new Dompdf\Dompdf();
+        
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf\Dompdf($options);
 
         $html = '<style>
         table,
