@@ -8,7 +8,7 @@ class Tecnico extends System
 
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
         $validarUser    = Usuario::validateUser($cedula, $correo, null);
-        $validarTecnico = self::validateTecnico($cedula, null);
+        $validarTecnico = self::validateTecnico($cedula, $correo, null);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
@@ -32,7 +32,7 @@ class Tecnico extends System
     {
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
         $validarUser    = Usuario::validateUser($cedula, $correo, null);
-        $validarTecnico = self::validateTecnico($cedula, $id_tecnico);
+        $validarTecnico = self::validateTecnico($cedula, $correo, $id_tecnico);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
@@ -62,7 +62,7 @@ class Tecnico extends System
     {
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
         $validarUser    = Usuario::validateUser($cedula, $correo, null);
-        $validarTecnico = self::validateTecnico($cedula, $id_tecnico);
+        $validarTecnico = self::validateTecnico($cedula, $correo, $id_tecnico);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
@@ -94,6 +94,16 @@ class Tecnico extends System
         $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE cedula = :cedula AND pass = :pass AND estado = 1");
         $stmt->bindParam(':cedula', $cedula);
         $stmt->bindParam(':pass', $pass_hash);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'TecnicoDTO');
+        $stmt->execute();
+        return  $stmt->fetch();
+    }
+
+    public static function getTecnicoByCedula($cedula)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE cedula = :cedula ");
+        $stmt->bindParam(':cedula', $cedula);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'TecnicoDTO');
         $stmt->execute();
         return  $stmt->fetch();
@@ -135,18 +145,19 @@ class Tecnico extends System
         return  $stmt->execute();
     }
 
-    public static function validateTecnico($cedula, $id_tecnico)
+    public static function validateTecnico($cedula, $correo, $id_tecnico)
     {
         $dbh  = parent::Conexion();
 
         if ($id_tecnico == null) {
-            $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE cedula = :cedula");
+            $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE cedula = :cedula OR correo = :correo");
         } else {
-            $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE cedula = :cedula AND id_tecnico != :id_tecnico");
+            $stmt = $dbh->prepare("SELECT * FROM Tecnico WHERE (cedula = :cedula OR correo = :correo) AND id_tecnico != :id_tecnico");
             $stmt->bindParam(':id_tecnico', $id_tecnico);
         }
 
         $stmt->bindParam(':cedula', $cedula);
+        $stmt->bindParam(':correo', $correo);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'TecnicoDTO');
         $stmt->execute();
 

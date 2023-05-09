@@ -1,24 +1,24 @@
-<?php 
+<?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 
 class ServicePage extends System
 {
 
-    
 
 
-    static function Login($cedula,$pass)
+
+    static function Login($cedula, $pass)
     {
         $cedula = parent::limpiarString($cedula);
         $pass = parent::limpiarString($pass);
         $pass_hash = parent::hash($pass);
-        if(!parent::login($cedula,$pass_hash)) return  '<script>swal("' . Constants::$PAGE_LOGIN . '", "", "warning");</script>';
+        if (!parent::login($cedula, $pass_hash)) return  '<script>swal("' . Constants::$PAGE_LOGIN . '", "", "warning");</script>';
     }
 
     static function Recovery($cedula)
     {
         $cedula = parent::limpiarString($cedula);
-        if(parent::recovery($cedula))return  '<script>swal("' . Constants::$PAGE_RECUPERAR_PASS2. '", "", "success");</script>';
+        if (parent::recovery($cedula)) return  '<script>swal("' . Constants::$PAGE_RECUPERAR_PASS2 . '", "", "success");</script>';
         return  '<script>swal("' . Constants::$PAGE_RECUPERAR_PASS_CEDULA . '", "", "warning");</script>';
     }
 
@@ -57,14 +57,22 @@ class ServicePage extends System
             if ($result) {
                 return  '<script>swal("' . Constants::$USER_NEW . '", "Haga clic en iniciar sesión", "success");</script>';
             } else {
-                return  '<script>swal("' . Constants::$ADMIN_REPEAT . '", "", "error");</script>';
+                return  '<script>swal("' . Constants::$ADMIN_REPEAT . '", "Ya existe un usuario con esas credenciales", "warning");</script>';
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getInformation()
+    {
+        try {
+            if (basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'recovery.php' || basename($_SERVER['PHP_SELF']) == 'registerAccount.php') {
+                $result = Informacion::getInformacion();
+                return $result;
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 }
-
-
-
-?>
