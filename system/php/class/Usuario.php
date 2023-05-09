@@ -7,7 +7,7 @@ class Usuario extends System
     {
         $validarUser    = self::validateUser($cedula, $correo, null);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
-        $validarTecnico = Tecnico::validateTecnico($cedula, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, $correo, null);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
@@ -34,7 +34,7 @@ class Usuario extends System
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
-        $validarTecnico = Tecnico::validateTecnico($cedula, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, $correo, null);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
@@ -112,7 +112,7 @@ class Usuario extends System
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
-        $validarTecnico = Tecnico::validateTecnico($cedula, null);
+        $validarTecnico = Tecnico::validateTecnico($cedula, $correo, null);
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();

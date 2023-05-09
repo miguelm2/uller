@@ -165,7 +165,10 @@ abstract  class System
     static function recovery($cedula)
     {
         $administrador  = Administrador::getAdministradorByCedula($cedula);
-        $asunto = "Recuperar cuenta Aplicacion Web Kondory";
+        $usuario        = Usuario::getUserByCedula($cedula);
+        $tecnico        = Tecnico::getTecnicoByCedula($cedula);
+
+        $asunto = "Recuperar cuenta aplicacion web ULLER";
 
         if ($administrador != null) {
             $new_pass = self::randomPassword();
@@ -175,9 +178,29 @@ abstract  class System
                 Mail::sendEmail($asunto, $mensaje, $administrador->getCorreo());
                 return true;
             }
-        } else {
-            return false;
         }
+
+        if ($usuario != null) {
+            $new_pass = self::randomPassword();
+            if (Usuario::setUserPass($usuario->getId_usuario(), self::hash($new_pass))) {
+                $mensaje = "Hola " . $usuario->getNombre();
+                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: " . $new_pass;
+                Mail::sendEmail($asunto, $mensaje, $usuario->getCorreo());
+                return true;
+            }
+        }
+
+        if ($tecnico != null) {
+            $new_pass = self::randomPassword();
+            if (Tecnico::setTecnicoPass($tecnico->getId_tecnico(), self::hash($new_pass))) {
+                $mensaje = "Hola " . $tecnico->getNombre();
+                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: " . $new_pass;
+                Mail::sendEmail($asunto, $mensaje, $tecnico->getCorreo());
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

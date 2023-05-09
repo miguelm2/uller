@@ -35,12 +35,12 @@ class Constants{
     //Mensajes Sistema
     static $ADMIN_NEW           = "Administrador creado exitosamente";
     static $ADMIN_UPDATE        = "Administrador actualizado exitosamente";
-    static $REGISTER_DUPLICATE  = "Cedula, ya registrada en el sistema";
-    static $ADMIN_REPEAT        = "Correo electronico o cedula ya registrada";
+    static $REGISTER_DUPLICATE  = "Cédula, ya registrada en el sistema";
+    static $ADMIN_REPEAT        = "Correo electrónico o cédula ya registrada";
     static $CUSTOMER_NEW        = "Cliente creado exitosamente";
     static $CUSTOMER_UPDATE     = "Cliente actualizado exitosamente";
     static $REGISTER_DELETE     = "Registro eliminado exitosamente";
-    static $INFORMATION_NEW     = "Informacion actualizada exitosamente";
+    static $INFORMATION_NEW     = "Información actualizada exitosamente";
     static $CONFIRM_PASS        = "Las contraseñas no coinciden";
     static $UPDATE_PASS         = "Contraseña actualizada exitosamente";
     static $CURRENT_PASS        = "La contraseña actual es incorrecta";
