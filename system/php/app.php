@@ -9,7 +9,7 @@ class Constants{
 
     // Configuracion bd
     static $USUARIO_BD = "uller_bd_user";
-    static $PASS_BD    = "puFV$y{PQ0Zp";
+    static $PASS_BD    = "POkJBca3_jE[";
     static $NOMBRE_BD  = "uller_bd";
     static $IP_BD      = "localhost";
 
@@ -26,9 +26,9 @@ class Constants{
 
 
     //Configuracion PHPMailer
-    static $MAIL_SMTP_SERVER = "mail.uller.co";
+    static $MAIL_SMTP_SERVER = "uller.co";
     static $MAIL_SMTP_USER   = "hola@uller.co";
-    static $MAIL_SMTP_PASS   = "hs7wgPEL9@[N";
+    static $MAIL_SMTP_PASS   = "MSg(hO4e#]82";
     static $MAIL_SMTP_NAME   = "Aplicacion Web Uller";
 
 
