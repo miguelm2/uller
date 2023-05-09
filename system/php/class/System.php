@@ -174,7 +174,7 @@ abstract  class System
             $new_pass = self::randomPassword();
             if (Administrador::setAdministradorPass($administrador->getId_administrador(), self::hash($new_pass))) {
                 $mensaje = "Hola " . $administrador->getNombre();
-                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: " . $new_pass;
+                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: <strong>" . $new_pass . "</strong>";
                 Mail::sendEmail($asunto, $mensaje, $administrador->getCorreo());
                 return true;
             }
@@ -184,7 +184,7 @@ abstract  class System
             $new_pass = self::randomPassword();
             if (Usuario::setUserPass($usuario->getId_usuario(), self::hash($new_pass))) {
                 $mensaje = "Hola " . $usuario->getNombre();
-                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: " . $new_pass;
+                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: <strong>" . $new_pass . "</strong>";
                 Mail::sendEmail($asunto, $mensaje, $usuario->getCorreo());
                 return true;
             }
@@ -194,7 +194,7 @@ abstract  class System
             $new_pass = self::randomPassword();
             if (Tecnico::setTecnicoPass($tecnico->getId_tecnico(), self::hash($new_pass))) {
                 $mensaje = "Hola " . $tecnico->getNombre();
-                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: " . $new_pass;
+                $mensaje .= " <br> " . "Su nueva contraseña para ingresar al sistema  es: <strong>" . $new_pass . "</strong>";
                 Mail::sendEmail($asunto, $mensaje, $tecnico->getCorreo());
                 return true;
             }
