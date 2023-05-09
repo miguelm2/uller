@@ -44,8 +44,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="../../assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">Uller</span>
+                  <img src="../../img/perfil/<?=$informacionPage->getImagen();?>" alt="uller">
                 </a>
               </div><!-- End Logo -->
 
@@ -61,7 +60,7 @@
                   <form class="row g-3 needs-validation" method="POST" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Usuario</label>
+                      <label for="yourUsername" class="form-label">Cédula</label>
                       <div class="input-group has-validation">
                           <span class="input-group-text" id="inputGroupPrepend">
                             <i class="bi bi-person"></i>
