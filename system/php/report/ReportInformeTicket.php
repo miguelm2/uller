@@ -1,11 +1,15 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.php';
 
 abstract class ReportInformeTicket
 {
     public static function generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO)
     {
-        Dompdf\Autoloader::register();
+        $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
+        $logo       = System::converterImageToBase64($url_imagen);
+
+
         $pdfName = 'Informe_Servicio_' . date('Y-m-d') . '.pdf';
         $dompdf = new Dompdf\Dompdf();
 
@@ -44,7 +48,7 @@ abstract class ReportInformeTicket
             <table class="default" style="width:100%">
                 <tr>
                     <th colspan="1">
-                        <img src="../../img/perfil/' . $perfilDTO->getImagen() . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
+                        <img src="' . $logo . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
                     </th>
                     <th colspan="3">
                         MANTENIMIENTO CORRECTIVO Y PREVENTIVO

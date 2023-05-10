@@ -6,6 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Usuario.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Elements.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Informacion.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Path.php';
 
 
 abstract  class System
@@ -87,6 +88,10 @@ abstract  class System
     public static function logout()
     {
         session_start();
+
+        $text = "CERRAR SESION ----> " . $_SESSION['id'] . " - " . $_SESSION['nombre'];
+        self::setLog($text);
+
         $_SESSION = array();
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
@@ -131,6 +136,9 @@ abstract  class System
             $_SESSION['fecha_registro'] = $administrador->getFecha_registro();
             $_SESSION['usuario'] = "Administrador";
 
+            $text = "INICIO SESION ----> " . $_SESSION['id'] . " - " . $_SESSION['nombre'];
+            self::setLog($text);
+
             header("Location:/system/views/admin/index");
         }
         if ($usuario != null) {
@@ -144,6 +152,9 @@ abstract  class System
             $_SESSION['fecha_registro'] = $usuario->getFecha_registro();
             $_SESSION['usuario'] = "Usuario";
 
+            $text = "INICIO SESION ----> " . $_SESSION['id'] . " - " . $_SESSION['nombre'];
+            self::setLog($text);
+
             header("Location:/system/views/user/index");
         }
         if ($tecnico != null) {
@@ -156,6 +167,9 @@ abstract  class System
             $_SESSION['tipo']   =   $tecnico->getTipo();
             $_SESSION['fecha_registro'] = $tecnico->getFecha_registro();
             $_SESSION['usuario'] = "Técnico";
+
+            $text = "INICIO SESION ----> " . $_SESSION['id'] . " - " . $_SESSION['nombre'];
+            self::setLog($text);
 
             header("Location:/system/views/technician/index");
         }
@@ -241,5 +255,51 @@ abstract  class System
         } else {
             return number_format($numero, 0, ',', '.');
         }
+    }
+
+    public static function converterImageToBase64($url_image)
+    {
+        // Extensión de la imagen
+        $type = pathinfo($url_image, PATHINFO_EXTENSION);
+        // Cargando la imagen
+        $data = file_get_contents($url_image);
+        // Codificando la imagen en base64
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $base64;
+    }
+
+    public static function setLog($text, $level = 'i')
+    {
+        switch (strtolower($level)) {
+            case 'e':
+            case 'error':
+                $level = 'ERROR';
+                break;
+            case 'i':
+            case 'info':
+                $level = 'INFO';
+                break;
+            case 'd':
+            case 'debug':
+                $level = 'DEBUG';
+                break;
+            default:
+                $level = 'INFO';
+        }
+
+        if ($_SESSION['tipo'] == 5 || $_SESSION['tipo'] == 0) {
+            $file = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_LOG_ADMIN;
+        }
+
+        if ($_SESSION['tipo'] == 1) {
+            $file = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_LOG_USER;
+        }
+
+        if ($_SESSION['tipo'] == 3) {
+            $file = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_LOG_TECNICO;
+        }
+
+        error_log(date("[Y-m-d H:i:s]") . "\t[" . $level . "]\t[" . basename(__FILE__) . "]\t" . $text . "\n", 3, $file);
     }
 }
