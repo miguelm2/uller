@@ -1,17 +1,16 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
-use Dompdf\Options;
+//require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.php';
 
 abstract class ReportInformeFinal
 {
     public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO)
     {
-        Dompdf\Autoloader::register();
+        $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
+        $logo       = System::converterImageToBase64($url_imagen);
+
         $pdfName = 'Informe_Final_Servicio_' . date('Y-m-d') . '.pdf';
-        
-        $options = new Options();
-        $options->set('isRemoteEnabled', true);
-        $dompdf = new Dompdf\Dompdf($options);
+        $dompdf  = new Dompdf\Dompdf();
 
         $html = '<style>
         table,
@@ -44,7 +43,7 @@ abstract class ReportInformeFinal
             <table class="default" style="width:100%">
                 <tr>
                     <th colspan="1">
-                        <img src="../../img/perfil/' . $perfilDTO->getImagen() . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
+                        <img src="'.$logo.'" width="150px" height="50px" style="max-width:200px;max-height:80px;">
                     </th>
                     <th colspan="3">
                         MANTENIMIENTO CORRECTIVO Y PREVENTIVO
@@ -57,7 +56,7 @@ abstract class ReportInformeFinal
                         Fecha de servicio
                     </td>
                     <td rowspan="2">
-                        '.$reporteDTO->getFecha_servicio().'
+                        ' . $reporteDTO->getFecha_servicio() . '
                     </td>
                     <td class="negrilla" colspan="2">
                         Mantenimiento
@@ -65,10 +64,10 @@ abstract class ReportInformeFinal
                 </tr>
                 <tr>
                     <td>
-                        <span>Preventivo ( '.self::validateSi($reporteDTO->getMantenimiento_preventivo()[0]).' )</span>
+                        <span>Preventivo ( ' . self::validateSi($reporteDTO->getMantenimiento_preventivo()[0]) . ' )</span>
                     </td>
                     <td>
-                        <span>Correctivo ( '.self::validateSi($reporteDTO->getMantenimiento_correctivo()[0]).' )</span> 
+                        <span>Correctivo ( ' . self::validateSi($reporteDTO->getMantenimiento_correctivo()[0]) . ' )</span> 
                     </td>
                 </tr>
             </table>
@@ -84,13 +83,13 @@ abstract class ReportInformeFinal
                         Nombre
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getNombre().'
+                        ' . $ticketDTO->getUsuarioDTO()->getNombre() . '
                     </td>
                     <td class="negrilla">
                         Documento
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getCedula().'
+                        ' . $ticketDTO->getUsuarioDTO()->getCedula() . '
                     </td>
                 </tr>
                 <tr>
@@ -98,13 +97,13 @@ abstract class ReportInformeFinal
                         Telefono
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getTelefono().'
+                        ' . $ticketDTO->getUsuarioDTO()->getTelefono() . '
                     </td>
                     <td class="negrilla">
                         Direccion servicio
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getDireccion().'
+                        ' . $ticketDTO->getUsuarioDTO()->getDireccion() . '
                     </td>
                 </tr>
                 <tr>
@@ -112,13 +111,13 @@ abstract class ReportInformeFinal
                         Ciudad
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getCiudad().'
+                        ' . $ticketDTO->getUsuarioDTO()->getCiudad() . '
                     </td>
                     <td class="negrilla">
                         Departamento
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getDepartamento().'
+                        ' . $ticketDTO->getUsuarioDTO()->getDepartamento() . '
                     </td>
                 </tr>
             </table>
@@ -134,13 +133,13 @@ abstract class ReportInformeFinal
                         Nombre
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getNombre().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getNombre() . '
                     </td>
                     <td class="negrilla">
                         Documento
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCedula().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCedula() . '
                     </td>
                 </tr>
                 <tr>
@@ -148,13 +147,13 @@ abstract class ReportInformeFinal
                         Telefono
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getTelefono().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getTelefono() . '
                     </td>
                     <td class="negrilla">
                         Correo
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCorreo().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCorreo() . '
                     </td>
                 </tr>
             </table>
@@ -170,13 +169,13 @@ abstract class ReportInformeFinal
                         Ubicación del equipo
                     </td>
                     <td>
-                        '.$ordenDTO->getUbicacion_equipo().'
+                        ' . $ordenDTO->getUbicacion_equipo() . '
                     </td>
                     <td class="negrilla">
                         Tipo de uso
                     </td>
                     <td>
-                        '.$ordenDTO->getTipo_uso()[1].'
+                        ' . $ordenDTO->getTipo_uso()[1] . '
                     </td>
                 </tr>
                 <tr>
@@ -184,13 +183,13 @@ abstract class ReportInformeFinal
                         Tipo de equipo
                     </td>
                     <td>
-                        '.$ordenDTO->getTipo_equipo().'
+                        ' . $ordenDTO->getTipo_equipo() . '
                     </td>
                     <td class="negrilla">
                         Marca
                     </td>
                     <td>
-                        '.$ordenDTO->getMarca().'
+                        ' . $ordenDTO->getMarca() . '
                     </td>
                 </tr>
                 <tr>
@@ -198,13 +197,13 @@ abstract class ReportInformeFinal
                         Serial
                     </td>
                     <td>
-                        '.$reporteDTO->getSerial().'
+                        ' . $reporteDTO->getSerial() . '
                     </td>
                     <td class="negrilla">
                         Año de compra
                     </td>
                     <td>
-                        '.$reporteDTO->getYear_compra().'
+                        ' . $reporteDTO->getYear_compra() . '
                     </td>
                 </tr>
                 <tr>
@@ -212,13 +211,13 @@ abstract class ReportInformeFinal
                         Capacidad (Btuh)
                     </td>
                     <td>
-                        '.$ordenDTO->getCapacidad().'
+                        ' . $ordenDTO->getCapacidad() . '
                     </td>
                     <td class="negrilla">
                         Fases
                     </td>
                     <td>
-                        '.$reporteDTO->getFases().'
+                        ' . $reporteDTO->getFases() . '
                     </td>
                 </tr>
                 <tr>
@@ -226,18 +225,18 @@ abstract class ReportInformeFinal
                         Voltaje
                     </td>
                     <td>
-                        '.$reporteDTO->getVoltaje().'
+                        ' . $reporteDTO->getVoltaje() . '
                     </td>
                     <td class="negrilla">
                         Amperaje
                     </td>
                     <td>
-                        '.$reporteDTO->getAmperaje().'
+                        ' . $reporteDTO->getAmperaje() . '
                     </td>
                 </tr>
             </table>';
 
-        if($reporteDTO->getMantenimiento_preventivo()[0] == 1){
+        if ($reporteDTO->getMantenimiento_preventivo()[0] == 1) {
             $html .= '
                 <br>
                 <table class="default" style="width:100%">
@@ -257,10 +256,10 @@ abstract class ReportInformeFinal
                             Equipo opera adecuadamente antes del servicio
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getEquipo_opera_inicio()[0]).'
+                            ' . self::validateSi($reporteDTO->getEquipo_opera_inicio()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getEquipo_opera_inicio()[0]).'
+                            ' . self::validateNo($reporteDTO->getEquipo_opera_inicio()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -268,10 +267,10 @@ abstract class ReportInformeFinal
                             Limpieza general
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getLimpieza_general()[0]).'
+                            ' . self::validateSi($reporteDTO->getLimpieza_general()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getLimpieza_general()[0]).'
+                            ' . self::validateNo($reporteDTO->getLimpieza_general()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -279,10 +278,10 @@ abstract class ReportInformeFinal
                             Limpieza filtros
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getLimpieza_filtros()[0]).'
+                            ' . self::validateSi($reporteDTO->getLimpieza_filtros()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getLimpieza_filtros()[0]).'
+                            ' . self::validateNo($reporteDTO->getLimpieza_filtros()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -290,10 +289,10 @@ abstract class ReportInformeFinal
                             Limpieza Serpentin evaporador
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getLimpieza_serpentin()[0]).'
+                            ' . self::validateSi($reporteDTO->getLimpieza_serpentin()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getLimpieza_serpentin()[0]).'
+                            ' . self::validateNo($reporteDTO->getLimpieza_serpentin()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -301,10 +300,10 @@ abstract class ReportInformeFinal
                             Limpieza bandeja
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getLimpieza_bandeja()[0]).'
+                            ' . self::validateSi($reporteDTO->getLimpieza_bandeja()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getLimpieza_bandeja()[0]).'
+                            ' . self::validateNo($reporteDTO->getLimpieza_bandeja()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -312,10 +311,10 @@ abstract class ReportInformeFinal
                             Serpentin condensador
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getSerpentin_condensador()[0]).'
+                            ' . self::validateSi($reporteDTO->getSerpentin_condensador()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getSerpentin_condensador()[0]).'
+                            ' . self::validateNo($reporteDTO->getSerpentin_condensador()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -323,10 +322,10 @@ abstract class ReportInformeFinal
                             Limpieza drenaje
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getLimpieza_drenaje()[0]).'
+                            ' . self::validateSi($reporteDTO->getLimpieza_drenaje()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getLimpieza_drenaje()[0]).'
+                            ' . self::validateNo($reporteDTO->getLimpieza_drenaje()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -334,10 +333,10 @@ abstract class ReportInformeFinal
                             Verificación
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getVerificacion()[0]).'
+                            ' . self::validateSi($reporteDTO->getVerificacion()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getVerificacion()[0]).'
+                            ' . self::validateNo($reporteDTO->getVerificacion()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -345,10 +344,10 @@ abstract class ReportInformeFinal
                             Estado carcasa interior
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getEstado_carcasa()[0]).'
+                            ' . self::validateSi($reporteDTO->getEstado_carcasa()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getEstado_carcasa()[0]).'
+                            ' . self::validateNo($reporteDTO->getEstado_carcasa()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -356,10 +355,10 @@ abstract class ReportInformeFinal
                             Estado equipo exterior
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getEstado_equipo()[0]).'
+                            ' . self::validateSi($reporteDTO->getEstado_equipo()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getEstado_equipo()[0]).'
+                            ' . self::validateNo($reporteDTO->getEstado_equipo()[0]) . '
                         </td>
                     </tr>
                     <tr>
@@ -367,17 +366,17 @@ abstract class ReportInformeFinal
                             Equipo queda operando adecuadamente despues del servicio
                         </td>
                         <td colspan="1">
-                            '.self::validateSi($reporteDTO->getEquipo_opera_fin()[0]).'
+                            ' . self::validateSi($reporteDTO->getEquipo_opera_fin()[0]) . '
                         </td>
                         <td colspan="1">
-                            '.self::validateNo($reporteDTO->getEquipo_opera_fin()[0]).'
+                            ' . self::validateNo($reporteDTO->getEquipo_opera_fin()[0]) . '
                         </td>
                     </tr>
                 </table>';
         }
 
-        if($reporteDTO->getMantenimiento_correctivo()[0] == 1){
-                $html .= '
+        if ($reporteDTO->getMantenimiento_correctivo()[0] == 1) {
+            $html .= '
                 <br>
                 <table class="default" style="width:100%">
                     <tr>
@@ -390,7 +389,7 @@ abstract class ReportInformeFinal
                             Falla encontrada
                         </td>
                         <td>
-                            '.$reporteDTO->getFalla_encontrada().'
+                            ' . $reporteDTO->getFalla_encontrada() . '
                         </td>
                     </tr>
                     <tr>
@@ -398,7 +397,7 @@ abstract class ReportInformeFinal
                             Repuestos requeridos
                         </td>
                         <td>
-                            '.$reporteDTO->getRepuestos().'
+                            ' . $reporteDTO->getRepuestos() . '
                         </td>
                     </tr>
                     <tr>
@@ -406,7 +405,7 @@ abstract class ReportInformeFinal
                             Insumos requeridos (refrigerante, aceite, otros)
                         </td>
                         <td>
-                            '.$reporteDTO->getInsumos().'
+                            ' . $reporteDTO->getInsumos() . '
                         </td>
                     </tr>
                     <tr>
@@ -414,7 +413,7 @@ abstract class ReportInformeFinal
                             Tarjetas electronicas 
                         </td>
                         <td>
-                            '.$reporteDTO->getTarjetas_electronicas()[1].'
+                            ' . $reporteDTO->getTarjetas_electronicas()[1] . '
                         </td>
                     </tr>
                     <tr>
@@ -422,13 +421,13 @@ abstract class ReportInformeFinal
                             Estimado horas reparacion
                         </td>
                         <td>
-                            '.$reporteDTO->getEstimado_horas().'
+                            ' . $reporteDTO->getEstimado_horas() . '
                         </td>
                     </tr>
                 </table>';
         }
 
-            $html .= '
+        $html .= '
             <br>
             <table class="default" style="width:100%">
                 <tr>
@@ -438,7 +437,7 @@ abstract class ReportInformeFinal
                 </tr>
                 <tr>
                     <td>
-                        <p class="justificar" style="margin:5px;">'.$reporteDTO->getObservaciones().'</p>
+                        <p class="justificar" style="margin:5px;">' . $reporteDTO->getObservaciones() . '</p>
                     </td>
                 </tr>
             </table>
@@ -482,12 +481,14 @@ abstract class ReportInformeFinal
         $dompdf->stream($pdfName, array("Attachment" => 0));
     }
 
-    private static function validateSi($valor){
+    private static function validateSi($valor)
+    {
         $result = ($valor == 1) ? 'X' : '';
         return $result;
     }
 
-    private static function validateNo($valor){
+    private static function validateNo($valor)
+    {
         $result = ($valor == 0) ? 'X' : '';
         return $result;
     }
