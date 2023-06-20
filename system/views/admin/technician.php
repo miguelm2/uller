@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -66,16 +66,20 @@
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3" method="post">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="name" class="form-label">Nombre completo</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" maxlength="150" required value="<?= $tecnico->getNombre(); ?>">
+                            </div>
+                            <div class="col-6 form-group">
+                                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                                <input type="date" name="fecha_nacimiento" class="form-control" required value="<?= $tecnico->getFecha_nacimiento(); ?>">
                             </div>
                             <div class="col-6">
                                 <label for="email" class="form-label">Correo electrónico</label>
                                 <input type="email" class="form-control" id="correo" name="correo" maxlength="255" required value="<?= $tecnico->getCorreo(); ?>">
                             </div>
                             <div class="col-6">
-                                <label for="phone" class="form-label">Telefono</label>
+                                <label for="phone" class="form-label">Teléfono / Celular</label>
                                 <input type="number" class="form-control" id="telefono" name="telefono" maxlength="15" required value="<?= $tecnico->getTelefono(); ?>">
                             </div>
                             <div class="col-6">
@@ -83,6 +87,34 @@
                                 <input type="text" class="form-control" id="cedula" name="cedula" maxlength="20" required value="<?= $tecnico->getCedula(); ?>">
                             </div>
                             <div class="col-6">
+                                <label for="direccion" class="form-label">Dirección</label>
+                                <input type="text" name="direccion" class="form-control" required value="<?= $tecnico->getDireccion(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="ciudad" class="form-label">Ciudad</label>
+                                <input type="text" name="ciudad" class="form-control" required value="<?= $tecnico->getCiudad(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="estado_civil" class="form-label">Estado civil</label>
+                                <input type="text" name="estado_civil" class="form-control" required value="<?= $tecnico->getEstado_civil(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="numero_hijos" class="form-label">Número de hijos</label>
+                                <input type="number" name="numero_hijos" min="0" class="form-control" required value="<?= $tecnico->getNumero_hijos(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="banco" class="form-label">Banco</label>
+                                <input type="text" name="banco" class="form-control" required value="<?= $tecnico->getBanco(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="tipo_cuenta" class="form-label">Tipo de cuenta</label>
+                                <input type="text" name="tipo_cuenta" class="form-control" required value="<?= $tecnico->getTipo_cuenta(); ?>">
+                            </div>
+                            <div class="col-6">
+                                <label for="numero_cuenta" class="form-label">Número de cuenta</label>
+                                <input type="text" name="numero_cuenta" class="form-control" required value="<?= $tecnico->getNumero_cuenta(); ?>">
+                            </div>
+                            <div class="col-12">
                                 <label for="estado" class="form-label">Estado</label>
                                 <select class="form-select" id="estado" name="estado">
                                     <option value="<?= $tecnico->getEstado()[0]; ?>"><?= $tecnico->getEstado()[1]; ?></option>
@@ -97,7 +129,7 @@
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cambiarPass"><i class="bi bi-lock-fill"></i> Cambiar Contraseña</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cambiarPass"><i class="bi bi-lock-fill"></i> Cambiar Contraseña</button>
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">

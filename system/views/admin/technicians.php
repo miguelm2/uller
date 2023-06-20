@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -102,7 +102,7 @@
         <!-- ======= Basic Modal ======= -->
         <form method="POST">
             <div class="modal fade" id="newTecnico" tabindex="-1">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Nuevo Técnico</h5>
@@ -110,25 +110,57 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
-                                    <label for="nombre">Nombre</label>
+                                <div class="col-md-6 form-group">
+                                    <label for="nombre">Nombre completo</label>
                                     <input type="text" name="nombre" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="nombre">Correo</label>
+                                <div class="col-md-6 form-group">
+                                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="nombre">Correo electrónico</label>
                                     <input type="email" name="correo" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="telefono">Telefono</label>
+                                <div class="col-md-6 form-group">
+                                    <label for="telefono">Teléfono / Celular</label>
                                     <input type="number" name="telefono" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="nombre">Cedula</label>
+                                <div class="col-md-6 form-group">
+                                    <label for="nombre">Cédula</label>
                                     <input type="text" name="cedula" class="form-control" required>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Contraseña</label>
                                     <input type="password" name="pass" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="ciudad" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="estado_civil">Estado civil</label>
+                                    <input type="text" name="estado_civil" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="numero_hijos">Número de hijos</label>
+                                    <input type="number" name="numero_hijos" min="0" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="banco">Banco</label>
+                                    <input type="text" name="banco" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="tipo_cuenta">Tipo de cuenta</label>
+                                    <input type="text" name="tipo_cuenta" class="form-control" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="numero_cuenta">Número de cuenta</label>
+                                    <input type="text" name="numero_cuenta" class="form-control" required>
                                 </div>
                             </div>
                         </div>

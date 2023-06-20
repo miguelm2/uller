@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -142,20 +142,22 @@
                             <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Item</th>
                                         <th>Nombre</th>
-                                        <th>Descripción</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Tipo</th>
                                         <th width="10px">Ver</th>
-                                        <th width="10px">Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Item</th>
                                         <th>Nombre</th>
-                                        <th>Descripción</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Tipo</th>
                                         <th width="10px">Ver</th>
-                                        <th width="10px">Eliminar</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -232,7 +234,7 @@
         <!-- ======= Nuevo Equipo ======= -->
         <form method="POST">
             <div class="modal fade" id="newType" tabindex="-1">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Nuevo Equipo</h5>
@@ -240,9 +242,57 @@
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" name="nombre" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="marca">Marca</label>
+                                    <input type="text" class="form-control" name="marca" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="modelo">Modelo</label>
+                                    <input type="text" class="form-control" name="modelo" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="year_fabricacion">Año de fabricación</label>
+                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="serial_interior">Serial unidad interior</label>
+                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="serial_exterior">Serial unidad exterior</label>
+                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="tipo_equipo">Tipo de equipo</label>
+                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="capacidad_btuh">Capacidad (BTUH)</label>
+                                    <input type="number" step="0.01" class="form-control" name="capacidad_btuh" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="voltaje_fases">Voltaje / Fases</label>
+                                    <input type="text" class="form-control" name="voltaje_fases" maxlength="20" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="refrigerante">Refrigerante</label>
+                                    <input type="text" class="form-control" name="refrigerante" maxlength="50" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="inverter">Inverter</label>
+                                    <br>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required>
+                                        <label class="form-check-label" for="inverter_si">Si</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_no" value="No">
+                                        <label class="form-check-label" for="inverter_no">No</label>
+                                    </div>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="descripcion">Descripcion</label>
@@ -259,68 +309,6 @@
             </div>
         </form>
         <!-- Fin Nuevo Equipo-->
-
-        <!-- ======= Modal Editar Equipo ======= -->
-        <form method="POST" id="form_tool">
-            <div class="modal fade" id="editTypes" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editar Equipo</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <input type="hidden" class="form-control" id="validateUser" value="0A">
-                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo" readonly required>
-                                <div class="col-md-12 form-group">
-                                    <label for="nombre">Nombre</label>
-                                    <input type="text" class="form-control" name="nombre" id="nombre_tipo" maxlength="255" required>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion_tipo" rows="3" maxlength="255" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="setEquipmentType" class="btn btn-success"><i class="bi bi-save"></i> Editar Equipo</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- Modal Editar Equipo-->
-
-        <!-- Modal Eliminar Equipo-->
-        <form method="post">
-            <div class="modal fade" id="eliminarEquipo" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Eliminar Registro</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12 form-group">
-                                <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="hidden" class="form-control" name="id_tipo" id="id_tipo_delete" readonly required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="deleteEquipmentType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- Modal Eliminar Equipo-->
-
-
 
     </main><!-- End #main -->
 
@@ -348,7 +336,7 @@
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/functions.js"></script>
-    <script src="../../js/equipmentTypes.js"></script>
+
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

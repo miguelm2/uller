@@ -9,6 +9,14 @@ class TecnicoDTO
     protected $correo;
     protected $telefono;
     protected $pass;
+    protected $fecha_nacimiento;
+    protected $direccion;
+    protected $ciudad;
+    protected $estado_civil;
+    protected $numero_hijos;
+    protected $banco;
+    protected $tipo_cuenta;
+    protected $numero_cuenta;
     protected $estado;
     protected $tipo;
     protected $fecha_registro;
@@ -135,6 +143,166 @@ class TecnicoDTO
     public function setPass($pass)
     {
         $this->pass = $pass;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of fecha_nacimiento
+     */ 
+    public function getFecha_nacimiento()
+    {
+        return $this->fecha_nacimiento;
+    }
+
+    /**
+     * Set the value of fecha_nacimiento
+     *
+     * @return  self
+     */ 
+    public function setFecha_nacimiento($fecha_nacimiento)
+    {
+        $this->fecha_nacimiento = $fecha_nacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of direccion
+     */ 
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * Set the value of direccion
+     *
+     * @return  self
+     */ 
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ciudad
+     */ 
+    public function getCiudad()
+    {
+        return $this->ciudad;
+    }
+
+    /**
+     * Set the value of ciudad
+     *
+     * @return  self
+     */ 
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of estado_civil
+     */ 
+    public function getEstado_civil()
+    {
+        return $this->estado_civil;
+    }
+
+    /**
+     * Set the value of estado_civil
+     *
+     * @return  self
+     */ 
+    public function setEstado_civil($estado_civil)
+    {
+        $this->estado_civil = $estado_civil;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of numero_hijos
+     */ 
+    public function getNumero_hijos()
+    {
+        return $this->numero_hijos;
+    }
+
+    /**
+     * Set the value of numero_hijos
+     *
+     * @return  self
+     */ 
+    public function setNumero_hijos($numero_hijos)
+    {
+        $this->numero_hijos = $numero_hijos;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of banco
+     */ 
+    public function getBanco()
+    {
+        return $this->banco;
+    }
+
+    /**
+     * Set the value of banco
+     *
+     * @return  self
+     */ 
+    public function setBanco($banco)
+    {
+        $this->banco = $banco;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tipo_cuenta
+     */ 
+    public function getTipo_cuenta()
+    {
+        return $this->tipo_cuenta;
+    }
+
+    /**
+     * Set the value of tipo_cuenta
+     *
+     * @return  self
+     */ 
+    public function setTipo_cuenta($tipo_cuenta)
+    {
+        $this->tipo_cuenta = $tipo_cuenta;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of numero_cuenta
+     */ 
+    public function getNumero_cuenta()
+    {
+        return $this->numero_cuenta;
+    }
+
+    /**
+     * Set the value of numero_cuenta
+     *
+     * @return  self
+     */ 
+    public function setNumero_cuenta($numero_cuenta)
+    {
+        $this->numero_cuenta = $numero_cuenta;
 
         return $this;
     }

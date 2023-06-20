@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportInformeTicket
 {
-    public static function generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO)
+    public static function generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
@@ -93,16 +93,16 @@ abstract class ReportInformeTicket
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Nombre
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$ticketDTO->getUsuarioDTO()->getNombre().'
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Documento
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$ticketDTO->getUsuarioDTO()->getCedula().'
                     </td>
                 </tr>
@@ -143,16 +143,16 @@ abstract class ReportInformeTicket
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Nombre
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getNombre().'
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Documento
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getCedula().'
                     </td>
                 </tr>
@@ -170,6 +170,20 @@ abstract class ReportInformeTicket
                         '.$tecnicoTicketDTO->getTecnicoDTO()->getCorreo().'
                     </td>
                 </tr>
+                <tr>
+                    <td class="negrilla">
+                        Dirección
+                    </td>
+                    <td>
+                        '.$tecnicoTicketDTO->getTecnicoDTO()->getDireccion().'
+                    </td>
+                    <td class="negrilla">
+                        Ciudad
+                    </td>
+                    <td>
+                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCiudad().'
+                    </td>
+                </tr>
             </table>
             <br>
             <table class="default" style="width:100%">
@@ -179,16 +193,16 @@ abstract class ReportInformeTicket
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Ubicación del equipo
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$informeDTO->getUbicacion_equipo().'
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Tipo de uso
                     </td>
-                    <td>
+                    <td width="30%">
                         '.$informeDTO->getTipo_uso()[1].'
                     </td>
                 </tr>
@@ -196,57 +210,67 @@ abstract class ReportInformeTicket
             <br>
             <table class="default" style="width:100%">
                 <tr>
-                    <th colspan="5">
+                    <th colspan="3">
                         Descripcion del servicio
                     </th>
                 </tr>
                 <tr>
-                    <th>
-                        Equipo tipo (msp, paq, split, otro)
-                    </th>
-                    <th>
+                    <th width="25%">
                         Presenta falla
                     </th>
-                    <th>
-                        Capacidad (Btuh/TR)
-                    </th>
-                    <th>
-                        Marca
-                    </th>
-                    <th>
+                    <th width="25%">
                         Notas
+                    </th>
+                    <th width="50%">
+                        Observaciones
                     </th>
                 </tr>
                 <tr>
                     <td>
-                        '.$informeDTO->getTipo_equipo().'
-                    </td>
-                    <td>
                         '.$informeDTO->getPresenta_falla().'
                     </td>
                     <td>
-                        '.$informeDTO->getCapacidad().'
-                    </td>
-                    <td>
-                        '.$informeDTO->getMarca().'
-                    </td>
-                    <td>
                         '.$informeDTO->getNotas().'
+                    </td>
+                    <td>
+                        '.$informeDTO->getObservaciones().'
                     </td>
                 </tr>
             </table>
             <br>
             <table class="default" style="width:100%">
                 <tr>
-                    <th colspan="4">
-                        Observaciones
+                    <th colspan="8">
+                        Datos de los equipos
                     </th>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        '.$informeDTO->getObservaciones().'
-                    </td>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Marca
+                    </th>
+                    <th>
+                        Modelo
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Serial interior
+                    </th>
+                    <th>
+                        Serial exterior
+                    </th>
+                    <th>
+                        Capacidad btuh
+                    </th>
+                    <th>
+                        Voltaje / Fases
+                    </th>
                 </tr>
+                '.self::getEquipos($listEquipos).'
             </table>
             <br><br>
             <hr>
@@ -257,5 +281,24 @@ abstract class ReportInformeTicket
         $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
         $dompdf->stream($pdfName, array("Attachment" => 0));
+    }
+
+    private static function getEquipos($listEquipos){
+        $html = '';
+
+        foreach ($listEquipos as $value) {
+            $html .= '
+                        <tr>
+                            <td>'.$value->getEquipoDTO()->getNombre().'</td>
+                            <td>'.$value->getEquipoDTO()->getMarca().'</td>
+                            <td>'.$value->getEquipoDTO()->getModelo().'</td>
+                            <td>'.$value->getEquipoDTO()->getTipo_equipo().'</td>
+                            <td>'.$value->getEquipoDTO()->getSerial_interior().'</td>
+                            <td>'.$value->getEquipoDTO()->getSerial_exterior().'</td>
+                            <td>'.$value->getEquipoDTO()->getCapacidad_btuh().'</td>
+                            <td>'.$value->getEquipoDTO()->getVoltaje_fases().'</td>
+                        </tr>';
+        }
+        return $html;
     }
 }

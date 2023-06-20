@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportInformeFinal
 {
-    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
@@ -79,16 +79,16 @@ abstract class ReportInformeFinal
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Nombre
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $ticketDTO->getUsuarioDTO()->getNombre() . '
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Documento
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $ticketDTO->getUsuarioDTO()->getCedula() . '
                     </td>
                 </tr>
@@ -129,16 +129,16 @@ abstract class ReportInformeFinal
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Nombre
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $tecnicoTicketDTO->getTecnicoDTO()->getNombre() . '
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Documento
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $tecnicoTicketDTO->getTecnicoDTO()->getCedula() . '
                     </td>
                 </tr>
@@ -156,6 +156,20 @@ abstract class ReportInformeFinal
                         ' . $tecnicoTicketDTO->getTecnicoDTO()->getCorreo() . '
                     </td>
                 </tr>
+                <tr>
+                    <td class="negrilla">
+                        Dirección
+                    </td>
+                    <td>
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getDireccion() . '
+                    </td>
+                    <td class="negrilla">
+                        Ciudad
+                    </td>
+                    <td>
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCiudad() . '
+                    </td>
+                </tr>
             </table>
             <br>
             <table class="default" style="width:100%">
@@ -165,75 +179,54 @@ abstract class ReportInformeFinal
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Ubicación del equipo
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $ordenDTO->getUbicacion_equipo() . '
                     </td>
-                    <td class="negrilla">
+                    <td class="negrilla" width="20%">
                         Tipo de uso
                     </td>
-                    <td>
+                    <td width="30%">
                         ' . $ordenDTO->getTipo_uso()[1] . '
                     </td>
                 </tr>
+            </table>
+            <br>
+            <table class="default" style="width:100%">
                 <tr>
-                    <td class="negrilla">
-                        Tipo de equipo
-                    </td>
-                    <td>
-                        ' . $ordenDTO->getTipo_equipo() . '
-                    </td>
-                    <td class="negrilla">
+                    <th colspan="8">
+                        Datos de los equipos
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
                         Marca
-                    </td>
-                    <td>
-                        ' . $ordenDTO->getMarca() . '
-                    </td>
+                    </th>
+                    <th>
+                        Modelo
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Serial interior
+                    </th>
+                    <th>
+                        Serial exterior
+                    </th>
+                    <th>
+                        Capacidad btuh
+                    </th>
+                    <th>
+                        Voltaje / Fases
+                    </th>
                 </tr>
-                <tr>
-                    <td class="negrilla">
-                        Serial
-                    </td>
-                    <td>
-                        ' . $reporteDTO->getSerial() . '
-                    </td>
-                    <td class="negrilla">
-                        Año de compra
-                    </td>
-                    <td>
-                        ' . $reporteDTO->getYear_compra() . '
-                    </td>
-                </tr>
-                <tr>
-                    <td class="negrilla">
-                        Capacidad (Btuh)
-                    </td>
-                    <td>
-                        ' . $ordenDTO->getCapacidad() . '
-                    </td>
-                    <td class="negrilla">
-                        Fases
-                    </td>
-                    <td>
-                        ' . $reporteDTO->getFases() . '
-                    </td>
-                </tr>
-                <tr>
-                    <td class="negrilla">
-                        Voltaje
-                    </td>
-                    <td>
-                        ' . $reporteDTO->getVoltaje() . '
-                    </td>
-                    <td class="negrilla">
-                        Amperaje
-                    </td>
-                    <td>
-                        ' . $reporteDTO->getAmperaje() . '
-                    </td>
-                </tr>
+                '.self::getEquipos($listEquipos).'
             </table>';
 
         if ($reporteDTO->getMantenimiento_preventivo()[0] == 1) {
@@ -241,13 +234,13 @@ abstract class ReportInformeFinal
                 <br>
                 <table class="default" style="width:100%">
                     <tr>
-                        <th colspan="2">
+                        <th colspan="2" width="80%">
                             Mantenimiento preventivo
                         </th>
-                        <th colspan="1">
+                        <th colspan="1" width="10%">
                             SI
                         </th>
-                        <th colspan="1">
+                        <th colspan="1" width="10%">
                             NO
                         </th>
                     </tr>
@@ -479,6 +472,25 @@ abstract class ReportInformeFinal
         $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
         $dompdf->stream($pdfName, array("Attachment" => 0));
+    }
+
+    private static function getEquipos($listEquipos){
+        $html = '';
+
+        foreach ($listEquipos as $value) {
+            $html .= '
+                        <tr>
+                            <td>'.$value->getEquipoDTO()->getNombre().'</td>
+                            <td>'.$value->getEquipoDTO()->getMarca().'</td>
+                            <td>'.$value->getEquipoDTO()->getModelo().'</td>
+                            <td>'.$value->getEquipoDTO()->getTipo_equipo().'</td>
+                            <td>'.$value->getEquipoDTO()->getSerial_interior().'</td>
+                            <td>'.$value->getEquipoDTO()->getSerial_exterior().'</td>
+                            <td>'.$value->getEquipoDTO()->getCapacidad_btuh().'</td>
+                            <td>'.$value->getEquipoDTO()->getVoltaje_fases().'</td>
+                        </tr>';
+        }
+        return $html;
     }
 
     private static function validateSi($valor)

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Ingresar - Kondory Tecnologia</title>
+    <title>Ingresar - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -114,7 +114,7 @@
 
                             <div class="credits">
 
-                                Desarrollado por <a href="https://kondori.co/">Kondory Tecnologia</a>
+                                Desarrollado por <a href="https://kondori.co/" target="_blank">Kondory Tecnologia</a>
                             </div>
 
                         </div>

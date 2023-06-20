@@ -4,11 +4,6 @@ class ReporteFinalDTO
     protected $id_reporte_final;
     protected $id_ticket;
     protected $fecha_servicio;
-    protected $serial;
-    protected $year_compra;
-    protected $voltaje;
-    protected $amperaje;
-    protected $fases;
     protected $mantenimiento_preventivo;
     protected $equipo_opera_inicio;
     protected $limpieza_general;
@@ -87,106 +82,6 @@ class ReporteFinalDTO
     public function setFecha_servicio($fecha_servicio)
     {
         $this->fecha_servicio = $fecha_servicio;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of serial
-     */ 
-    public function getSerial()
-    {
-        return $this->serial;
-    }
-
-    /**
-     * Set the value of serial
-     *
-     * @return  self
-     */ 
-    public function setSerial($serial)
-    {
-        $this->serial = $serial;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of year_compra
-     */ 
-    public function getYear_compra()
-    {
-        return $this->year_compra;
-    }
-
-    /**
-     * Set the value of year_compra
-     *
-     * @return  self
-     */ 
-    public function setYear_compra($year_compra)
-    {
-        $this->year_compra = $year_compra;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of voltaje
-     */ 
-    public function getVoltaje()
-    {
-        return $this->voltaje;
-    }
-
-    /**
-     * Set the value of voltaje
-     *
-     * @return  self
-     */ 
-    public function setVoltaje($voltaje)
-    {
-        $this->voltaje = $voltaje;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of amperaje
-     */ 
-    public function getAmperaje()
-    {
-        return $this->amperaje;
-    }
-
-    /**
-     * Set the value of amperaje
-     *
-     * @return  self
-     */ 
-    public function setAmperaje($amperaje)
-    {
-        $this->amperaje = $amperaje;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of fases
-     */ 
-    public function getFases()
-    {
-        return $this->fases;
-    }
-
-    /**
-     * Set the value of fases
-     *
-     * @return  self
-     */ 
-    public function setFases($fases)
-    {
-        $this->fases = $fases;
 
         return $this;
     }

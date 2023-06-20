@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -80,30 +80,19 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="tipo_uso">Tipo de uso</label>
-                                    <select class="form-select" name="tipo_uso">
+                                    <select class="form-select" name="tipo_uso" id="tipo_uso">
+                                        <option value="<?=$reportTicket->getTipo_uso()[0]?>"><?=$reportTicket->getTipo_uso()[1]?></option>
                                         <option value="1">Residencial</option>
                                         <option value="2">Comercial</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="tipo_equipo">Tipo de equipo (msp, paq, split, otro)</label>
-                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="100" required value="<?=$reportTicket->getTipo_equipo()?>">
-                                </div>
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="presenta_falla">Presenta falla</label>
                                     <input type="text" class="form-control" name="presenta_falla" maxlength="255" required value="<?=$reportTicket->getPresenta_falla()?>">
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="capacidad">Capacidad (Btuh/TR)</label>
-                                    <input type="text" class="form-control" name="capacidad" maxlength="255" required value="<?=$reportTicket->getCapacidad()?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="marca">Marca</label>
-                                    <input type="text" class="form-control" name="marca" maxlength="255" required value="<?=$reportTicket->getMarca()?>">
-                                </div>
                                 <div class="col-md-12 form-group">
                                     <label for="notas">Notas</label>
-                                    <input type="text" class="form-control" name="notas" maxlength="255" required value="<?=$reportTicket->getNotas()?>">
+                                    <textarea class="form-control" name="notas" rows="3" maxlength="255" required><?=$reportTicket->getNotas()?></textarea>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="observaciones">Observaciones</label>
@@ -150,6 +139,9 @@
     <script src="../../assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
+
+    <!-- JS PAGE -->
+    <script src="../../js/selectRepeat.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

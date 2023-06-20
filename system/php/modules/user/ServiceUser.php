@@ -223,17 +223,21 @@ class ServiceUser extends System
         try {
             $id_usuario = parent::limpiarString($id_usuario);
             $tableHtml = "";
+            $item = 1;
 
             $modelResponse = TipoEquipo::listTipoEquipoByUser($id_usuario);
 
             foreach ($modelResponse as $valor) {
                 $tableHtml .= '<tr>';
-                $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
+                $tableHtml .= '<td>' . $item . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
-                $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) . '</td>';
+                $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
+                $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
+                $tableHtml .= '<td>' . $valor->getTipo_equipo() . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVerTwoLink("equipment",$valor->getId_tipo(),"user_equipment",$id_usuario) . '</td>';
                 $tableHtml .= '</tr>';
+
+                $item ++;
             }
 
             return $tableHtml;

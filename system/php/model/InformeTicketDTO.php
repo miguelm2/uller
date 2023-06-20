@@ -7,10 +7,7 @@ class InformeTicketDTO
     protected $fecha_ultimo_servicio;
     protected $ubicacion_equipo;
     protected $tipo_uso;
-    protected $tipo_equipo;
     protected $presenta_falla;
-    protected $capacidad;
-    protected $marca;
     protected $notas;
     protected $observaciones;
     protected $fecha_registro;
@@ -139,26 +136,6 @@ class InformeTicketDTO
     }
 
     /**
-     * Get the value of tipo_equipo
-     */ 
-    public function getTipo_equipo()
-    {
-        return $this->tipo_equipo;
-    }
-
-    /**
-     * Set the value of tipo_equipo
-     *
-     * @return  self
-     */ 
-    public function setTipo_equipo($tipo_equipo)
-    {
-        $this->tipo_equipo = $tipo_equipo;
-
-        return $this;
-    }
-
-    /**
      * Get the value of presenta_falla
      */ 
     public function getPresenta_falla()
@@ -174,46 +151,6 @@ class InformeTicketDTO
     public function setPresenta_falla($presenta_falla)
     {
         $this->presenta_falla = $presenta_falla;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of capacidad
-     */ 
-    public function getCapacidad()
-    {
-        return $this->capacidad;
-    }
-
-    /**
-     * Set the value of capacidad
-     *
-     * @return  self
-     */ 
-    public function setCapacidad($capacidad)
-    {
-        $this->capacidad = $capacidad;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of marca
-     */ 
-    public function getMarca()
-    {
-        return $this->marca;
-    }
-
-    /**
-     * Set the value of marca
-     *
-     * @return  self
-     */ 
-    public function setMarca($marca)
-    {
-        $this->marca = $marca;
 
         return $this;
     }

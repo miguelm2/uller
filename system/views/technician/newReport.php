@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -85,25 +85,13 @@
                                         <option value="2">Comercial</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="tipo_equipo">Tipo de equipo (msp, paq, split, otro)</label>
-                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="100" required>
-                                </div>
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="presenta_falla">Presenta falla</label>
                                     <input type="text" class="form-control" name="presenta_falla" maxlength="255" required>
                                 </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="capacidad">Capacidad (Btuh/TR)</label>
-                                    <input type="text" class="form-control" name="capacidad" maxlength="255" required>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="marca">Marca</label>
-                                    <input type="text" class="form-control" name="marca" maxlength="255" required>
-                                </div>
                                 <div class="col-md-12 form-group">
                                     <label for="notas">Notas</label>
-                                    <input type="text" class="form-control" name="notas" maxlength="255" required>
+                                    <textarea class="form-control" name="notas" rows="3" maxlength="255" required></textarea>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="observaciones">Observaciones</label>
