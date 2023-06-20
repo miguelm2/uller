@@ -10,11 +10,11 @@ if(isset($_POST['setPassProfileTechnician'])){
 }
 
 if(isset($_POST['newTechnician'])){
-    $response = ServiceTechnician::newTechnician($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['pass']);
+    $response = ServiceTechnician::newTechnician($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['pass'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $_POST['tipo_cuenta'], $_POST['numero_cuenta']);
 }
 
 if(isset($_POST['setTechnician'])){
-    $response = ServiceTechnician::setTechnician($_GET['technician'],$_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['estado']);
+    $response = ServiceTechnician::setTechnician($_GET['technician'],$_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $_POST['tipo_cuenta'], $_POST['numero_cuenta'], $_POST['estado']);
 }
 
 if(isset($_POST['setPasswordTechnician'])){

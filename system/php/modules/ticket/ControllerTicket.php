@@ -32,11 +32,11 @@ if(isset($_POST['getListEquiposTicket'])){
 
 //ORDEN DE SERVICIO DE UN TICKET -----------------------------------------
 if(isset($_POST['newReportTicket'])){
-    $response = ServiceTicket::newReportTicket($_GET['ticket'],$_POST['fecha_servicio'], $_POST['fecha_ultimo_servicio'], $_POST['ubicacion_equipo'],$_POST['tipo_uso'],$_POST['tipo_equipo'],$_POST['presenta_falla'],$_POST['capacidad'],$_POST['marca'],$_POST['notas'],$_POST['observaciones']);
+    $response = ServiceTicket::newReportTicket($_GET['ticket'],$_POST['fecha_servicio'], $_POST['fecha_ultimo_servicio'], $_POST['ubicacion_equipo'],$_POST['tipo_uso'],$_POST['presenta_falla'],$_POST['notas'],$_POST['observaciones']);
 }
 
 if(isset($_POST['setReportTicket'])){
-    $response = ServiceTicket::setReportTicket($_GET['reportTicket'],$_POST['fecha_servicio'], $_POST['fecha_ultimo_servicio'], $_POST['ubicacion_equipo'],$_POST['tipo_uso'],$_POST['tipo_equipo'],$_POST['presenta_falla'],$_POST['capacidad'],$_POST['marca'],$_POST['notas'],$_POST['observaciones']);
+    $response = ServiceTicket::setReportTicket($_GET['reportTicket'],$_POST['fecha_servicio'], $_POST['fecha_ultimo_servicio'], $_POST['ubicacion_equipo'],$_POST['tipo_uso'],$_POST['presenta_falla'],$_POST['notas'],$_POST['observaciones']);
 }
 
 if(isset($_POST['getPdfReportTicket'])){
@@ -68,7 +68,7 @@ if(isset($_POST['newInformTicket'])){
     $estado_equipo          = (isset($_POST['estado_equipo'])) ? '1' : '0';
     $equipo_opera_fin       = (isset($_POST['equipo_opera_fin'])) ? '1' : '0';
     
-    $response = ServiceTicket::newInformTicket($_GET['ticket'],$_POST['fecha_servicio'], $_POST['serial'], $_POST['year_compra'],$_POST['voltaje'],$_POST['amperaje'],$_POST['fases'],
+    $response = ServiceTicket::newInformTicket($_GET['ticket'],$_POST['fecha_servicio'],
                                             $_POST['mantenimiento_preventivo'],$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
                                             $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
                                             $estado_carcasa,$estado_equipo,$equipo_opera_fin,$_POST['mantenimiento_correctivo'],$_POST['falla_encontrada'],
@@ -88,7 +88,7 @@ if(isset($_POST['setInformTicket'])){
     $estado_equipo          = (isset($_POST['estado_equipo'])) ? '1' : '0';
     $equipo_opera_fin       = (isset($_POST['equipo_opera_fin'])) ? '1' : '0';
     
-    $response = ServiceTicket::setInformTicket($_GET['informTicket'],$_POST['fecha_servicio'], $_POST['serial'], $_POST['year_compra'],$_POST['voltaje'],$_POST['amperaje'],$_POST['fases'],
+    $response = ServiceTicket::setInformTicket($_GET['informTicket'],$_POST['fecha_servicio'],
                                             $_POST['mantenimiento_preventivo'],$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
                                             $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
                                             $estado_carcasa,$estado_equipo,$equipo_opera_fin,$_POST['mantenimiento_correctivo'],$_POST['falla_encontrada'],

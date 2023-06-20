@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Aplicacion Web - Kondory Tecnologia</title>
+    <title>Aplicacion Web - Uller</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -68,29 +68,9 @@
                     <div class="card-body" style="padding-top: 5px;">
                         <form method="POST">
                             <div class="row g-3">
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-12 form-group">
                                     <label for="fecha_servicio">Fecha servicio</label>
                                     <input type="date" class="form-control" name="fecha_servicio" required value="<?= $informTicket->getFecha_servicio() ?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="serial">Serial</label>
-                                    <input type="text" class="form-control" name="serial" maxlength="150" required value="<?= $informTicket->getSerial() ?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="year_compra">Año de compra</label>
-                                    <input type="text" class="form-control" name="year_compra" maxlength="4" required value="<?= $informTicket->getYear_compra() ?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="voltaje">Voltaje</label>
-                                    <input type="number" class="form-control" name="voltaje" required value="<?= $informTicket->getVoltaje() ?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="amperaje">Amperaje</label>
-                                    <input type="number" class="form-control" name="amperaje" required value="<?= $informTicket->getAmperaje() ?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="fases">Fases</label>
-                                    <input type="number" class="form-control" name="fases" required value="<?= $informTicket->getFases() ?>">
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="mantenimiento_preventivo">Mantenimiento Preventivo</label>

@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/ReporteFinalDTO.php'
 class ReporteFinal extends System
 {
     public static function newReporteFinal(
-        $id_ticket,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+        $id_ticket,$fecha_servicio,
         $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
         $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
         $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
@@ -12,12 +12,12 @@ class ReporteFinal extends System
     )
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO ReporteFinalTicket (id_ticket,fecha_servicio,serial,year_compra,voltaje,amperaje,fases,
+        $stmt = $dbh->prepare("INSERT INTO ReporteFinalTicket (id_ticket,fecha_servicio,
                                                         mantenimiento_preventivo,equipo_opera_inicio,limpieza_general,limpieza_filtros,
                                                         limpieza_serpentin,limpieza_bandeja,serpentin_condensador,limpieza_drenaje,verificacion,
                                                         estado_carcasa,estado_equipo,equipo_opera_fin,mantenimiento_correctivo,falla_encontrada,
                                                         repuestos,insumos,tarjetas_electronicas,estimado_horas,observaciones,fecha_registro) 
-                                VALUES (:id_ticket,:fecha_servicio,:serial,:year_compra,:voltaje,:amperaje,:fases,
+                                VALUES (:id_ticket,:fecha_servicio,
                                         :mantenimiento_preventivo,:equipo_opera_inicio,:limpieza_general,:limpieza_filtros,
                                         :limpieza_serpentin,:limpieza_bandeja,:serpentin_condensador,:limpieza_drenaje,:verificacion,
                                         :estado_carcasa,:estado_equipo,:equipo_opera_fin,:mantenimiento_correctivo,:falla_encontrada,
@@ -25,11 +25,6 @@ class ReporteFinal extends System
 
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
-        $stmt->bindParam(':serial', $serial);
-        $stmt->bindParam(':year_compra', $year_compra);
-        $stmt->bindParam(':voltaje', $voltaje);
-        $stmt->bindParam(':amperaje', $amperaje);
-        $stmt->bindParam(':fases', $fases);
         $stmt->bindParam(':mantenimiento_preventivo', $mantenimiento_preventivo);
         $stmt->bindParam(':equipo_opera_inicio', $equipo_opera_inicio);
         $stmt->bindParam(':limpieza_general', $limpieza_general);
@@ -55,7 +50,7 @@ class ReporteFinal extends System
     }
 
     public static function setReporteFinal(
-        $id_reporte_final,$fecha_servicio,$serial,$year_compra,$voltaje,$amperaje,$fases,
+        $id_reporte_final,$fecha_servicio,
         $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
         $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
         $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
@@ -63,7 +58,7 @@ class ReporteFinal extends System
     )
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("UPDATE ReporteFinalTicket SET fecha_servicio = :fecha_servicio, serial = :serial, year_compra = :year_compra, voltaje = :voltaje, amperaje = :amperaje, fases = :fases,
+        $stmt = $dbh->prepare("UPDATE ReporteFinalTicket SET fecha_servicio = :fecha_servicio,
                                                                 mantenimiento_preventivo = :mantenimiento_preventivo, equipo_opera_inicio = :equipo_opera_inicio, limpieza_general = :limpieza_general, limpieza_filtros = :limpieza_filtros,
                                                                 limpieza_serpentin = :limpieza_serpentin, limpieza_bandeja = :limpieza_bandeja, serpentin_condensador = :serpentin_condensador, limpieza_drenaje = :limpieza_drenaje, verificacion = :verificacion,
                                                                 estado_carcasa = :estado_carcasa, estado_equipo = :estado_equipo, equipo_opera_fin = :equipo_opera_fin, mantenimiento_correctivo = :mantenimiento_correctivo, falla_encontrada = :falla_encontrada,
@@ -72,11 +67,6 @@ class ReporteFinal extends System
 
         $stmt->bindParam(':id_reporte_final', $id_reporte_final);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
-        $stmt->bindParam(':serial', $serial);
-        $stmt->bindParam(':year_compra', $year_compra);
-        $stmt->bindParam(':voltaje', $voltaje);
-        $stmt->bindParam(':amperaje', $amperaje);
-        $stmt->bindParam(':fases', $fases);
         $stmt->bindParam(':mantenimiento_preventivo', $mantenimiento_preventivo);
         $stmt->bindParam(':equipo_opera_inicio', $equipo_opera_inicio);
         $stmt->bindParam(':limpieza_general', $limpieza_general);

@@ -60,20 +60,29 @@ class ServiceTechnician extends System
         }
     }
 
-    public static function newTechnician($nombre, $correo, $telefono, $cedula, $pass)
+    public static function newTechnician($nombre, $correo, $telefono, $cedula, $pass, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta)
     {
-        $nombre = parent::limpiarString($nombre);
-        $correo = parent::limpiarString($correo);
-        $telefono = parent::limpiarString($telefono);
-        $cedula = parent::limpiarString($cedula);
-        $pass = parent::limpiarString($pass);
+        $nombre             = parent::limpiarString($nombre);
+        $correo             = parent::limpiarString($correo);
+        $telefono           = parent::limpiarString($telefono);
+        $cedula             = parent::limpiarString($cedula);
+        $pass               = parent::limpiarString($pass);
+        $fecha_nacimiento   = parent::limpiarString($fecha_nacimiento);
+        $direccion          = parent::limpiarString($direccion);
+        $ciudad             = parent::limpiarString($ciudad);
+        $estado_civil       = parent::limpiarString($estado_civil);
+        $numero_hijos       = parent::limpiarString($numero_hijos);
+        $banco              = parent::limpiarString($banco);
+        $tipo_cuenta        = parent::limpiarString($tipo_cuenta);
+        $numero_cuenta      = parent::limpiarString($numero_cuenta);
+
         $pass_hash = parent::hash($pass);
         $estado = 1;
         $tipo = 3;
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = Tecnico::newTecnico($nombre, $correo, $telefono, $cedula, $pass_hash, $estado, $tipo, $fecha_registro);
+            $result = Tecnico::newTecnico($nombre, $correo, $telefono, $cedula, $pass_hash, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta, $estado, $tipo, $fecha_registro);
             if ($result) {
                 return  '<script>swal("' . Constants::$TECHNICIAN_NEW . '", "", "success");</script>';
             } else {
@@ -84,18 +93,26 @@ class ServiceTechnician extends System
         }
     }
 
-    public static function setTechnician($id_tecnico, $nombre, $correo, $telefono, $cedula, $estado)
+    public static function setTechnician($id_tecnico, $nombre, $correo, $telefono, $cedula, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta, $estado)
     {
-        $id_tecnico = parent::limpiarString($id_tecnico);
-        $nombre     = parent::limpiarString($nombre);
-        $correo     = parent::limpiarString($correo);
-        $telefono   = parent::limpiarString($telefono);
-        $cedula     = parent::limpiarString($cedula);
-        $estado     = parent::limpiarString($estado);
+        $id_tecnico         = parent::limpiarString($id_tecnico);
+        $nombre             = parent::limpiarString($nombre);
+        $correo             = parent::limpiarString($correo);
+        $telefono           = parent::limpiarString($telefono);
+        $cedula             = parent::limpiarString($cedula);
+        $fecha_nacimiento   = parent::limpiarString($fecha_nacimiento);
+        $direccion          = parent::limpiarString($direccion);
+        $ciudad             = parent::limpiarString($ciudad);
+        $estado_civil       = parent::limpiarString($estado_civil);
+        $numero_hijos       = parent::limpiarString($numero_hijos);
+        $banco              = parent::limpiarString($banco);
+        $tipo_cuenta        = parent::limpiarString($tipo_cuenta);
+        $numero_cuenta      = parent::limpiarString($numero_cuenta);
+        $estado             = parent::limpiarString($estado);
 
 
         try {
-            $result = Tecnico::setTecnico($id_tecnico, $nombre, $correo, $telefono, $cedula, $estado);
+            $result = Tecnico::setTecnico($id_tecnico, $nombre, $correo, $telefono, $cedula, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta, $estado);
             if ($result) {
                 return  '<script>swal("' . Constants::$TECHNICIAN_UPDATE . '", "", "success");</script>';
             } else {

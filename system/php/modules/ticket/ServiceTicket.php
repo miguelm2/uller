@@ -214,23 +214,20 @@ class ServiceTicket extends System
     }
 
     //ORDEN DE SERVICIO DE UN TICKET ----------------------------------------------------------
-    public static function newReportTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $tipo_equipo, $presenta_falla, $capacidad, $marca, $notas, $observaciones)
+    public static function newReportTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
     {
-        $id_ticket          = parent::limpiarString($id_ticket);
-        $fecha_servicio     = parent::limpiarString($fecha_servicio);
-        $fecha_ultimo_servicio    = parent::limpiarString($fecha_ultimo_servicio);
-        $ubicacion_equipo         = parent::limpiarString($ubicacion_equipo);
-        $tipo_uso       = parent::limpiarString($tipo_uso);
-        $tipo_equipo    = parent::limpiarString($tipo_equipo);
-        $presenta_falla = parent::limpiarString($presenta_falla);
-        $capacidad      = parent::limpiarString($capacidad);
-        $marca          = parent::limpiarString($marca);
-        $notas          = parent::limpiarString($notas);
-        $observaciones  = parent::limpiarString($observaciones);
+        $id_ticket              = parent::limpiarString($id_ticket);
+        $fecha_servicio         = parent::limpiarString($fecha_servicio);
+        $fecha_ultimo_servicio  = parent::limpiarString($fecha_ultimo_servicio);
+        $ubicacion_equipo       = parent::limpiarString($ubicacion_equipo);
+        $tipo_uso               = parent::limpiarString($tipo_uso);
+        $presenta_falla         = parent::limpiarString($presenta_falla);
+        $notas                  = parent::limpiarString($notas);
+        $observaciones          = parent::limpiarString($observaciones);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $modelResponse = InformeTicket::newInformeTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $tipo_equipo, $presenta_falla, $capacidad, $marca, $notas, $observaciones, $fecha_registro);
+            $modelResponse = InformeTicket::newInformeTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones, $fecha_registro);
 
             if ($modelResponse) {
                 $id_informe = InformeTicket::getIdLastInformeTicket();
@@ -264,22 +261,19 @@ class ServiceTicket extends System
         }
     }
 
-    public static function setReportTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $tipo_equipo, $presenta_falla, $capacidad, $marca, $notas, $observaciones)
+    public static function setReportTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
     {
-        $id_informe         = parent::limpiarString($id_informe);
-        $fecha_servicio     = parent::limpiarString($fecha_servicio);
-        $fecha_ultimo_servicio    = parent::limpiarString($fecha_ultimo_servicio);
-        $ubicacion_equipo         = parent::limpiarString($ubicacion_equipo);
-        $tipo_uso       = parent::limpiarString($tipo_uso);
-        $tipo_equipo    = parent::limpiarString($tipo_equipo);
-        $presenta_falla = parent::limpiarString($presenta_falla);
-        $capacidad      = parent::limpiarString($capacidad);
-        $marca          = parent::limpiarString($marca);
-        $notas          = parent::limpiarString($notas);
-        $observaciones  = parent::limpiarString($observaciones);
+        $id_informe             = parent::limpiarString($id_informe);
+        $fecha_servicio         = parent::limpiarString($fecha_servicio);
+        $fecha_ultimo_servicio  = parent::limpiarString($fecha_ultimo_servicio);
+        $ubicacion_equipo       = parent::limpiarString($ubicacion_equipo);
+        $tipo_uso               = parent::limpiarString($tipo_uso);
+        $presenta_falla         = parent::limpiarString($presenta_falla);
+        $notas                  = parent::limpiarString($notas);
+        $observaciones          = parent::limpiarString($observaciones);
 
         try {
-            $modelResponse = InformeTicket::setInformeTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $tipo_equipo, $presenta_falla, $capacidad, $marca, $notas, $observaciones);
+            $modelResponse = InformeTicket::setInformeTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones);
 
             if ($modelResponse) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -308,8 +302,9 @@ class ServiceTicket extends System
             $informeDTO       = InformeTicket::getInformeTicketById($id_informe);
             $ticketDTO        = Ticket::getTicket($informeDTO->getId_ticket());
             $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($informeDTO->getId_ticket());
+            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($informeDTO->getId_ticket());
 
-            $modelResponse = ReportInformeTicket::generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO);
+            $modelResponse = ReportInformeTicket::generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
             return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -323,11 +318,6 @@ class ServiceTicket extends System
     public static function newInformTicket(
         $id_ticket,
         $fecha_servicio,
-        $serial,
-        $year_compra,
-        $voltaje,
-        $amperaje,
-        $fases,
         $mantenimiento_preventivo,
         $equipo_opera_inicio,
         $limpieza_general,
@@ -350,11 +340,6 @@ class ServiceTicket extends System
     ) {
         $id_ticket                  = parent::limpiarString($id_ticket);
         $fecha_servicio             = parent::limpiarString($fecha_servicio);
-        $serial                     = parent::limpiarString($serial);
-        $year_compra                = parent::limpiarString($year_compra);
-        $voltaje                    = parent::limpiarString($voltaje);
-        $amperaje                   = parent::limpiarString($amperaje);
-        $fases                      = parent::limpiarString($fases);
         $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
         $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
         $limpieza_general           = parent::limpiarString($limpieza_general);
@@ -380,11 +365,6 @@ class ServiceTicket extends System
             $modelResponse = ReporteFinal::newReporteFinal(
                 $id_ticket,
                 $fecha_servicio,
-                $serial,
-                $year_compra,
-                $voltaje,
-                $amperaje,
-                $fases,
                 $mantenimiento_preventivo,
                 $equipo_opera_inicio,
                 $limpieza_general,
@@ -420,11 +400,6 @@ class ServiceTicket extends System
     public static function setInformTicket(
         $id_reporte_final,
         $fecha_servicio,
-        $serial,
-        $year_compra,
-        $voltaje,
-        $amperaje,
-        $fases,
         $mantenimiento_preventivo,
         $equipo_opera_inicio,
         $limpieza_general,
@@ -447,11 +422,6 @@ class ServiceTicket extends System
     ) {
         $id_reporte_final           = parent::limpiarString($id_reporte_final);
         $fecha_servicio             = parent::limpiarString($fecha_servicio);
-        $serial                     = parent::limpiarString($serial);
-        $year_compra                = parent::limpiarString($year_compra);
-        $voltaje                    = parent::limpiarString($voltaje);
-        $amperaje                   = parent::limpiarString($amperaje);
-        $fases                      = parent::limpiarString($fases);
         $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
         $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
         $limpieza_general           = parent::limpiarString($limpieza_general);
@@ -476,11 +446,6 @@ class ServiceTicket extends System
             $modelResponse = ReporteFinal::setReporteFinal(
                 $id_reporte_final,
                 $fecha_servicio,
-                $serial,
-                $year_compra,
-                $voltaje,
-                $amperaje,
-                $fases,
                 $mantenimiento_preventivo,
                 $equipo_opera_inicio,
                 $limpieza_general,
@@ -538,12 +503,13 @@ class ServiceTicket extends System
         $id_reporte_final = parent::limpiarString($id_reporte_final);
 
         try {
-            $perfilDTO       = Informacion::getInformacion();
-            $reporteFinalDTO = ReporteFinal::getReporteFinalById($id_reporte_final);
-            $ordenDTO        = InformeTicket::getInformeTicketByTicket($reporteFinalDTO->getId_ticket());
-            $ticketDTO       = Ticket::getTicket($reporteFinalDTO->getId_ticket());
+            $perfilDTO        = Informacion::getInformacion();
+            $reporteFinalDTO  = ReporteFinal::getReporteFinalById($id_reporte_final);
+            $ordenDTO         = InformeTicket::getInformeTicketByTicket($reporteFinalDTO->getId_ticket());
+            $ticketDTO        = Ticket::getTicket($reporteFinalDTO->getId_ticket());
             $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($reporteFinalDTO->getId_ticket());
-            $modelResponse   = ReportInformeFinal::generatePdf($perfilDTO, $reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO);
+            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($reporteFinalDTO->getId_ticket());
+            $modelResponse    = ReportInformeFinal::generatePdf($perfilDTO, $reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
             return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
