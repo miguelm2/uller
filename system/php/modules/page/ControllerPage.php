@@ -32,7 +32,7 @@ if(isset($_GET['delete'])){
 
 //Registrar nuevo usuario
 if(isset($_POST['newAccountUser'])){
-    $response = ServicePage::newAccountUser($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['direccion'], $_POST['ciudad'], $_POST['departamento'], $_POST['pass']);
+    $response = ServicePage::newAccountUser($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['direccion'], $_POST['localidad'], $_POST['barrio'], $_POST['torre'], $_POST['numero_apto'], $_POST['ciudad'], $_POST['departamento'], $_POST['pass']);
 }
 
 if(isset($_GET)){

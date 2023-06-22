@@ -109,7 +109,7 @@
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Tipo</div>
-                    <div class="col-lg-9 col-md-8"><?= $perfilAdmin->getTipo() ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $_SESSION['usuario'] ?></div>
                   </div>
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Fecha de Registro</div>

@@ -78,7 +78,7 @@ class Tecnico extends System
         return  $stmt->execute();
     }
 
-    public static function setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula)
+    public static function setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta)
     {
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
         $validarUser    = Usuario::validateUser($cedula, $correo, null);
@@ -86,12 +86,25 @@ class Tecnico extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("UPDATE Tecnico SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula WHERE id_tecnico = :id_tecnico");
+            $stmt = $dbh->prepare("UPDATE Tecnico SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula,
+                                                    fecha_nacimiento = :fecha_nacimiento, direccion = :direccion, ciudad = :ciudad, 
+                                                    estado_civil = :estado_civil, numero_hijos = :numero_hijos, banco = :banco, 
+                                                    tipo_cuenta = :tipo_cuenta, numero_cuenta = :numero_cuenta
+                                                    WHERE id_tecnico = :id_tecnico");
+                                                    
             $stmt->bindParam(':id_tecnico', $id_tecnico);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
+            $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+            $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':ciudad', $ciudad);
+            $stmt->bindParam(':estado_civil', $estado_civil);
+            $stmt->bindParam(':numero_hijos', $numero_hijos);
+            $stmt->bindParam(':banco', $banco);
+            $stmt->bindParam(':tipo_cuenta', $tipo_cuenta);
+            $stmt->bindParam(':numero_cuenta', $numero_cuenta);
             return  $stmt->execute();
         } else {
             return false;

@@ -108,8 +108,8 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Dirección</div>
-                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getDireccion() ?></div>
+                    <div class="col-lg-3 col-md-4 label">Departamento</div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getDepartamento() ?></div>
                   </div>
 
                   <div class="row">
@@ -118,13 +118,23 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Departamento</div>
-                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getDepartamento() ?></div>
+                    <div class="col-lg-3 col-md-4 label">Dirección</div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getDireccion() ?></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Localidad</div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getLocalidad() ?></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Barrio / Conjunto</div>
+                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getBarrio_conjunto() ?></div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Tipo</div>
-                    <div class="col-lg-9 col-md-8"><?= $perfilUsuario->getTipo() ?></div>
+                    <div class="col-lg-9 col-md-8"><?= $_SESSION['usuario'] ?></div>
                   </div>
 
                   <div class="row">
@@ -169,12 +179,12 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Dirección</label>
+                      <label for="departamento" class="col-md-4 col-lg-3 col-form-label">Departamento</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" name="direccion" maxlength="255" required value="<?= $perfilUsuario->getDireccion(); ?>">
+                        <input type="text" class="form-control" name="departamento" maxlength="255" required value="<?= $perfilUsuario->getDepartamento(); ?>">
                       </div>
                     </div>
-                    
+
                     <div class="row mb-3">
                       <label for="ciudad" class="col-md-4 col-lg-3 col-form-label">Ciudad</label>
                       <div class="col-md-8 col-lg-9">
@@ -183,14 +193,46 @@
                     </div>
 
                     <div class="row mb-3">
-                      <label for="departamento" class="col-md-4 col-lg-3 col-form-label">Departamento</label>
+                      <label for="direccion" class="col-md-4 col-lg-3 col-form-label">Dirección</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" name="departamento" maxlength="255" required value="<?= $perfilUsuario->getDepartamento(); ?>">
+                        <input type="text" class="form-control" name="direccion" maxlength="255" required value="<?= $perfilUsuario->getDireccion(); ?>">
                       </div>
                     </div>
 
+                    <div class="row mb-3">
+                      <label for="localidad" class="col-md-4 col-lg-3 col-form-label">Localidad</label>
+                      <div class="col-md-8 col-lg-9">
+                        <select class="form-select" name="localidad" id="localidad">
+                          <option><?= $perfilUsuario->getLocalidad(); ?></option>
+                          <option>Localidad Suroccidente</option>
+                          <option>Localidad Suroriente</option>
+                          <option>Localidad Norte-Centro Historico</option>
+                          <option>Localidad Metropolitana</option>
+                          <option>Localidad Riomar</option>
+                        </select>
+                      </div>
+                    </div>
 
+                    <div class="row mb-3">
+                      <label for="barrio" class="col-md-4 col-lg-3 col-form-label">Barrio / Conjunto</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" class="form-control" name="barrio" maxlength="255" required value="<?= $perfilUsuario->getBarrio_conjunto(); ?>">
+                      </div>
+                    </div>
 
+                    <div class="row mb-3">
+                      <label for="torre" class="col-md-4 col-lg-3 col-form-label">Torre <small class="text-secondary">(opcional)</small></label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="text" class="form-control" name="torre" maxlength="20" value="<?= $perfilUsuario->getTorre(); ?>">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="numero_apto" class="col-md-4 col-lg-3 col-form-label">Apartamento/Casa <small class="text-secondary">(opcional)</small></label>
+                      <div class="col-md-8 col-lg-9">
+                        <input type="number" class="form-control" name="numero_apto" min="0" value="<?= $perfilUsuario->getNumero_apto(); ?>">
+                      </div>
+                    </div>
 
                     <div class="text-center">
                       <button type="submit" name="setProfileUser" class="btn btn-primary">Guardar cambios</button>
@@ -252,6 +294,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
+  <script src="../../assets/vendor/jquery/jquery.min.js"></script>
   <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/chart.js/chart.umd.js"></script>
@@ -262,6 +305,7 @@
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Js page -->
+  <script src="../../js/selectRepeat.js"></script>
   <script src="../../js/functions.js"></script>
 
   <!-- Template Main JS File -->

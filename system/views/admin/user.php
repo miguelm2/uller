@@ -83,16 +83,39 @@
                                 <input type="text" class="form-control" id="cedula" name="cedula" maxlength="20" required value="<?= $user->getCedula(); ?>">
                             </div>
                             <div class="col-6 form-group">
-                                <label for="direccion" class="form-label">Direccion</label>
-                                <input type="text" class="form-control" name="direccion" maxlength="255" required value="<?= $user->getDireccion(); ?>">
+                                <label for="departamento" class="form-label">Departamento</label>
+                                <input type="text" class="form-control" name="departamento" maxlength="255" required value="<?= $user->getDepartamento(); ?>">
                             </div>
                             <div class="col-6 form-group">
                                 <label for="ciudad" class="form-label">Ciudad</label>
                                 <input type="text" class="form-control" name="ciudad" maxlength="255" required value="<?= $user->getCiudad(); ?>">
                             </div>
                             <div class="col-6 form-group">
-                                <label for="departamento" class="form-label">Departamento</label>
-                                <input type="text" class="form-control" name="departamento" maxlength="255" required value="<?= $user->getDepartamento(); ?>">
+                                <label for="direccion" class="form-label">Direccion</label>
+                                <input type="text" class="form-control" name="direccion" maxlength="255" required value="<?= $user->getDireccion(); ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="localidad" class="form-label">Localidad</label>
+                                <select class="form-select" name="localidad" id="localidad">
+                                    <option><?= $user->getLocalidad(); ?></option>
+                                    <option>Localidad Suroccidente</option>
+                                    <option>Localidad Suroriente</option>
+                                    <option>Localidad Norte-Centro Historico</option>
+                                    <option>Localidad Metropolitana</option>
+                                    <option>Localidad Riomar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="barrio" class="form-label">Barrio / Conjunto</label>
+                                <input type="text" name="barrio" class="form-control" maxlength="255" required value="<?= $user->getBarrio_conjunto(); ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="torre" class="form-label">Torre <small class="text-secondary">(opcional)</small></label>
+                                <input type="text" name="torre" class="form-control" maxlength="20" value="<?= $user->getTorre(); ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="numero_apto" class="form-label">Numero: Apartamento/Casa <small class="text-secondary">(opcional)</small></label>
+                                <input type="number" name="numero_apto" class="form-control" min="0" value="<?= $user->getNumero_apto(); ?>">
                             </div>
                             <div class="col-6">
                                 <label for="estado" class="form-label">Estado</label>
@@ -248,7 +271,13 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="marca">Marca</label>
-                                    <input type="text" class="form-control" name="marca" maxlength="255" required>
+                                    <select class="form-select" name="marca" id="marca">
+                                        <option>Olimpo</option>
+                                        <option>LG</option>
+                                        <option>Samsung</option>
+                                        <option>Panasonic</option>
+                                        <option>Carrier</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="modelo">Modelo</label>
@@ -268,11 +297,24 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="tipo_equipo">Tipo de equipo</label>
-                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="255" required>
+                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo">
+                                        <option>Mini split</option>
+                                        <option>Split</option>
+                                        <option>Paquete CxW</option>
+                                        <option>Ventana</option>
+                                        <option>Mini split techo</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="capacidad_btuh">Capacidad (BTUH)</label>
-                                    <input type="number" step="0.01" class="form-control" name="capacidad_btuh" required>
+                                    <select class="form-select" name="capacidad_btuh" id="capacidad_btuh">
+                                        <option>12000</option>
+                                        <option>18000</option>
+                                        <option>24000</option>
+                                        <option>30000</option>
+                                        <option>36000</option>
+                                        <option>48000</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="voltaje_fases">Voltaje / Fases</label>
@@ -280,7 +322,10 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="refrigerante">Refrigerante</label>
-                                    <input type="text" class="form-control" name="refrigerante" maxlength="50" required>
+                                    <select class="form-select" name="refrigerante" id="refrigerante">
+                                        <option>R22</option>
+                                        <option>R410</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="inverter">Inverter</label>

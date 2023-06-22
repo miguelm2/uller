@@ -107,13 +107,13 @@
                             </div>
 
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?= $btnDiagnosticoTecnico; ?>
+                                <?= $btnDiagnostico; ?>
                             </div>
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?= $btnOrdenTecnico; ?>
+                                <?= $btnOrdenInforme; ?>
                             </div>
                             <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?= $btnInformeServTecnico; ?>
+                                <?= $btnInformeServicio; ?>
                             </div>
                         </div>
                     </div>

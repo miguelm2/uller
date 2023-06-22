@@ -8,6 +8,10 @@
         protected $correo;
         protected $telefono;
         protected $direccion;
+        protected $localidad;
+        protected $barrio_conjunto;
+        protected $torre;
+        protected $numero_apto;
         protected $ciudad;
         protected $departamento;
         protected $pass;
@@ -124,6 +128,146 @@
         }
 
         /**
+         * Get the value of direccion
+         */ 
+        public function getDireccion()
+        {
+                return $this->direccion;
+        }
+
+        /**
+         * Set the value of direccion
+         *
+         * @return  self
+         */ 
+        public function setDireccion($direccion)
+        {
+                $this->direccion = $direccion;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of localidad
+         */ 
+        public function getLocalidad()
+        {
+                return $this->localidad;
+        }
+
+        /**
+         * Set the value of localidad
+         *
+         * @return  self
+         */ 
+        public function setLocalidad($localidad)
+        {
+                $this->localidad = $localidad;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of barrio_conjunto
+         */ 
+        public function getBarrio_conjunto()
+        {
+                return $this->barrio_conjunto;
+        }
+
+        /**
+         * Set the value of barrio_conjunto
+         *
+         * @return  self
+         */ 
+        public function setBarrio_conjunto($barrio_conjunto)
+        {
+                $this->barrio_conjunto = $barrio_conjunto;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of torre
+         */ 
+        public function getTorre()
+        {
+                return $this->torre;
+        }
+
+        /**
+         * Set the value of torre
+         *
+         * @return  self
+         */ 
+        public function setTorre($torre)
+        {
+                $this->torre = $torre;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of numero_apto
+         */ 
+        public function getNumero_apto()
+        {
+                return $this->numero_apto;
+        }
+
+        /**
+         * Set the value of numero_apto
+         *
+         * @return  self
+         */ 
+        public function setNumero_apto($numero_apto)
+        {
+                $this->numero_apto = $numero_apto;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of ciudad
+         */ 
+        public function getCiudad()
+        {
+                return $this->ciudad;
+        }
+
+        /**
+         * Set the value of ciudad
+         *
+         * @return  self
+         */ 
+        public function setCiudad($ciudad)
+        {
+                $this->ciudad = $ciudad;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of departamento
+         */ 
+        public function getDepartamento()
+        {
+                return $this->departamento;
+        }
+
+        /**
+         * Set the value of departamento
+         *
+         * @return  self
+         */ 
+        public function setDepartamento($departamento)
+        {
+                $this->departamento = $departamento;
+
+                return $this;
+        }
+
+        /**
          * Get the value of pass
          */ 
         public function getPass()
@@ -202,66 +346,6 @@
         public function setFecha_registro($fecha_registro)
         {
                 $this->fecha_registro = $fecha_registro;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of direccion
-         */ 
-        public function getDireccion()
-        {
-                return $this->direccion;
-        }
-
-        /**
-         * Set the value of direccion
-         *
-         * @return  self
-         */ 
-        public function setDireccion($direccion)
-        {
-                $this->direccion = $direccion;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of ciudad
-         */ 
-        public function getCiudad()
-        {
-                return $this->ciudad;
-        }
-
-        /**
-         * Set the value of ciudad
-         *
-         * @return  self
-         */ 
-        public function setCiudad($ciudad)
-        {
-                $this->ciudad = $ciudad;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of departamento
-         */ 
-        public function getDepartamento()
-        {
-                return $this->departamento;
-        }
-
-        /**
-         * Set the value of departamento
-         *
-         * @return  self
-         */ 
-        public function setDepartamento($departamento)
-        {
-                $this->departamento = $departamento;
 
                 return $this;
         }

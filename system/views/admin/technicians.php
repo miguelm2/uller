@@ -144,7 +144,12 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="estado_civil">Estado civil</label>
-                                    <input type="text" name="estado_civil" class="form-control" required>
+                                    <select class="form-select" name="estado_civil" id="estado_civil">
+                                        <option>Soltero</option>
+                                        <option>Casado</option>
+                                        <option>Divorciado</option>
+                                        <option>Union libre</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="numero_hijos">Número de hijos</label>
@@ -152,15 +157,27 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="banco">Banco</label>
-                                    <input type="text" name="banco" class="form-control" required>
+                                    <select class="form-select" name="banco" id="banco">
+                                        <option>No presenta</option>
+                                        <option>Bancolombia</option>
+                                        <option>Davivienda</option>
+                                        <option>Av Villas</option>
+                                        <option>Daviplata</option>
+                                        <option>Nequi</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="tipo_cuenta">Tipo de cuenta</label>
-                                    <input type="text" name="tipo_cuenta" class="form-control" required>
+                                    <select class="form-select" name="tipo_cuenta" id="tipo_cuenta">
+                                        <option>No presenta</option>
+                                        <option>Ahorros</option>
+                                        <option>Corriente</option>
+                                        <option>De bolsillo</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="numero_cuenta">Número de cuenta</label>
-                                    <input type="text" name="numero_cuenta" class="form-control" required>
+                                    <input type="text" name="numero_cuenta" id="numero_cuenta" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +219,9 @@
     <script src="../../assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
+
+    <!-- Js page -->
+    <script src="../../js/technicianFunction.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

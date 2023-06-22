@@ -44,7 +44,7 @@
 
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="../../img/perfil/<?=$informacionPage->getImagen();?>" alt="">
+                                    <img src="../../img/perfil/<?= $informacionPage->getImagen(); ?>" alt="">
                                 </a>
                             </div><!-- End Logo -->
 
@@ -77,16 +77,38 @@
                                                 <input type="text" name="cedula" class="form-control form-control-sm" maxlength="15" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <small for="direccion">Direccion</small>
-                                                <input type="text" name="direccion" class="form-control form-control-sm" maxlength="100" required>
+                                                <small for="departamento">Departamento</small>
+                                                <input type="text" name="departamento" class="form-control form-control-sm" maxlength="100" required>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <small for="ciudad">Ciudad</small>
                                                 <input type="text" name="ciudad" class="form-control form-control-sm" maxlength="100" required>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <small for="departamento">Departamento</small>
-                                                <input type="text" name="departamento" class="form-control form-control-sm" maxlength="100" required>
+                                                <small for="direccion">Direccion</small>
+                                                <input type="text" name="direccion" class="form-control form-control-sm" maxlength="100" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <small for="localidad">Localidad</small>
+                                                <select class="form-select form-select-sm" name="localidad">
+                                                    <option>Localidad Suroccidente</option>
+                                                    <option>Localidad Suroriente</option>
+                                                    <option>Localidad Norte-Centro Historico</option>
+                                                    <option>Localidad Metropolitana</option>
+                                                    <option>Localidad Riomar</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <small for="barrio">Barrio / Conjunto</small>
+                                                <input type="text" name="barrio" class="form-control form-control-sm" maxlength="255" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <small for="torre">Torre <small class="text-secondary">(opcional)</small></small>
+                                                <input type="text" name="torre" class="form-control form-control-sm" maxlength="20">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <small for="numero_apto">Numero: Apartamento/Casa <small class="text-secondary">(opcional)</small></small>
+                                                <input type="number" name="numero_apto" min="0" class="form-control form-control-sm">
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <small for="pass">Contraseña</small>
@@ -103,7 +125,7 @@
                                             <div class="col-md-12" style="text-align: center;">
                                                 <hr>
                                                 <p class="small mb-0"><a href="login"> Iniciar sesión</a></p>
-                                                <p class="small mb-0"><a href="../../../index"> Ir a la pagina principal</a></p>
+                                                <p class="small mb-0"><a href="https://www.uller.co/"> Ir a la pagina principal</a></p>
                                             </div>
 
                                         </div>
@@ -130,7 +152,7 @@
 
     <!-- Vendor JS Files -->
     <script src="../../assets/vendor/jquery/jquery.min.js"></script>
-    
+
     <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../assets/vendor/chart.js/chart.umd.js"></script>

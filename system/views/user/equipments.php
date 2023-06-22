@@ -110,7 +110,13 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="marca">Marca</label>
-                                    <input type="text" class="form-control" name="marca" maxlength="255" required>
+                                    <select class="form-select" name="marca" id="marca">
+                                        <option>Olimpo</option>
+                                        <option>LG</option>
+                                        <option>Samsung</option>
+                                        <option>Panasonic</option>
+                                        <option>Carrier</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="modelo">Modelo</label>
@@ -130,11 +136,24 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="tipo_equipo">Tipo de equipo</label>
-                                    <input type="text" class="form-control" name="tipo_equipo" maxlength="255" required>
+                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo">
+                                        <option>Mini split</option>
+                                        <option>Split</option>
+                                        <option>Paquete CxW</option>
+                                        <option>Ventana</option>
+                                        <option>Mini split techo</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="capacidad_btuh">Capacidad (BTUH)</label>
-                                    <input type="number" step="0.01" class="form-control" name="capacidad_btuh" required>
+                                    <select class="form-select" name="capacidad_btuh" id="capacidad_btuh">
+                                        <option>12000</option>
+                                        <option>18000</option>
+                                        <option>24000</option>
+                                        <option>30000</option>
+                                        <option>36000</option>
+                                        <option>48000</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="voltaje_fases">Voltaje / Fases</label>
@@ -142,7 +161,10 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="refrigerante">Refrigerante</label>
-                                    <input type="text" class="form-control" name="refrigerante" maxlength="50" required>
+                                    <select class="form-select" name="refrigerante" id="refrigerante">
+                                        <option>R22</option>
+                                        <option>R410</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="inverter">Inverter</label>
