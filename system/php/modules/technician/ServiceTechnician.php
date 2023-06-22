@@ -13,15 +13,23 @@ class ServiceTechnician extends System
         }
     }
 
-    public static function setProfile($nombre, $correo, $telefono, $cedula)
+    public static function setProfile($nombre, $correo, $telefono, $cedula, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta)
     {
         $nombre     = parent::limpiarString($nombre);
         $correo     = parent::limpiarString($correo);
         $telefono   = parent::limpiarString($telefono);
         $cedula     = parent::limpiarString($cedula);
+        $fecha_nacimiento   = parent::limpiarString($fecha_nacimiento);
+        $direccion          = parent::limpiarString($direccion);
+        $ciudad             = parent::limpiarString($ciudad);
+        $estado_civil       = parent::limpiarString($estado_civil);
+        $numero_hijos       = parent::limpiarString($numero_hijos);
+        $banco              = parent::limpiarString($banco);
+        $tipo_cuenta        = parent::limpiarString($tipo_cuenta);
+        $numero_cuenta      = parent::limpiarString($numero_cuenta);
         $id_tecnico = $_SESSION['id'];
 
-        if (Tecnico::setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula)) {
+        if (Tecnico::setTecnicoProfile($id_tecnico, $nombre, $correo, $telefono, $cedula, $fecha_nacimiento, $direccion, $ciudad, $estado_civil, $numero_hijos, $banco, $tipo_cuenta, $numero_cuenta)) {
             $tecnico = Tecnico::getTecnicoById($id_tecnico);
             $_SESSION['id']     =   $tecnico->getId_tecnico();
             $_SESSION['nombre'] =   $tecnico->getNombre();

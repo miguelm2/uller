@@ -2,7 +2,10 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/technician/ServiceTechnician.php';
 
 if(isset($_POST['setProfileTechnician'])){
-    $response = ServiceTechnician::setProfile($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula']);
+    $tipo_cuenta   = (isset($_POST['tipo_cuenta'])) ? $_POST['tipo_cuenta'] : "No presenta";
+    $numero_cuenta = (isset($_POST['numero_cuenta'])) ? $_POST['numero_cuenta'] : 0;
+
+    $response = ServiceTechnician::setProfile($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $tipo_cuenta, $numero_cuenta);
 }
 
 if(isset($_POST['setPassProfileTechnician'])){
@@ -10,11 +13,17 @@ if(isset($_POST['setPassProfileTechnician'])){
 }
 
 if(isset($_POST['newTechnician'])){
-    $response = ServiceTechnician::newTechnician($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['pass'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $_POST['tipo_cuenta'], $_POST['numero_cuenta']);
+    $tipo_cuenta   = (isset($_POST['tipo_cuenta'])) ? $_POST['tipo_cuenta'] : "No presenta";
+    $numero_cuenta = (isset($_POST['numero_cuenta'])) ? $_POST['numero_cuenta'] : 0;
+
+    $response = ServiceTechnician::newTechnician($_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['pass'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $tipo_cuenta, $numero_cuenta);
 }
 
 if(isset($_POST['setTechnician'])){
-    $response = ServiceTechnician::setTechnician($_GET['technician'],$_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $_POST['tipo_cuenta'], $_POST['numero_cuenta'], $_POST['estado']);
+    $tipo_cuenta   = (isset($_POST['tipo_cuenta'])) ? $_POST['tipo_cuenta'] : "No presenta";
+    $numero_cuenta = (isset($_POST['numero_cuenta'])) ? $_POST['numero_cuenta'] : 0;
+
+    $response = ServiceTechnician::setTechnician($_GET['technician'],$_POST['nombre'], $_POST['correo'], $_POST['telefono'], $_POST['cedula'], $_POST['fecha_nacimiento'], $_POST['direccion'], $_POST['ciudad'], $_POST['estado_civil'], $_POST['numero_hijos'], $_POST['banco'], $tipo_cuenta, $numero_cuenta, $_POST['estado']);
 }
 
 if(isset($_POST['setPasswordTechnician'])){

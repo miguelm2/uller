@@ -240,14 +240,15 @@ class ServiceTicket extends System
         }
     }
 
-    private static function sendCorreoOrdenServicio($id_ticket, $id_informe){
+    private static function sendCorreoOrdenServicio($id_ticket, $id_informe)
+    {
         try {
             $ticketDTO = Ticket::getTicket($id_ticket);
             $ordenDTO  = InformeTicket::getInformeTicketById($id_informe);
 
             $asunto  = "ORDEN DE SERVICIO";
-            $mensaje = "Señor/a: ".$ticketDTO->getUsuarioDTO()->getNombre()."<br><br>";
-            $mensaje .= "Nos permitimos informarle que se genero una orden de servicio, para la fecha ".$ordenDTO->getFecha_servicio()."<br>";
+            $mensaje = "Señor/a: " . $ticketDTO->getUsuarioDTO()->getNombre() . "<br><br>";
+            $mensaje .= "Nos permitimos informarle que se genero una orden de servicio, para la fecha " . $ordenDTO->getFecha_servicio() . "<br>";
             $mensaje .= "para conocer la informacion completa sobre la orden de servicio es neceserio ingresar a la aplicacion web <br>";
             $mensaje .= "de ULLER en el siguiente link: <a href='https://www.uller.co/'>www.uller.co</a>";
             $mensaje .= "<br><br><br><hr>";
@@ -255,7 +256,6 @@ class ServiceTicket extends System
             $correo  = $ticketDTO->getUsuarioDTO()->getCorreo();
 
             Mail::sendEmail($asunto, $mensaje, $correo);
-
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -480,7 +480,7 @@ class ServiceTicket extends System
 
         try {
             $modelResponse = ReporteFinal::setFirmaReporteFinal($id_reporte_final, $firma);
-            if($modelResponse) return '<script>swal("Firma agregada correctamente", "", "success");</script>';
+            if ($modelResponse) return '<script>swal("Firma agregada correctamente", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -695,29 +695,7 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getButtonDiagnosisAdmin($id_ticket)
-    {
-        try {
-            $id_ticket    = parent::limpiarString($id_ticket);
-            $tipo_usuario = $_SESSION['tipo'];
-            $html = '';
-
-            if ($tipo_usuario == 0 || $tipo_usuario == 5) {
-                $validateDiagnostico = Diagnostico::getCountDiagnosticoByTicket($id_ticket);
-
-                if ($validateDiagnostico > 0) {
-                    $id_diagnostico = Diagnostico::getIdDiagnosticoByTicket($id_ticket);
-                    $html = '<a href="diagnosis?diagnosis=' . $id_diagnostico . '&ticket=' . $id_ticket . '" class="btn btn-secondary"><i class="bi bi-info-circle"></i> Ver Diagnostico</a>';
-                }
-            }
-
-            return $html;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public static function getButtonDiagnosisTechnician($id_ticket)
+    public static function getButtonDiagnosis($id_ticket)
     {
         try {
             $id_ticket = parent::limpiarString($id_ticket);
@@ -737,10 +715,42 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getButtonReportTechnician($id_ticket)
+    public static function getButtonSolicitudServicio($id_ticket)
     {
         try {
-            if ($_SESSION['tipo'] == 3) {
+            if ($_SESSION['tipo'] == 0 ||  $_SESSION['tipo'] == 5) {
+
+                $id_ticket = parent::limpiarString($id_ticket);
+                $html = '';
+
+                $ticketDTO = Ticket::getTicket($id_ticket);
+                
+                if ($ticketDTO->getEstado()[0] == 4) {
+                    $diagnosticoDTO   = Diagnostico::getDiagnosticoByTicket($id_ticket);
+                    $html .= '
+                                <div class="col-md-12">
+                                    <br>
+                                </div>
+                                <center>
+                                    <div class="col-md-6 alert alert-info" style="text-align:center;">
+                                        <label><h4>Precio servicio: $' . parent::validarDecimal($diagnosticoDTO->getPrecio()) . '</h4></label>
+                                        <br>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAceptarServicio"><i class="bi bi-check-lg"></i></button>
+                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalRechazarServicio"><i class="bi bi-x-lg"></i></button>
+                                    </div>
+                                </center>';
+                }
+                return $html;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonReport($id_ticket)
+    {
+        try {
+            if ($_SESSION['tipo'] != 1) {
                 $id_ticket = parent::limpiarString($id_ticket);
                 $html = '';
 
@@ -763,10 +773,10 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getButtonReport($id_ticket)
+    public static function getButtonReportUser($id_ticket)
     {
         try {
-            if ($_SESSION['tipo'] != 3) {
+            if ($_SESSION['tipo'] == 1) {
                 $id_ticket = parent::limpiarString($id_ticket);
                 $html = '';
 
@@ -797,10 +807,10 @@ class ServiceTicket extends System
     }
 
 
-    public static function getButtonInformeFinalTechnician($id_ticket)
+    public static function getButtonInformeFinal($id_ticket)
     {
         try {
-            if ($_SESSION['tipo'] == 3) {
+            if ($_SESSION['tipo'] != 1) {
                 $id_ticket = parent::limpiarString($id_ticket);
                 $html = '';
 
@@ -810,9 +820,9 @@ class ServiceTicket extends System
                     $reporteFinalDTO = ReporteFinal::getReporteFinalByTicket($id_ticket);
 
                     if ($reporteFinalDTO) {
-                        $html = '<a href="informTicket?informTicket=' . $reporteFinalDTO->getId_reporte_final() . '&ticket=' . $id_ticket . '" class="btn btn-success"><i class="bi bi-info-circle"></i> Ver Informe Final</a>';
+                        $html = '<a href="informTicket?informTicket=' . $reporteFinalDTO->getId_reporte_final() . '&ticket=' . $id_ticket . '" class="btn btn-dark"><i class="bi bi-info-circle"></i> Ver Informe Final</a>';
                     } else {
-                        $html = '<a href="newInform?ticket=' . $id_ticket . '" class="btn btn-success"><i class="bi bi-info-circle"></i> Crear Informe Final</a>';
+                        $html = '<a href="newInform?ticket=' . $id_ticket . '" class="btn btn-dark"><i class="bi bi-info-circle"></i> Crear Informe Final</a>';
                     }
                 }
 
@@ -826,13 +836,13 @@ class ServiceTicket extends System
     public static function getButtonFirmaImform($id_reporte_final)
     {
         try {
-            if ($_SESSION['tipo'] == 3) {
+            if ($_SESSION['tipo'] != 1) {
                 $id_reporte_final = parent::limpiarString($id_reporte_final);
                 $html = '';
 
                 $firma = ReporteFinal::getFirmaByReporteFinal($id_reporte_final);
 
-                if(empty($firma)){
+                if (empty($firma)) {
                     $html = '
                                 <div class="col-md-4 d-grid gap-2 mt-3">
                                     <button type="button" class="btn btn-warning text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Actualizar Firma</button>

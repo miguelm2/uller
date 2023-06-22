@@ -78,7 +78,7 @@
                     <div class="col-12" style="text-align: center;">
                       <hr>
                       <p class="small mb-1"><a href="login"> Ingresar a la Aplicacion</a></p>
-                      <p class="small mb-0"><a href="../../../index"> Ir a la pagina principal</a></p>
+                      <p class="small mb-0"><a href="https://www.uller.co/"> Ir a la pagina principal</a></p>
                     </div>
                   </form>
 

@@ -112,19 +112,25 @@
                                 <hr>
                             </div>
 
-                            <div class="col-md-3 d-grid gap-2 mt-3">
+                            <div class="col-md-4 d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-success" name="setTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
                             </div>
 
-                            <div class="col-md-3 d-grid gap-2 mt-3">
+                            <div class="col-md-4 d-grid gap-2 mt-3">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                             </div>
 
-                            <div class="col-md-3 d-grid gap-2 mt-3">
-                                <?= $btnDiagnosticoAdmin; ?>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnDiagnostico; ?>
                             </div>
 
-                            <?= $btnOrdenInforme; ?>
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnOrdenInforme; ?>
+                            </div>
+
+                            <div class="col-md-4 d-grid gap-2 mt-3">
+                                <?= $btnInformeServicio; ?>
+                            </div>
 
                         </form><!-- Vertical Form -->
                     </div>
@@ -150,7 +156,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?=$tablaEquiposTicket;?>
+                                    <?= $tablaEquiposTicket; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -265,6 +271,41 @@
             </div>
         </form>
         <!-- Modal Eliminar Equipo-->
+
+        <!-- Modal Crear Diagnostico-->
+        <form method="POST">
+            <div class="modal fade" id="newDiagnostico" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Nuevo Diagnostico</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-2">
+                                <div class="col-md-12 form-group">
+                                    <label for="numero_horas">Número de horas</label>
+                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="numero_ayudantes">Número de ayudantes</label>
+                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="descripcion">Descripción</label>
+                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
+                            <button type="submit" name="newDiagnosis" class="btn btn-primary"><i class="bi bi-check-circle"></i> Nuevo Diagnostico</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Fin Modal Crear Diagnostico-->
 
 
     </main><!-- End #main -->

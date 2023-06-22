@@ -32,18 +32,22 @@ class ServiceUser extends System
         }
     }
 
-    static function setProfile($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento)
+    static function setProfile($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento)
     {
         $nombre       = parent::limpiarString($nombre);
         $correo       = parent::limpiarString($correo);
         $telefono     = parent::limpiarString($telefono);
         $cedula       = parent::limpiarString($cedula);
         $direccion    = parent::limpiarString($direccion);
+        $localidad    = parent::limpiarString($localidad);
+        $barrio_conjunto = parent::limpiarString($barrio_conjunto);
+        $torre        = parent::limpiarString($torre);
+        $numero_apto  = parent::limpiarString($numero_apto);
         $ciudad       = parent::limpiarString($ciudad);
         $departamento = parent::limpiarString($departamento);
         $id_usuario   = $_SESSION['id'];
 
-        if (Usuario::setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento)) {
+        if (Usuario::setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento)) {
             $usuario = Usuario::getUserById($id_usuario);
             $_SESSION['id']     =   $usuario->getId_usuario();
             $_SESSION['nombre'] =   $usuario->getNombre();
@@ -82,13 +86,17 @@ class ServiceUser extends System
         }
     }
 
-    public static function newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass)
+    public static function newUser($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $pass)
     {
         $nombre       = parent::limpiarString($nombre);
         $correo       = parent::limpiarString($correo);
         $telefono     = parent::limpiarString($telefono);
         $cedula       = parent::limpiarString($cedula);
         $direccion    = parent::limpiarString($direccion);
+        $localidad    = parent::limpiarString($localidad);
+        $barrio_conjunto = parent::limpiarString($barrio_conjunto);
+        $torre        = parent::limpiarString($torre);
+        $numero_apto  = parent::limpiarString($numero_apto);
         $ciudad       = parent::limpiarString($ciudad);
         $departamento = parent::limpiarString($departamento);
         $pass         = parent::limpiarString($pass);
@@ -98,7 +106,7 @@ class ServiceUser extends System
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = Usuario::newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro);
+            $result = Usuario::newUser($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro);
             if ($result) {
                 $lastUser = Usuario::lastUsuario();
                 header('Location:user?user=' . $lastUser->getId_usuario() . '&new');
@@ -110,7 +118,7 @@ class ServiceUser extends System
         }
     }
 
-    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $estado)
+    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $estado)
     {
         $id_usuario   = parent::limpiarString($id_usuario);
         $nombre       = parent::limpiarString($nombre);
@@ -118,12 +126,16 @@ class ServiceUser extends System
         $telefono     = parent::limpiarString($telefono);
         $cedula       = parent::limpiarString($cedula);
         $direccion    = parent::limpiarString($direccion);
+        $localidad    = parent::limpiarString($localidad);
+        $barrio_conjunto = parent::limpiarString($barrio_conjunto);
+        $torre        = parent::limpiarString($torre);
+        $numero_apto  = parent::limpiarString($numero_apto);
         $ciudad       = parent::limpiarString($ciudad);
         $departamento = parent::limpiarString($departamento);
         $estado       = parent::limpiarString($estado);
 
         try {
-            $result = Usuario::setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $estado);
+            $result = Usuario::setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $estado);
 
             if ($result) {
                 return  '<script>swal("' . Constants::$USER_UPDATE . '", "", "success");</script>';

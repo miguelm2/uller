@@ -119,13 +119,13 @@ if(isset($_GET['ticket'])){
     $ticket                = ServiceTicket::getTicket($_GET['ticket']);
     $btnAtrasTicket        = ServiceTicket::getBtnAtrasTicket($_GET['ticket']);
     $btnTecnico            = ServiceTicket::getButtonTechnician($_GET['ticket']);
-    $btnDiagnosticoTecnico = ServiceTicket::getButtonDiagnosisTechnician($_GET['ticket']);
-    $btnDiagnosticoAdmin   = ServiceTicket::getButtonDiagnosisAdmin($_GET['ticket']);
+    $btnDiagnostico        = ServiceTicket::getButtonDiagnosis($_GET['ticket']);
+    $btnAceptarServicio    = ServiceTicket::getButtonSolicitudServicio($_GET['ticket']);
     $diagnosticoUsuario    = ServiceTicket::getDiagnosisUser($_GET['ticket']);
     $tablaEquiposTicket    = ServiceTicket::getTableEquiposTicket($_GET['ticket']);
     $btnOrdenInforme       = ServiceTicket::getButtonReport($_GET['ticket']);
-    $btnOrdenTecnico       = ServiceTicket::getButtonReportTechnician($_GET['ticket']);
-    $btnInformeServTecnico = ServiceTicket::getButtonInformeFinalTechnician($_GET['ticket']);
+    $btnOrdenInformeUser   = ServiceTicket::getButtonReportUser($_GET['ticket']);
+    $btnInformeServicio    = ServiceTicket::getButtonInformeFinal($_GET['ticket']);
 }
 
 if(isset($_POST['deleteTicket'])){

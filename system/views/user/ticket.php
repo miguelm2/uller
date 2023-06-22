@@ -94,7 +94,7 @@
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                             </div>
 
-                            <?= $btnOrdenInforme; ?>
+                            <?= $btnOrdenInformeUser; ?>
 
                         </form><!-- Vertical Form -->
                         <div class="row">

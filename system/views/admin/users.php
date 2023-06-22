@@ -112,11 +112,11 @@
                             <div class="row g-3">
                                 <div class="col-md-6 form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" required>
+                                    <input type="text" name="nombre" class="form-control" maxlength="255" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="nombre">Correo</label>
-                                    <input type="email" name="correo" class="form-control" required>
+                                    <input type="email" name="correo" class="form-control" maxlength="255" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="telefono">Telefono</label>
@@ -124,23 +124,45 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="nombre">Cedula</label>
-                                    <input type="text" name="cedula" class="form-control" required>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="direccion">Direccion</label>
-                                    <input type="text" name="direccion" class="form-control" required>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="ciudad">Ciudad</label>
-                                    <input type="text" name="ciudad" class="form-control" required>
+                                    <input type="text" name="cedula" class="form-control" maxlength="15" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="departamento">Departamento</label>
-                                    <input type="text" name="departamento" class="form-control" required>
+                                    <input type="text" name="departamento" class="form-control" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="ciudad" class="form-control" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="direccion">Direccion</label>
+                                    <input type="text" name="direccion" class="form-control" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="localidad">Localidad</label>
+                                    <select class="form-select" name="localidad" id="localidad">
+                                        <option>Localidad Suroccidente</option>
+                                        <option>Localidad Suroriente</option>
+                                        <option>Localidad Norte-Centro Historico</option>
+                                        <option>Localidad Metropolitana</option>
+                                        <option>Localidad Riomar</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="barrio">Barrio / Conjunto</label>
+                                    <input type="text" name="barrio" class="form-control" maxlength="255" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="torre">Torre <small class="text-secondary">(opcional)</small></label>
+                                    <input type="text" name="torre" class="form-control" maxlength="20">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="numero_apto">Numero: Apartamento/Casa <small class="text-secondary">(opcional)</small></label>
+                                    <input type="number" name="numero_apto" min="0" class="form-control">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="nombre">Contraseña</label>
-                                    <input type="password" name="pass" class="form-control" required>
+                                    <input type="password" name="pass" class="form-control" maxlength="30" required>
                                 </div>
                             </div>
                         </div>

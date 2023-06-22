@@ -37,13 +37,17 @@ class ServicePage extends System
 
 
     //Registrar nuevo usuario ----------------------------------------------------------------
-    public static function newAccountUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass)
+    public static function newAccountUser($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $pass)
     {
         $nombre       = parent::limpiarString($nombre);
         $correo       = parent::limpiarString($correo);
         $telefono     = parent::limpiarString($telefono);
         $cedula       = parent::limpiarString($cedula);
         $direccion    = parent::limpiarString($direccion);
+        $localidad    = parent::limpiarString($localidad);
+        $barrio_conjunto = parent::limpiarString($barrio_conjunto);
+        $torre        = parent::limpiarString($torre);
+        $numero_apto  = parent::limpiarString($numero_apto);
         $ciudad       = parent::limpiarString($ciudad);
         $departamento = parent::limpiarString($departamento);
         $pass         = parent::limpiarString($pass);
@@ -53,7 +57,7 @@ class ServicePage extends System
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = Usuario::newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro);
+            $result = Usuario::newUser($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro);
             if ($result) {
                 return  '<script>swal("' . Constants::$USER_NEW . '", "Haga clic en iniciar sesión", "success");</script>';
             } else {

@@ -56,7 +56,7 @@
                                 <h4 class="text-primary">Diagnostico</h4>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?=$btnAtras;?>" class="btn btn-secondary">
+                                <a href="<?= $btnAtras; ?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -68,27 +68,29 @@
                             <div class="row g-2">
                                 <div class="col-md-6 form-group">
                                     <label for="numero_horas">Número de horas</label>
-                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required value="<?= $diagnostico->getNumero_horas(); ?>" disabled>
+                                    <input type="number" class="form-control" name="numero_horas" min="0" max="5000" required value="<?= $diagnostico->getNumero_horas(); ?>">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="numero_ayudantes">Número de ayudantes</label>
-                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required value="<?= $diagnostico->getNumero_ayudantes(); ?>" disabled>
+                                    <input type="number" class="form-control" name="numero_ayudantes" min="0" max="5000" required value="<?= $diagnostico->getNumero_ayudantes(); ?>">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="descripcion">Descripción</label>
-                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required disabled><?= $diagnostico->getDescripcion(); ?></textarea>
+                                    <textarea class="form-control" name="descripcion" rows="3" maxlength="255" required><?= $diagnostico->getDescripcion(); ?></textarea>
                                 </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="precio">Precio</label>
-                                    <input type="number" class="form-control" name="precio" required value="<?= $diagnostico->getPrecio(); ?>">
-                                </div>
+
+                                <?=$btnAceptarServicio?>
+
                                 <div class="col-md-12">
                                     <hr>
                                 </div>
-                                <div class="col-md-6 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-success" name="setPrecioDiagnosis"><i class="bi bi-save"></i> Actualizar Diagnostico</button>
+                                <div class="col-md-4 d-grid gap-2 mt-3">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPrecio"><i class="bi bi-currency-dollar"></i>Ver Precio</button>
                                 </div>
-                                <div class="col-md-6 d-grid gap-2 mt-3">
+                                <div class="col-md-4 d-grid gap-2 mt-3">
+                                    <button type="submit" class="btn btn-success" name="setDiagnosis"><i class="bi bi-save"></i> Actualizar Diagnostico</button>
+                                </div>
+                                <div class="col-md-4 d-grid gap-2 mt-3">
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash-fill"></i> Eliminar Diagnostico</button>
                                 </div>
                             </div>
@@ -99,8 +101,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <h5 class="text-primary">Herramientas / Equipos</h5>
+                            </div>
+                            <div class="col-md-3 text-right d-grid">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTool"><i class="bi bi-plus-square"></i> Agregar Herramienta</button>
                             </div>
                         </div>
                     </div>
@@ -114,6 +119,7 @@
                                         <th>Tipo</th>
                                         <th>Cantidad</th>
                                         <th>Fecha registro</th>
+                                        <th width="10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -127,8 +133,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9">
                                 <h5 class="text-primary">Materiales</h5>
+                            </div>
+                            <div class="col-md-3 text-right d-grid">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMaterial"><i class="bi bi-plus-square"></i> Agregar Material</button>
                             </div>
                         </div>
                     </div>
@@ -142,6 +151,7 @@
                                         <th>Cantidad</th>
                                         <th>Unidad de medida</th>
                                         <th>Fecha registro</th>
+                                        <th width="10px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -176,6 +186,175 @@
             </div>
         </form>
 
+        <!-- Modal Precio-->
+        <form method="post">
+            <div class="modal fade" id="modalPrecio" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Precio Diagnostico</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required value="<?= $diagnostico->getPrecio(); ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary" name="setPrecioDiagnosis"><i class="bi bi-save"></i> Actualizar Precio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- ======= Modal Herramienta ======= -->
+        <form method="POST">
+            <div class="modal fade" id="addTool" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Agregar Herramienta/Equipo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-2">
+                                <div class="col-md-12 form-group">
+                                    <label for="herramienta">Herramienta/Equipo</label>
+                                    <select class="form-select" name="herramienta" id="herramienta">
+                                        <?= $selectHerramientas; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="cantidad_herramientas">Cantidad</label>
+                                    <input type="number" class="form-control" name="cantidad_herramientas" min="0" max="5000" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
+                            <button type="submit" name="addTool" class="btn btn-primary"><i class="bi bi-check-circle"></i> Agregar Herramienta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- ======= Modal Material ======= -->
+        <form method="POST">
+            <div class="modal fade" id="addMaterial" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Agregar Material</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-2">
+                                <div class="col-md-12 form-group">
+                                    <label for="material">Material</label>
+                                    <select class="form-select" name="material" id="material">
+                                        <?= $selectMateriales; ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="cantidad_material">Cantidad</label>
+                                    <input type="number" class="form-control" name="cantidad_material" min="0" max="5000" required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="unidad_medida">Unidades de medida</label>
+                                    <input type="text" class="form-control" name="unidad_medida" maxlength="50" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cerrar</button>
+                            <button type="submit" name="addMaterial" class="btn btn-primary"><i class="bi bi-check-circle"></i> Agregar Material</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- ======= Modal Eliminar Herramienta - Material ======= -->
+        <form method="POST">
+            <div class="modal fade" id="deleteComponent" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12 form-group">
+                                <label>¿Esta seguro que desea eliminar el registro?</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="hidden" class="form-control" name="nombre_tabla" id="nombre_tabla" required readonly>
+                                <input type="hidden" class="form-control" name="nombre_campo" id="nombre_campo" required readonly>
+                                <input type="hidden" class="form-control" name="id" id="id" required readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
+                            <button type="submit" name="deleteComponentDiagnosis" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Modal Aceptar Servicio-->
+        <form method="post">
+            <div class="modal fade" id="modalAceptarServicio" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Aceptar Servicio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea aceptar el servicio por el costo establecido?</label>
+                            <input type="hidden" class="form-control" name="aceptar_servicio" maxlength="3" value="Si">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                            <button type="submit" name="setAcceptTicket" class="btn btn-success"><i class="bi bi-check-lg"></i> Aceptar Servicio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Finf Modal Aceptar Servicio-->
+
+
+        <!-- Modal Rechazar Servicio-->
+        <form method="post">
+            <div class="modal fade" id="modalRechazarServicio" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Rechazar Servicio</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea rechazar el servicio?</label>
+                            <input type="hidden" class="form-control" name="aceptar_servicio" maxlength="3" value="No">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                            <button type="submit" name="setAcceptTicket" class="btn btn-danger"><i class="bi bi-check-lg"></i> Rechazar Servicio</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Finf Modal Rechazar Servicio-->
+
 
     </main><!-- End #main -->
 
@@ -202,6 +381,7 @@
 
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
+    <script src="../../js/diagnosis.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

@@ -89,7 +89,7 @@
                       <hr>
                       <p class="small mb-0"><a href="recovery"> ¿Olvidaste tu contraseña?</a></p>
                       <p class="small mb-0"><a href="registerAccount"> Crear cuenta</a></p>
-                      <p class="small mb-0"><a href="../../../index"> Ir a la pagina principal</a></p>
+                      <p class="small mb-0"><a href="https://www.uller.co/"> Ir a la pagina principal</a></p>
                     </div>
                   </form>
 

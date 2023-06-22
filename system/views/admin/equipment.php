@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Equipo</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?=$backPageEqui?>" class="btn btn-secondary">
+                                <a href="<?= $backPageEqui ?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -68,59 +68,85 @@
                         <form class="row g-3" method="post">
                             <div class="col-md-6 form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" name="nombre" maxlength="255" required value="<?=$equipment->getNombre()?>">
+                                <input type="text" class="form-control" name="nombre" maxlength="255" required value="<?= $equipment->getNombre() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="marca">Marca</label>
-                                <input type="text" class="form-control" name="marca" maxlength="255" required value="<?=$equipment->getMarca()?>">
+                                <select class="form-select" name="marca" id="marca">
+                                    <option><?= $equipment->getMarca() ?></option>
+                                    <option>Olimpo</option>
+                                    <option>LG</option>
+                                    <option>Samsung</option>
+                                    <option>Panasonic</option>
+                                    <option>Carrier</option>
+                                </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="modelo">Modelo</label>
-                                <input type="text" class="form-control" name="modelo" maxlength="255" required value="<?=$equipment->getModelo()?>">
+                                <input type="text" class="form-control" name="modelo" maxlength="255" required value="<?= $equipment->getModelo() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="year_fabricacion">Año de fabricación</label>
-                                <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required value="<?=$equipment->getYear_fabricacion()?>">
+                                <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required value="<?= $equipment->getYear_fabricacion() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="serial_interior">Serial unidad interior</label>
-                                <input type="text" class="form-control" name="serial_interior" maxlength="255" required value="<?=$equipment->getSerial_interior()?>">
+                                <input type="text" class="form-control" name="serial_interior" maxlength="255" required value="<?= $equipment->getSerial_interior() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="serial_exterior">Serial unidad exterior</label>
-                                <input type="text" class="form-control" name="serial_exterior" maxlength="255" required value="<?=$equipment->getSerial_exterior()?>">
+                                <input type="text" class="form-control" name="serial_exterior" maxlength="255" required value="<?= $equipment->getSerial_exterior() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_equipo">Tipo de equipo</label>
-                                <input type="text" class="form-control" name="tipo_equipo" maxlength="255" required value="<?=$equipment->getTipo_equipo()?>">
+                                <select class="form-select" name="tipo_equipo" id="tipo_equipo">
+                                    <option><?= $equipment->getTipo_equipo() ?></option>
+                                    <option>Mini split</option>
+                                    <option>Split</option>
+                                    <option>Paquete CxW</option>
+                                    <option>Ventana</option>
+                                    <option>Mini split techo</option>
+                                </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="capacidad_btuh">Capacidad (BTUH)</label>
-                                <input type="number" step="0.01" class="form-control" name="capacidad_btuh" required value="<?=$equipment->getCapacidad_btuh()?>">
+                                <select class="form-select" name="capacidad_btuh" id="capacidad_btuh">
+                                    <option><?= $equipment->getCapacidad_btuh() ?></option>
+                                    <option>12000</option>
+                                    <option>18000</option>
+                                    <option>24000</option>
+                                    <option>30000</option>
+                                    <option>36000</option>
+                                    <option>48000</option>
+                                </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="voltaje_fases">Voltaje / Fases</label>
-                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" required value="<?=$equipment->getVoltaje_fases()?>">
+                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" required value="<?= $equipment->getVoltaje_fases() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="refrigerante">Refrigerante</label>
-                                <input type="text" class="form-control" name="refrigerante" maxlength="50" required value="<?=$equipment->getRefrigerante()?>">
+                                <select class="form-select" name="refrigerante" id="refrigerante">
+                                    <option><?= $equipment->getRefrigerante() ?></option>
+                                    <option>R22</option>
+                                    <option>R410</option>
+                                </select>
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="inverter">Inverter</label>
                                 <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required <?=$listInverter[0]?>>
+                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required <?= $listInverter[0] ?>>
                                     <label class="form-check-label" for="inverter_si">Si</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_no" value="No" <?=$listInverter[1]?>>
+                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_no" value="No" <?= $listInverter[1] ?>>
                                     <label class="form-check-label" for="inverter_no">No</label>
                                 </div>
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="descripcion">Descripcion</label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required><?=$equipment->getDescripcion()?></textarea>
+                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required><?= $equipment->getDescripcion() ?></textarea>
                             </div>
 
                             <div class="col-md-12">
@@ -187,6 +213,9 @@
     <script src="../../assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
+
+    <!-- Js page -->
+    <script src="../../js/selectRepeat.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

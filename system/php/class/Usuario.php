@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/UsuarioDTO.php';
 
 class Usuario extends System
 {
-    public static function newUser($nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro)
+    public static function newUser($nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $pass_hash, $estado, $tipo, $fecha_registro)
     {
         $validarUser    = self::validateUser($cedula, $correo, null);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -11,13 +11,17 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("INSERT INTO Usuario (nombre, correo, telefono, cedula, direccion, ciudad, departamento, pass, estado, tipo, fecha_registro) 
-                                VALUES (:nombre, :correo, :telefono, :cedula, :direccion, :ciudad, :departamento, :pass, :estado, :tipo, :fecha_registro)");
+            $stmt = $dbh->prepare("INSERT INTO Usuario (nombre, correo, telefono, cedula, direccion, localidad, barrio_conjunto, torre, numero_apto, ciudad, departamento, pass, estado, tipo, fecha_registro) 
+                                VALUES (:nombre, :correo, :telefono, :cedula, :direccion, :localidad, :barrio_conjunto, :torre, :numero_apto, :ciudad, :departamento, :pass, :estado, :tipo, :fecha_registro)");
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
             $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':localidad', $localidad);
+            $stmt->bindParam(':barrio_conjunto', $barrio_conjunto);
+            $stmt->bindParam(':torre', $torre);
+            $stmt->bindParam(':numero_apto', $numero_apto);
             $stmt->bindParam(':ciudad', $ciudad);
             $stmt->bindParam(':departamento', $departamento);
             $stmt->bindParam(':pass', $pass_hash);
@@ -30,7 +34,7 @@ class Usuario extends System
         }
     }
 
-    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento, $estado)
+    public static function setUser($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento, $estado)
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -38,13 +42,21 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, direccion = :direccion, ciudad = :ciudad, departamento = :departamento, estado = :estado WHERE id_usuario = :id_usuario ");
+            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, 
+                                                    direccion = :direccion, localidad = :localidad, barrio_conjunto = :barrio_conjunto,
+                                                    torre = :torre, numero_apto = :numero_apto, ciudad = :ciudad, departamento = :departamento,
+                                                    estado = :estado WHERE id_usuario = :id_usuario ");
+                                                    
             $stmt->bindParam(':id_usuario', $id_usuario);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
             $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':localidad', $localidad);
+            $stmt->bindParam(':barrio_conjunto', $barrio_conjunto);
+            $stmt->bindParam(':torre', $torre);
+            $stmt->bindParam(':numero_apto', $numero_apto);
             $stmt->bindParam(':ciudad', $ciudad);
             $stmt->bindParam(':departamento', $departamento);
             $stmt->bindParam(':estado', $estado);
@@ -108,7 +120,7 @@ class Usuario extends System
     }
 
 
-    public static function setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $ciudad, $departamento)
+    public static function setUserProfile($id_usuario, $nombre, $correo, $telefono, $cedula, $direccion, $localidad, $barrio_conjunto, $torre, $numero_apto, $ciudad, $departamento)
     {
         $validarUser    = self::validateUser($cedula, $correo, $id_usuario);
         $validarAdmin   = Administrador::validateAdministrator($cedula, $correo, null);
@@ -116,13 +128,21 @@ class Usuario extends System
 
         if (!$validarAdmin && !$validarUser && !$validarTecnico) {
             $dbh             = parent::Conexion();
-            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula, direccion = :direccion, ciudad = :ciudad, departamento = :departamento WHERE id_usuario = :id_usuario ");
+            $stmt = $dbh->prepare("UPDATE Usuario SET nombre = :nombre, correo = :correo, telefono = :telefono, cedula = :cedula,
+                                                    direccion = :direccion, localidad = :localidad, barrio_conjunto = :barrio_conjunto,
+                                                    torre = :torre, numero_apto = :numero_apto, ciudad = :ciudad, departamento = :departamento 
+                                                    WHERE id_usuario = :id_usuario ");
+                                                    
             $stmt->bindParam(':id_usuario', $id_usuario);
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':correo', $correo);
             $stmt->bindParam(':telefono', $telefono);
             $stmt->bindParam(':cedula', $cedula);
             $stmt->bindParam(':direccion', $direccion);
+            $stmt->bindParam(':localidad', $localidad);
+            $stmt->bindParam(':barrio_conjunto', $barrio_conjunto);
+            $stmt->bindParam(':torre', $torre);
+            $stmt->bindParam(':numero_apto', $numero_apto);
             $stmt->bindParam(':ciudad', $ciudad);
             $stmt->bindParam(':departamento', $departamento);
             return  $stmt->execute();

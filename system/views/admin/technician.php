@@ -96,7 +96,13 @@
                             </div>
                             <div class="col-6">
                                 <label for="estado_civil" class="form-label">Estado civil</label>
-                                <input type="text" name="estado_civil" class="form-control" required value="<?= $tecnico->getEstado_civil(); ?>">
+                                <select class="form-select" name="estado_civil" id="estado_civil">
+                                    <option><?= $tecnico->getEstado_civil(); ?></option>
+                                    <option>Soltero</option>
+                                    <option>Casado</option>
+                                    <option>Divorciado</option>
+                                    <option>Union libre</option>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="numero_hijos" class="form-label">Número de hijos</label>
@@ -104,15 +110,29 @@
                             </div>
                             <div class="col-6">
                                 <label for="banco" class="form-label">Banco</label>
-                                <input type="text" name="banco" class="form-control" required value="<?= $tecnico->getBanco(); ?>">
+                                <select class="form-select" name="banco" id="banco">
+                                    <option><?= $tecnico->getBanco(); ?></option>
+                                    <option>No presenta</option>
+                                    <option>Bancolombia</option>
+                                    <option>Davivienda</option>
+                                    <option>Av Villas</option>
+                                    <option>Daviplata</option>
+                                    <option>Nequi</option>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="tipo_cuenta" class="form-label">Tipo de cuenta</label>
-                                <input type="text" name="tipo_cuenta" class="form-control" required value="<?= $tecnico->getTipo_cuenta(); ?>">
+                                <select class="form-select" name="tipo_cuenta" id="tipo_cuenta">
+                                    <option><?= $tecnico->getTipo_cuenta(); ?></option>
+                                    <option>No presenta</option>
+                                    <option>Ahorros</option>
+                                    <option>Corriente</option>
+                                    <option>De bolsillo</option>
+                                </select>
                             </div>
                             <div class="col-6">
                                 <label for="numero_cuenta" class="form-label">Número de cuenta</label>
-                                <input type="text" name="numero_cuenta" class="form-control" required value="<?= $tecnico->getNumero_cuenta(); ?>">
+                                <input type="text" name="numero_cuenta" id="numero_cuenta" class="form-control" required value="<?= $tecnico->getNumero_cuenta(); ?>">
                             </div>
                             <div class="col-12">
                                 <label for="estado" class="form-label">Estado</label>
@@ -238,6 +258,7 @@
     <!-- Js page -->
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/functions.js"></script>
+    <script src="../../js/technicianFunction.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

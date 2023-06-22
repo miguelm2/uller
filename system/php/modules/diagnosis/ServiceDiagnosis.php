@@ -208,9 +208,7 @@ class ServiceDiagnosis extends System
             $tableHtml .= '<td>' . $valor->getHerramientaDTO()->getTipo()[1] . '</td>';
             $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
             $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-            if ($tipo_usuario == 3) {
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("HerramientaDiagnostico", "id_herramienta_diagnostico", $valor->getId_herramienta_diagnostico()) . '</td>';
-            }
+            $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("HerramientaDiagnostico", "id_herramienta_diagnostico", $valor->getId_herramienta_diagnostico()) . '</td>';
             $tableHtml .= '</tr>';
         }
         return $tableHtml;
@@ -231,9 +229,7 @@ class ServiceDiagnosis extends System
             $tableHtml .= '<td>' . $valor->getCantidad() . '</td>';
             $tableHtml .= '<td>' . $valor->getUnidad_medida() . '</td>';
             $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-            if ($tipo_usuario == 3) {
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("MaterialDiagnostico", "id_material_diagnostico", $valor->getId_material_diagnostico()) . '</td>';
-            }
+            $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarByTablaJs("MaterialDiagnostico", "id_material_diagnostico", $valor->getId_material_diagnostico()) . '</td>';
             $tableHtml .= '</tr>';
         }
         return $tableHtml;
