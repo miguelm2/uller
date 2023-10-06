@@ -227,12 +227,86 @@
         <!-- End Basic Modal-->
 
 
+        <section class="section dashboard">
 
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="text-primary">Mis herramientas</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 5px;">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha de registro</th>
+                                        <th width="40px">Ver</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nombre</th>
+                                        <th>Fecha de registro</th>
+                                        <th width="40px">Ver</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?= $tablaInsumoAdmin; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
 
 
 
 
     </main><!-- End #main -->
+
+    <!-- Modal -->
+    <!-- ======= Basic Modal ======= -->
+    <form method="post">
+        <div class="modal fade" id="deleteInsumo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar Herramienta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-12 form-group">
+                                <label for="nombre">¿Esta seguro que desea eliminar esta Herramienta?</label>
+                            </div>
+                            <input type="hidden" name="id_insumo" class="form-control id_insumo">
+                        </div>
+                        <hr style="margin-top: 15px; margin-bottom: 15px; width: 100%;">
+                        <div class="row g-2">
+                            <div class="col-md-6 form-group">
+                                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <button type="submit" name="deleteInput" class="btn btn-danger w-100"><i class="bi bi-trash-fill"></i> Eliminar Herramienta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- End Basic Modal-->
 
     <!-- ======= Footer ======= -->
     <?php include_once '../../assets/html/footer.html'; ?>
@@ -259,6 +333,7 @@
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/functions.js"></script>
     <script src="../../js/technicianFunction.js"></script>
+    <script src="../../js/insumo/insumoAdmin.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

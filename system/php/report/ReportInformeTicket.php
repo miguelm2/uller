@@ -16,10 +16,10 @@ abstract class ReportInformeTicket
         $prev = '';
         $corr = '';
 
-        if($ticketDTO->getTipo_servicioDTO()->getNombre() == "Mantenimiento preventivo"){
+        if ($ticketDTO->getTipo_servicioDTO()->getNombre() == "Mantenimiento preventivo") {
             $prev = 'X';
             $corr = '';
-        }else{
+        } else {
             $prev = '';
             $corr = 'X';
         }
@@ -58,30 +58,16 @@ abstract class ReportInformeTicket
                 </tr>
                 <tr>
                     <td class="negrilla">
-                        Fecha de servicio
-                    </td>
-                    <td>
-                        '.$informeDTO->getFecha_servicio().'
-                    </td>
-                    <td class="negrilla">
-                        Fecha del ultimo servicio
-                    </td>
-                    <td>
-                        '.$informeDTO->getFecha_ultimo_servicio().'
-                    </td>
-                </tr>
-                <tr>
-                    <td class="negrilla">
                         Mantenimiento preventivo
                     </td>
                     <td>
-                        '.$prev.'
+                        ' . $prev . '
                     </td>
                     <td class="negrilla">
                         Mantenimiento correctivo
                     </td>
                     <td>
-                        '.$corr.'
+                        ' . $corr . '
                     </td>
                 </tr>
             </table>
@@ -97,13 +83,13 @@ abstract class ReportInformeTicket
                         Nombre
                     </td>
                     <td width="30%">
-                        '.$ticketDTO->getUsuarioDTO()->getNombre().'
+                        ' . $ticketDTO->getUsuarioDTO()->getNombre() . '
                     </td>
                     <td class="negrilla" width="20%">
                         Documento
                     </td>
                     <td width="30%">
-                        '.$ticketDTO->getUsuarioDTO()->getCedula().'
+                        ' . $ticketDTO->getUsuarioDTO()->getCedula() . '
                     </td>
                 </tr>
                 <tr>
@@ -111,13 +97,13 @@ abstract class ReportInformeTicket
                         Telefono
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getTelefono().'
+                        ' . $ticketDTO->getUsuarioDTO()->getTelefono() . '
                     </td>
                     <td class="negrilla">
                         Dirección servicio
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getDireccion().'
+                        ' . $ticketDTO->getUsuarioDTO()->getDireccion() . '
                     </td>
                 </tr>
                 <tr>
@@ -125,13 +111,13 @@ abstract class ReportInformeTicket
                         Ciudad
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getCiudad().'
+                        ' . $ticketDTO->getUsuarioDTO()->getCiudad() . '
                     </td>
                     <td class="negrilla">
                         Departamento
                     </td>
                     <td>
-                        '.$ticketDTO->getUsuarioDTO()->getDepartamento().'
+                        ' . $ticketDTO->getUsuarioDTO()->getDepartamento() . '
                     </td>
                 </tr>
             </table>
@@ -147,13 +133,13 @@ abstract class ReportInformeTicket
                         Nombre
                     </td>
                     <td width="30%">
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getNombre().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getNombre() . '
                     </td>
                     <td class="negrilla" width="20%">
                         Documento
                     </td>
                     <td width="30%">
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCedula().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCedula() . '
                     </td>
                 </tr>
                 <tr>
@@ -161,13 +147,13 @@ abstract class ReportInformeTicket
                         Telefono
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getTelefono().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getTelefono() . '
                     </td>
                     <td class="negrilla">
                         Correo
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCorreo().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCorreo() . '
                     </td>
                 </tr>
                 <tr>
@@ -175,103 +161,20 @@ abstract class ReportInformeTicket
                         Dirección
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getDireccion().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getDireccion() . '
                     </td>
                     <td class="negrilla">
                         Ciudad
                     </td>
                     <td>
-                        '.$tecnicoTicketDTO->getTecnicoDTO()->getCiudad().'
+                        ' . $tecnicoTicketDTO->getTecnicoDTO()->getCiudad() . '
                     </td>
                 </tr>
             </table>
             <br>
-            <table class="default" style="width:100%">
-                <tr>
-                    <th colspan="4">
-                        Datos del servicio
-                    </th>
-                </tr>
-                <tr>
-                    <td class="negrilla" width="20%">
-                        Ubicación del equipo
-                    </td>
-                    <td width="30%">
-                        '.$informeDTO->getUbicacion_equipo().'
-                    </td>
-                    <td class="negrilla" width="20%">
-                        Tipo de uso
-                    </td>
-                    <td width="30%">
-                        '.$informeDTO->getTipo_uso()[1].'
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <table class="default" style="width:100%">
-                <tr>
-                    <th colspan="3">
-                        Descripcion del servicio
-                    </th>
-                </tr>
-                <tr>
-                    <th width="25%">
-                        Presenta falla
-                    </th>
-                    <th width="25%">
-                        Notas
-                    </th>
-                    <th width="50%">
-                        Observaciones
-                    </th>
-                </tr>
-                <tr>
-                    <td>
-                        '.$informeDTO->getPresenta_falla().'
-                    </td>
-                    <td>
-                        '.$informeDTO->getNotas().'
-                    </td>
-                    <td>
-                        '.$informeDTO->getObservaciones().'
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <table class="default" style="width:100%">
-                <tr>
-                    <th colspan="8">
-                        Datos de los equipos
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Nombre
-                    </th>
-                    <th>
-                        Marca
-                    </th>
-                    <th>
-                        Modelo
-                    </th>
-                    <th>
-                        Tipo
-                    </th>
-                    <th>
-                        Serial interior
-                    </th>
-                    <th>
-                        Serial exterior
-                    </th>
-                    <th>
-                        Capacidad btuh
-                    </th>
-                    <th>
-                        Voltaje / Fases
-                    </th>
-                </tr>
-                '.self::getEquipos($listEquipos).'
-            </table>
+            
+            
+                ' . self::getEquipos($listEquipos, $informeDTO) . '
             <br><br>
             <hr>
             <small>Generado automáticamente por el sistema <strong>ULLER</strong> el ' . date('Y-m-d') . ' a las ' . date('H:i:s') . '</small>
@@ -283,21 +186,134 @@ abstract class ReportInformeTicket
         $dompdf->stream($pdfName, array("Attachment" => 0));
     }
 
-    private static function getEquipos($listEquipos){
+    private static function getEquipos($listEquipos, $informeDTO)
+    {
         $html = '';
-
+        $count = 0;
         foreach ($listEquipos as $value) {
             $html .= '
+                    <br>
+                    <table class="default" style="width:100%">
                         <tr>
-                            <td>'.$value->getEquipoDTO()->getNombre().'</td>
-                            <td>'.$value->getEquipoDTO()->getMarca().'</td>
-                            <td>'.$value->getEquipoDTO()->getModelo().'</td>
-                            <td>'.$value->getEquipoDTO()->getTipo_equipo().'</td>
-                            <td>'.$value->getEquipoDTO()->getSerial_interior().'</td>
-                            <td>'.$value->getEquipoDTO()->getSerial_exterior().'</td>
-                            <td>'.$value->getEquipoDTO()->getCapacidad_btuh().'</td>
-                            <td>'.$value->getEquipoDTO()->getVoltaje_fases().'</td>
-                        </tr>';
+                            <th colspan="8">
+                                Servicio N° ' . ($count + 1) . '
+                            </th>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="default" style="width:100%">
+                        <tr>
+                            <th colspan="8">
+                                Datos del equipo
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                                Marca
+                            </th>
+                            <th>
+                                Modelo
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                Serial interior
+                            </th>
+                            <th>
+                                Serial exterior
+                            </th>
+                            <th>
+                                Capacidad btuh
+                            </th>
+                            <th>
+                                Voltaje / Fases
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>' . $value->getEquipoDTO()->getNombre() . '</td>
+                            <td>' . $value->getEquipoDTO()->getMarca() . '</td>
+                            <td>' . $value->getEquipoDTO()->getModelo() . '</td>
+                            <td>' . $value->getEquipoDTO()->getTipo_equipo() . '</td>
+                            <td>' . $value->getEquipoDTO()->getSerial_interior() . '</td>
+                            <td>' . $value->getEquipoDTO()->getSerial_exterior() . '</td>
+                            <td>' . $value->getEquipoDTO()->getCapacidad_btuh() . '</td>
+                            <td>' . $value->getEquipoDTO()->getVoltaje_fases() . '</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="default" style="width:100%">
+                        <tr>
+                            <th colspan="4">
+                                Datos del servicio
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="negrilla" width="20%">
+                                Ubicación del equipo
+                            </td>
+                            <td width="30%">
+                                ' . $informeDTO[$count]->getUbicacion_equipo() . '
+                            </td>
+                            <td class="negrilla" width="20%">
+                                Tipo de uso
+                            </td>
+                            <td width="30%">
+                                ' . $informeDTO[$count]->getTipo_uso()[1] . '
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="negrilla">
+                                Fecha de servicio
+                            </td>
+                            <td>
+                                ' . $informeDTO[$count]->getFecha_servicio() . '
+                            </td>
+                            <td class="negrilla">
+                                Fecha del ultimo servicio
+                            </td>
+                            <td>
+                                ' . $informeDTO[$count]->getFecha_ultimo_servicio() . '
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="default" style="width:100%">
+                        <tr>
+                            <th colspan="3">
+                                Descripcion del servicio
+                            </th>
+                        </tr>
+                        <tr>
+                            <th width="25%">
+                                Presenta falla
+                            </th>
+                            <th width="25%">
+                                Notas
+                            </th>
+                            <th width="50%">
+                                Observaciones
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                ' . $informeDTO[$count]->getPresenta_falla() . '
+                            </td>
+                            <td>
+                                ' . $informeDTO[$count]->getNotas() . '
+                            </td>
+                            <td>
+                                ' . $informeDTO[$count]->getObservaciones() . '
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+            ';
+
+            $count++;
         }
         return $html;
     }

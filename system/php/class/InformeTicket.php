@@ -3,12 +3,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/InformeTicketDTO.php
 
 class InformeTicket extends System
 {
-    public static function newInformeTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones, $fecha_registro)
+    public static function newInformeTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones, $fecha_registro)
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO InformeTicket (id_ticket, fecha_servicio, fecha_ultimo_servicio, ubicacion_equipo, tipo_uso, presenta_falla, notas, observaciones, fecha_registro) 
-                                VALUES (:id_ticket, :fecha_servicio, :fecha_ultimo_servicio, :ubicacion_equipo, :tipo_uso, :presenta_falla, :notas, :observaciones, :fecha_registro)");
+        $stmt = $dbh->prepare("INSERT INTO InformeTicket (id_ticket, id_tipo, fecha_servicio, fecha_ultimo_servicio, ubicacion_equipo, tipo_uso, presenta_falla, notas, observaciones, fecha_registro) 
+                                VALUES (:id_ticket, :id_tipo, :fecha_servicio, :fecha_ultimo_servicio, :ubicacion_equipo, :tipo_uso, :presenta_falla, :notas, :observaciones, :fecha_registro)");
         $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':id_tipo', $id_tipo);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
         $stmt->bindParam(':fecha_ultimo_servicio', $fecha_ultimo_servicio);
         $stmt->bindParam(':ubicacion_equipo', $ubicacion_equipo);
@@ -21,11 +22,21 @@ class InformeTicket extends System
         return  $stmt->execute();
     }
 
-    public static function setInformeTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
+    public static function setInformeTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
     {
         $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("UPDATE InformeTicket SET fecha_servicio = :fecha_servicio, fecha_ultimo_servicio = :fecha_ultimo_servicio, ubicacion_equipo = :ubicacion_equipo, tipo_uso = :tipo_uso, presenta_falla = :presenta_falla, notas = :notas, observaciones = :observaciones WHERE id_informe = :id_informe");
-        $stmt->bindParam(':id_informe', $id_informe);
+        $stmt = $dbh->prepare("UPDATE InformeTicket SET 
+                                                    fecha_servicio = :fecha_servicio, 
+                                                    fecha_ultimo_servicio = :fecha_ultimo_servicio, 
+                                                    ubicacion_equipo = :ubicacion_equipo, 
+                                                    tipo_uso = :tipo_uso, 
+                                                    presenta_falla = :presenta_falla, 
+                                                    notas = :notas, 
+                                                    observaciones = :observaciones 
+                                                    WHERE id_ticket = :id_ticket
+                                                    AND id_tipo = :id_tipo");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':id_tipo', $id_tipo);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
         $stmt->bindParam(':fecha_ultimo_servicio', $fecha_ultimo_servicio);
         $stmt->bindParam(':ubicacion_equipo', $ubicacion_equipo);
@@ -55,6 +66,27 @@ class InformeTicket extends System
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'InformeTicketDTO');
         $stmt->execute();
 
+        return $stmt->fetchAll();
+    }
+
+    public static function getInformeTicketByEquipo($id_tipo, $id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM InformeTicket WHERE id_tipo = :id_tipo AND id_ticket = :id_ticket");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public static function getInformeTicketByEquipoAndTicket($id_tipo, $id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM InformeTicket WHERE id_tipo = :id_tipo AND id_ticket = :id_ticket");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'InformeTicketDTO');
+        $stmt->execute();
         return $stmt->fetch();
     }
 

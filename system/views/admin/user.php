@@ -281,23 +281,24 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="modelo">Modelo</label>
-                                    <input type="text" class="form-control" name="modelo" maxlength="255" required>
+                                    <input type="text" class="form-control" name="modelo" maxlength="255">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="year_fabricacion">Año de fabricación</label>
-                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required>
+                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" >
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_interior">Serial unidad interior</label>
-                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" required>
+                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" >
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_exterior">Serial unidad exterior</label>
-                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" required>
+                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" >
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="tipo_equipo">Tipo de equipo</label>
                                     <select class="form-select" name="tipo_equipo" id="tipo_equipo">
+                                    <option value="">Seleccione un iipo de equipo</option>
                                         <option>Mini split</option>
                                         <option>Split</option>
                                         <option>Paquete CxW</option>
@@ -308,6 +309,7 @@
                                 <div class="col-md-6 form-group">
                                     <label for="capacidad_btuh">Capacidad (BTUH)</label>
                                     <select class="form-select" name="capacidad_btuh" id="capacidad_btuh">
+                                        <option value="">Seleccione una Capacidad (BTUH)</option>
                                         <option>12000</option>
                                         <option>18000</option>
                                         <option>24000</option>
@@ -318,11 +320,12 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="voltaje_fases">Voltaje / Fases</label>
-                                    <input type="text" class="form-control" name="voltaje_fases" maxlength="20" required>
+                                    <input type="text" class="form-control" name="voltaje_fases" maxlength="20" >
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="refrigerante">Refrigerante</label>
                                     <select class="form-select" name="refrigerante" id="refrigerante">
+                                        <option value="">Seleccione un refrigerante</option>
                                         <option>R22</option>
                                         <option>R410</option>
                                     </select>
@@ -331,7 +334,7 @@
                                     <label for="inverter">Inverter</label>
                                     <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required>
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si">
                                         <label class="form-check-label" for="inverter_si">Si</label>
                                     </div>
                                     <div class="form-check">
@@ -341,7 +344,7 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" ></textarea>
                                 </div>
                             </div>
                         </div>

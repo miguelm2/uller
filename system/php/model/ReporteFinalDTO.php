@@ -3,6 +3,7 @@ class ReporteFinalDTO
 {
     protected $id_reporte_final;
     protected $id_ticket;
+    protected $id_tipo;
     protected $fecha_servicio;
     protected $mantenimiento_preventivo;
     protected $equipo_opera_inicio;
@@ -544,6 +545,26 @@ class ReporteFinalDTO
     public function setFirma($firma)
     {
         $this->firma = $firma;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_tipo
+     */ 
+    public function getId_tipo()
+    {
+        return $this->id_tipo;
+    }
+
+    /**
+     * Set the value of id_tipo
+     *
+     * @return  self
+     */ 
+    public function setId_tipo($id_tipo)
+    {
+        $this->id_tipo = $id_tipo;
 
         return $this;
     }

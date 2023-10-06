@@ -3,6 +3,7 @@ class InformeTicketDTO
 {
     protected $id_informe;
     protected $id_ticket;
+    protected $id_tipo;
     protected $fecha_servicio;
     protected $fecha_ultimo_servicio;
     protected $ubicacion_equipo;
@@ -211,6 +212,26 @@ class InformeTicketDTO
     public function setFecha_registro($fecha_registro)
     {
         $this->fecha_registro = $fecha_registro;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_tipo
+     */ 
+    public function getId_tipo()
+    {
+        return $this->id_tipo;
+    }
+
+    /**
+     * Set the value of id_tipo
+     *
+     * @return  self
+     */ 
+    public function setId_tipo($id_tipo)
+    {
+        $this->id_tipo = $id_tipo;
 
         return $this;
     }

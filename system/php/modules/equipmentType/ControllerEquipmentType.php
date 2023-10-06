@@ -4,7 +4,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/equipmentType/Serv
 if (isset($_POST['newEquipmentType'])) {
     $id_usuario = (isset($_GET['user'])) ? $_GET['user'] : $_SESSION['id'];
 
-    $response = ServiceEquipmentType::newEquipmentType($id_usuario, $_POST['nombre'], $_POST['marca'], $_POST['modelo'], $_POST['year_fabricacion'], $_POST['serial_interior'], $_POST['serial_exterior'], $_POST['tipo_equipo'], $_POST['capacidad_btuh'], $_POST['voltaje_fases'], $_POST['refrigerante'], $_POST['inverter'], $_POST['descripcion']);
+    $inverter = (empty($_POST['inverter'])) ? '' : $_POST['inverter'];
+
+    $response = ServiceEquipmentType::newEquipmentType($id_usuario, $_POST['nombre'], $_POST['marca'], $_POST['modelo'], $_POST['year_fabricacion'], $_POST['serial_interior'], $_POST['serial_exterior'], $_POST['tipo_equipo'], $_POST['capacidad_btuh'], $_POST['voltaje_fases'], $_POST['refrigerante'], $inverter, $_POST['descripcion']);
 }
 
 if (isset($_POST['setEquipmentType'])) {
