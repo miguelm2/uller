@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/ReporteFinalDTO.php'
 class ReporteFinal extends System
 {
     public static function newReporteFinal(
-        $id_ticket,$fecha_servicio,
+        $id_ticket, $id_tipo,$fecha_servicio,
         $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
         $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
         $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
@@ -12,18 +12,19 @@ class ReporteFinal extends System
     )
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO ReporteFinalTicket (id_ticket,fecha_servicio,
+        $stmt = $dbh->prepare("INSERT INTO ReporteFinalTicket (id_ticket,id_tipo,fecha_servicio,
                                                         mantenimiento_preventivo,equipo_opera_inicio,limpieza_general,limpieza_filtros,
                                                         limpieza_serpentin,limpieza_bandeja,serpentin_condensador,limpieza_drenaje,verificacion,
                                                         estado_carcasa,estado_equipo,equipo_opera_fin,mantenimiento_correctivo,falla_encontrada,
                                                         repuestos,insumos,tarjetas_electronicas,estimado_horas,observaciones,fecha_registro) 
-                                VALUES (:id_ticket,:fecha_servicio,
+                                VALUES (:id_ticket,:id_tipo,:fecha_servicio,
                                         :mantenimiento_preventivo,:equipo_opera_inicio,:limpieza_general,:limpieza_filtros,
                                         :limpieza_serpentin,:limpieza_bandeja,:serpentin_condensador,:limpieza_drenaje,:verificacion,
                                         :estado_carcasa,:estado_equipo,:equipo_opera_fin,:mantenimiento_correctivo,:falla_encontrada,
                                         :repuestos,:insumos,:tarjetas_electronicas,:estimado_horas,:observaciones,:fecha_registro)");
 
         $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':id_tipo', $id_tipo);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
         $stmt->bindParam(':mantenimiento_preventivo', $mantenimiento_preventivo);
         $stmt->bindParam(':equipo_opera_inicio', $equipo_opera_inicio);
@@ -50,7 +51,7 @@ class ReporteFinal extends System
     }
 
     public static function setReporteFinal(
-        $id_reporte_final,$fecha_servicio,
+        $id_ticket,$id_tipo,$fecha_servicio,
         $mantenimiento_preventivo,$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
         $limpieza_serpentin,$limpieza_bandeja,$serpentin_condensador,$limpieza_drenaje,$verificacion,
         $estado_carcasa,$estado_equipo,$equipo_opera_fin,$mantenimiento_correctivo,$falla_encontrada,
@@ -63,9 +64,11 @@ class ReporteFinal extends System
                                                                 limpieza_serpentin = :limpieza_serpentin, limpieza_bandeja = :limpieza_bandeja, serpentin_condensador = :serpentin_condensador, limpieza_drenaje = :limpieza_drenaje, verificacion = :verificacion,
                                                                 estado_carcasa = :estado_carcasa, estado_equipo = :estado_equipo, equipo_opera_fin = :equipo_opera_fin, mantenimiento_correctivo = :mantenimiento_correctivo, falla_encontrada = :falla_encontrada,
                                                                 repuestos = :repuestos, insumos = :insumos, tarjetas_electronicas = :tarjetas_electronicas, estimado_horas = :estimado_horas, observaciones = :observaciones
-                                                        WHERE id_reporte_final = :id_reporte_final");
+                                                        WHERE id_ticket = :id_ticket
+                                                        AND id_tipo = :id_tipo");
 
-        $stmt->bindParam(':id_reporte_final', $id_reporte_final);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':id_tipo', $id_tipo);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
         $stmt->bindParam(':mantenimiento_preventivo', $mantenimiento_preventivo);
         $stmt->bindParam(':equipo_opera_inicio', $equipo_opera_inicio);
@@ -90,11 +93,11 @@ class ReporteFinal extends System
         return  $stmt->execute();
     }
 
-    public static function setFirmaReporteFinal($id_reporte_final, $firma)
+    public static function setFirmaReporteFinal($id_ticket, $firma)
     {
         $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("UPDATE ReporteFinalTicket SET firma = :firma WHERE id_reporte_final = :id_reporte_final");
-        $stmt->bindParam(':id_reporte_final', $id_reporte_final);
+        $stmt = $dbh->prepare("UPDATE ReporteFinalTicket SET firma = :firma WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->bindParam(':firma', $firma);
         return  $stmt->execute();
     }
@@ -118,6 +121,29 @@ class ReporteFinal extends System
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'ReporteFinalDTO');
         $stmt->execute();
 
+        return $stmt->fetchAll();
+    }
+
+    public static function getReporteFinalByTicketJS($id_tipo, $id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM ReporteFinalTicket WHERE id_tipo = :id_tipo AND id_ticket = :id_ticket");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+    public static function getReporteFinalByTicketAndEquipo($id_tipo, $id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM ReporteFinalTicket WHERE id_tipo = :id_tipo AND id_ticket = :id_ticket");
+        $stmt->bindParam(':id_tipo', $id_tipo);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'ReporteFinalDTO');
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -129,6 +155,17 @@ class ReporteFinal extends System
         $result =  $stmt->fetch();
 
         return $result['id'];
+    }
+    
+    public static function getCountReporteFinalByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(id_reporte_final) AS total FROM ReporteFinalTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['total'];
     }
 
     public static function deleteReporteFinalByTicket($id_ticket)

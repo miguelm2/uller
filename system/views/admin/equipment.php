@@ -83,19 +83,19 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="modelo">Modelo</label>
-                                <input type="text" class="form-control" name="modelo" maxlength="255" required value="<?= $equipment->getModelo() ?>">
+                                <input type="text" class="form-control" name="modelo" maxlength="255" value="<?= $equipment->getModelo() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="year_fabricacion">Año de fabricación</label>
-                                <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required value="<?= $equipment->getYear_fabricacion() ?>">
+                                <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" value="<?= $equipment->getYear_fabricacion() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="serial_interior">Serial unidad interior</label>
-                                <input type="text" class="form-control" name="serial_interior" maxlength="255" required value="<?= $equipment->getSerial_interior() ?>">
+                                <input type="text" class="form-control" name="serial_interior" maxlength="255" value="<?= $equipment->getSerial_interior() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="serial_exterior">Serial unidad exterior</label>
-                                <input type="text" class="form-control" name="serial_exterior" maxlength="255" required value="<?= $equipment->getSerial_exterior() ?>">
+                                <input type="text" class="form-control" name="serial_exterior" maxlength="255" value="<?= $equipment->getSerial_exterior() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_equipo">Tipo de equipo</label>
@@ -122,7 +122,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="voltaje_fases">Voltaje / Fases</label>
-                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" required value="<?= $equipment->getVoltaje_fases() ?>">
+                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" value="<?= $equipment->getVoltaje_fases() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="refrigerante">Refrigerante</label>
@@ -136,7 +136,7 @@
                                 <label for="inverter">Inverter</label>
                                 <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required <?= $listInverter[0] ?>>
+                                    <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" <?= $listInverter[0] ?>>
                                     <label class="form-check-label" for="inverter_si">Si</label>
                                 </div>
                                 <div class="form-check">
@@ -146,7 +146,7 @@
                             </div>
                             <div class="col-md-12 form-group">
                                 <label for="descripcion">Descripcion</label>
-                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required><?= $equipment->getDescripcion() ?></textarea>
+                                <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255"><?= $equipment->getDescripcion() ?></textarea>
                             </div>
 
                             <div class="col-md-12">

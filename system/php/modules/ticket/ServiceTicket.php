@@ -15,6 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/ReporteFinal.php';
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeFinal.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportCuentaCobro.php';
 
 class ServiceTicket extends System
 {
@@ -214,26 +215,40 @@ class ServiceTicket extends System
     }
 
     //ORDEN DE SERVICIO DE UN TICKET ----------------------------------------------------------
-    public static function newReportTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
+    public static function newReportTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
     {
-        $id_ticket              = parent::limpiarString($id_ticket);
-        $fecha_servicio         = parent::limpiarString($fecha_servicio);
-        $fecha_ultimo_servicio  = parent::limpiarString($fecha_ultimo_servicio);
-        $ubicacion_equipo       = parent::limpiarString($ubicacion_equipo);
-        $tipo_uso               = parent::limpiarString($tipo_uso);
-        $presenta_falla         = parent::limpiarString($presenta_falla);
-        $notas                  = parent::limpiarString($notas);
-        $observaciones          = parent::limpiarString($observaciones);
-        $fecha_registro = date('Y-m-d H:i:s');
-
         try {
-            $modelResponse = InformeTicket::newInformeTicket($id_ticket, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones, $fecha_registro);
+            $id_ticket              = parent::limpiarString($id_ticket);
+            $id_tipo              = parent::limpiarString($id_tipo);
+            $fecha_servicio         = parent::limpiarString($fecha_servicio);
+            $fecha_ultimo_servicio  = parent::limpiarString($fecha_ultimo_servicio);
+            $ubicacion_equipo       = parent::limpiarString($ubicacion_equipo);
+            $tipo_uso               = parent::limpiarString($tipo_uso);
+            $presenta_falla         = parent::limpiarString($presenta_falla);
+            $notas                  = parent::limpiarString($notas);
+            $observaciones          = parent::limpiarString($observaciones);
+            $fecha_registro = date('Y-m-d H:i:s');
 
-            if ($modelResponse) {
-                $id_informe = InformeTicket::getIdLastInformeTicket();
-                Ticket::setEstadoTicket($id_ticket, 7);
-                self::sendCorreoOrdenServicio($id_ticket, $id_informe);
-                header('Location:reportTicket?reportTicket=' . $id_informe . '&ticket=' . $id_ticket . '&new');
+            $informeDTO = InformeTicket::getInformeTicketByEquipoAndTicket($id_tipo, $id_ticket);
+
+            if (!($informeDTO)) {
+                $modelResponse = InformeTicket::newInformeTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones, $fecha_registro);
+
+                if ($modelResponse) {
+                    $id_informe = InformeTicket::getIdLastInformeTicket();
+                    $countInformes = InformeTicket::getCountInformeTicketByTicket($id_ticket);
+                    $countEquiposTicket = EquipoTicket::getCountEquipoTicketByTicket($id_ticket);
+
+                    self::sendCorreoOrdenServicio($id_ticket, $id_informe);
+
+                    if ($countInformes == $countEquiposTicket) {
+                        Ticket::setEstadoTicket($id_ticket, 7);
+                    }
+
+                    return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
+                }
+            } else {
+                return self::setReportTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones);
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -261,9 +276,10 @@ class ServiceTicket extends System
         }
     }
 
-    public static function setReportTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
+    public static function setReportTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones)
     {
-        $id_informe             = parent::limpiarString($id_informe);
+        $id_ticket              = parent::limpiarString($id_ticket);
+        $id_tipo              = parent::limpiarString($id_tipo);
         $fecha_servicio         = parent::limpiarString($fecha_servicio);
         $fecha_ultimo_servicio  = parent::limpiarString($fecha_ultimo_servicio);
         $ubicacion_equipo       = parent::limpiarString($ubicacion_equipo);
@@ -273,7 +289,7 @@ class ServiceTicket extends System
         $observaciones          = parent::limpiarString($observaciones);
 
         try {
-            $modelResponse = InformeTicket::setInformeTicket($id_informe, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones);
+            $modelResponse = InformeTicket::setInformeTicket($id_ticket, $id_tipo, $fecha_servicio, $fecha_ultimo_servicio, $ubicacion_equipo, $tipo_uso, $presenta_falla, $notas, $observaciones);
 
             if ($modelResponse) return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
         } catch (\Exception $e) {
@@ -293,16 +309,29 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getPdfReportTicket($id_informe)
+    public static function getDataServiceOrderEquipo($id_tipo, $id_ticket)
     {
-        $id_informe = parent::limpiarString($id_informe);
-
         try {
+            $id_tipo = parent::limpiarString($id_tipo);
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            $modelResponse = InformeTicket::getInformeTicketByEquipo($id_tipo, $id_ticket);
+
+            return json_encode($modelResponse);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getPdfReportTicket($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
             $perfilDTO        = Informacion::getInformacion();
-            $informeDTO       = InformeTicket::getInformeTicketById($id_informe);
-            $ticketDTO        = Ticket::getTicket($informeDTO->getId_ticket());
-            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($informeDTO->getId_ticket());
-            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($informeDTO->getId_ticket());
+            $informeDTO       = InformeTicket::getInformeTicketByTicket($id_ticket);
+            $ticketDTO        = Ticket::getTicket($id_ticket);
+            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
 
             $modelResponse = ReportInformeTicket::generatePdf($perfilDTO, $informeDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
             return $modelResponse;
@@ -317,6 +346,7 @@ class ServiceTicket extends System
     //INFORME FINAL DE SERVICIO DE UN TICKET ------------------------------------------------------
     public static function newInformTicket(
         $id_ticket,
+        $id_tipo,
         $fecha_servicio,
         $mantenimiento_preventivo,
         $equipo_opera_inicio,
@@ -338,59 +368,94 @@ class ServiceTicket extends System
         $estimado_horas,
         $observaciones
     ) {
-        $id_ticket                  = parent::limpiarString($id_ticket);
-        $fecha_servicio             = parent::limpiarString($fecha_servicio);
-        $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
-        $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
-        $limpieza_general           = parent::limpiarString($limpieza_general);
-        $limpieza_filtros           = parent::limpiarString($limpieza_filtros);
-        $limpieza_serpentin         = parent::limpiarString($limpieza_serpentin);
-        $limpieza_bandeja           = parent::limpiarString($limpieza_bandeja);
-        $serpentin_condensador      = parent::limpiarString($serpentin_condensador);
-        $limpieza_drenaje           = parent::limpiarString($limpieza_drenaje);
-        $verificacion               = parent::limpiarString($verificacion);
-        $estado_carcasa             = parent::limpiarString($estado_carcasa);
-        $estado_equipo              = parent::limpiarString($estado_equipo);
-        $equipo_opera_fin           = parent::limpiarString($equipo_opera_fin);
-        $mantenimiento_correctivo   = parent::limpiarString($mantenimiento_correctivo);
-        $falla_encontrada           = parent::limpiarString($falla_encontrada);
-        $repuestos                  = parent::limpiarString($repuestos);
-        $insumos                    = parent::limpiarString($insumos);
-        $tarjetas_electronicas      = parent::limpiarString($tarjetas_electronicas);
-        $estimado_horas             = parent::limpiarString($estimado_horas);
-        $observaciones              = parent::limpiarString($observaciones);
-        $fecha_registro = date('Y-m-d H:i:s');
-
         try {
-            $modelResponse = ReporteFinal::newReporteFinal(
-                $id_ticket,
-                $fecha_servicio,
-                $mantenimiento_preventivo,
-                $equipo_opera_inicio,
-                $limpieza_general,
-                $limpieza_filtros,
-                $limpieza_serpentin,
-                $limpieza_bandeja,
-                $serpentin_condensador,
-                $limpieza_drenaje,
-                $verificacion,
-                $estado_carcasa,
-                $estado_equipo,
-                $equipo_opera_fin,
-                $mantenimiento_correctivo,
-                $falla_encontrada,
-                $repuestos,
-                $insumos,
-                $tarjetas_electronicas,
-                $estimado_horas,
-                $observaciones,
-                $fecha_registro
-            );
+            $id_ticket                  = parent::limpiarString($id_ticket);
+            $id_tipo                  = parent::limpiarString($id_tipo);
+            $fecha_servicio             = parent::limpiarString($fecha_servicio);
+            $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
+            $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
+            $limpieza_general           = parent::limpiarString($limpieza_general);
+            $limpieza_filtros           = parent::limpiarString($limpieza_filtros);
+            $limpieza_serpentin         = parent::limpiarString($limpieza_serpentin);
+            $limpieza_bandeja           = parent::limpiarString($limpieza_bandeja);
+            $serpentin_condensador      = parent::limpiarString($serpentin_condensador);
+            $limpieza_drenaje           = parent::limpiarString($limpieza_drenaje);
+            $verificacion               = parent::limpiarString($verificacion);
+            $estado_carcasa             = parent::limpiarString($estado_carcasa);
+            $estado_equipo              = parent::limpiarString($estado_equipo);
+            $equipo_opera_fin           = parent::limpiarString($equipo_opera_fin);
+            $mantenimiento_correctivo   = parent::limpiarString($mantenimiento_correctivo);
+            $falla_encontrada           = parent::limpiarString($falla_encontrada);
+            $repuestos                  = parent::limpiarString($repuestos);
+            $insumos                    = parent::limpiarString($insumos);
+            $tarjetas_electronicas      = parent::limpiarString($tarjetas_electronicas);
+            $estimado_horas             = parent::limpiarString($estimado_horas);
+            $observaciones              = parent::limpiarString($observaciones);
+            $fecha_registro = date('Y-m-d H:i:s');
 
-            if ($modelResponse) {
-                $id_reporte_final = ReporteFinal::getIdLastReporteFinal();
-                Ticket::setEstadoTicket($id_ticket, 8);
-                header('Location:informTicket?informTicket=' . $id_reporte_final . '&ticket=' . $id_ticket . '&new');
+            $reporteDTO = ReporteFinal::getReporteFinalByTicketAndEquipo($id_tipo, $id_ticket);
+            if (!$reporteDTO) {
+                $modelResponse = ReporteFinal::newReporteFinal(
+                    $id_ticket,
+                    $id_tipo,
+                    $fecha_servicio,
+                    $mantenimiento_preventivo,
+                    $equipo_opera_inicio,
+                    $limpieza_general,
+                    $limpieza_filtros,
+                    $limpieza_serpentin,
+                    $limpieza_bandeja,
+                    $serpentin_condensador,
+                    $limpieza_drenaje,
+                    $verificacion,
+                    $estado_carcasa,
+                    $estado_equipo,
+                    $equipo_opera_fin,
+                    $mantenimiento_correctivo,
+                    $falla_encontrada,
+                    $repuestos,
+                    $insumos,
+                    $tarjetas_electronicas,
+                    $estimado_horas,
+                    $observaciones,
+                    $fecha_registro
+                );
+
+                if ($modelResponse) {
+                    $countReportes = ReporteFinal::getCountReporteFinalByTicket($id_ticket);
+                    $countEquiposTicket = EquipoTicket::getCountEquipoTicketByTicket($id_ticket);
+
+                    if ($countReportes == $countEquiposTicket) {
+                        Ticket::setEstadoTicket($id_ticket, 8);
+                    }
+
+                    return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
+                }
+            } else {
+                return self::setInformTicket(
+                    $id_ticket,
+                    $id_tipo,
+                    $fecha_servicio,
+                    $mantenimiento_preventivo,
+                    $equipo_opera_inicio,
+                    $limpieza_general,
+                    $limpieza_filtros,
+                    $limpieza_serpentin,
+                    $limpieza_bandeja,
+                    $serpentin_condensador,
+                    $limpieza_drenaje,
+                    $verificacion,
+                    $estado_carcasa,
+                    $estado_equipo,
+                    $equipo_opera_fin,
+                    $mantenimiento_correctivo,
+                    $falla_encontrada,
+                    $repuestos,
+                    $insumos,
+                    $tarjetas_electronicas,
+                    $estimado_horas,
+                    $observaciones
+                );
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -398,7 +463,8 @@ class ServiceTicket extends System
     }
 
     public static function setInformTicket(
-        $id_reporte_final,
+        $id_ticket,
+        $id_tipo,
         $fecha_servicio,
         $mantenimiento_preventivo,
         $equipo_opera_inicio,
@@ -420,7 +486,8 @@ class ServiceTicket extends System
         $estimado_horas,
         $observaciones
     ) {
-        $id_reporte_final           = parent::limpiarString($id_reporte_final);
+        $id_ticket           = parent::limpiarString($id_ticket);
+        $id_tipo           = parent::limpiarString($id_tipo);
         $fecha_servicio             = parent::limpiarString($fecha_servicio);
         $mantenimiento_preventivo   = parent::limpiarString($mantenimiento_preventivo);
         $equipo_opera_inicio        = parent::limpiarString($equipo_opera_inicio);
@@ -444,7 +511,8 @@ class ServiceTicket extends System
 
         try {
             $modelResponse = ReporteFinal::setReporteFinal(
-                $id_reporte_final,
+                $id_ticket,
+                $id_tipo,
                 $fecha_servicio,
                 $mantenimiento_preventivo,
                 $equipo_opera_inicio,
@@ -473,13 +541,13 @@ class ServiceTicket extends System
         }
     }
 
-    public static function addFirmaReport($id_reporte_final, $firma)
+    public static function addFirmaReport($id_ticket, $firma)
     {
-        $id_reporte_final = parent::limpiarString($id_reporte_final);
+        $id_ticket = parent::limpiarString($id_ticket);
         $firma            = parent::limpiarString($firma);
 
         try {
-            $modelResponse = ReporteFinal::setFirmaReporteFinal($id_reporte_final, $firma);
+            $modelResponse = ReporteFinal::setFirmaReporteFinal($id_ticket, $firma);
             if ($modelResponse) return '<script>swal("Firma agregada correctamente", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
@@ -498,19 +566,50 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getPdfInform($id_reporte_final)
+    public static function getPdfInform($id_ticket)
     {
-        $id_reporte_final = parent::limpiarString($id_reporte_final);
-
         try {
+            $id_ticket = parent::limpiarString($id_ticket);
+
             $perfilDTO        = Informacion::getInformacion();
-            $reporteFinalDTO  = ReporteFinal::getReporteFinalById($id_reporte_final);
-            $ordenDTO         = InformeTicket::getInformeTicketByTicket($reporteFinalDTO->getId_ticket());
-            $ticketDTO        = Ticket::getTicket($reporteFinalDTO->getId_ticket());
-            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($reporteFinalDTO->getId_ticket());
-            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($reporteFinalDTO->getId_ticket());
+            $reporteFinalDTO  = ReporteFinal::getReporteFinalByTicket($id_ticket);
+            $ordenDTO         = InformeTicket::getInformeTicketByTicket($id_ticket);
+            $ticketDTO        = Ticket::getTicket($id_ticket);
+            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
             $modelResponse    = ReportInformeFinal::generatePdf($perfilDTO, $reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
             return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getPdfCuentaCobro($id_ticket)
+    {
+        try {
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            $perfilDTO        = Informacion::getInformacion();
+            $reporteFinalDTO  = ReporteFinal::getReporteFinalByTicket($id_ticket);
+            $ordenDTO         = InformeTicket::getInformeTicketByTicket($id_ticket);
+            $ticketDTO        = Ticket::getTicket($id_ticket);
+            $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+            $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
+            $modelResponse    = ReportCuentaCobro::generatePdf($perfilDTO, $reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
+            return $modelResponse;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getDataReportServiceEquipo($id_tipo, $id_ticket)
+    {
+        try {
+            $id_tipo = parent::limpiarString($id_tipo);
+            $id_ticket = parent::limpiarString($id_ticket);
+
+            $modelResponse = ReporteFinal::getReporteFinalByTicketJS($id_tipo, $id_ticket);
+            return json_encode($modelResponse);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -724,7 +823,7 @@ class ServiceTicket extends System
                 $html = '';
 
                 $ticketDTO = Ticket::getTicket($id_ticket);
-                
+
                 if ($ticketDTO->getEstado()[0] == 4) {
                     $diagnosticoDTO   = Diagnostico::getDiagnosticoByTicket($id_ticket);
                     $html .= '
@@ -759,11 +858,28 @@ class ServiceTicket extends System
                 if ($estadoTicket >= 5 && $estadoTicket != 6) {
                     $informeDTO = InformeTicket::getInformeTicketByTicket($id_ticket);
 
-                    if ($informeDTO) {
-                        $html = '<a href="reportTicket?reportTicket=' . $informeDTO->getId_informe() . '&ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Ver Orden Servicio</a>';
-                    } else {
-                        $html = '<a href="newReport?ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Crear Orden Servicio</a>';
-                    }
+                    $html = '<a href="newReport?ticket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-info-circle"></i> Crear Orden Servicio</a>';
+                }
+
+                return $html;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonPDFReport($id_ticket)
+    {
+        try {
+            if ($_SESSION['tipo'] != 1) {
+                $id_ticket = parent::limpiarString($id_ticket);
+                $html = '';
+
+                $countInformes = InformeTicket::getCountInformeTicketByTicket($id_ticket);
+                $countEquiposTicket = EquipoTicket::getCountEquipoTicketByTicket($id_ticket);
+
+                if ($countInformes == $countEquiposTicket) {
+                    $html = Elements::getBtnPDFOrden();
                 }
 
                 return $html;
@@ -786,7 +902,7 @@ class ServiceTicket extends System
                     $ordenDTO = InformeTicket::getInformeTicketByTicket($id_ticket);
                     $html = '
                         <div class="col-md-3 d-grid gap-2 mt-3">
-                            <a href="ticket?ticket=' . $id_ticket . '&getPdfReportTicket=' . $ordenDTO->getId_informe() . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Orden Servicio</a>
+                            <a href="ticket?ticket=' . $id_ticket . '&getPdfReportTicket=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Orden Servicio</a>
                         </div>';
                 }
 
@@ -795,7 +911,7 @@ class ServiceTicket extends System
 
                     $html = '
                                 <div class="col-md-3 d-grid gap-2 mt-3">
-                                    <a href="ticket?ticket=' . $id_ticket . '&getPdfInform=' . $reporteFinalDTO->getId_reporte_final() . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Informe Servicio</a>
+                                    <a href="ticket?ticket=' . $id_ticket . '&getPdfInform=' . $id_ticket . '" class="btn btn-primary"><i class="bi bi-filetype-pdf"></i> Informe Servicio</a>
                                 </div>';
                 }
 
@@ -817,13 +933,7 @@ class ServiceTicket extends System
                 $estadoTicket = Ticket::getEstadoTicket($id_ticket);
 
                 if ($estadoTicket >= 7) {
-                    $reporteFinalDTO = ReporteFinal::getReporteFinalByTicket($id_ticket);
-
-                    if ($reporteFinalDTO) {
-                        $html = '<a href="informTicket?informTicket=' . $reporteFinalDTO->getId_reporte_final() . '&ticket=' . $id_ticket . '" class="btn btn-dark"><i class="bi bi-info-circle"></i> Ver Informe Final</a>';
-                    } else {
-                        $html = '<a href="newInform?ticket=' . $id_ticket . '" class="btn btn-dark"><i class="bi bi-info-circle"></i> Crear Informe Final</a>';
-                    }
+                    $html = '<a href="informTicket?informTicket=' . $id_ticket . '&ticket=' . $id_ticket . '" class="btn btn-dark"><i class="bi bi-info-circle"></i> Ver Informe Final</a>';
                 }
 
                 return $html;
@@ -833,21 +943,124 @@ class ServiceTicket extends System
         }
     }
 
-    public static function getButtonFirmaImform($id_reporte_final)
+    public static function getButtonInformeCobro($id_ticket)
     {
         try {
             if ($_SESSION['tipo'] != 1) {
-                $id_reporte_final = parent::limpiarString($id_reporte_final);
+                $id_ticket = parent::limpiarString($id_ticket);
                 $html = '';
 
-                $firma = ReporteFinal::getFirmaByReporteFinal($id_reporte_final);
+                $estadoTicket = Ticket::getEstadoTicket($id_ticket);
 
-                if (empty($firma)) {
-                    $html = '
-                                <div class="col-md-4 d-grid gap-2 mt-3">
-                                    <button type="button" class="btn btn-warning text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Actualizar Firma</button>
-                                </div>';
+                if ($estadoTicket >= 8) {
+                    $html = '<button type="submit" class="btn btn-success" name="getPdfCuentaCobro"><i class="bi bi-filetype-pdf"></i> Generar cuenta de cobro</button>';
                 }
+
+                return $html;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getTablaOrdenServicio($id_ticket)
+    {
+        try {
+            if ($_SESSION['tipo'] != 1) {
+                $id_ticket = parent::limpiarString($id_ticket);
+                $ticketDTO = Ticket::getTicket($id_ticket);
+
+                $lstEquipoticket = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
+
+                $tableHtml = '';
+                if ($lstEquipoticket) {
+                    foreach ($lstEquipoticket as $equipoTicket) {
+                        $informe = InformeTicket::getInformeTicketByEquipoAndTicket($equipoTicket->getEquipoDTO()->getId_tipo(), $id_ticket);
+
+                        if ($informe) {
+                            $color = ' style="background-color: #5de10087;"';
+                        } else {
+                            $color = '';
+                        }
+
+                        $tableHtml .= Elements::getTablaCincoColumnas(
+                            $equipoTicket->getEquipoDTO()->getNombre(),
+                            $equipoTicket->getEquipoDTO()->getMarca(),
+                            $equipoTicket->getEquipoDTO()->getTipo_equipo(),
+                            $ticketDTO->getTipo_servicioDTO()->getNombre(),
+                            Elements::crearBotonEditarJs($equipoTicket->getEquipoDTO()->getId_tipo()),
+                            $color
+                        );
+                    }
+                }
+
+                return $tableHtml;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getTablaInformeServicio($id_ticket)
+    {
+        try {
+            if ($_SESSION['tipo'] != 1) {
+                $id_ticket = parent::limpiarString($id_ticket);
+                $ticketDTO = Ticket::getTicket($id_ticket);
+
+                $lstEquipoticket = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
+
+                $tableHtml = '';
+                if ($lstEquipoticket) {
+                    foreach ($lstEquipoticket as $equipoTicket) {
+                        $informe = ReporteFinal::getReporteFinalByTicketAndEquipo($equipoTicket->getEquipoDTO()->getId_tipo(), $id_ticket);
+
+                        if ($informe) {
+                            $color = ' style="background-color: #5de10087;"';
+                        } else {
+                            $color = '';
+                        }
+
+                        $tableHtml .= Elements::getTablaCincoColumnas(
+                            $equipoTicket->getEquipoDTO()->getNombre(),
+                            $equipoTicket->getEquipoDTO()->getMarca(),
+                            $equipoTicket->getEquipoDTO()->getTipo_equipo(),
+                            $ticketDTO->getTipo_servicioDTO()->getNombre(),
+                            Elements::crearBotonEditarJs($equipoTicket->getEquipoDTO()->getId_tipo()),
+                            $color
+                        );
+                    }
+                }
+
+                return $tableHtml;
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getButtonFirmaImform($id_ticket)
+    {
+        try {
+            if ($_SESSION['tipo'] != 1) {
+                $id_ticket = parent::limpiarString($id_ticket);
+                $html = '';
+
+                $countReportes = ReporteFinal::getCountReporteFinalByTicket($id_ticket);
+                $countEquiposTicket = EquipoTicket::getCountEquipoTicketByTicket($id_ticket);
+
+                if ($countReportes == $countEquiposTicket) {
+                    $html = '
+                    <form method="post" class="row">
+                        <div class="col-md-4 d-grid gap-2 mt-3 mx-auto">
+                            <button type="submit" class="btn btn-primary" name="getPdfInform"><i class="bi bi-filetype-pdf"></i> Generar Informe</button>
+                        </div>
+                        <div class="col-md-4 d-grid gap-2 mt-3 mx-auto">
+                            <button type="button" class="btn btn-warning text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Actualizar Firma</button>
+                        </div>
+                    </form>';
+                }
+
 
                 return $html;
             }

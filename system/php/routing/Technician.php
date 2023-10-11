@@ -21,4 +21,6 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/ticket/ControllerTic
 
 include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/page/ControllerPage.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'].'/system/php/modules/input/ControllerInput.php';
+
 ?>

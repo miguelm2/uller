@@ -10,6 +10,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href="../technician/input">
+        <i class="bi bi-hammer"></i>
+        <span>Mis herramientas</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" href="../technician/users-profile">
         <i class="bi bi-person"></i>
         <span>Perfil</span>

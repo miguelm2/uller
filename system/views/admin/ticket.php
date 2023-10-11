@@ -204,9 +204,14 @@
                         <div class="modal-body">
                             <div class="col-md-12 form-group">
                                 <label for="tecnico">Técnico</label>
-                                <select class="form-select" name="tecnico" id="tecnico">
+                                <select class="form-select" name="tecnico" id="tecnico" required>
+                                    <option value="" hidden>Seleccione un tecnico</option>
                                     <?= $selectTecnicos; ?>
                                 </select>
+                            </div>
+                            <div class="col-md-12 form-group mt-2">
+                                <label for="tecnico">Herramientas propias</label>
+                                <textarea id="herramientas" class="form-control" cols="30" rows="4" readonly></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -335,6 +340,7 @@
     <script src="../../js/selectRepeat.js"></script>
     <script src="../../js/functions.js"></script>
     <script src="../../js/equipmentTypes.js"></script>
+    <script src="../../js/insumo/insumoAdmin.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

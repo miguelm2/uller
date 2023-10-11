@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Orden de Servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?=$btnAtrasTicket;?>" class="btn btn-secondary">
+                                <a href="<?= $btnAtrasTicket; ?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -64,49 +64,34 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <form method="POST">
-                            <div class="row g-3">
-                                <div class="col-md-6 form-group">
-                                    <label for="fecha_servicio">Fecha servicio</label>
-                                    <input type="date" class="form-control" name="fecha_servicio" required value="<?=$reportTicket->getFecha_servicio()?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="fecha_ultimo_servicio">Fecha del ultimo servicio</label>
-                                    <input type="date" class="form-control" name="fecha_ultimo_servicio" required value="<?=$reportTicket->getFecha_ultimo_servicio()?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="ubicacion_equipo">Ubicación del equipo</label>
-                                    <input type="text" class="form-control" name="ubicacion_equipo" maxlength="150" required value="<?=$reportTicket->getUbicacion_equipo()?>">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="tipo_uso">Tipo de uso</label>
-                                    <select class="form-select" name="tipo_uso" id="tipo_uso">
-                                        <option value="<?=$reportTicket->getTipo_uso()[0]?>"><?=$reportTicket->getTipo_uso()[1]?></option>
-                                        <option value="1">Residencial</option>
-                                        <option value="2">Comercial</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="presenta_falla">Presenta falla</label>
-                                    <input type="text" class="form-control" name="presenta_falla" maxlength="255" required value="<?=$reportTicket->getPresenta_falla()?>">
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="notas">Notas</label>
-                                    <textarea class="form-control" name="notas" rows="3" maxlength="255" required><?=$reportTicket->getNotas()?></textarea>
-                                </div>
-                                <div class="col-md-12 form-group">
-                                    <label for="observaciones">Observaciones</label>
-                                    <textarea class="form-control" name="observaciones" rows="3" maxlength="500" required><?=$reportTicket->getObservaciones()?></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <hr>
-                                </div>
-                                <div class="col-md-6 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-success" name="setReportTicket"><i class="bi bi-save"></i> Actualizar Registro</button>
-                                </div>
-                                <div class="col-md-6 d-grid gap-2 mt-3">
-                                    <button type="submit" class="btn btn-secondary" name="getPdfReportTicket"><i class="bi bi-filetype-pdf"></i> Generar Orden</button>
-                                </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Equipo</th>
+                                        <th>Marca</th>
+                                        <th>Tipo de equipo</th>
+                                        <th>Servicio</th>
+                                        <th width="10px">Ver</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Equipo</th>
+                                        <th>Marca</th>
+                                        <th>Tipo de equipo</th>
+                                        <th>Servicio</th>
+                                        <th width="10px">Ver</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?= $tablaOrdenServicio; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form method="post">
+                            <div class="col-md-6 mx-auto mt-3">
+                                <button type="submit" class="btn btn-secondary w-100" name="getPdfReportTicket"><i class="bi bi-filetype-pdf"></i> Generar Orden</button>
                             </div>
                         </form>
                     </div>
@@ -118,6 +103,67 @@
 
 
     </main><!-- End #main -->
+
+    <!-- Modal Editar Registro-->
+    <!-- ======= Basic Modal ======= -->
+    <form method="post">
+        <div class="modal fade" id="modalEditarRegistro" tabindex="-1">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar información de Orden de servicio</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <input type="hidden" id="id_tipo" name="id_tipo">
+                            <div class="col-md-6 form-group">
+                                <label for="fecha_servicio">Fecha servicio</label>
+                                <input type="date" class="form-control" name="fecha_servicio" id="fecha_servicio" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="fecha_ultimo_servicio">Fecha del ultimo servicio</label>
+                                <input type="date" class="form-control" name="fecha_ultimo_servicio" id="fecha_ultimo_servicio" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="ubicacion_equipo">Ubicación del equipo</label>
+                                <input type="text" class="form-control" name="ubicacion_equipo" id="ubicacion_equipo" maxlength="150" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="tipo_uso">Tipo de uso</label>
+                                <select class="form-select" name="tipo_uso" id="tipo_uso">
+                                    <option value="1">Residencial</option>
+                                    <option value="2">Comercial</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="presenta_falla">Presenta falla</label>
+                                <input type="text" class="form-control" name="presenta_falla" id="presenta_falla" maxlength="255" required>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="notas">Notas</label>
+                                <textarea class="form-control" name="notas" id="notas" rows="3" maxlength="255" required></textarea>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label for="observaciones">Observaciones</label>
+                                <textarea class="form-control" name="observaciones" id="observaciones" rows="3" maxlength="500" required></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 d-grid gap-2 mt-3">
+                                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                            <div class="col-md-6 d-grid gap-2 mt-3">
+                                <button type="submit" class="btn btn-success w-100" name="setReportTicket"><i class="bi bi-plus-square"></i> Editar Registro de Orden</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- End Basic Modal-->
 
     <!-- ======= Footer ======= -->
     <?php include_once '../../assets/html/footer.html'; ?>
@@ -142,6 +188,7 @@
 
     <!-- JS PAGE -->
     <script src="../../js/selectRepeat.js"></script>
+    <script src="../../js/ticked/serviceOrderAdmin.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

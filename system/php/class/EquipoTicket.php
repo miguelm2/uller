@@ -57,6 +57,17 @@ class EquipoTicket extends System
         return  $stmt->execute();
     }
 
+    public static function getCountEquipoTicketByTicket($id_ticket)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT COUNT(*) AS total FROM EquipoTicket WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->execute();
+        $result =  $stmt->fetch();
+
+        return $result['total'];
+    }
+
     public static function getValidateEquipoTicketByEquipo($id_equipo)
     {
         $dbh             = parent::Conexion();
