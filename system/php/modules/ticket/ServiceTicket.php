@@ -595,7 +595,14 @@ class ServiceTicket extends System
             $ticketDTO        = Ticket::getTicket($id_ticket);
             $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
             $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
-            $modelResponse    = ReportCuentaCobro::generatePdf($perfilDTO, $reporteFinalDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos);
+            $tipoServicio     = TipoServicio::getTipoServicioById($ticketDTO->getTipo_servicioDTO()->getId_tipo());
+            $modelResponse    = ReportCuentaCobro::generatePdf($perfilDTO, 
+                                                            $reporteFinalDTO, 
+                                                            $ordenDTO, 
+                                                            $ticketDTO, 
+                                                            $tecnicoTicketDTO, 
+                                                            $listEquipos, 
+                                                            $tipoServicio);
             return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

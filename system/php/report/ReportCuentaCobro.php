@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportCuentaCobro
 {
-    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
@@ -53,12 +53,9 @@ abstract class ReportCuentaCobro
                 </tr>
             </table>
             <br>
-            <br>
             <center><span style="font-size: 22px">' . $perfilDTO->getNombre() . '</span><br><span style="font-size: 18px">NIT ' . $perfilDTO->getNit() . '</span></center>
             <br>
-            <br>
             <center><b>Debe a:</b></center>
-            <br>
             <br>
             <center>
             <span style="font-size: 20px">' . $tecnicoTicketDTO->getTecnicoDTO()->getNombre() . '</span>
@@ -74,8 +71,7 @@ abstract class ReportCuentaCobro
             <span style="font-size: 18px">' . $tecnicoTicketDTO->getTecnicoDTO()->getCiudad() . '</span>
             </center>
             <br>
-            <br>
-            <p>La suma de: _________________________</p>
+            
             <p>
             Para que sea pagada a la cuenta que se indica a continuación:
             <br>
@@ -90,9 +86,10 @@ abstract class ReportCuentaCobro
             <span>
                 Lo anterior por cuenta de los siguientes conceptos:
             </span>
-                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO) . '
+                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio) . '
             
             <br><br>
+            
             <hr>
             <small>Generado automáticamente por el sistema <strong>ULLER</strong> el ' . date('Y-m-d') . ' a las ' . date('H:i:s') . '</small>
         </div>';
@@ -103,7 +100,7 @@ abstract class ReportCuentaCobro
         $dompdf->stream($pdfName, array("Attachment" => 0));
     }
 
-    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO)
+    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio)
     {
         $html = '';
         $count = 0;
@@ -219,10 +216,11 @@ abstract class ReportCuentaCobro
                         </td>
                     </tr>
                 </table>
+                <p>La suma de: <strong>$'. number_format($tipoServicio->getValor(),0,'','.' ).' COP </strong> </p>
                 ';
+                
 
             $firma = '
-                <br>
                 <br>
                 <br>
                 <table class="default deleteBorder" style="width:100%">
