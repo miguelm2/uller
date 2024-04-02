@@ -2,11 +2,11 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/serviceType/ServiceType.php';
 
 if(isset($_POST['newServiceType'])){
-    $response = ServiceType::newServiceType($_POST['nombre'], $_POST['descripcion']);
+    $response = ServiceType::newServiceType($_POST['nombre'], $_POST['descripcion'], $_POST['valor']);
 }
 
 if(isset($_POST['setServiceType'])){
-    $response = ServiceType::setServiceType($_POST['id_tipo'], $_POST['nombre'], $_POST['descripcion']);
+    $response = ServiceType::setServiceType($_POST['id_tipo'], $_POST['nombre'], $_POST['descripcion'], $_POST['valor_tipo']);
 }
 
 if(isset($_POST['deleteServiceType'])){

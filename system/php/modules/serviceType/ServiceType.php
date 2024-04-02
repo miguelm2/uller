@@ -5,14 +5,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
 
 class ServiceType extends System
 {
-    public static function newServiceType($nombre, $descripcion)
+    public static function newServiceType($nombre, $descripcion, $valor)
     {
         $nombre         = parent::limpiarString($nombre);
         $descripcion    = parent::limpiarString($descripcion);
+        $valor          = parent::limpiarString($valor);
         $fecha_registro = date('Y-m-d H:i:s');
 
         try {
-            $result = TipoServicio::newTipoServicio($nombre, $descripcion, $fecha_registro);
+            $result = TipoServicio::newTipoServicio($nombre, $descripcion, $valor, $fecha_registro);
 
             if ($result) {
                 return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
@@ -22,14 +23,15 @@ class ServiceType extends System
         }
     }
 
-    public static function setServiceType($id_tipo, $nombre, $descripcion)
+    public static function setServiceType($id_tipo, $nombre, $descripcion, $valor)
     {
         $id_tipo        = parent::limpiarString($id_tipo);
         $nombre         = parent::limpiarString($nombre);
         $descripcion    = parent::limpiarString($descripcion);
+        $valor          = parent::LimpiarString($valor);
 
         try {
-            $result = TipoServicio::setTipoServicio($id_tipo, $nombre, $descripcion);
+            $result = TipoServicio::setTipoServicio($id_tipo, $nombre, $descripcion, $valor);
 
             if ($result) {
                 return '<script>swal("' . Constants::$REGISTER_UPDATE . '", "", "success");</script>';
@@ -83,6 +85,7 @@ class ServiceType extends System
                 $tableHtml .= '<td>' . $valor->getId_tipo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getDescripcion() . '</td>';
+                $tableHtml .= '<td>' . $valor->getValor() .'</td>';
                 $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditarJs($valor->getId_tipo()) . '</td>';
                 $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEliminarJs($valor->getId_tipo()) . '</td>';
                 $tableHtml .= '</tr>';

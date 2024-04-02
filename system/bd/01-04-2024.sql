@@ -1,0 +1,1 @@
+ALTER TABLE `Tiposervicio` ADD `valor` DOUBLE NOT NULL AFTER `descripcion`;

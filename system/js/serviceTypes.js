@@ -19,6 +19,7 @@ function printView(resultado){
     $('#id_tipo').val(resultado['id_tipo']);
     $('#nombre_tipo').val(resultado['nombre']);
     $('#descripcion_tipo').val(resultado['descripcion']);
+    $('#valor_tipo').val(resultado['valor']);
 }
 
 //FUNCION PARA ELIMINAR UN TIPO DE SERVICIO-----------------------

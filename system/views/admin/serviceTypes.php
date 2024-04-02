@@ -69,6 +69,7 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
+                                        <th>Valor</th>
                                         <th width="10px">Ver</th>
                                         <th width="10px">Eliminar</th>
                                     </tr>
@@ -78,6 +79,7 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
+                                        <th>Valor</th>
                                         <th width="10px">Ver</th>
                                         <th width="10px">Eliminar</th>
                                     </tr>
@@ -116,6 +118,10 @@
                                     <label for="descripcion">Descripcion</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
                                 </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="valor">Valor</label>
+                                    <input type="number" class="form-control" name="valor" id="valor"  required>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -147,6 +153,10 @@
                                 <div class="col-md-12 form-group">
                                     <label for="descripcion">Descripcion</label>
                                     <textarea class="form-control" name="descripcion" id="descripcion_tipo" rows="3" maxlength="255" required></textarea>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="valor">Valor</label>
+                                    <input type="number" class="form-control" name="valor_tipo" id="valor_tipo"  required/>
                                 </div>
                             </div>
                         </div>
