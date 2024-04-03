@@ -3,12 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportCuentaCobro
 {
-    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio, $cuentaCobro)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
 
-        $pdfName = 'Informe_Final_Servicio_' . date('Y-m-d') . '.pdf';
+        $pdfName = $_SERVER['DOCUMENT_ROOT'] .'/system/pdf/Informe_Final_Servicio_' . $cuentaCobro->getId_ticket() . '.pdf';
         $dompdf  = new Dompdf\Dompdf();
 
         $html = '<style>
@@ -86,7 +86,7 @@ abstract class ReportCuentaCobro
             <span>
                 Lo anterior por cuenta de los siguientes conceptos:
             </span>
-                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio) . '
+                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro) . '
             
             <br><br>
             
@@ -97,10 +97,12 @@ abstract class ReportCuentaCobro
         $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
-        $dompdf->stream($pdfName, array("Attachment" => 0));
+        //$dompdf->stream($pdfName, array("Attachment" => 0));
+        file_put_contents($pdfName, $dompdf->output());
+        chmod($pdfName, 0777);
     }
 
-    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio)
+    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro)
     {
         $html = '';
         $count = 0;
@@ -227,7 +229,7 @@ abstract class ReportCuentaCobro
                     <tr class="deleteBorder">
                         <td></td>
                         <td class="deleteBorder" style="text-align:justify;">
-                        <center><img src="' . $reporteDTO[$count]->getFirma() . '" width="250px" style="max-width:300px; margin-top: 5pt;"></center>
+                        <center><img src="' . $cuentaCobro->getFirma_tecnico() . '" width="250px" style="max-width:300px; margin-top: 5pt;"></center>
                         </td>
                         <td></td>
                     </tr>

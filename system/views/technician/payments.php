@@ -64,7 +64,6 @@
                                     <tr>
                                         <th>ID Cuenta</th>
                                         <th>Técnico</th>
-                                        <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
@@ -74,7 +73,6 @@
                                     <tr>
                                         <th>ID Cuenta</th>
                                         <th>Técnico</th>
-                                        <th>Tipo de servicio</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>

@@ -4,20 +4,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/CuentaCobroDTO.php';
 
 class CuentaCobro extends System{
-    public static function newCuentaCobro($id_servicio, $id_tecnico, $estado, $fecha_registro){
+    public static function newCuentaCobro($id_ticket, $id_tecnico, $estado, $fecha_registro){
         $dbh = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO CuentaCobro (id_servicio, id_tecnico, estado, fecha_registro)
-                                VALUES (:id_servicio, :id_tecnico:, :estado, :fecha_registro)");
-        $stmt->bindParam(':id_sevicio',$id_servicio);
+        $stmt = $dbh->prepare("INSERT INTO CuentaCobro (id_ticket, id_tecnico, estado, fecha_registro)
+                                VALUES (:id_ticket, :id_tecnico, :estado, :fecha_registro)");
+        $stmt->bindParam(':id_ticket',$id_ticket);
         $stmt->bindParam(':id_tecnico',$id_tecnico);
         $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':fecha_registro', $fecha_registro);
         return $stmt->execute();
     }
 
-    public static function getCuentaCobro(){
+    public static function getCuentaCobro($id_tecnico){
         $dbh = parent::Conexion();
-        $stmt = $dbh->prepare("SELECT * FROM CuentaCobro");
+        $stmt = $dbh->prepare("SELECT * FROM CuentaCobro
+                                WHERE id_tecnico = :id_tecnico");
+        $stmt->bindParam(':id_tecnico', $id_tecnico);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'CuentaCobroDTO');
         $stmt->execute();
         return $stmt->fetchAll();
@@ -31,6 +33,25 @@ class CuentaCobro extends System{
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'CuentaCobroDTO');
         $stmt->execute();
         return $stmt->fetch();
+    }
+    public static function getCuentaCobroByTicket($id_ticket){
+        $dbh = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM CuentaCobro 
+                            WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'CuentaCobroDTO');
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public static function setFirmaCuentaCobro($id_ticket, $firma)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("UPDATE CuentaCobro 
+                            SET firma_tecnico = :firma 
+                            WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        $stmt->bindParam(':firma', $firma);
+        return  $stmt->execute();
     }
 }
 ?>

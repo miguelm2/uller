@@ -2,9 +2,10 @@
 class CuentaCobroDTO 
 {
     protected $id_cuenta;
+    protected $id_ticket;
     protected $id_tecnico;
-    protected $id_servicio;
     protected $estado;
+    protected $firma_tecnico;
     protected $fecha_registro;
 
     public function __construct()
@@ -54,32 +55,14 @@ class CuentaCobroDTO
     }
 
     /**
-     * Get the value of id_servicio
-     */ 
-    public function getId_servicio()
-    {
-        return $this->id_servicio;
-    }
-
-    /**
-     * Set the value of id_servicio
-     *
-     * @return  self
-     */ 
-    public function setId_servicio($id_servicio)
-    {
-        $this->id_servicio = $id_servicio;
-
-        return $this;
-    }
-
-    /**
      * Get the value of estado
      */ 
     public function getEstado()
     {
-        if ($this->estado == 1) return explode(";", $this->estado . ';Presentada');
-        if ($this->estado == 2) return explode(";", $this->estado . ';Aceptada');
+        if ($this->estado == 1) return explode(";", $this->estado . ';Generada');
+        if ($this->estado == 2) return explode(";", $this->estado . ';Presentada');
+        if ($this->estado == 3) return explode(";", $this->estado . ';Aceptada');
+        if ($this->estado == 4) return explode(";", $this->estado . ';Pagada');
 
         return $this->estado;
     }
@@ -112,6 +95,47 @@ class CuentaCobroDTO
     public function setFecha_registro($fecha_registro)
     {
         $this->fecha_registro = $fecha_registro;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_ticket
+     */ 
+    public function getId_ticket()
+    {
+        return $this->id_ticket;
+    }
+
+    /**
+     * Set the value of id_ticket
+     *
+     * @return  self
+     */ 
+    public function setId_ticket($id_ticket)
+    {
+        $this->id_ticket = $id_ticket;
+
+        return $this;
+    }
+
+
+    /**
+     * Get the value of firma_tecnico
+     */ 
+    public function getFirma_tecnico()
+    {
+        return $this->firma_tecnico;
+    }
+
+    /**
+     * Set the value of firma_tecnico
+     *
+     * @return  self
+     */ 
+    public function setFirma_tecnico($firma_tecnico)
+    {
+        $this->firma_tecnico = $firma_tecnico;
 
         return $this;
     }

@@ -15,6 +15,7 @@
     <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Great Vibes' rel='stylesheet'>
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -44,40 +45,64 @@
     <!-- End Sidebar-->
 
     <main id="main" class="main">
-        <section class="section dashboard">
-            <div class="row">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h5 class="text-primary">Cuenta Cobro</h5>
+        <section class="section">
+            <div>
+                <embed src="<?= 
+                '/system/pdf/Informe_Final_Servicio_' . $_GET['payment']. '.pdf'?>" 
+                type="application/pdf" width="100%" height="600px" frameborder="0"></embed>
+            </div>
+            <div>
+            <?= $btnFirmaInform; ?>
+            </div>
+            <!-- Comienzo Modal Firma -->
+            <form id="signatureform" method="POST">
+                <div class="modal fade" id="modalFirma" role="dialog">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Firma</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="col-md-2 text-right d-grid">
-                                <a href="payments" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left-circle"></i>
-                                    <span class="text"> Atrás</span>
-                                </a>
+                            <div class="modal-body">
+                                <div class="row g-3">
+                                    <div class="col-md-12 form-group">
+                                        <label for="estado" class="form-label">Estilo de la firma</label>
+                                        <select class="form-select" id="tipoFirma" name="">
+                                            <option value="1">A mano alzada</option>
+                                            <option value="2" style="font-family: 'Great Vibes'"> Great Vibes </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 form-group" id="contentNombre" style="display: none;">
+                                        <label class="form-label">Nombre del técnico</label>
+                                        <input type="text" class="form-control border border-primary" name="nombre_firma" id="nombre_firma" placeholder="Nombre de la persona autorizada a firmar">
+                                    </div>
+                                    <div class="form-group" id="divFirmaManoAlzada">
+                                        <label>Firma</label>
+                                        <div id="canvasDiv" class="border border-primary"></div>
+                                    </div>
+                                    <div class="form-group" id="divLetraFirmaGreat" style="display: none;">
+                                        <label>Firma</label>
+                                        <div id="tipoLetraFirma" class="border border-primary">
+                                            <div id="capture" class="border border-primary">
+                                                <canvas id="myCanvas" width="760" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input type="hidden" id="signature" name="firma">
+                                    <input type="hidden" name="newFirmaReport" value="1">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body" style="padding-top: 5px;">
-                        <div class="row g-2">
-                            <div class="col-md-6 form-group">
-                                <label for="nombre_tecnico">Técnico</label>
-                                <input type="text" class="form-control" disabled value="<?= $payment->getId_tecnico() ?>">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="nombre_tipo">Tipo de servicio</label>
-                                <input type="text" class="form-control" disabled value="<?= $payment->getId_servicio() ?>">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="estado">Estado</label>
-                                <input type="text" class="form-control" disabled value="<?= $payment->getEstado()[1] ?>">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="reset-btn">Limpiar firma</button>
+                                <button type="button" class="btn btn-success" id="btn-save">Firmar y enviar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            <!-- Fin Modal Firma -->
         </section>
     </main><!-- End #main -->
 
@@ -102,8 +127,16 @@
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
 
-    <!-- Js page -->
+    <!-- JS FIRMA -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="../../js/firma_canvas/canvas_firma.js"></script>
+    <script src="../../js/firma_canvas/tooltip_firma.js"></script>
+
+    <!-- JS PAGE -->
+    <script src="../../js/informFunctions.js"></script>
     <script src="../../js/selectRepeat.js"></script>
+    <script src="../../js/firmaReport.js"></script>
+    <script src="../../js/ticked/reportService.js"></script>
 
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>

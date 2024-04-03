@@ -651,9 +651,9 @@ ALTER TABLE `ReporteFinalticket` ADD `id_tipo` INT NOT NULL AFTER `id_ticket`;
 ALTER TABLE `Tiposervicio` ADD `valor` DOUBLE NOT NULL AFTER `descripcion`;
 
 CREATE TABLE `CuentaCobro` 
-(`id_cuenta` INT NOT NULL , 
-`id_servicio` INT NOT NULL , 
-`id_tecnico` INT NOT NULL , 
+(`id_cuenta` INT NOT NULL ,  
+`id_tecnico` INT NOT NULL ,
+`id_ticket` INT NOT NULL ,
 `estado` INT NOT NULL , 
 `fecha_registro` INT NOT NULL ) ENGINE = InnoDB;
 
@@ -661,8 +661,6 @@ ALTER TABLE `CuentaCobro` ADD PRIMARY KEY(`id_cuenta`);
 ALTER TABLE `CuentaCobro`
 MODIFY `id_cuenta` integer NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE CuentaCobro ADD FOREIGN KEY (id_servicio) REFERENCES tiposervicio (id_tipo);
-ALTER TABLE CuentaCobro ADD FOREIGN KEY (id_tecnico)  REFERENCES tecnico (id_tecnico);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

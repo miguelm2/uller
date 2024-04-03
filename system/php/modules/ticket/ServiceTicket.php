@@ -12,7 +12,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Diagnostico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/InformeTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/ReporteFinal.php';
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CuentaCobro.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeFinal.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportCuentaCobro.php';
@@ -427,6 +427,13 @@ class ServiceTicket extends System
 
                     if ($countReportes == $countEquiposTicket) {
                         Ticket::setEstadoTicket($id_ticket, 8);
+                        $tecnico = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
+                        $estadocc = 1;
+                        $fecha_registrocc = date('Y-m-d H:i:s');
+                        CuentaCobro::newCuentaCobro($id_ticket,
+                                                    $tecnico->getTecnicoDTO()->getId_tecnico() ,
+                                                    $estadocc,
+                                                    $fecha_registrocc);
                     }
 
                     return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
@@ -596,13 +603,15 @@ class ServiceTicket extends System
             $tecnicoTicketDTO = TecnicoTicket::getValidarTecnicoTicket($id_ticket);
             $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
             $tipoServicio     = TipoServicio::getTipoServicioById($ticketDTO->getTipo_servicioDTO()->getId_tipo());
+            $cuentaCobro      = CuentaCobro::getCuentaCobroByTicket($id_ticket);
             $modelResponse    = ReportCuentaCobro::generatePdf($perfilDTO, 
                                                             $reporteFinalDTO, 
                                                             $ordenDTO, 
                                                             $ticketDTO, 
                                                             $tecnicoTicketDTO, 
                                                             $listEquipos, 
-                                                            $tipoServicio);
+                                                            $tipoServicio,
+                                                            $cuentaCobro);
             return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
