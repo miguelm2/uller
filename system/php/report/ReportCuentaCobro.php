@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportCuentaCobro
 {
-    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio, $cuentaCobro)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio, $cuentaCobro, $cobroAdicional)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
@@ -82,7 +82,7 @@ abstract class ReportCuentaCobro
             <span>
                 Lo anterior por cuenta de los siguientes conceptos:
             </span>
-                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro) . '
+                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro, $cobroAdicional) . '
             
             <br>
             
@@ -98,7 +98,7 @@ abstract class ReportCuentaCobro
         chmod($pdfName, 0777);
     }
 
-    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro)
+    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro,$cobroAdicional)
     {
         $html = '';
         $count = 0;
@@ -199,7 +199,7 @@ abstract class ReportCuentaCobro
                     </td>
                 </tr>
             </table>';
-
+            $suma = $tipoServicio->getValor() + $cobroAdicional->getValor();
             $html .= '
                 <br>
                 <table class="default tableBorde" style="width:100%">
@@ -214,8 +214,15 @@ abstract class ReportCuentaCobro
                         </td>
                     </tr>
                 </table>
-                <p>Estado de la cuenta: <strong>'. $cuentaCobro->getEstado()[1] .' </strong></p>
-                <p>La suma de: <strong>$'. number_format($tipoServicio->getValor(),0,'','.' ).' COP </strong> </p>
+                <br>
+                Estado de la cuenta: <strong>'. $cuentaCobro->getEstado()[1] .' </strong>
+                <br>
+                Valor del servicio:<strong>$'. number_format($tipoServicio->getValor(),0,'','.' ).' COP </strong>
+                <br>
+                Cobro Adicional: <strong>$'. number_format($cobroAdicional->getValor(),0,'','.' ).' COP </strong> 
+                , Observación : '. $cobroAdicional->getObservacion() .'
+                <br>
+                La suma total a cobrar es: <strong>$'. number_format($suma,0,'','.') .' COP</strong>
                 ';
                 
 

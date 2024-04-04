@@ -661,6 +661,24 @@ ALTER TABLE `CuentaCobro` ADD PRIMARY KEY(`id_cuenta`);
 ALTER TABLE `CuentaCobro`
 MODIFY `id_cuenta` integer NOT NULL AUTO_INCREMENT;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cobroadicional`
+--
+
+CREATE TABLE `CobroAdicional` (
+  `id_cobro_adicional` int(11) NOT NULL,
+  `id_cuenta` int(11) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `observacion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE `CobroAdicional` ADD PRIMARY KEY(`id_cobro_adicional`);
+ALTER TABLE `CobroAdicional`
+MODIFY `id_cobro_adicional` integer NOT NULL AUTO_INCREMENT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

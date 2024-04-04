@@ -15,11 +15,18 @@ class CuentaCobro extends System{
         return $stmt->execute();
     }
 
-    public static function getCuentaCobro($id_tecnico){
+    public static function getCuentaCobroByIdTecnico($id_tecnico){
         $dbh = parent::Conexion();
         $stmt = $dbh->prepare("SELECT * FROM CuentaCobro
                                 WHERE id_tecnico = :id_tecnico");
         $stmt->bindParam(':id_tecnico', $id_tecnico);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'CuentaCobroDTO');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public static function getCuentaCobro(){
+        $dbh = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM CuentaCobro");
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'CuentaCobroDTO');
         $stmt->execute();
         return $stmt->fetchAll();
@@ -61,6 +68,15 @@ class CuentaCobro extends System{
                             WHERE id_ticket = :id_ticket");
         $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':id_ticket', $id_ticket);
+        return $stmt->execute();
+    }
+    public static function setCuentaCobroEstado($id_cuenta,$estado){
+        $dbh  = parent::Conexion();
+        $stmt = $dbh->prepare("UPDATE CuentaCobro
+                            SET estado = :estado
+                            WHERE id_cuenta = :id_cuenta");
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':id_cuenta', $id_cuenta);
         return $stmt->execute();
     }
 }

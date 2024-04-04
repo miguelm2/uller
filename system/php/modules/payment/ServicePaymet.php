@@ -4,15 +4,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CuentaCobro.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoServicio.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CobroAdicional.php';
 class ServicePaymet extends System
 {
-    public static function getTableCuentaCobro($id_tecnico)
+    public static function getTableCuentaCobroById($id_tecnico)
     {
         $id_tecnico = parent::limpiarString($id_tecnico);
         if (basename($_SERVER['PHP_SELF']) == 'payments.php') {
             $tableHtml = "";
-            $modelResponse = CuentaCobro::getCuentaCobro($id_tecnico);
-
+            $modelResponse = CuentaCobro::getCuentaCobroByIdTecnico($id_tecnico);
             foreach ($modelResponse as $valor) {
                 $tecnico      = Tecnico::getTecnicoById($valor->getId_tecnico());
                 $tableHtml .= '<tr>';
@@ -21,6 +21,25 @@ class ServicePaymet extends System
                 $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
                 $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("payment", $valor->getId_ticket()) . '</td>';
+                $tableHtml .= '</tr>';
+            }
+            return $tableHtml;
+        }
+    }
+    public static function getTableCuentaCobro()
+    {
+        if (basename($_SERVER['PHP_SELF']) == 'payments.php') {
+            $tableHtml = "";
+            $modelResponse = CuentaCobro::getCuentaCobro();
+
+            foreach ($modelResponse as $valor) {
+                $tecnico      = Tecnico::getTecnicoById($valor->getId_tecnico());
+                $tableHtml .= '<tr>';
+                $tableHtml .= '<td>' . $valor->getId_cuenta() . '</td>';
+                $tableHtml .= '<td>' . $tecnico->getNombre() . '</td>';
+                $tableHtml .= '<td>' . $valor->getEstado()[1] . '</td>';
+                $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVer("paymentAdmin", $valor->getId_cuenta()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -40,7 +59,6 @@ class ServicePaymet extends System
     {
         $id_ticket = parent::limpiarString($id_ticket);
         $firma            = parent::limpiarString($firma);
-
         try {
             $modelResponse = CuentaCobro::setFirmaCuentaCobro($id_ticket, $firma);
             if ($modelResponse) return '<script>swal("Firma agregada correctamente", "", "success");</script>';
@@ -52,9 +70,9 @@ class ServicePaymet extends System
     {
 
         try {
+            $id_ticket = parent::limpiarString($id_ticket);
             $cuentaCobro = CuentaCobro::getCuentaCobroByTicket($id_ticket);
-            if ($cuentaCobro->getEstado() == 1) {
-                $id_ticket = parent::limpiarString($id_ticket);
+            if ($cuentaCobro->getEstado()[0] == 1) {
                 $html = '';
                 $html = '
                     <form method="post" class="row">
@@ -65,6 +83,40 @@ class ServicePaymet extends System
                 $response = CuentaCobro::setEstadoCuentaCobro($id_ticket, 2);
                 return $html;
             }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function getCobroAdiconal($id_cuenta)
+    {
+        try {
+            $id_cuenta = parent::limpiarString($id_cuenta);
+            $response = CobroAdicional::getCobroAdiconalById($id_cuenta);
+            return $response;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    public static function setEstadoCuentaCobro($id_cuenta, $estado)
+    {
+        try {
+            $id_cuenta = parent::limpiarString($id_cuenta);
+            $estado    = parent::limpiarString($estado);
+            $response  = CuentaCobro::setCuentaCobroEstado($id_cuenta, $estado);
+            return '<script>swal("' . Constants::$INFORMATION_NEW . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    public static function setCobroAdicional($id_cuenta, $valor, $observacion)
+    {
+        try {
+            $id_cuenta   = parent::limpiarString($id_cuenta);
+            $valor       = parent::limpiarString($valor);
+            $observacion = parent::limpiarString($observacion);
+            $response = CobroAdicional::setCobroAdicional($id_cuenta, $valor, $observacion);
+            return '<script>swal("' . Constants::$INFORMATION_NEW . '", "", "success");</script>';
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

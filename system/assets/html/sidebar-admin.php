@@ -50,6 +50,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href="../admin/payments">
+        <i class="bi bi-wallet2"></i>
+        <span>Cuentas de Cobro</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/messages">
         <i class="bi bi-envelope"></i>
         <span>Mensajes <?= $contadorMensajes; ?></span>
@@ -62,11 +69,6 @@
         <span>Perfil</span>
       </a>
     </li><!-- End Profile Page Nav -->
-
-
-
-
-
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/information">

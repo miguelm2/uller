@@ -16,6 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CuentaCobro.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeTicket.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportInformeFinal.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/report/ReportCuentaCobro.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CobroAdicional.php';
 
 class ServiceTicket extends System
 {
@@ -434,6 +435,8 @@ class ServiceTicket extends System
                                                     $tecnico->getTecnicoDTO()->getId_tecnico() ,
                                                     $estadocc,
                                                     $fecha_registrocc);
+                        $cuentaCobro = CuentaCobro::getCuentaCobroByTicket($id_ticket);
+                        CobroAdicional::newCobroAdicional($cuentaCobro->getId_cuenta(),0,"");
                     }
 
                     return '<script>swal("' . Constants::$REGISTER_NEW . '", "", "success");</script>';
@@ -604,14 +607,16 @@ class ServiceTicket extends System
             $listEquipos      = EquipoTicket::listEquipoTicketByIdTicket($id_ticket);
             $tipoServicio     = TipoServicio::getTipoServicioById($ticketDTO->getTipo_servicioDTO()->getId_tipo());
             $cuentaCobro      = CuentaCobro::getCuentaCobroByTicket($id_ticket);
+            $cobroAdicional   = CobroAdicional::getCobroAdiconalById($cuentaCobro->getId_cuenta());
             $modelResponse    = ReportCuentaCobro::generatePdf($perfilDTO, 
                                                             $reporteFinalDTO, 
                                                             $ordenDTO, 
-                                                            $ticketDTO, 
                                                             $tecnicoTicketDTO, 
                                                             $listEquipos, 
                                                             $tipoServicio,
-                                                            $cuentaCobro);
+                                                            $cuentaCobro,
+                                                            $cobroAdicional
+                                                        );
             return $modelResponse;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

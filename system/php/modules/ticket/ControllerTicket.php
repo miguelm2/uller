@@ -92,7 +92,7 @@ if(isset($_POST['setInformTicket'])){
     $verificacion           = (isset($_POST['verificacion'])) ? '1' : '0';
     $estado_carcasa         = (isset($_POST['estado_carcasa'])) ? '1' : '0';
     $estado_equipo          = (isset($_POST['estado_equipo'])) ? '1' : '0';
-    $equipo_opera_fin       = (isset($_POST['equipo_opera_fin'])) ? '1' : '0';
+    $equipo_opera_fin       = (isset($_POST['equipo_opera_fin'])) ? '1' : '0'; 
     
     $response = ServiceTicket::setInformTicket($_GET['ticket'], $_POST['id_tipo'],$_POST['fecha_servicio'],
                                             $_POST['mantenimiento_preventivo'],$equipo_opera_inicio,$limpieza_general,$limpieza_filtros,
