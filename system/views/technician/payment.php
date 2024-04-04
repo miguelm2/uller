@@ -47,9 +47,8 @@
     <main id="main" class="main">
         <section class="section">
             <div>
-                <embed src="<?= 
-                '/system/pdf/Informe_Final_Servicio_' . $_GET['payment']. '.pdf'?>" 
-                type="application/pdf" width="100%" height="600px" frameborder="0"></embed>
+                <embed src="<?= $pdfName?>" 
+                type="application/pdf" width="100%" height="500px" frameborder="0"></embed>
             </div>
             <div>
             <?= $btnFirmaInform; ?>
@@ -90,7 +89,7 @@
                                     </div>
                                     <hr>
                                     <input type="hidden" id="signature" name="firma">
-                                    <input type="hidden" name="newFirmaReport" value="1">
+                                    <input type="hidden" name="newFirmaPayment" value="1">
                                 </div>
                             </div>
                             <div class="modal-footer">

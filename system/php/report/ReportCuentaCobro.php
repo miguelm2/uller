@@ -45,14 +45,13 @@ abstract class ReportCuentaCobro
                         <img src="' . $logo . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
                     </th>
                     <th colspan="2">
-                        CUENTA DE COBRO
+                        CUENTA DE COBRO N°. '. $cuentaCobro->getId_cuenta() .'
                     </th>
                     <th colspan="2">
                         ' . Elements::getFechaLetras(date('Y-m-d')) . '
                     </th>
                 </tr>
             </table>
-            <br>
             <center><span style="font-size: 22px">' . $perfilDTO->getNombre() . '</span><br><span style="font-size: 18px">NIT ' . $perfilDTO->getNit() . '</span></center>
             <br>
             <center><b>Debe a:</b></center>
@@ -69,12 +68,9 @@ abstract class ReportCuentaCobro
             <span style="font-size: 18px">' . $tecnicoTicketDTO->getTecnicoDTO()->getDireccion() . '</span>
             <br>
             <span style="font-size: 18px">' . $tecnicoTicketDTO->getTecnicoDTO()->getCiudad() . '</span>
-            </center>
-            <br>
-            
+            </center>            
             <p>
             Para que sea pagada a la cuenta que se indica a continuación:
-            <br>
             <br>
             Entidad: ' . $tecnicoTicketDTO->getTecnicoDTO()->getBanco() . '
             <br>
@@ -88,7 +84,7 @@ abstract class ReportCuentaCobro
             </span>
                 ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro) . '
             
-            <br><br>
+            <br>
             
             <hr>
             <small>Generado automáticamente por el sistema <strong>ULLER</strong> el ' . date('Y-m-d') . ' a las ' . date('H:i:s') . '</small>
@@ -218,6 +214,7 @@ abstract class ReportCuentaCobro
                         </td>
                     </tr>
                 </table>
+                <p>Estado de la cuenta: <strong>'. $cuentaCobro->getEstado()[1] .' </strong></p>
                 <p>La suma de: <strong>$'. number_format($tipoServicio->getValor(),0,'','.' ).' COP </strong> </p>
                 ';
                 

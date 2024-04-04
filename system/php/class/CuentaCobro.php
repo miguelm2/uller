@@ -35,7 +35,7 @@ class CuentaCobro extends System{
         return $stmt->fetch();
     }
     public static function getCuentaCobroByTicket($id_ticket){
-        $dbh = parent::Conexion();
+        $dbh  = parent::Conexion();
         $stmt = $dbh->prepare("SELECT * FROM CuentaCobro 
                             WHERE id_ticket = :id_ticket");
         $stmt->bindParam(':id_ticket', $id_ticket);
@@ -45,13 +45,23 @@ class CuentaCobro extends System{
     }
     public static function setFirmaCuentaCobro($id_ticket, $firma)
     {
-        $dbh             = parent::Conexion();
+        $dbh  = parent::Conexion();
         $stmt = $dbh->prepare("UPDATE CuentaCobro 
                             SET firma_tecnico = :firma 
                             WHERE id_ticket = :id_ticket");
         $stmt->bindParam(':id_ticket', $id_ticket);
         $stmt->bindParam(':firma', $firma);
         return  $stmt->execute();
+    }
+
+    public static function setEstadoCuentaCobro($id_ticket,$estado){
+        $dbh  = parent::Conexion();
+        $stmt = $dbh->prepare("UPDATE CuentaCobro
+                            SET estado = :estado
+                            WHERE id_ticket = :id_ticket");
+        $stmt->bindParam(':estado', $estado);
+        $stmt->bindParam(':id_ticket', $id_ticket);
+        return $stmt->execute();
     }
 }
 ?>

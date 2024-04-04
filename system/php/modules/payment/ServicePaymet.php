@@ -4,7 +4,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/CuentaCobro.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Tecnico.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/TipoServicio.php';
-class ServicePaymet extends System{
+class ServicePaymet extends System
+{
     public static function getTableCuentaCobro($id_tecnico)
     {
         $id_tecnico = parent::limpiarString($id_tecnico);
@@ -25,12 +26,13 @@ class ServicePaymet extends System{
             return $tableHtml;
         }
     }
-    public static function getCuentaCobroById($id_cuenta){
+    public static function getCuentaCobroById($id_cuenta)
+    {
         $id_cuenta = parent::limpiarString($id_cuenta);
-        try{
+        try {
             $modelResponse = CuentaCobro::getCuentaCobroById($id_cuenta);
             return $modelResponse;
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -48,24 +50,19 @@ class ServicePaymet extends System{
     }
     public static function getButtonFirmaImform($id_ticket)
     {
+
         try {
-            if ($_SESSION['tipo'] != 1) {
+            $cuentaCobro = CuentaCobro::getCuentaCobroByTicket($id_ticket);
+            if ($cuentaCobro->getEstado() == 1) {
                 $id_ticket = parent::limpiarString($id_ticket);
                 $html = '';
-
-                $countReportes = ReporteFinal::getCountReporteFinalByTicket($id_ticket);
-                $countEquiposTicket = EquipoTicket::getCountEquipoTicketByTicket($id_ticket);
-
-                if ($countReportes == $countEquiposTicket) {
-                    $html = '
+                $html = '
                     <form method="post" class="row">
                         <div class="col-md-4 d-grid gap-2 mt-3 mx-auto">
-                            <button type="button" class="btn btn-warning text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Actualizar Firma</button>
+                            <button type="button" class="btn btn-primary text-white" id="botonFirma"><i class="bi bi-pencil-square"></i> Firmar y enviar</button>
                         </div>
                     </form>';
-                }
-
-
+                $response = CuentaCobro::setEstadoCuentaCobro($id_ticket, 2);
                 return $html;
             }
         } catch (\Exception $e) {
@@ -73,6 +70,3 @@ class ServicePaymet extends System{
         }
     }
 }
-
-
-?>
