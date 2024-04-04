@@ -116,9 +116,7 @@
                                 <?= $btnInformeServicio; ?>
                             </div>
                             <form method="post">
-                            <div class="col-md-4 d-grid gap-2 mt-3">
-                                <?= $btnInformeCobro; ?>
-                            </div>
+                            
                             </form>
                         </div>
                     </div>

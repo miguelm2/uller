@@ -4,6 +4,7 @@ class TipoServicioDTO
     protected $id_tipo;
     protected $nombre;
     protected $descripcion;
+    protected $valor;
     protected $fecha_registro;
 
     /**
@@ -82,6 +83,26 @@ class TipoServicioDTO
     public function setFecha_registro($fecha_registro)
     {
         $this->fecha_registro = $fecha_registro;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of valor
+     */ 
+    public function getValor()
+    {
+        return $this->valor;
+    }
+
+    /**
+     * Set the value of valor
+     *
+     * @return  self
+     */ 
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
 
         return $this;
     }

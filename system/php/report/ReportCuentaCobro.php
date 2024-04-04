@@ -3,12 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.p
 
 abstract class ReportCuentaCobro
 {
-    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos)
+    public static function generatePdf($perfilDTO, $reporteDTO, $ordenDTO, $ticketDTO, $tecnicoTicketDTO, $listEquipos, $tipoServicio, $cuentaCobro)
     {
         $url_imagen = $_SERVER['DOCUMENT_ROOT'] . '/system/img/perfil/' . $perfilDTO->getImagen();
         $logo       = System::converterImageToBase64($url_imagen);
 
-        $pdfName = 'Informe_Final_Servicio_' . date('Y-m-d') . '.pdf';
+        $pdfName = $_SERVER['DOCUMENT_ROOT'] .'/system/pdf/Informe_Final_Servicio_' . $cuentaCobro->getId_ticket() . '.pdf';
         $dompdf  = new Dompdf\Dompdf();
 
         $html = '<style>
@@ -45,20 +45,16 @@ abstract class ReportCuentaCobro
                         <img src="' . $logo . '" width="150px" height="50px" style="max-width:200px;max-height:80px;">
                     </th>
                     <th colspan="2">
-                        CUENTA DE COBRO
+                        CUENTA DE COBRO N°. '. $cuentaCobro->getId_cuenta() .'
                     </th>
                     <th colspan="2">
                         ' . Elements::getFechaLetras(date('Y-m-d')) . '
                     </th>
                 </tr>
             </table>
-            <br>
-            <br>
             <center><span style="font-size: 22px">' . $perfilDTO->getNombre() . '</span><br><span style="font-size: 18px">NIT ' . $perfilDTO->getNit() . '</span></center>
             <br>
-            <br>
             <center><b>Debe a:</b></center>
-            <br>
             <br>
             <center>
             <span style="font-size: 20px">' . $tecnicoTicketDTO->getTecnicoDTO()->getNombre() . '</span>
@@ -72,13 +68,9 @@ abstract class ReportCuentaCobro
             <span style="font-size: 18px">' . $tecnicoTicketDTO->getTecnicoDTO()->getDireccion() . '</span>
             <br>
             <span style="font-size: 18px">' . $tecnicoTicketDTO->getTecnicoDTO()->getCiudad() . '</span>
-            </center>
-            <br>
-            <br>
-            <p>La suma de: _________________________</p>
+            </center>            
             <p>
             Para que sea pagada a la cuenta que se indica a continuación:
-            <br>
             <br>
             Entidad: ' . $tecnicoTicketDTO->getTecnicoDTO()->getBanco() . '
             <br>
@@ -90,9 +82,10 @@ abstract class ReportCuentaCobro
             <span>
                 Lo anterior por cuenta de los siguientes conceptos:
             </span>
-                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO) . '
+                ' . self::getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro) . '
             
-            <br><br>
+            <br>
+            
             <hr>
             <small>Generado automáticamente por el sistema <strong>ULLER</strong> el ' . date('Y-m-d') . ' a las ' . date('H:i:s') . '</small>
         </div>';
@@ -100,10 +93,12 @@ abstract class ReportCuentaCobro
         $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
-        $dompdf->stream($pdfName, array("Attachment" => 0));
+        //$dompdf->stream($pdfName, array("Attachment" => 0));
+        file_put_contents($pdfName, $dompdf->output());
+        chmod($pdfName, 0777);
     }
 
-    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO)
+    private static function getEquipos($listEquipos, $ordenDTO, $reporteDTO, $tipoServicio,$cuentaCobro)
     {
         $html = '';
         $count = 0;
@@ -219,17 +214,19 @@ abstract class ReportCuentaCobro
                         </td>
                     </tr>
                 </table>
+                <p>Estado de la cuenta: <strong>'. $cuentaCobro->getEstado()[1] .' </strong></p>
+                <p>La suma de: <strong>$'. number_format($tipoServicio->getValor(),0,'','.' ).' COP </strong> </p>
                 ';
+                
 
             $firma = '
-                <br>
                 <br>
                 <br>
                 <table class="default deleteBorder" style="width:100%">
                     <tr class="deleteBorder">
                         <td></td>
                         <td class="deleteBorder" style="text-align:justify;">
-                        <center><img src="' . $reporteDTO[$count]->getFirma() . '" width="250px" style="max-width:300px; margin-top: 5pt;"></center>
+                        <center><img src="' . $cuentaCobro->getFirma_tecnico() . '" width="250px" style="max-width:300px; margin-top: 5pt;"></center>
                         </td>
                         <td></td>
                     </tr>

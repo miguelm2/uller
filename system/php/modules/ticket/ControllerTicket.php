@@ -3,6 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/ticket/ServiceTick
 
 if(isset($_POST['newTicket'])){
     $response = ServiceTicket::newTicket( $_POST['id_usuario'], $_POST['tipo_servicio'], $_POST['descripcion'],$_POST['equipoTicket']);
+
 }
 
 if(isset($_POST['setTicket'])){
@@ -139,7 +140,6 @@ if(isset($_GET['ticket'])){
     $btnPDFOrdenInforme       = ServiceTicket::getButtonPDFReport($_GET['ticket']);
     $btnOrdenInformeUser   = ServiceTicket::getButtonReportUser($_GET['ticket']);
     $btnInformeServicio    = ServiceTicket::getButtonInformeFinal($_GET['ticket']);
-    $btnInformeCobro    = ServiceTicket::getButtonInformeCobro($_GET['ticket']);
     $tablaOrdenServicio    = ServiceTicket::getTablaOrdenServicio($_GET['ticket']);
     $tablaInformeServicio    = ServiceTicket::getTablaInformeServicio($_GET['ticket']);
 }

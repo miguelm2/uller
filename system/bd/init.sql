@@ -574,6 +574,94 @@ ALTER TABLE `Usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Insumo`
+--
+
+CREATE TABLE `Insumo` (
+  `id_insumo` int(11) NOT NULL,
+  `id_tecnico` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `fecha_registro` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Insumo`
+--
+ALTER TABLE `Insumo`
+  ADD PRIMARY KEY (`id_insumo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Insumo`
+--
+ALTER TABLE `Insumo`
+  MODIFY `id_insumo` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `TipoEquipo` ADD `marca` VARCHAR(255) NOT NULL AFTER `nombre`, 
+ADD `modelo` VARCHAR(255) NOT NULL AFTER `marca`, 
+ADD `year_fabricacion` YEAR NOT NULL AFTER `modelo`, 
+ADD `serial_interior` VARCHAR(255) NOT NULL AFTER `year_fabricacion`, 
+ADD `serial_exterior` VARCHAR(255) NOT NULL AFTER `serial_interior`, 
+ADD `tipo_equipo` VARCHAR(255) NOT NULL AFTER `serial_exterior`, 
+ADD `capacidad_btuh` FLOAT NOT NULL AFTER `tipo_equipo`, 
+ADD `voltaje_fases` VARCHAR(255) NOT NULL AFTER `capacidad_btuh`, 
+ADD `refrigerante` VARCHAR(255) NOT NULL AFTER `voltaje_fases`, 
+ADD `inverter` VARCHAR(4) NOT NULL AFTER `refrigerante`;
+
+ALTER TABLE `Tecnico` ADD `fecha_nacimiento` DATE NOT NULL AFTER `pass`, 
+ADD `direccion` VARCHAR(255) NOT NULL AFTER `fecha_nacimiento`, 
+ADD `ciudad` VARCHAR(255) NOT NULL AFTER `direccion`, 
+ADD `estado_civil` VARCHAR(255) NOT NULL AFTER `ciudad`, 
+ADD `numero_hijos` INT NOT NULL AFTER `estado_civil`, 
+ADD `banco` VARCHAR(255) NOT NULL AFTER `numero_hijos`, 
+ADD `tipo_cuenta` VARCHAR(255) NOT NULL AFTER `banco`, 
+ADD `numero_cuenta` VARCHAR(255) NOT NULL AFTER `tipo_cuenta`;
+
+ALTER TABLE `InformeTicket`
+DROP `tipo_equipo`,
+DROP `capacidad`,
+DROP `marca`;
+
+ALTER TABLE `ReporteFinalTicket`
+DROP `serial`,
+DROP `year_compra`,
+DROP `voltaje`,
+DROP `amperaje`,
+DROP `fases`;
+
+ALTER TABLE `Usuario` ADD `localidad` VARCHAR(255) NOT NULL AFTER `direccion`, 
+ADD `barrio_conjunto` VARCHAR(255) NOT NULL AFTER `localidad`, 
+ADD `torre` VARCHAR(20) NULL AFTER `barrio_conjunto`, 
+ADD `numero_apto` VARCHAR(20) NULL AFTER `torre`;
+
+ALTER TABLE `InformeTicket` ADD `id_tipo` INT NOT NULL AFTER `id_ticket`;
+
+ALTER TABLE `ReporteFinalticket` ADD `id_tipo` INT NOT NULL AFTER `id_ticket`;
+
+ALTER TABLE `Tiposervicio` ADD `valor` DOUBLE NOT NULL AFTER `descripcion`;
+
+CREATE TABLE `CuentaCobro` 
+(`id_cuenta` INT NOT NULL ,  
+`id_tecnico` INT NOT NULL ,
+`id_ticket` INT NOT NULL ,
+`estado` INT NOT NULL , 
+`fecha_registro` INT NOT NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `CuentaCobro` ADD PRIMARY KEY(`id_cuenta`);
+ALTER TABLE `CuentaCobro`
+MODIFY `id_cuenta` integer NOT NULL AUTO_INCREMENT;
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

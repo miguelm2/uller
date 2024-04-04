@@ -30,6 +30,13 @@
       </a>
     </li>
 
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="../technician/payments">
+        <i class="bi bi-wallet2"></i>
+        <span>Cuentas de Cobro</span>
+      </a>
+    </li>
+
   </ul>
 
 </aside>
