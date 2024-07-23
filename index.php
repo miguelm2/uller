@@ -13,10 +13,10 @@
 <body>
     <main class="main">
         <?php include_once('./assets/html/header.php') ?>
-        <section class="hero mt-0">
+        <section class="hero">
             <div class="row p-5">
                 <div class="col-md-7 p-5">
-                    <h1 class="mt-5 display-3 fw-bold fst-italic colorp1">
+                    <h1 class="mt-3 display-3 fw-bold colorp1">
                         ¡La solución para el mantenimiento de aires acondicionados en casa!
                     </h1>
                     <div class="color">
@@ -67,7 +67,9 @@
     </main>
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
-
+    <a href="https://api.whatsapp.com/send/?phone=573238067136&text&type=phone_number&app_absent=0" class="whatsapp-button" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
 </body>
 
 </html>
