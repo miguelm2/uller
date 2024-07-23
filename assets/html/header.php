@@ -1,4 +1,4 @@
-<header class="main-header w-100 header">
+<header class="header w-100 header d-flex" id="header">
     <nav class="navbar navbar-expand-xl navbar-dark sticky-header z-10">
         <div class="container d-flex align-items-center justify-content-lg-between position-relative">
             <a href="index" class="navbar-brand d-flex align-items-center mb-md-0 text-decoration-none">
@@ -15,10 +15,10 @@
 
             <div class="collapse navbar-collapse justify-content-center">
                 <ul class="nav col-12 col-md-auto justify-content-center main-menu">
-                    <li><a href="about-us" class="nav-link">Quienes somos</a></li>
-                    <li><a href="services" class="nav-link">Nuestro proposito</a></li>
-                    <li><a href="services" class="nav-link">Bioseguridad</a></li>
-                    <li><a href="portfolio" class="nav-link">FAQ</a></li>
+                    <li><a href="quienes-somos" class="nav-link">Quienes somos</a></li>
+                    <li><a href="nuestro-proposito" class="nav-link">Nuestro proposito</a></li>
+                    <li><a href="bioseguridad" class="nav-link">Bioseguridad</a></li>
+                    <li><a href="faq" class="nav-link">FAQ</a></li>
                     <li><a href="blog" class="nav-link">Contáctenos</a></li>
                     <li><a href="contact-us" class="nav-link">Blog</a></li>
                     <li><a href="contact-us" class="nav-link">Ingresar</a></li>
