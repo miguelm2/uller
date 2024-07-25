@@ -21,6 +21,17 @@
       </ul>
     </li>
 
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle collapsed" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-gear"></i>
+        <span>Página</span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="../admin/messages">Mensajes <?= $contadorMensajes?></a></li>
+        <li><a class="dropdown-item" href="../admin/blog">Blog</a></li>
+      </ul>
+    </li>
+
     <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/administrators">
         <i class="bi bi-people-fill"></i>
@@ -56,12 +67,6 @@
       </a>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="../admin/messages">
-        <i class="bi bi-envelope"></i>
-        <span>Mensajes <?= $contadorMensajes; ?></span>
-      </a>
-    </li>
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="../admin/users-profile">

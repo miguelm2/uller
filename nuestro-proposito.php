@@ -4,7 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro propósito</title>
+    <meta name="description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta name="keywords" content="mantenimiento de aires, geolocalización, técnicos de aire acondicionado, servicio técnico de calidad">
+    <meta name="author" content="ULLER">
+    <title>Mantenimiento de aires acondicionados</title>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ULLER - Conexión entre usuarios y técnicos de aire acondicionado">
+    <meta property="og:description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta property="og:image" content="https://www.uller.co/assets/img/ULLER_cliente_feliz.jpg">
+    <meta property="og:url" content="https://www.uller.co/">
+    <meta property="og:type" content="website">
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ULLER - Conexión entre usuarios y técnicos de aire acondicionado">
+    <meta name="twitter:description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta name="twitter:image" content="URL_de_la_imagen_de_previsualización">
+    <link rel="canonical" href="https://www.uller.co/">
     <link rel="icon" href="assets/img/cropped-ICONO-1-32x32.png">
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -24,7 +39,7 @@
                             Mejorar la calidad de vida y el nivel de excelencia de los profesionales en el mantenimiento
                             y reparación de aires acondicionados de nuestro país.
                         </h3>
-                    </div>    
+                    </div>
                     <div class="col-md-12 mt-5">
                         <h3 class="linea-azul fst-italic">
                             Convertirnos en una solución costo eficiente para el mantenimiento de los aires acondicionados

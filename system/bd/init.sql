@@ -679,6 +679,46 @@ ALTER TABLE `CobroAdicional` ADD PRIMARY KEY(`id_cobro_adicional`);
 ALTER TABLE `CobroAdicional`
 MODIFY `id_cobro_adicional` integer NOT NULL AUTO_INCREMENT;
 
+--
+-- Estructura de tabla para la tabla `Blog`
+--
+
+CREATE TABLE `Blog` (
+  `id_blog` int(11) NOT NULL,
+  `titulo` longtext CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `vistas` int(11) NOT NULL,
+  `contenido` longtext CHARACTER SET utf8 DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `estado` int(11) NOT NULL,
+  `fecha_creacion` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Blog`
+--
+ALTER TABLE `Blog`
+  ADD PRIMARY KEY (`id_blog`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Blog`
+--
+ALTER TABLE `Blog`
+  MODIFY `id_blog` int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE `Blog` ADD `id_usuario` INT(11) NOT NULL AFTER `id_blog`, ADD `tipo_usuario` VARCHAR(255) NOT NULL AFTER `id_usuario`;
+
+ALTER TABLE `Blog` CHANGE `imagen` `imagen` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `Blog` ADD `tipo_imagen` VARCHAR(255) NOT NULL AFTER `imagen`;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

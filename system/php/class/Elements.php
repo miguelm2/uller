@@ -172,4 +172,84 @@ class Elements
         }
         return $numu;
     }
+    public static function getCardBlog($id_blog, $nombre, $imagen, $tipo_imagen, $titulo, $fecha)
+    {
+        if ($tipo_imagen == "IMG") {
+            $url_img = Path::$DIR_IMAGE_BLOG . $imagen;
+        } else {
+            $url_img = "data:image/png;base64," . $imagen;
+        }
+
+        return '
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-article rounded-custom my-3">
+                        <a href="blog_single?blog_single=' . $titulo . '" class="article-img">
+                            <img src="' . $url_img . '" class="card-img-top" alt="...">
+                        </a>
+                        <div class="article-content p-4">
+                            <a href="blog_single?blog_single=' . $titulo . '" data-bs-toggle="tooltip" data-bs-placement="top" title="' . $titulo . '">
+                                <h2 class="h5 article-title limit-2-line-text">' . $titulo . '</h2>
+                            </a>
+
+                            <a href="javascript:;">
+                                <div class="d-flex align-items-center pt-4">
+                                    <div class="avatar">
+                                        <i class="bi bi-person-circle display-6 me-3"></i>
+                                    </div>
+                                    <div class="avatar-info">
+                                        <h6 class="mb-0 avatar-name">' . $nombre . '</h6>
+                                        <span class="small fw-medium text-muted">' . self::getFechaLetras($fecha) . '</span>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>';
+    }
+
+    public static function getBlogsRecientes($id_blog, $imagen, $tipo_imagen, $titulo, $fecha, $titulo_completo)
+    {
+        if ($tipo_imagen == "IMG") {
+            $url_img = Path::$DIR_IMAGE_BLOG . $imagen;
+        } else {
+            $url_img = "data:image/png;base64," . $imagen;
+        }
+
+        return '
+                <div class="col-md-12 mb-3">
+                    <div class="card mb-3">
+                        <img src="' . $url_img . '" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="blog_single?blog_single=' . $titulo_completo . '" data-bs-toggle="tooltip" data-bs-placement="top" title="' . $titulo_completo . '">
+                                <h5 class="card-title" style="font-size: 15px;">' . $titulo . '</h5>
+                            </a>
+                            <p class="card-text"><small class="text-muted"><i class="bi bi-calendar"></i> ' . self::getFechaLetras($fecha) . '</small></p>
+                        </div>
+                    </div>
+                </div>
+        ';
+    }
+    public static function getBotonPaginacion($numero){
+        $active = ($numero == 1) ? 'active' : '';
+        return '<li class="page-item itemPagination"><a class="page-link btnPagination '.$active.'" role="button" id="pag-'.$numero.'">'.$numero.'</a></li>';
+    }
+
+    public static function getPaginacion($listBotones){
+        return '<div class="row justify-content-center align-items-center mt-5">
+                    <div class="col-auto my-1">
+                        <button type="button" class="btn btn-soft-primary btn-sm" id="btn-previous" disabled>Anterior</button>
+                    </div>
+                    <div class="col-auto my-1">
+                        <nav>
+                            <ul class="pagination rounded mb-0">
+                                '.$listBotones.'
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-auto my-1">
+                        <button type="button" class="btn btn-soft-primary btn-sm" id="btn-next">Siguiente</button>
+                    </div>
+                </div>';
+    }
 }

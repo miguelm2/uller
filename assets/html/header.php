@@ -15,9 +15,9 @@
                     <li><a href="bioseguridad" class="nav-link">Bioseguridad</a></li>
                     <li><a href="faq" class="nav-link">FAQ</a></li>
                     <li><a href="contactenos" class="nav-link">Contáctenos</a></li>
-                    <li><a href="https://www.uller.co/blog/" class="nav-link">Blog</a></li>
-                    <li><a href="https://www.uller.co/system/views/page/login" class="nav-link">Ingresar</a></li>
-                    <li><a href="/system/views/page/login" class="nav-link">Registrarse</a></li>
+                    <li><a href="blog" class="nav-link">Blog</a></li>
+                    <li><a href="/system/views/page/login" class="nav-link">Ingresar</a></li>
+                    <li><a href="/system/views/page/registerAccount" class="nav-link">Registrarse</a></li>
                 </ul>
             </div>
         </div>
