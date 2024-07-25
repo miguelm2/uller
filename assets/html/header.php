@@ -4,6 +4,7 @@
             <a href="index" class="navbar-brand d-flex align-items-center mb-md-0 text-decoration-none">
                 <img src="assets/img/logo-web-3.png" alt="logo" class="img-fluid" style="max-width: 100px;">
             </a>
+            <p class="text-left colorp1">©</p>
             <button class="btn btn-primary d-xl-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                 <i class="bi bi-list"></i>
             </button>

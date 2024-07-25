@@ -167,3 +167,25 @@
 .colorp1{
     color: #0C71C3;
 }
+@media (max-width: 768px) {
+    .hero {
+        background-size: contain;
+        background-position: center center;
+        height: auto; /* Ajusta la altura automáticamente */
+    }
+    .hero-2 {
+        background-size: contain;
+        background-position: center center;
+        height: auto; /* Ajusta la altura automáticamente */
+    }
+    .hero-3 {
+        background-size: contain;
+        background-position: center center;
+        height: auto; /* Ajusta la altura automáticamente */
+    }
+    .hero-4 {
+        background-size: contain;
+        background-position: center center;
+        height: auto; /* Ajusta la altura automáticamente */
+    }
+}
