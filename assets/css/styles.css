@@ -23,6 +23,15 @@
     height: 100vh; 
     width: 100%;
 }
+.hero:before{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSI1NHB4IiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyODAgMy40QzEwNTAuNTkgMTggMTAxOS40IDg0Ljg5IDczNC40MiA4NC44OWMtMzIwIDAtMzIwLTg0LjMtNjQwLTg0LjNDNTkuNCAuNTkgMjguMiAxLjYgMCAzLjRWMTRoaDEyODB6IiBmaWxsLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTAgMjQuMzFjNDMuNDYtNS42OSA5NC41Ni05LjI1IDE1OC40Mi05LjI1YzMyMCAwIDMyMCA4OS4yNCA2NDAgODkuMjQgMjU2LjEzIDAgMzA3LjI4LTU3LjE2IDQ4MS41OC04MFYxNDBIMHoiIGZpbGwtb3BhY2l0eT0iLjUiLz48cGF0aCBkPSJNMTI4MCA1MS43NmMtMjAxIDEyLjQ5LTI0Mi40MyA1My40LTUxMy41OCA1My40Yy0zMjAgMC0zMjAtNTctNjQwLTU3LTQ4Ljg1LjAxLTkwLjIxIDEuMzUtMTI2LjQyIDMuNlYxNDBoMTI4MHoiLz48L2c+PC9zdmc+
+    );
+    background-size: 100% 54px;
+    bottom: 0;
+    height: 54px;
+    z-index: 1;
+    transform: rotateY(0) rotateX(0);
+}
 .hero-2{
     background-image: url("/assets/img/people-uller-homeok.jpg");
     background-size: cover; 

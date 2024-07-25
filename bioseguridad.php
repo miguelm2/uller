@@ -4,7 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bioseguridad</title>
+    <meta name="description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta name="keywords" content="mantenimiento de aires, geolocalización, técnicos de aire acondicionado, servicio técnico de calidad">
+    <meta name="author" content="ULLER">
+    <title>Mantenimiento de aires acondicionados</title>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ULLER - Conexión entre usuarios y técnicos de aire acondicionado">
+    <meta property="og:description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta property="og:image" content="https://www.uller.co/assets/img/ULLER_cliente_feliz.jpg">
+    <meta property="og:url" content="https://www.uller.co/">
+    <meta property="og:type" content="website">
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ULLER - Conexión entre usuarios y técnicos de aire acondicionado">
+    <meta name="twitter:description" content="Conectamos usuarios de equipos de aire acondicionado con técnicos idóneos mediante una APP de geolocalización, fomentando la calidad del servicio y la estabilidad para la comunidad y el medio ambiente.">
+    <meta name="twitter:image" content="URL_de_la_imagen_de_previsualización">
+    <link rel="canonical" href="https://www.uller.co/">
     <link rel="icon" href="assets/img/cropped-ICONO-1-32x32.png">
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -55,7 +70,7 @@
                             instalaciones pueden reducir la concentración de SARS-CoV-2 en el aire y por tanto el
                             riesgo de transmisión por vía aérea en los locales.
                         </p>
-                        <div class="card text-white text-center bg-primary mb-3" >
+                        <div class="card text-white text-center bg-primary mb-3">
                             <div class="card-body">
                                 <h3 class="card-text fw-bold fst-italic p-4">
                                     Por tu salud, la de tu familia y la del
