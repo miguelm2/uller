@@ -1,4 +1,4 @@
-<div class="bg-secondary p-3 mt-5">
+<div class="bg-secondary p-3 pt-5">
     <p class="text-black text-center">
         POWERED BY ULLER INVERSIONES ©2023
     </p>

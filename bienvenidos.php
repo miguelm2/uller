@@ -29,10 +29,10 @@
 <body>
     <main>
         <?php include_once('./assets/html/header.php') ?>
-        <section>
+        <section style="background-color: #000033;">
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-                <div class="row">
-                    <div class="col-lg-6 col-md-8 col-sm-10 card mt-5 p-3">
+                <div class="row pb-4">
+                    <div class="col-lg-8 col-md-8 col-sm-12 card mt-5 p-1">
                         <div class="mt-3">
                             <h2 class="fw-bold fst-italic text-center colorp1">
                                 Solicitar un técnico
@@ -44,13 +44,19 @@
                                     <label for="nombre" class="form-label">Nombre</label>
                                     <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="celular" class="form-label">Celular</label>
-                                    <input type="number" name="celular" id="celular" class="form-control" placeholder="Celular" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="correo" class="form-label">Correo</label>
-                                    <input type="email" name="correo" id="correo" class="form-control" placeholder="Correo" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="celular" class="form-label">Celular</label>
+                                            <input type="number" name="celular" id="celular" class="form-control" placeholder="Celular" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="correo" class="form-label">Correo</label>
+                                            <input type="email" name="correo" id="correo" class="form-control" placeholder="Correo" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="direccion" class="form-label">Dirección</label>
@@ -61,8 +67,8 @@
                                     <input type="text" name="ciudad" id="ciudad" class="form-control" placeholder="Ciudad" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="mensaje" class="form-label">Mensaje</label>
-                                    <textarea name="mensaje" id="mensaje" class="form-control" placeholder="Escribe tu mensaje..." required rows="4"></textarea>
+                                    <label for="solicitud" class="form-label">Solicitud</label>
+                                    <textarea name="solicitud" id="solicitud" class="form-control" placeholder="Escribe tu solicitud..." required rows="4"></textarea>
                                 </div>
                                 <div class="form-group text-center mt-2">
                                     <button type="submit" class="btn btn-success p-3 m-3" name="solicitar"><i class="bi bi-send-fill"></i> Enviar</button>
@@ -70,8 +76,8 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-8 col-sm-10 text-center mt-5">
-                        <img src="/assets/img/tecnicoask.png" alt="tecnico aire acondicionado" class="img-fluid">
+                    <div class="col-lg-4 col-md-4 col-sm-12 text-center mt-3 d-flex justify-content-center align-items-center">
+                        <img src="/assets/img/tecnico-aire-1.jpeg" alt="tecnico aire acondicionado" class="img-fluid">
                     </div>
                 </div>
             </div>
