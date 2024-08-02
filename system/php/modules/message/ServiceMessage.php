@@ -20,6 +20,25 @@ class ServiceMessage extends system
             throw new Exception($e->getMessage());
         }
     }
+    public static function newMessageRequest($nombre, $correo, $celular, $mensaje, $direccion, $ciudad)
+    {
+        $nombre  = parent::limpiarString($nombre);
+        $correo  = parent::limpiarString($correo);
+        $celular = parent::limpiarString($celular);
+        $mensaje = parent::limpiarString($mensaje);
+        $direccion = parent::limpiarString($direccion);
+        $ciudad = parent::limpiarString($ciudad);
+        $ip      = parent::getIP();
+        $fecha_registro = date('Y-m-d H:i:s');
+
+        $mensaje_final = 'Solicitud de técnico<br>Dirección: ' . $direccion . '<br>Ciudad: ' . $ciudad . '<br>Mensaje: ' . $mensaje;
+        try {
+            $result = Mensaje::newMensaje($nombre, $correo, $celular, $mensaje_final, $ip, $fecha_registro);
+            if ($result) return '<script>swal("' . Constants::$MESSAGE_NEW . '", "", "success");</script>';
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 
     public static function deleteMessage($id_mensaje)
     {
