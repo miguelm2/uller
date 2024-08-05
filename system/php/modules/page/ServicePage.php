@@ -71,10 +71,8 @@ class ServicePage extends System
     public static function getInformation()
     {
         try {
-            if (basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'recovery.php' || basename($_SERVER['PHP_SELF']) == 'registerAccount.php') {
-                $result = Informacion::getInformacion();
-                return $result;
-            }
+            $result = Informacion::getInformacion();
+            return $result;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

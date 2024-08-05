@@ -1,3 +1,4 @@
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Page.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,11 +68,11 @@
                                     <input type="text" name="ciudad" id="ciudad" class="form-control" placeholder="Ciudad" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="solicitud" class="form-label">Solicitud</label>
-                                    <textarea name="solicitud" id="solicitud" class="form-control" placeholder="Escribe tu solicitud..." required rows="4"></textarea>
+                                    <label for="mensaje" class="form-label">Solicitud</label>
+                                    <textarea class="form-control" name="mensaje" id="mensaje" placeholder="Escribe tu solicitud..." rows="4" required></textarea>
                                 </div>
                                 <div class="form-group text-center mt-2">
-                                    <button type="submit" class="btn btn-success p-3 m-3" name="solicitar"><i class="bi bi-send-fill"></i> Enviar</button>
+                                    <button type="submit" class="btn btn-success p-3 m-3" name="requestTechnician"><i class="bi bi-send-fill"></i> Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -90,6 +91,8 @@
     <a href="https://api.whatsapp.com/send/?phone=573238067136&text&type=phone_number&app_absent=0" class="whatsapp-button" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <?= $response ?>
 </body>
 
 </html>

@@ -67,10 +67,10 @@
         <section class="page-header position-relative overflow-hidden ptb-80 bg-dark" style="background: url('assets/img/page-header-bg.svg')no-repeat center bottom">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-12">
+                    <div class="col-lg-10 col-md-12">
                         <div class="section-heading text-center">
-                            <h1 class="display-5 fw-bold">Nuestro Blog</h1>
-                            <p class="lead mb-0">En este espacio, encontrarás artículos y recursos diseñados para informarte
+                            <h1 class="display-6 fw-bold text-white mt-3">Nuestro Blog</h1>
+                            <p class="lead mt-4 text-white text-start">En este espacio, encontrarás artículos y recursos diseñados para informarte
                                 y ayudarte a mantener tus sistemas de aire acondicionado en óptimas condiciones. Desde consejos
                                 de mantenimiento y eficiencia energética, hasta las últimas tendencias y tecnologías en el
                                 sector, nuestro objetivo es proporcionarte información valiosa y práctica.
