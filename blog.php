@@ -107,18 +107,18 @@
     </div>
 
     <!--build:js-->
-    <script src="/system/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/system/assets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="/system/assets/js/vendors/swiper-bundle.min.js"></script>
-    <script src="/system/assets/js/vendors/jquery.magnific-popup.min.js"></script>
-    <script src="/system/assets/js/vendors/parallax.min.js"></script>
-    <script src="/system/assets/js/vendors/aos.js"></script>
-    <script src="/system/assets/js/vendors/massonry.min.js"></script>
+    <script src="/system/assets/vendor/jquery/jquery.min.js" defer></script>
+    <script src="/system/assets/js/vendors/bootstrap.bundle.min.js" defer></script>
+    <script src="/system/assets/js/vendors/swiper-bundle.min.js" defer></script>
+    <script src="/system/assets/js/vendors/jquery.magnific-popup.min.js" defer></script>
+    <script src="/system/assets/js/vendors/parallax.min.js" defer></script>
+    <script src="/system/assets/js/vendors/aos.js" defer></script>
+    <script src="/system/assets/js/vendors/massonry.min.js" defer></script>
 
     <!--endbuild-->
-    <script src="/system/js/page/pagination.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/system/js/page/pagination.js" defer></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js" defer></script>
+    <script src="assets/vendor/jquery/jquery.min.js" defer></script>
 </body>
 
 </html>

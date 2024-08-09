@@ -52,7 +52,7 @@
                         </h3>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="/assets/img/tecnico-uller.png" alt="tecnico uller" class="img-fluid">
+                        <img src="/assets/img/tecnico-uller.png" loading="lazy" alt="tecnico uller" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -82,8 +82,8 @@
         </section>
         <?php include_once('./assets/html/footer.php') ?>
     </main>
-    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js" defer></script>
+    <script src="assets/vendor/jquery/jquery.min.js" defer></script>
     <a href="https://api.whatsapp.com/send/?phone=573238067136&text&type=phone_number&app_absent=0" class="whatsapp-button" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>

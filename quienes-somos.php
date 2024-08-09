@@ -47,7 +47,7 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-6 text-center">
-                        <img src="/assets/img/tecnico-uller.png" alt="tecnico uller" class="img-fluid">
+                        <img src="/assets/img/tecnico-uller.png" loading="lazy" alt="tecnico uller" class="img-fluid">
                     </div>
                     <div class="col-md-5 text-left mt-5">
                         <h1 class="mt-5 text-black fst-italic fw-lighter display-6">
@@ -71,7 +71,7 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-6 text-center">
-                        <img src="/assets/img/aire-tecnicos-1.jpg" alt="aire-tecnicos" class="img-fluid">
+                        <img src="/assets/img/aire-tecnicos-1.jpg" loading="lazy" alt="aire-tecnicos" class="img-fluid">
                     </div>
                     <div class="col-md-6 mt-5 text-left">
                         <h3 class="colorp1 fst-italic fw-bold">
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="col-md-5 text-left">
-                        <img src="/assets/img/CANAL-SUSC.png" alt="canal-susc" class="img-fluid">
+                        <img src="/assets/img/CANAL-SUSC.png" loading="lazy" alt="canal-susc" class="img-fluid">
                         <h2 class="colorp1 fw-bolder fst-italic">
                             Uller aula virtual
                         </h2>
@@ -137,8 +137,8 @@
 
         <?php include_once('./assets/html/footer.php') ?>
     </main>
-    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js" defer></script>
+    <script src="assets/vendor/jquery/jquery.min.js" defer></script>
     <a href="https://api.whatsapp.com/send/?phone=573238067136&text&type=phone_number&app_absent=0" class="whatsapp-button" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
