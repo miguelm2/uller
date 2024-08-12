@@ -9,19 +9,10 @@
     <div class="footer-top bg-dark text-white ptb-120">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 mt-5 text-center">
+                <div class="col-md-4 mt-5 text-center">
                     <img src="/assets/img/LOGO-FOOTER.png" alt="logo footer" class="img-fluid" width="200">
                 </div>
-                <div class="col-md-3 mt-5 text-start">
-                    <h5 class="fw-bold">Póngase en contacto</h5>
-                    <p>
-                        <i class="bi bi-pin-map-fill"></i> <?= $informacionPage->getDireccion() ?><br>
-                        <i class="bi bi-geo-alt-fill"></i> <?= $informacionPage->getCiudad() ?>, <?= $informacionPage->getDepartamento() ?><br>
-                        <i class="bi bi-telephone-fill"></i> <?= $informacionPage->getWp() ?><br>
-                        <i class="bi bi-envelope-at-fill"></i> <?= $informacionPage->getCorreo() ?>
-                    </p>
-                </div>
-                <div class="col-md-6 mt-5 text-center">
+                <div class="col-md-8 mt-5 text-center">
                     <p>
                         Somos una APP de Geolocalización donde conectamos la necesidad de servicio de los usuarios
                         de equipos de aire acondicionado con técnicos idóneos que presten un servicio técnico de calidad.
@@ -45,7 +36,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-lg-3">
-                        <a href="https://www.facebook.com/ullerlatam" class="p-2" style="font-size: 30px;"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.facebook.com/ullerlatam" loading="lazy" class="p-2" style="font-size: 30px;"><i class="bi bi-facebook"></i></a>
                         <a href="https://twitter.com/" class="p-2" style="font-size: 30px;"><i class="bi bi-twitter"></i></a>
                         <a href="https://www.instagram.com/ullerlatam/?hl=es-la" class="p-2" style="font-size: 30px;"><i class="bi bi-instagram"></i></a>
                     </div>
