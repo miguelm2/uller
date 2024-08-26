@@ -1,10 +1,10 @@
 <header class="main-header header w-100">
     <nav class="navbar navbar-expand-xl navbar-dark sticky-header z-10">
         <div class="container d-flex align-items-center justify-content-lg-between position-relative">
-            <a href="index" class="navbar-brand d-flex align-items-center mb-md-0 text-decoration-none">
+            <a href="index" class="navbar-brand d-flex align-items-center mb-md-0 text-decoration-none position-relative">
                 <img src="assets/img/logo-web-3.png" alt="logo" class="img-fluid" style="max-width: 100px;">
+                <p class="position-absolute" style="top: 30%; left: 85%; transform: translate(-50%, -50%); font-size: 0.7rem; color: #ffffff;">®</p>
             </a>
-            <p class="text-left colorp1">©</p>
             <button class="btn btn-primary d-xl-none ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
                 <i class="bi bi-list"></i>
             </button>
@@ -12,7 +12,7 @@
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="nav col-12 col-md-auto justify-content-center main-menu">
                     <li><a href="quienes-somos" class="nav-link">Quienes somos</a></li>
-                    <li><a href="nuestro-proposito" class="nav-link">Nuestro proposito</a></li>
+                    <li><a href="nuestro-proposito" class="nav-link">Nuestro propósito</a></li>
                     <li><a href="bioseguridad" class="nav-link">Bioseguridad</a></li>
                     <li><a href="faq" class="nav-link">FAQ</a></li>
                     <li><a href="contactenos" class="nav-link">Contáctenos</a></li>
