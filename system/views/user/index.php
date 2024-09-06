@@ -100,6 +100,48 @@
         </div>
         <!-- End Equipos Card -->
 
+        <!-- Nuevo Servicio Card -->
+        <div class="col-md-3">
+          <a href="newService">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Servicios</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-card-checklist"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?= $dashboardUser[1]; ?></h6>
+
+                  </div>
+                </div>
+              </div>
+          </a>
+        </div>
+      </div>
+      <!-- End Nuevo Servicio Card -->
+      <!-- Ayuda WP Card -->
+      <div class="col-md-3">
+        <a href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, necesito ayuda con un servicio" target="_blank">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Ayuda WhatsApp</h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-whatsapp"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>Ir</h6>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </a>
+      </div>
+      <!-- End Ayuda WP Card -->
+
 
       </div>
 
