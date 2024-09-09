@@ -15,31 +15,108 @@
     height: 100vh; 
     width: 100%;
 }
-.hero{
+.hero {
     background-image: url("/assets/img/ULLER_cliente_feliz.jpg");
-    background-size: cover; 
-    background-position: bottom right;
-    background-repeat: no-repeat; 
-    height: 100vh; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
     width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 0;
 }
-.hero:before{
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSI1NHB4IiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyODAgMy40QzEwNTAuNTkgMTggMTAxOS40IDg0Ljg5IDczNC40MiA4NC44OWMtMzIwIDAtMzIwLTg0LjMtNjQwLTg0LjNDNTkuNCAuNTkgMjguMiAxLjYgMCAzLjRWMTRoaDEyODB6IiBmaWxsLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTAgMjQuMzFjNDMuNDYtNS42OSA5NC41Ni05LjI1IDE1OC40Mi05LjI1YzMyMCAwIDMyMCA4OS4yNCA2NDAgODkuMjQgMjU2LjEzIDAgMzA3LjI4LTU3LjE2IDQ4MS41OC04MFYxNDBIMHoiIGZpbGwtb3BhY2l0eT0iLjUiLz48cGF0aCBkPSJNMTI4MCA1MS43NmMtMjAxIDEyLjQ5LTI0Mi40MyA1My40LTUxMy41OCA1My40Yy0zMjAgMC0zMjAtNTctNjQwLTU3LTQ4Ljg1LjAxLTkwLjIxIDEuMzUtMTI2LjQyIDMuNlYxNDBoMTI4MHoiLz48L2c+PC9zdmc+
-    );
+
+.hero .content {
+    color: white;
+    text-align: left; /* Alinea el texto a la izquierda */
+    max-width: 40%; /* Reduce el ancho máximo para forzar el texto a 3 líneas */
+    background: transparent; /* Fondo transparente */
+    border-radius: 10px;
+    padding: 30px;
+    margin-left: 5%; /* Mueve el contenido un poco desde la izquierda */
+}
+
+.hero .content h1 {
+    font-size: 2.5rem; /* Ajusta el tamaño de la fuente */
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 20px;
+    line-height: 1.2; /* Ajusta el interlineado para controlar el número de líneas */
+}
+
+.hero .content a {
+    display: inline-block; /* Asegura que el botón esté en línea con el texto */
+    font-size: 1.2rem;
+    padding: 15px 25px;
+    color: white;
+    background-color: #ffc107;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.hero:before {
+    content: "";
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSI1NHB4IiB2aWV3Qm94PSIwIDAgMTI4MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTEyODAgMy40QzEwNTAuNTkgMTggMTAxOS40IDg0Ljg5IDczNC40MiA4NC44OWMtMzIwIDAtMzIwLTg0LjMtNjQwLTg0LjNDNTkuNCAuNTkgMjguMiAxLjYgMCAzLjRWMTRoaDEyODB6IiBmaWxsLW9wYWNpdHk9Ii4zIi8+PHBhdGggZD0iTTAgMjQuMzFjNDMuNDYtNS42OSA5NC41Ni05LjI1IDE1OC40Mi05LjI1YzMyMCAwIDMyMCA4OS4yNCA2NDAgODkuMjQgMjU2LjEzIDAgMzA3LjI4LTU3LjE2IDQ4MS41OC04MFYxNDBIMHoiIGZpbGwtb3BhY2l0eT0iLjUiLz48cGF0aCBkPSJNMTI4MCA1MS43NmMtMjAxIDEyLjQ5LTI0Mi40MyA1My40LTUxMy41OCA1My40Yy0zMjAgMC0zMjAtNTctNjQwLTU3LTQ4Ljg1LjAxLTkwLjIxIDEuMzUtMTI2LjQyIDMuNlYxNDBoMTI4MHoiLz48L2c+PC9zdmc+);
     background-size: 100% 54px;
+    position: absolute;
     bottom: 0;
     height: 54px;
     z-index: 1;
-    transform: rotateY(0) rotateX(0);
 }
-.hero-2{
+
+/* Media Query para dispositivos móviles */
+@media (max-width: 768px) {
+    .hero {
+        height: 100vh;
+    }
+
+    .hero .content {
+        max-width: 80%; /* Ajusta el ancho máximo para dispositivos móviles */
+        padding: 20px;
+        margin-left: 5%;
+    }
+
+    .hero .content h1 {
+        font-size: 1.8rem; /* Reduce el tamaño de la fuente para dispositivos móviles */
+    }
+
+    .hero .content a {
+        font-size: 0.9rem; /* Reduce el tamaño del texto del botón */
+        padding: 10px 18px; /* Ajusta el tamaño del botón para dispositivos móviles */
+    }
+}
+
+.hero-2 {
     background-image: url("/assets/img/people-uller-homeok.jpg");
-    background-size: cover; 
-    background-position: bottom right;
+    background-size: cover; /* Hace que la imagen cubra todo el área del contenedor */
+    background-position: center center; /* Centra la imagen tanto vertical como horizontalmente */
     background-repeat: no-repeat; 
-    height: 100vh; 
-    width: 100%; 
+    height: 100vh; /* Hace que el contenedor tenga la altura del 100% del viewport */
+    width: 100%; /* Hace que el contenedor tenga el ancho del 100% del viewport */
+    position: relative;
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    padding: 0; /* Sin padding alrededor del contenedor */
+    overflow: hidden; /* Asegura que no haya desbordamiento de contenido */
 }
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .hero-2 {
+        background-size: cover;
+        background-position: center center; /* Mantiene la imagen centrada en pantallas pequeñas */
+        height: 100vh; /* Asegura que el contenedor mantenga la altura del 100% del viewport */
+        width: 100%; /* Asegura que el contenedor mantenga el ancho del 100% del viewport */
+    }
+}
+
+
+
+
 .hero-3{
     background-image: url("/assets/img/aire-acondicionado-enfriador-aire-opciones.webp");
     background-size: cover; 
@@ -48,14 +125,42 @@
     height: 100vh; 
     width: 100%; 
 }
-.hero-4{
+.hero-4 {
     background-image: url("/assets/img/tecnico-aire-acondicionado-ok.jpg");
     background-size: cover; 
-    background-position: bottom right;
-    background-repeat: no-repeat; 
-    height: 100vh; 
-    width: 100%; 
+    background-position: top; /* Alinea la imagen en la parte superior */
+    background-repeat: no-repeat;
+    min-height: 100vh; 
+    width: 100%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0; 
+    margin: 0; 
 }
+
+.bg-image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bg-image.overlay {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .hero-4 {
+        min-height: 100vh; /* Mantiene la sección con una altura mínima de la ventana */
+        height: auto; 
+        background-size: contain; /* Ajusta la imagen para que se mantenga proporcional */
+        background-position: top; /* Alinea la imagen en la parte superior en móviles */
+        padding: 0; 
+    }
+}
+
+
 .image-container {
     position: relative;
     width: 100%;

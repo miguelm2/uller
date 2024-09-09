@@ -31,17 +31,14 @@
     <main class="main">
         <?php include_once('./assets/html/header.php') ?>
         <section class="hero">
-            <div class="row p-5">
-                <div class="col-md-7 p-5">
-                    <h1 class="mt-3 display-4  fst-italic fw-bold colorp1">
-                        ¡La solución para el mantenimiento de aires acondicionados en casa!
-                    </h1>
-                    <div class="color">
-                        <a href="bienvenidos" class="btn btn-warning p-2 m-5 fw-bold">Solicita un técnico</a>
-                    </div>
-                </div>
+            <div class="content">
+                <h1 class="display-4 fst-italic fw-bold">¡La solución para el mantenimiento de aires acondicionados en casa!</h1>
+                <a href="bienvenidos" class="btn btn-warning p-2 fw-bold">Solicita un técnico</a>
             </div>
         </section>
+
+
+
         <section class="mt-5">
             <div class="container">
                 <div class="row">
