@@ -89,55 +89,114 @@
     }
 }
 
-.hero-2 {
+.hero-2 { 
     background-image: url("/assets/img/people-uller-homeok.jpg");
-    background-size: cover; /* Hace que la imagen cubra todo el área del contenedor */
-    background-position: center center; /* Centra la imagen tanto vertical como horizontalmente */
-    background-repeat: no-repeat; 
-    height: 100vh; /* Hace que el contenedor tenga la altura del 100% del viewport */
-    width: 100%; /* Hace que el contenedor tenga el ancho del 100% del viewport */
-    position: relative;
+    background-size: cover; /* La imagen se expandirá para cubrir todo el contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh; /* Para asegurar que siempre ocupe toda la ventana */
+    padding: 0;
+    margin: 0;
     display: flex;
-    align-items: center; /* Centra verticalmente el contenido */
-    justify-content: center; /* Centra horizontalmente el contenido */
-    padding: 0; /* Sin padding alrededor del contenedor */
-    overflow: hidden; /* Asegura que no haya desbordamiento de contenido */
+    align-items: center;
+    justify-content: center;
 }
 
-/* Ajustes para pantallas más pequeñas */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .hero-2 {
-        background-size: cover;
-        background-position: center center; /* Mantiene la imagen centrada en pantallas pequeñas */
-        height: 100vh; /* Asegura que el contenedor mantenga la altura del 100% del viewport */
-        width: 100%; /* Asegura que el contenedor mantenga el ancho del 100% del viewport */
+        background-size: cover; /* Mantén la imagen cubriendo el contenedor */
+        min-height: 23vh; /* Ajusta la altura en dispositivos móviles */
     }
 }
 
 
 
-
 .hero-3{
     background-image: url("/assets/img/aire-acondicionado-enfriador-aire-opciones.webp");
-    background-size: cover; 
-    background-position: bottom right;
-    background-repeat: no-repeat; 
-    height: 100vh; 
-    width: 100%; 
+    background-size: cover; /* La imagen se expandirá para cubrir todo el contenedor */
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 100vh; /* Para asegurar que siempre ocupe toda la ventana */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.hero-4 {
+
+@media screen and (max-width: 768px) {
+    .hero-3 {
+        background-size: cover; /* Mantén la imagen cubriendo el contenedor */
+        min-height: 27vh; /* Ajusta la altura en dispositivos móviles */
+    }
+}
+
+.hero-4 { 
     background-image: url("/assets/img/tecnico-aire-acondicionado-ok.jpg");
     background-size: cover; 
     background-position: top; /* Alinea la imagen en la parte superior */
     background-repeat: no-repeat;
-    min-height: 100vh; 
+    min-height: 100vh; /* Mantiene la imagen ocupando toda la pantalla */
     width: 100%;
     display: flex; 
     align-items: center; 
     justify-content: center; 
     padding: 0; 
-    margin: 0; 
+    margin: 0;
+    position: relative; /* Para que el texto esté sobre la imagen */
 }
+
+.hero-4 .container {
+    background-color: rgba(0, 0, 0, 0); /* Fondo transparente */
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%; /* Para que el contenido esté centrado en toda la imagen */
+    margin: 0;
+}
+
+.hero-4 h3, 
+.hero-4 p {
+    color: white; /* Texto blanco para contraste */
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Mejora la legibilidad */
+    margin: 0;
+    font-size: 18px; /* Tamaño de letra más pequeño en pantallas grandes */
+}
+
+.hero-4::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .hero-4 {
+        background-position: center; /* Ajusta la posición de la imagen */
+        min-height: 30vh; /* Ajusta la altura en pantallas pequeñas */
+    }
+
+    .hero-4 .container {
+        padding: 10px; /* Menos padding en pantallas pequeñas */
+        min-height: 30vh; /* Asegura que el contenido esté dentro de la imagen */
+    }
+
+    .hero-4 h3, 
+    .hero-4 p {
+        font-size: 12px; /* Tamaño de letra más pequeño en pantallas pequeñas */
+    }
+}
+
 
 .bg-image {
     background-size: cover;
