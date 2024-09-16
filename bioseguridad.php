@@ -33,16 +33,16 @@
         <section class="hero-4">
             <div class="container p-5">
                 <div class="row align-items-center justify-content-lg-end">
-                    <div class="col-md-8 mt-5 text-white">
-                        <h3 class="fw-bold fst-italic">
+                    <div class="col-md-9 mt-1 text-white">
+                        <h4 class="fw-bold fst-italic">
                             Cumplimos los protocolos de bioseguridad
-                        </h3>
-                        <p class="mt-5" style="font-size: 20px;">
+                        </h4>
+                        <p class="mt-3">
                             Los sistemas de ventilación de muchos edificios de oficinas modernos están diseñados para
                             mantener temperaturas confortables y aumentar la eficiencia energética, contar con el perfecto
                             funcionamiento de los aparatos y ductos evitan la propagación del COVID-19.
                         </p>
-                        <p style="font-size: 20px;">
+                        <p>
                             Hacer un seguimiento cercano de rendimiento de los equipos y en la medida de lo posible seleccionar
                             un equipamiento que ofrezca mejores garantías de eficiencia energética, siempre con el respaldo de
                             uno de nuestros técnicos.
@@ -51,6 +51,7 @@
                 </div>
             </div>
         </section>
+
         <section>
             <div class="container">
                 <div class="row">
@@ -91,7 +92,7 @@
         <?php include_once('./assets/html/footer.php') ?>
     </main>
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js" defer></script>
-    <script src="assets/vendor/jquery/jquery.min.js" defer></script>  
+    <script src="assets/vendor/jquery/jquery.min.js" defer></script>
     <a href="https://api.whatsapp.com/send/?phone=573238067136&text&type=phone_number&app_absent=0" class="whatsapp-button" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
     </a>
