@@ -62,7 +62,7 @@
         <div class="col-md-3">
           <div class="card info-card revenue-card">
             <div class="card-body">
-              <h5 class="card-title">Equipos</h5>
+              <h5 class="card-title">Mis Equipos</h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -83,7 +83,7 @@
         <div class="col-md-3">
           <div class="card info-card revenue-card">
             <div class="card-body">
-              <h5 class="card-title">Servicios</h5>
+              <h5 class="card-title">Mis Servicios</h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -105,14 +105,14 @@
           <a href="newService">
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Servicios</h5>
+                <h5 class="card-title">Solicitar Servicio</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-card-checklist"></i>
+                  <i class="bi bi-gear-fill"></i>
                   </div>
                   <div class="ps-3">
-                    <h6><?= $dashboardUser[1]; ?></h6>
+                    <h6>Ir</h6>
 
                   </div>
                 </div>
