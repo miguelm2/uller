@@ -1,6 +1,7 @@
 <?php
 
-class Constants{
+class Constants
+{
 
     //Configuracion web
     static $HASH_TYPE  = "sha512";
@@ -55,9 +56,5 @@ class Constants{
     static $TECHNICIAN_UPDATE   = "Técnico actualizado correctamente";
     static $TECHNICIAN_ASSIGN   = "Técnico asignado correctamente";
     static $MESSAGE_NEW_BLOG    = "Artículo creado exitosamente";
-    static $DIR_IMAGE_BLOG      ='/system/img/blog/';
-
-
+    static $DIR_IMAGE_BLOG      = '/system/img/blog/';
 }
- 
-?>

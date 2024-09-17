@@ -31,8 +31,7 @@ class TecnicoTicket extends System
             $ticketDTO->setFecha_registro($result['fecha_registro']);
 
             return $ticketDTO;
-
-        }else{
+        } else {
             return false;
         }
     }
@@ -48,10 +47,9 @@ class TecnicoTicket extends System
 
         if ($result) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
     }
 
     public static function getValidarTecnicoHasDiagnosis($id_diagnostico, $id_tecnico)
@@ -66,12 +64,11 @@ class TecnicoTicket extends System
         $stmt->execute();
         $result =  $stmt->fetch();
 
-        if ($result['total']>0) {
+        if ($result['total'] > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
     }
 
     public static function deleteTecnicoTicket($id_tecnico_ticket)
@@ -100,4 +97,3 @@ class TecnicoTicket extends System
         return $stmt->fetch();
     }
 }
-?>

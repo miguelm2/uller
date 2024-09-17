@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Nuevo servicio</h5>
+                                <h5 class="text-primary">Resumen del servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
                                 <a href="index" class="btn btn-secondary">
@@ -218,11 +218,20 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6 d-grid">
-                                        <button class="btn btn-primary" name="requestService" id="requestService"><i class="bi bi-check2-all"></i> Solicitar servicio</button>
+                                    <div class="col-md-4 d-grid">
+                                        <button class="btn btn-primary" name="requestService" id="requestService">
+                                            <i class="bi bi-check2-all"></i> Confirmar servicio
+                                        </button>
                                     </div>
-                                    <div class="col-md-6 d-grid">
-                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, necesito ayuda con un servicio" target="_blank"><i class="bi bi-person-fill-gear"></i> Ayuda de agente</a>
+                                    <div class="col-md-4 d-grid">
+                                        <button class="btn btn-warning" name="otherService" id="otherService">
+                                            <i class="bi bi-plus-lg"></i> Adicionar otro servicio
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4 d-grid">
+                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, necesito ayuda con un servicio" target="_blank">
+                                            <i class="bi bi-person-fill-gear"></i> Ayuda de agente
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -232,6 +241,31 @@
             </div>
 
         </section>
+
+
+
+        <!-- Modal Eliminar Registro-->
+        <!-- ======= Basic Modal ======= -->
+        <form method="post">
+            <div class="modal fade" id="eliminar" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="deleteEquipmentType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Basic Modal-->
 
     </main><!-- End #main -->
 
