@@ -6,8 +6,8 @@ class Solicitud extends System
    public static function newRequest($id_usuario, $estado, $fecha_registro)
    {
       $dbh  = parent::Conexion();
-      $stmt = $dbh->prepare("INSERT INTO Servicio (id_usuario, cantidad, fecha_registro) 
-                                 VALUES (:id_usuario, :cantidad, :fecha_registro)");
+      $stmt = $dbh->prepare("INSERT INTO Solicitud (id_usuario, estado, fecha_registro) 
+                                 VALUES (:id_usuario, :estado, :fecha_registro)");
       $stmt->bindParam(':id_usuario', $id_usuario);
       $stmt->bindParam(':estado', $estado);
       $stmt->bindParam(':fecha_registro', $fecha_registro);
@@ -92,5 +92,27 @@ class Solicitud extends System
       $stmt = $dbh->prepare("DELETE FROM Solicitud WHERE id_solicitud = :id_solicitud");
       $stmt->bindParam(':id_solicitud', $id_solicitud);
       return  $stmt->execute();
+   }
+   public static function getLastRequestByUser($id_usuario)
+   {
+      $dbh             = parent::Conexion();
+      $stmt = $dbh->prepare("SELECT * FROM Solicitud 
+                                    WHERE id_usuario = :id_usuario
+                                    ORDER BY id_solicitud DESC 
+                                    LIMIT 1");
+      $stmt->bindParam(':id_usuario', $id_usuario);
+      $stmt->execute();
+      $result =  $stmt->fetch();
+
+      if ($result) {
+         $solicitudDTO = new SolicitudDTO();
+         $solicitudDTO->setId_solicitud($result['id_solicitud']);
+         $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setFecha_registro($result['fecha_registro']);
+
+         return $solicitudDTO;
+      }
+      return false;
    }
 }
