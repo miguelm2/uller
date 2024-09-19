@@ -113,7 +113,7 @@ class Elements
         $fechaLetras = explode('-', $fecha);
         return $fechaLetras[2] . ' de ' . self::mes($fechaLetras[1]) . ' de ' . $fechaLetras[0];
     }
-    
+
     public static function mes($numero)
     {
         switch ($numero) {
@@ -230,12 +230,14 @@ class Elements
                 </div>
         ';
     }
-    public static function getBotonPaginacion($numero){
+    public static function getBotonPaginacion($numero)
+    {
         $active = ($numero == 1) ? 'active' : '';
-        return '<li class="page-item itemPagination"><a class="page-link btnPagination '.$active.'" role="button" id="pag-'.$numero.'">'.$numero.'</a></li>';
+        return '<li class="page-item itemPagination"><a class="page-link btnPagination ' . $active . '" role="button" id="pag-' . $numero . '">' . $numero . '</a></li>';
     }
 
-    public static function getPaginacion($listBotones){
+    public static function getPaginacion($listBotones)
+    {
         return '<div class="row justify-content-center align-items-center mt-5">
                     <div class="col-auto my-1">
                         <button type="button" class="btn btn-soft-primary btn-sm" id="btn-previous" disabled>Anterior</button>
@@ -243,7 +245,7 @@ class Elements
                     <div class="col-auto my-1">
                         <nav>
                             <ul class="pagination rounded mb-0">
-                                '.$listBotones.'
+                                ' . $listBotones . '
                             </ul>
                         </nav>
                     </div>
@@ -251,5 +253,9 @@ class Elements
                         <button type="button" class="btn btn-soft-primary btn-sm" id="btn-next">Siguiente</button>
                     </div>
                 </div>';
+    }
+    public static function crearMensajeAlerta($mensaje, $tipo_alerta)
+    {
+        return '<script>swal("' . $mensaje . '", "", "' . $tipo_alerta . '");</script>';
     }
 }

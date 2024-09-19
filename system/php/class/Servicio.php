@@ -3,16 +3,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/ServicioDTO.php';
 
 class Servicio extends System
 {
-    public static function newService($id_solicitud, $id_servicio_tipo, $id_equipo_tipo, $cantidad, $estado, $fecha_registro)
+    public static function newService($id_solicitud, $id_tipo_servicio, $id_equipo_tipo, $cantidad, $fecha_registro)
     {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO Servicio (id_solicitud, id_servicio_tipo, id_equipo_tipo, cantidad, fecha_registro) 
-                                VALUES (:id_solicitud, :id_servicio_tipo, :id_equipo_tipo, :cantidad, :fecha_registro)");
+        $stmt = $dbh->prepare("INSERT INTO Servicio (id_solicitud, id_tipo_servicio, id_equipo_tipo, cantidad, fecha_registro) 
+                                VALUES (:id_solicitud, :id_tipo_servicio, :id_equipo_tipo, :cantidad, :fecha_registro)");
         $stmt->bindParam(':id_solicitud', $id_solicitud);
-        $stmt->bindParam(':id_servicio_tipo', $id_servicio_tipo);
+        $stmt->bindParam(':id_tipo_servicio', $id_tipo_servicio);
         $stmt->bindParam(':id_equipo_tipo', $id_equipo_tipo);
         $stmt->bindParam(':cantidad', $cantidad);
-        $stmt->bindParam(':estado', $estado);
         $stmt->bindParam(':fecha_registro', $fecha_registro);
         return  $stmt->execute();
     }
