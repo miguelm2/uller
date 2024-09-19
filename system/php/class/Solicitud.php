@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/SolicitudDTO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/EquipoTipo.php';
 
 class Solicitud extends System
 {
@@ -34,7 +35,7 @@ class Solicitud extends System
 
       if ($result) {
          $solicitudDTO = new SolicitudDTO();
-         $solicitudDTO->setId_solicitud($result['id_servicio']);
+         $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
@@ -54,7 +55,7 @@ class Solicitud extends System
 
       foreach ($modalResponse as $result) {
          $solicitudDTO = new SolicitudDTO();
-         $solicitudDTO->setId_solicitud($result['id_servicio']);
+         $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
@@ -76,7 +77,7 @@ class Solicitud extends System
 
       foreach ($modalResponse as $result) {
          $solicitudDTO = new SolicitudDTO();
-         $solicitudDTO->setId_solicitud($result['id_servicio']);
+         $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);

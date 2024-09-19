@@ -258,4 +258,19 @@ class Elements
     {
         return '<script>swal("' . $mensaje . '", "", "' . $tipo_alerta . '");</script>';
     }
+    public static function cardsTypeEquipment($equipo, $imagen, $html){
+        return '<div class="col-md-4">
+                    <div class="card shadow-lg">
+                        <div class="card-header pb-0">
+                            <div class="card-title p-0">'. $equipo .'</div>
+                        </div>
+                        <div class="card-body pb-0">
+                            <img src="'. Path::$DIR_IMAGE_EQUIPMENT . $imagen .'" alt="Cassette" class="img-fluid" style="height: 200px;">
+                        </div>
+                        <div class="card-footer">
+                            '. $html .'
+                        </div>
+                    </div>
+                </div>';
+    }
 }

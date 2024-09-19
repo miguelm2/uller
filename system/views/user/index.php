@@ -109,7 +109,7 @@
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-gear-fill"></i>
+                    <i class="bi bi-gear-fill"></i>
                   </div>
                   <div class="ps-3">
                     <h6>Ir</h6>
@@ -123,7 +123,8 @@
       <!-- End Nuevo Servicio Card -->
       <!-- Ayuda WP Card -->
       <div class="col-md-3">
-        <a href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, necesito ayuda con un servicio" target="_blank">
+        <a href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, vivo en <?= $_SESSION['direccion'] ?>, 
+        <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank">
           <div class="card info-card revenue-card">
             <div class="card-body">
               <h5 class="card-title">Ayuda WhatsApp</h5>

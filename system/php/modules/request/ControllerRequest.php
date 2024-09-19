@@ -3,6 +3,18 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ServiceReq
 
 if (isset($_POST['newRequest'])) {
    $services = [
+      'split' => [
+         'preventive' => isset($_POST['split_preventive']) ? $_POST['split_preventive'] : 0,
+         'corrective' => isset($_POST['split_corrective']) ? $_POST['split_corrective'] : 0,
+         'install'    => isset($_POST['split_install']) ? $_POST['split_install'] : 0,
+         'uninstall'  => isset($_POST['split_uninstall']) ? $_POST['split_uninstall'] : 0
+      ],
+      'mini' => [
+         'preventive' => isset($_POST['mini_preventive']) ? $_POST['mini_preventive'] : 0,
+         'corrective' => isset($_POST['mini_corrective']) ? $_POST['mini_corrective'] : 0,
+         'install'    => isset($_POST['mini_install']) ? $_POST['mini_install'] : 0,
+         'uninstall'  => isset($_POST['mini_uninstall']) ? $_POST['mini_uninstall'] : 0
+      ],
       'cassette' => [
          'preventive' => isset($_POST['cassette_preventive']) ? $_POST['cassette_preventive'] : 0,
          'corrective' => isset($_POST['cassette_corrective']) ? $_POST['cassette_corrective'] : 0,
@@ -21,18 +33,6 @@ if (isset($_POST['newRequest'])) {
          'install'    => isset($_POST['window_install']) ? $_POST['window_install'] : 0,
          'uninstall'  => isset($_POST['window_uninstall']) ? $_POST['window_uninstall'] : 0
       ],
-      'split' => [
-         'preventive' => isset($_POST['split_preventive']) ? $_POST['split_preventive'] : 0,
-         'corrective' => isset($_POST['split_corrective']) ? $_POST['split_corrective'] : 0,
-         'install'    => isset($_POST['split_install']) ? $_POST['split_install'] : 0,
-         'uninstall'  => isset($_POST['split_uninstall']) ? $_POST['split_uninstall'] : 0
-      ],
-      'mini' => [
-         'preventive' => isset($_POST['mini_preventive']) ? $_POST['mini_preventive'] : 0,
-         'corrective' => isset($_POST['mini_corrective']) ? $_POST['mini_corrective'] : 0,
-         'install'    => isset($_POST['mini_install']) ? $_POST['mini_install'] : 0,
-         'uninstall'  => isset($_POST['mini_uninstall']) ? $_POST['mini_uninstall'] : 0
-      ],
       'other' => [
          'preventive' => isset($_POST['other_preventive']) ? $_POST['other_preventive'] : 0,
          'corrective' => isset($_POST['other_corrective']) ? $_POST['other_corrective'] : 0,
@@ -41,4 +41,8 @@ if (isset($_POST['newRequest'])) {
       ]
    ];
    ServiceRequest::newRequest($services);
+}
+if (basename($_SERVER['PHP_SELF']) == 'requests.php') {
+   $tableRequest = ServiceRequest::getTableRequestByUser();
+   $tableRequestAdmin = ServiceRequest::getTableRequest();
 }

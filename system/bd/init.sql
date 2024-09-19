@@ -991,3 +991,48 @@ ALTER TABLE
   `Solicitud`
 MODIFY
   `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
+
+INSERT INTO
+  `EquipoTipo` (
+    `id_equipo_tipo`,
+    `nombre`,
+    `imagen`,
+    `fecha_registro`
+  )
+VALUES
+  (
+    '1',
+    'Mini Split',
+    'mini_split.png',
+    '2024-09-19 17:40:45.000000'
+  ),
+  (
+    '2',
+    'Central / Split',
+    'split_central.png',
+    '2024-09-19 17:40:45.000000'
+  ),
+  (
+    '3',
+    'Cassette',
+    'cassette.png',
+    '2024-09-19 17:40:45.000000'
+  ),
+  (
+    '4',
+    'Piso techo',
+    'piso_techo.jpg',
+    '2024-09-19 17:40:45.000000'
+  ),
+  (
+    '5',
+    'Ventana',
+    'ventana.png',
+    '2024-09-19 17:40:45.000000'
+  ),
+  (
+    '6',
+    'Otro',
+    'otro_aire.png',
+    '2024-09-19 17:40:45.000000'
+  )

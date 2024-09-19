@@ -39,3 +39,5 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/input/ControllerIn
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/payment/ControllerPayment.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/blog/ControllerBlog.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ControllerRequest.php';
