@@ -148,6 +148,8 @@ abstract  class System
             $_SESSION['correo'] =   $usuario->getCorreo();
             $_SESSION['cedula'] =   $usuario->getCedula();
             $_SESSION['telefono'] = $usuario->getTelefono();
+            $_SESSION['direccion'] = $usuario->getDireccion();
+            $_SESSION['ciudad'] = $usuario->getCiudad();
             $_SESSION['tipo']   =   $usuario->getTipo();
             $_SESSION['fecha_registro'] = $usuario->getFecha_registro();
             $_SESSION['usuario'] = "Usuario";

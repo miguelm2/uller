@@ -31,7 +31,14 @@
                 <span>Servicios</span>
             </a>
         </li>
-        
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="../user/requests">
+                <i class="bi bi-ticket-detailed"></i>
+                <span>Mis Solicitudes</span>
+            </a>
+        </li>
+
     </ul>
 
 </aside>

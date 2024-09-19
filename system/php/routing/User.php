@@ -25,3 +25,5 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/page/ControllerPag
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/information/ControllerInformation.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ControllerRequest.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/service/ControllerService.php';

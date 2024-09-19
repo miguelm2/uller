@@ -7,7 +7,7 @@ class ServiceRequest extends System
 {
     public static function newRequest($services)
     {
-        //try {
+        try {
             $id_usuario = $_SESSION['id'];
             $estado = parent::limpiarString(1);
             $fecha_registro = date('Y-m-d H:i:s');
@@ -18,23 +18,23 @@ class ServiceRequest extends System
                 foreach ($services as $serviceType => $serviceData) {
                     $id_equipo_tipo = 0;
                     switch ($serviceType) {
-                        case 'cassette': {
+                        case 'mini': {
                                 $id_equipo_tipo = 1;
                                 break;
                             }
-                        case 'floor': {
+                        case 'split': {
                                 $id_equipo_tipo = 2;
                                 break;
                             }
-                        case 'window': {
+                        case 'cassette': {
                                 $id_equipo_tipo = 3;
                                 break;
                             }
-                        case 'split': {
+                        case 'floor': {
                                 $id_equipo_tipo = 4;
                                 break;
                             }
-                        case 'mini': {
+                        case 'window': {
                                 $id_equipo_tipo = 5;
                                 break;
                             }
@@ -46,51 +46,50 @@ class ServiceRequest extends System
                     $responnse = self::newService($lastRequest->getId_solicitud(), $serviceData, $id_equipo_tipo);
                 }
                 if ($responnse) {
-                    header('Location:resumeService?');
+                    header('Location:resumeService?request=' . $lastRequest->getId_solicitud());
                 }
             }
-        //} catch (\Exception $e) {
-            //throw new Exception($e->getMessage());
-        //}
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
     private static function newService($id_solicitud, $serviceData, $id_equipo_tipo)
     {
+        $result = false;
         foreach ($serviceData as $subService => $quantity) {
+            $fecha_registro = date('Y-m-d H:i:s');
             $id_servicio_tipo = 0;
             switch ($subService) {
                 case 'preventive': {
-                        $id_servicio_tipo = 1;
-                        break;
-                    }
-                case 'corrective': {
-                        $id_servicio_tipo = 2;
-                        break;
-                    }
-                case 'install': {
                         $id_servicio_tipo = 3;
                         break;
                     }
-                case 'unistall': {
+                case 'corrective': {
                         $id_servicio_tipo = 4;
                         break;
                     }
+                case 'install': {
+                        $id_servicio_tipo = 6;
+                        break;
+                    }
+                case 'uninstall': {
+                        $id_servicio_tipo = 7;
+                        break;
+                    }
             }
-
-            if ($quantity != 0) {
-                $result = Servicio::newService($id_solicitud, $id_servicio_tipo, $id_equipo_tipo, $quantity, 1);
+            $quantity = (int) $quantity;
+            if ($quantity !== 0) {
+                $result = Servicio::newService($id_solicitud, $id_servicio_tipo, $id_equipo_tipo, $quantity, $fecha_registro);
             }
         }
         return $result;
     }
-
-    public static function setServiceUser($id_tipo, $nombre, $descripcion, $valor) {}
-
     public static function getRequest($id_solicitud)
     {
         try {
             $id_solicitud = parent::limpiarString($id_solicitud);
-            $modelResponse = Solicitud::getRequest($id_solicitud);
-            return $modelResponse;
+            $solicitudDTO = Solicitud::getRequest($id_solicitud);
+            return $solicitudDTO;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -115,12 +114,52 @@ class ServiceRequest extends System
         $modelResponse = Solicitud::listRequestByUser($id_usuario);
 
         foreach ($modelResponse as $valor) {
+            $style = self::getColorByEstate($valor->getEstado()[0]);
             $tableHtml .= '<tr>';
             $tableHtml .= '<td>' . $valor->getId_solicitud() . '</td>';
-            $tableHtml .= '<td>' . $valor->getEstado() . '</td>';
+            $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
+            $tableHtml .= '<td><small class="alert alert-' . $style . ' p-1">' . $valor->getEstado()[1] . '</small></td>';
             $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+            $tableHtml .= '<td>' . Elements::crearBotonVer("request", $valor->getId_solicitud()) . '</td>';
             $tableHtml .= '</tr>';
         }
         return $tableHtml;
+    }
+    public static function getTableRequest()
+    {
+        $tableHtml = "";
+        $modelResponse = Solicitud::listRequest();
+
+        foreach ($modelResponse as $valor) {
+            $style = self::getColorByEstate($valor->getEstado()[0]);
+            $tableHtml .= '<tr>';
+            $tableHtml .= '<td>' . $valor->getId_solicitud() . '</td>';
+            $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
+            $tableHtml .= '<td><small class="alert alert-' . $style . ' p-1">' . $valor->getEstado()[1] . '</small></td>';
+            $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+            $tableHtml .= '<td>' . Elements::crearBotonVer("request", $valor->getId_solicitud()) . '</td>';
+            $tableHtml .= '</tr>';
+        }
+        return $tableHtml;
+    }
+    private static function getColorByEstate($estado)
+    {
+        switch ($estado) {
+            case 1: {
+                    return 'primary';
+                }
+            case 2: {
+                    return 'success';
+                }
+            case 3: {
+                    return 'warning';
+                }
+            case 4: {
+                    return 'info';
+                }
+            case 5: {
+                    return 'danger';
+                }
+        }
     }
 }

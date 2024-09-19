@@ -38,6 +38,7 @@ class Servicio extends System
             $servicioDTO->setId_servicio($result['id_servicio']);
             $servicioDTO->setSolicitudDTO(Solicitud::getRequest($result['id_solicitud']));
             $servicioDTO->setTipoServicioDTO(TipoServicio::getTipoServicio($result['id_tipo_servicio']));
+            $servicioDTO->setEquipoTipoDTO(EquipoTipo::getEquipmentType($result['id_equipo_tipo']));
             $servicioDTO->setCantidad($result['cantidad']);
             $servicioDTO->setFecha_registro($result['fecha_registro']);
 
@@ -47,28 +48,35 @@ class Servicio extends System
         }
     }
     public static function listServiceByRequest($id_solicitud)
-    {
-        $dbh             = parent::Conexion();
-        $stmt = $dbh->prepare("SELECT * FROM Servicio WHERE id_solicitud = :id_solicitud");
-        $stmt->bindParam(':id_solicitud', $id_solicitud);
-        $stmt->execute();
-        $modalResponse =  $stmt->fetchAll();
-        $list = array();
-        $cont = 0;
+{
+    $dbh = parent::Conexion();
+    // Modificar la consulta para incluir id_equipo_tipo
+    $stmt = $dbh->prepare("SELECT s.*, e.nombre AS equipo_nombre 
+                        FROM Servicio s,
+                            EquipoTipo e 
+                        WHERE s.id_solicitud = :id_solicitud
+                        AND s.id_equipo_tipo = e.id_equipo_tipo");
+    $stmt->bindParam(':id_solicitud', $id_solicitud);
+    $stmt->execute();
+    $modalResponse = $stmt->fetchAll();
+    
+    $list = array();
 
-        foreach ($modalResponse as $result) {
-            $servicioDTO = new ServicioDTO();
-            $servicioDTO->setId_servicio($result['id_servicio']);
-            $servicioDTO->setSolicitudDTO(Solicitud::getRequest($result['id_solicitud']));
-            $servicioDTO->setTipoServicioDTO(TipoServicio::getTipoServicio($result['id_tipo_servicio']));
-            $servicioDTO->setCantidad($result['cantidad']);
-            $servicioDTO->setFecha_registro($result['fecha_registro']);
+    foreach ($modalResponse as $result) {
+        $servicioDTO = new ServicioDTO();
+        $servicioDTO->setId_servicio($result['id_servicio']);
+        $servicioDTO->setSolicitudDTO(Solicitud::getRequest($result['id_solicitud']));
+        $servicioDTO->setTipoServicioDTO(TipoServicio::getTipoServicio($result['id_tipo_servicio']));
+        $servicioDTO->setEquipoTipoDTO(EquipoTipo::getEquipmentType($result['id_equipo_tipo']));
+        $servicioDTO->setCantidad($result['cantidad']);
+        $servicioDTO->setFecha_registro($result['fecha_registro']);
 
-            $list[$cont] = $servicioDTO;
-            $cont++;
-        }
-        return $list;
+        $list[$result['equipo_nombre']][] = $servicioDTO;
     }
+
+    return $list; 
+}
+
 
     public static function deleteService($id_servicio)
     {
