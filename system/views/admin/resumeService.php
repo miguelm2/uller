@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Admin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,11 +40,10 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+    <?php include '../../assets/html/sidebar-admin.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
-
 
         <section class="section dashboard">
 
@@ -61,34 +60,16 @@
                         <!-- Vertical Form -->
                         <form class="row g-3 text-center mt-3 pb-2" method="post">
                             <?= $cardService ?>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4 d-grid">
-                                        <a href="requests" class="btn btn-primary">
-                                            <i class="bi bi-check2-all"></i> Confirmar servicio
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a href="add_service?add_service=<?= $_GET['request'] ?>" class="btn btn-warning">
-                                            <i class="bi bi-plus-lg"></i> Adicionar otro servicio
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                                        vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank">
-                                            <i class="bi bi-person-fill-gear"></i> Ayuda de agente
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col-md-12 d-grid">
+                                <a href="requests" class="btn btn-primary">
+                                    <i class="bi bi-check2-all"></i> Confirmar servicio
+                                </a>
                             </div>
                         </form><!-- Vertical Form -->
                     </div>
                 </div>
             </div>
-
         </section>
-
-
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->

@@ -4,6 +4,9 @@ class SolicitudDTO
    protected $id_solicitud;
    protected $usuarioDTO;
    protected $estado;
+   protected $tecnicoDTO;
+   protected $fecha;
+   protected $valor;
    protected $fecha_registro;
 
    /**
@@ -87,6 +90,66 @@ class SolicitudDTO
    public function setFecha_registro($fecha_registro)
    {
       $this->fecha_registro = $fecha_registro;
+
+      return $this;
+   }
+
+   /**
+    * Get the value of tecnicoDTO
+    */
+   public function getTecnicoDTO()
+   {
+      return $this->tecnicoDTO;
+   }
+
+   /**
+    * Set the value of tecnicoDTO
+    *
+    * @return  self
+    */
+   public function setTecnicoDTO($tecnicoDTO)
+   {
+      $this->tecnicoDTO = $tecnicoDTO;
+
+      return $this;
+   }
+
+   /**
+    * Get the value of fecha
+    */
+   public function getFecha()
+   {
+      return $this->fecha;
+   }
+
+   /**
+    * Set the value of fecha
+    *
+    * @return  self
+    */
+   public function setFecha($fecha)
+   {
+      $this->fecha = $fecha;
+
+      return $this;
+   }
+
+   /**
+    * Get the value of valor
+    */
+   public function getValor()
+   {
+      return $this->valor;
+   }
+
+   /**
+    * Set the value of valor
+    *
+    * @return  self
+    */
+   public function setValor($valor)
+   {
+      $this->valor = $valor;
 
       return $this;
    }

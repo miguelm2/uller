@@ -77,10 +77,7 @@ class ServiceRequest extends System
                         break;
                     }
             }
-            $quantity = (int) $quantity;
-            if ($quantity !== 0) {
-                $result = Servicio::newService($id_solicitud, $id_servicio_tipo, $id_equipo_tipo, $quantity, $fecha_registro);
-            }
+            $result = Servicio::newService($id_solicitud, $id_servicio_tipo, $id_equipo_tipo, $quantity, $fecha_registro);
         }
         return $result;
     }
@@ -127,20 +124,41 @@ class ServiceRequest extends System
     }
     public static function getTableRequest()
     {
-        $tableHtml = "";
-        $modelResponse = Solicitud::listRequest();
+        try {
+            $tableHtml = "";
+            $modelResponse = Solicitud::listRequest();
 
-        foreach ($modelResponse as $valor) {
-            $style = self::getColorByEstate($valor->getEstado()[0]);
-            $tableHtml .= '<tr>';
-            $tableHtml .= '<td>' . $valor->getId_solicitud() . '</td>';
-            $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
-            $tableHtml .= '<td><small class="alert alert-' . $style . ' p-1">' . $valor->getEstado()[1] . '</small></td>';
-            $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-            $tableHtml .= '<td>' . Elements::crearBotonVer("request", $valor->getId_solicitud()) . '</td>';
-            $tableHtml .= '</tr>';
+            foreach ($modelResponse as $valor) {
+                $style = self::getColorByEstate($valor->getEstado()[0]);
+                $tableHtml .= '<tr>';
+                $tableHtml .= '<td>' . $valor->getId_solicitud() . '</td>';
+                $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
+                $tableHtml .= '<td><small class="alert alert-' . $style . ' p-1">' . $valor->getEstado()[1] . '</small></td>';
+                $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
+                $tableHtml .= '<td>' . Elements::crearBotonVer("request", $valor->getId_solicitud()) . '</td>';
+                $tableHtml .= '</tr>';
+            }
+            return $tableHtml;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
         }
-        return $tableHtml;
+    }
+    public static function getCardRequestTecnicias()
+    {
+        try {
+            $html = '';
+            $modelResponse = Solicitud::listRequestEstate();
+            foreach ($modelResponse as $valor) {
+                $html .= Elements::getCardTechnical(
+                    $valor->getUsuarioDTO()->getNombre(),
+                    $valor->getUsuarioDTO()->getDireccion(),
+                    $valor->getId_solicitud()
+                );
+            }
+            return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
     private static function getColorByEstate($estado)
     {

@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Technician.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+    <?php include '../../assets/html/sidebar-technician.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -52,38 +52,17 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-10">
-                                <h5 class="text-primary">Resumen del servicio</h5>
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Solicitudes</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <!-- Vertical Form -->
-                        <form class="row g-3 text-center mt-3 pb-2" method="post">
-                            <?= $cardService ?>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-4 d-grid">
-                                        <a href="requests" class="btn btn-primary">
-                                            <i class="bi bi-check2-all"></i> Confirmar servicio
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a href="add_service?add_service=<?= $_GET['request'] ?>" class="btn btn-warning">
-                                            <i class="bi bi-plus-lg"></i> Adicionar otro servicio
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                                        vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank">
-                                            <i class="bi bi-person-fill-gear"></i> Ayuda de agente
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form><!-- Vertical Form -->
+                        <h5 class="text-primary">Todas las solicitudes</h5>
+                        <?= $cardRequestTechinal?>
                     </div>
                 </div>
+
             </div>
 
         </section>
@@ -112,13 +91,9 @@
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
 
-    <!-- Js page -->
-    <script src="../../js/selectRepeat.js"></script>
-
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/system/js/new_service.js"></script>
     <?= $response ?>
 </body>
 

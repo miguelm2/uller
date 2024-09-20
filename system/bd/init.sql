@@ -1035,4 +1035,19 @@ VALUES
     'Otro',
     'otro_aire.png',
     '2024-09-19 17:40:45.000000'
-  )
+  );
+
+ALTER TABLE
+  `Solicitud`
+ADD
+  `id_tecnico` INT NULL
+AFTER
+  `estado`,
+ADD
+  `fecha` DATE NULL
+AFTER
+  `id_tecnico`,
+ADD
+  `valor` INT NOT NULL
+AFTER
+  `fecha`;

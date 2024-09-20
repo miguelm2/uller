@@ -53,27 +53,22 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Resumen del servicio</h5>
+                                <h5 class="text-primary">Añadir servicio</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3 text-center mt-3 pb-2" method="post">
-                            <?= $cardService ?>
+                            <?= $tableAddService ?>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4 d-grid">
-                                        <a href="requests" class="btn btn-primary">
+                                    <div class="col-md-6 d-grid">
+                                        <button type="submit" class="btn btn-primary" name="addService">
                                             <i class="bi bi-check2-all"></i> Confirmar servicio
-                                        </a>
+                                        </button>
                                     </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a href="add_service?add_service=<?= $_GET['request'] ?>" class="btn btn-warning">
-                                            <i class="bi bi-plus-lg"></i> Adicionar otro servicio
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
+                                    <div class="col-md-6 d-grid">
                                         <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
                                         vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank">
                                             <i class="bi bi-person-fill-gear"></i> Ayuda de agente

@@ -40,7 +40,7 @@
    <!-- End Header -->
 
    <!-- ======= Sidebar ======= -->
-   <?php include '../../assets/html/sidebar-user.php'; ?>
+   <?php include '../../assets/html/sidebar-admin.php'; ?>
    <!-- End Sidebar-->
 
    <main id="main" class="main">
@@ -56,7 +56,7 @@
                         <h5 class="text-primary">Nuevo servicio</h5>
                      </div>
                      <div class="col-md-2 text-right d-grid">
-                        <a href="index" class="btn btn-secondary">
+                        <a href="request" class="btn btn-secondary">
                            <i class="bi bi-arrow-left-circle"></i>
                            <span class="text"> Atras</span>
                         </a>
@@ -216,16 +216,8 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-md-12">
-                        <div class="row">
-                           <div class="col-md-6 d-grid">
-                              <button type="submit" class="btn btn-primary" name="newRequest" id="newRequest"><i class="bi bi-check2-all"></i> Solicitar servicio</button>
-                           </div>
-                           <div class="col-md-6 d-grid">
-                              <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                              vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank"><i class="bi bi-person-fill-gear"></i> Ayuda de agente</a>
-                           </div>
-                        </div>
+                     <div class="col-md-12 d-grid">
+                        <button type="submit" class="btn btn-primary" name="newRequest" id="newRequest"><i class="bi bi-check2-all"></i> Generar solicitud</button>
                      </div>
                   </form><!-- Vertical Form -->
                </div>
