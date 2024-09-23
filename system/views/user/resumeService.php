@@ -64,7 +64,7 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-4 d-grid">
-                                        <a href="requests" class="btn btn-primary">
+                                        <a href="resumeServiceFinal?request=<?= $_GET['request'] ?>" class="btn btn-primary">
                                             <i class="bi bi-check2-all"></i> Confirmar servicio
                                         </a>
                                     </div>

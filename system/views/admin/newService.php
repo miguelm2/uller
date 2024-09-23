@@ -216,8 +216,31 @@
                            </div>
                         </div>
                      </div>
+                     <div class="col-md-6 text-start">
+                        <label for="valor">Valor del servicio</label>
+                        <input type="number" name="valor" class="form-control" placeholder="Valor del servicio" required>
+                     </div>
+                     <div class="col-md-6 text-start">
+                        <label for="fecha">Fecha del servicio</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                     </div>
+                     <div class="col-md-6 text-start">
+                        <label for="valor">Usuario</label>
+                        <select name="usuario" id="usuario" class="form-select" required>
+                           <option value="">Seleccione una opción</option>
+                           <?= $selectUsers ?>
+                        </select>
+                     </div>
+                     <div class="col-md-6 text-start">
+                        <label for="tecnico">Técnico</label>
+                        <select name="tecnico" id="tecnico" class="form-select">
+                           <option value="">Seleccione una opción</option>
+                           <?= $selectTecnicos ?>
+                        </select>
+                     </div>
+                     <hr>
                      <div class="col-md-12 d-grid">
-                        <button type="submit" class="btn btn-primary" name="newRequest" id="newRequest"><i class="bi bi-check2-all"></i> Generar solicitud</button>
+                        <button type="submit" class="btn btn-primary" name="newRequestAdmin" id="newRequestAdmin"><i class="bi bi-check2-all"></i> Generar solicitud</button>
                      </div>
                   </form><!-- Vertical Form -->
                </div>

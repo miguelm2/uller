@@ -53,23 +53,39 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Añadir servicio</h5>
+                                <h5 class="text-primary">Resumen del servicio</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
+                        <div class="card shadow mt-2">
+                            <div class="row">
+                                <div class="col-md-6 mt-3">
+                                    <h6 class="ms-3"><strong>Cliente:</strong> #<?= $_SESSION['id'] ?></h6>
+                                    <h6 class="ms-3"><strong>Dirección:</strong> <?= $_SESSION['nombre'] ?></h6>
+                                    <h6 class="ms-3"><strong>Ciudad:</strong> <?= $_SESSION['ciudad'] ?></h6>
+                                    <h6 class="ms-3"><strong>Departamento:</strong> <?= $_SESSION['departamento'] ?></h6>
+                                    <h6 class="ms-3"><strong>Celular:</strong> <?= $_SESSION['telefono'] ?></h6>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <h6><strong>Total:</strong></h6>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Vertical Form -->
                         <form class="row g-3 text-center mt-3 pb-2" method="post">
-                            <?= $tableAddService ?>
+                            <?= $cardService ?>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-4 d-grid">
-                                        <button type="submit" class="btn btn-primary" name="addService">
-                                            <i class="bi bi-check2-all"></i> Cambiar servicios
-                                        </button>
+                                        <a href="requests" class="btn btn-primary">
+                                            <i class="bi bi-check2-all"></i> Confirmar servicio
+                                        </a>
                                     </div>
                                     <div class="col-md-4 d-grid">
-                                        <a href="resumeService?request=<?= $_GET['add_service']?>" class="btn btn-info">Confirmar servicios</a>
+                                        <a href="add_service?add_service=<?= $_GET['request'] ?>" class="btn btn-warning">
+                                            <i class="bi bi-plus-lg"></i> Adicionar otro servicio
+                                        </a>
                                     </div>
                                     <div class="col-md-4 d-grid">
                                         <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 

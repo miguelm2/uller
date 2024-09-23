@@ -20,7 +20,7 @@ class Servicio extends System
         $dbh  = parent::Conexion();
         $stmt = $dbh->prepare("UPDATE Servicio 
                             SET cantidad = :cantidad
-                            WHERE id_servicio :id_servicio");
+                            WHERE id_servicio = :id_servicio");
         $stmt->bindParam(':id_servicio', $id_servicio);
         $stmt->bindParam(':cantidad', $cantidad);
         return  $stmt->execute();

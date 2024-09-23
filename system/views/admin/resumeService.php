@@ -57,6 +57,21 @@
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
+                        <div class="card shadow mt-2">
+                            <div class="row">
+                                <div class="col-md-6 mt-3">
+                                    <h6 class="ms-3"><strong>Cliente:</strong> #<?= $requestInfo->getUsuarioDTO()->getId_usuario() ?></h6>
+                                    <h6 class="ms-3"><strong>Dirección:</strong> <?= $requestInfo->getUsuarioDTO()->getDireccion() ?></h6>
+                                    <h6 class="ms-3"><strong>Ciudad:</strong> <?= $requestInfo->getUsuarioDTO()->getCiudad() ?></h6>
+                                    <h6 class="ms-3"><strong>Departamento:</strong> <?= $requestInfo->getUsuarioDTO()->getDepartamento() ?></h6>
+                                    <h6 class="ms-3"><strong>Celular:</strong> <?= $requestInfo->getUsuarioDTO()->getTelefono() ?></h6>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <h6><strong>Total: </strong>$<?= $requestInfo->getValor() ?></h6>
+                                    <h6><strong>Fecha: </strong><?= $requestInfo->getFecha() ?></h6>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Vertical Form -->
                         <form class="row g-3 text-center mt-3 pb-2" method="post">
                             <?= $cardService ?>

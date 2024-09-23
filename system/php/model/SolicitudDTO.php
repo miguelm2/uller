@@ -55,7 +55,7 @@ class SolicitudDTO
    public function getEstado()
    {
       if ($this->estado == 1) return explode(";", $this->estado . ';Solicitado');
-      if ($this->estado == 2) return explode(";", $this->estado . ';Aprobado');
+      if ($this->estado == 2) return explode(";", $this->estado . ';Asignado');
       if ($this->estado == 3) return explode(";", $this->estado . ';En proceso');
       if ($this->estado == 4) return explode(";", $this->estado . ';Finalizado');
       if ($this->estado == 5) return explode(";", $this->estado . ';Rechazado');

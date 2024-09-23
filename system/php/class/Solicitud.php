@@ -14,13 +14,26 @@ class Solicitud extends System
       $stmt->bindParam(':fecha_registro', $fecha_registro);
       return  $stmt->execute();
    }
-   public static function setRequest($id_servicio, $id_tecnico, $fecha, $estado, $valor)
+   public static function newRequestAdmin($id_usuario, $id_tecnico, $valor, $fecha, $estado, $fecha_registro)
+   {
+      $dbh  = parent::Conexion();
+      $stmt = $dbh->prepare("INSERT INTO Solicitud (id_usuario, id_tecnico, valor, fecha, estado, fecha_registro) 
+                                 VALUES (:id_usuario, :id_tecnico, :valor, :fecha, :estado, :fecha_registro)");
+      $stmt->bindParam(':id_usuario', $id_usuario);
+      $stmt->bindParam(':id_tecnico', $id_tecnico);
+      $stmt->bindParam(':valor', $valor);
+      $stmt->bindParam(':fecha', $fecha);
+      $stmt->bindParam(':estado', $estado);
+      $stmt->bindParam(':fecha_registro', $fecha_registro);
+      return  $stmt->execute();
+   }
+   public static function setRequest($id_solicitud, $id_tecnico, $fecha, $estado, $valor)
    {
       $dbh  = parent::Conexion();
       $stmt = $dbh->prepare("UPDATE Solicitud 
                               SET estado = :estado, id_tecnico = :id_tecnico, fecha = :fecha, valor = :valor
-                              WHERE id_servicio :id_servicio");
-      $stmt->bindParam(':id_servicio', $id_servicio);
+                              WHERE id_solicitud = :id_solicitud");
+      $stmt->bindParam(':id_solicitud', $id_solicitud);
       $stmt->bindParam(':estado', $estado);
       $stmt->bindParam(':id_tecnico', $id_tecnico);
       $stmt->bindParam(':fecha', $fecha);
@@ -40,6 +53,8 @@ class Solicitud extends System
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setValor($result['valor']);
+         $solicitudDTO->setFecha($result['fecha']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
 
          return $solicitudDTO;
@@ -60,6 +75,8 @@ class Solicitud extends System
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setValor($result['valor']);
+         $solicitudDTO->setFecha($result['fecha']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
 
          $list[$cont] = $solicitudDTO;
@@ -67,10 +84,14 @@ class Solicitud extends System
       }
       return $list;
    }
-   public static function listRequestEstate()
+   public static function listRequestEstateByTecnico($id_tecnico)
    {
       $dbh             = parent::Conexion();
-      $stmt = $dbh->prepare("SELECT * FROM Solicitud WHERE estado = 1");
+      $stmt = $dbh->prepare("SELECT * 
+                           FROM Solicitud 
+                           WHERE id_tecnico = :id_tecnico
+                           AND estado = 2");
+      $stmt->bindParam(':id_tecnico', $id_tecnico);
       $stmt->execute();
       $modalResponse =  $stmt->fetchAll();
       $list = array();
@@ -81,6 +102,8 @@ class Solicitud extends System
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setValor($result['valor']);
+         $solicitudDTO->setFecha($result['fecha']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
 
          $list[$cont] = $solicitudDTO;
@@ -103,6 +126,8 @@ class Solicitud extends System
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setValor($result['valor']);
+         $solicitudDTO->setFecha($result['fecha']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
 
          $list[$cont] = $solicitudDTO;
@@ -133,6 +158,8 @@ class Solicitud extends System
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
          $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setValor($result['valor']);
+         $solicitudDTO->setFecha($result['fecha']);
          $solicitudDTO->setFecha_registro($result['fecha_registro']);
 
          return $solicitudDTO;

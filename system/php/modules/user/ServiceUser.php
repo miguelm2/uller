@@ -173,7 +173,7 @@ class ServiceUser extends System
                 $delEquipos = TipoEquipo::deleteTipoEquipoByUser($id_usuario);
                 $delUser    = Usuario::deleteUser($id_usuario);
                 if ($delUser && $delEquipos) header('Location:users?delete');
-            }else{
+            } else {
                 return  '<script>swal("El usuario no se puede eliminar", "Existen servicios asociados al usuario", "warning");</script>';
             }
         } catch (\Exception $e) {
@@ -246,10 +246,10 @@ class ServiceUser extends System
                 $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
                 $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getTipo_equipo() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVerTwoLink("equipment",$valor->getId_tipo(),"user_equipment",$id_usuario) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVerTwoLink("equipment", $valor->getId_tipo(), "user_equipment", $id_usuario) . '</td>';
                 $tableHtml .= '</tr>';
 
-                $item ++;
+                $item++;
             }
 
             return $tableHtml;
@@ -261,17 +261,14 @@ class ServiceUser extends System
     public static function getSelectUsers()
     {
         try {
-            if (basename($_SERVER['PHP_SELF']) == 'tickets.php') {
-                $html = '';
+            $html = '';
+            $listUsuarios = Usuario::listUser();
 
-                $listUsuarios = Usuario::listUser();
-
-                foreach ($listUsuarios as $value) {
-                    $html .= '<option value="' . $value->getId_usuario() . '">' . $value->getNombre() . '</option>';
-                }
-
-                return $html;
+            foreach ($listUsuarios as $value) {
+                $html .= '<option value="' . $value->getId_usuario() . '">' . $value->getNombre() . '</option>';
             }
+
+            return $html;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -1051,3 +1051,40 @@ ADD
   `valor` INT NOT NULL
 AFTER
   `fecha`;
+
+--
+-- Estructura de tabla para la tabla `Equipo`
+--
+CREATE TABLE `Equipo` (
+  `id_equipo` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `marca` VARCHAR(255) NOT NULL,
+  `modelo` VARCHAR(255) NOT NULL,
+  `year_fabricacion` YEAR NOT NULL,
+  `serial_interior` VARCHAR(255) NOT NULL,
+  `serial_exterior` VARCHAR(255) NOT NULL,
+  `tipo_equipo` VARCHAR(255) NOT NULL,
+  `capacidad_btuh` FLOAT NOT NULL,
+  `voltaje_fases` VARCHAR(255) NOT NULL,
+  `refrigerante` VARCHAR(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `imagen_placa_interior` varchar(255) NOT NULL,
+  `imagen_placa_exterior` varchar(255) NOT NULL,
+  `inverter` VARCHAR(4) NOT NULL,
+  `fecha_registro` datetime NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+--
+-- Indices de la tabla `Equipo`
+--
+ALTER TABLE
+  `Equipo`
+ADD
+  PRIMARY KEY (`id_tipo`);
+--
+-- AUTO_INCREMENT de la tabla `Equipo`
+--
+ALTER TABLE
+  `Equipo`
+MODIFY
+  `id_tipo` int(11) NOT NULL AUTO_INCREMENT;
