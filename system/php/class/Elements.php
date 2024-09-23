@@ -258,17 +258,33 @@ class Elements
     {
         return '<script>swal("' . $mensaje . '", "", "' . $tipo_alerta . '");</script>';
     }
-    public static function cardsTypeEquipment($equipo, $imagen, $html){
+    public static function cardsTypeEquipment($equipo, $imagen, $html)
+    {
         return '<div class="col-md-4">
                     <div class="card shadow-lg">
                         <div class="card-header pb-0">
-                            <div class="card-title p-0">'. $equipo .'</div>
+                            <div class="card-title p-0">' . $equipo . '</div>
                         </div>
                         <div class="card-body pb-0">
-                            <img src="'. Path::$DIR_IMAGE_EQUIPMENT . $imagen .'" alt="Cassette" class="img-fluid" style="height: 200px;">
+                            <img src="' . Path::$DIR_IMAGE_EQUIPMENT . $imagen . '" alt="Cassette" class="img-fluid" style="height: 200px;">
                         </div>
                         <div class="card-footer">
-                            '. $html .'
+                            ' . $html . '
+                        </div>
+                    </div>
+                </div>';
+    }
+    public static function getCardTechnical($usuario, $direccion, $id_solicitud)
+    {
+        return '<div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="row m-2">
+                            <div class="col-md-3">Cliente: ' . $usuario . '</div>
+                            <div class="col-md-4">Dirección: '. $direccion .'</div>
+                            <div class="col-md-4">
+                                <a href="request?acceptRequest=' . $id_solicitud . '" class="btn btn-primary">Aceptar</a>
+                                <a href="request?acceptRequest=' . $id_solicitud . '" class="btn btn-danger">Rechazar</a>
+                            </div>
                         </div>
                     </div>
                 </div>';

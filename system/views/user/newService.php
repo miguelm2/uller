@@ -56,7 +56,7 @@
                         <h5 class="text-primary">Nuevo servicio</h5>
                      </div>
                      <div class="col-md-2 text-right d-grid">
-                        <a href="index" class="btn btn-secondary">
+                        <a href="requests" class="btn btn-secondary">
                            <i class="bi bi-arrow-left-circle"></i>
                            <span class="text"> Atras</span>
                         </a>
@@ -66,31 +66,6 @@
                <div class="card-body" style="padding-top: 5px;">
                   <!-- Vertical Form -->
                   <form class="row g-3 text-center mt-3 pb-2" method="post">
-                     <div class="col-md-4">
-                        <div class="card shadow-lg">
-                           <div class="card-header pb-0">
-                              <div class="card-title p-0">Split / Central</div>
-                           </div>
-                           <div class="card-body pb-0">
-                              <img src="/assets/img/equipos/split_central.png" alt="Split/Central" class="img-fluid" style="height: 200px;">
-                           </div>
-                           <div class="card-footer">
-                              <table class="table table-bordered justify-content-center">
-                                 <tbody id="service-table-split">
-                                    <tr>
-                                       <td><input type="number" class="form-control" name="split_preventive" placeholder="Cantidad"></td>
-                                       <td>Preventivo</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="number" class="form-control" name="split_corrective" placeholder="Cantidad"></td>
-                                       <td>Correctivo</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                              <button type="button" name="add_split" id="add_split" class="btn btn-outline-dark"><i class="bi bi-plus-lg"></i> Mostrar más</button>
-                           </div>
-                        </div>
-                     </div>
                      <div class="col-md-4">
                         <div class="card shadow-lg">
                            <div class="card-header pb-0">
@@ -116,6 +91,32 @@
                            </div>
                         </div>
                      </div>
+                     <div class="col-md-4">
+                        <div class="card shadow-lg">
+                           <div class="card-header pb-0">
+                              <div class="card-title p-0">Split / Central</div>
+                           </div>
+                           <div class="card-body pb-0">
+                              <img src="/assets/img/equipos/split_central.png" alt="Split/Central" class="img-fluid" style="height: 200px;">
+                           </div>
+                           <div class="card-footer">
+                              <table class="table table-bordered justify-content-center">
+                                 <tbody id="service-table-split">
+                                    <tr>
+                                       <td><input type="number" class="form-control" name="split_preventive" placeholder="Cantidad"></td>
+                                       <td>Preventivo</td>
+                                    </tr>
+                                    <tr>
+                                       <td><input type="number" class="form-control" name="split_corrective" placeholder="Cantidad"></td>
+                                       <td>Correctivo</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <button type="button" name="add_split" id="add_split" class="btn btn-outline-dark"><i class="bi bi-plus-lg"></i> Mostrar más</button>
+                           </div>
+                        </div>
+                     </div>
+
                      <div class="col-md-4">
                         <div class="card shadow-lg">
                            <div class="card-header pb-0">
@@ -223,7 +224,7 @@
                            </div>
                            <div class="col-md-6 d-grid">
                               <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                              vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank"><i class="bi bi-person-fill-gear"></i> Ayuda de agente</a>
+                              vivo en <?= $_SESSION['direccion'] ?>, <?= $_SESSION['ciudad'] ?>, necesito ayuda con un servicio" target="_blank"><i class="bi bi-person-fill-gear"></i> Ayuda de agente</a>
                            </div>
                         </div>
                      </div>

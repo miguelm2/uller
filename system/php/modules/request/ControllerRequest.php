@@ -42,7 +42,9 @@ if (isset($_POST['newRequest'])) {
    ];
    ServiceRequest::newRequest($services);
 }
+
 if (basename($_SERVER['PHP_SELF']) == 'requests.php') {
    $tableRequest = ServiceRequest::getTableRequestByUser();
    $tableRequestAdmin = ServiceRequest::getTableRequest();
+   $cardRequestTechinal = ServiceRequest::getCardRequestTecnicias();
 }

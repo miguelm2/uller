@@ -40,7 +40,7 @@
    <!-- End Header -->
 
    <!-- ======= Sidebar ======= -->
-   <?php include '../../assets/html/sidebar-user.php'; ?>
+   <?php include '../../assets/html/sidebar-admin.php'; ?>
    <!-- End Sidebar-->
 
    <main id="main" class="main">

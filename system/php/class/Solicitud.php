@@ -14,15 +14,17 @@ class Solicitud extends System
       $stmt->bindParam(':fecha_registro', $fecha_registro);
       return  $stmt->execute();
    }
-   public static function setRequest($id_servicio, $estado)
+   public static function setRequest($id_servicio, $id_tecnico, $fecha, $estado, $valor)
    {
       $dbh  = parent::Conexion();
       $stmt = $dbh->prepare("UPDATE Solicitud 
-                              SET estado = :estado,
+                              SET estado = :estado, id_tecnico = :id_tecnico, fecha = :fecha, valor = :valor
                               WHERE id_servicio :id_servicio");
       $stmt->bindParam(':id_servicio', $id_servicio);
-      $stmt->bindParam(':cantidad', $cantidad);
       $stmt->bindParam(':estado', $estado);
+      $stmt->bindParam(':id_tecnico', $id_tecnico);
+      $stmt->bindParam(':fecha', $fecha);
+      $stmt->bindParam(':valor', $valor);
       return  $stmt->execute();
    }
    public static function getRequest($id_solicitud)
@@ -48,6 +50,27 @@ class Solicitud extends System
    {
       $dbh             = parent::Conexion();
       $stmt = $dbh->prepare("SELECT * FROM Solicitud");
+      $stmt->execute();
+      $modalResponse =  $stmt->fetchAll();
+      $list = array();
+      $cont = 0;
+
+      foreach ($modalResponse as $result) {
+         $solicitudDTO = new SolicitudDTO();
+         $solicitudDTO->setId_solicitud($result['id_solicitud']);
+         $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setEstado($result['estado']);
+         $solicitudDTO->setFecha_registro($result['fecha_registro']);
+
+         $list[$cont] = $solicitudDTO;
+         $cont++;
+      }
+      return $list;
+   }
+   public static function listRequestEstate()
+   {
+      $dbh             = parent::Conexion();
+      $stmt = $dbh->prepare("SELECT * FROM Solicitud WHERE estado = 1");
       $stmt->execute();
       $modalResponse =  $stmt->fetchAll();
       $list = array();

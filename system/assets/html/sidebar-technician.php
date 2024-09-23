@@ -31,6 +31,13 @@
     </li>
 
     <li class="nav-item">
+      <a class="nav-link collapsed" href="../technician/requests">
+        <i class="bi bi-ticket-detailed"></i>
+        <span>Solicitudes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
       <a class="nav-link collapsed" href="../technician/payments">
         <i class="bi bi-wallet2"></i>
         <span>Cuentas de Cobro</span>
