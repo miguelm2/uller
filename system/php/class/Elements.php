@@ -274,16 +274,16 @@ class Elements
                     </div>
                 </div>';
     }
-    public static function getCardTechnical($usuario, $direccion, $id_solicitud)
+    public static function getCardTechnical($usuario, $direccion, $id_solicitud, $fecha)
     {
         return '<div class="col-md-12">
                     <div class="card shadow">
                         <div class="row m-2">
-                            <div class="col-md-3">Cliente: ' . $usuario . '</div>
-                            <div class="col-md-4">Dirección: '. $direccion .'</div>
-                            <div class="col-md-4">
-                                <a href="request?acceptRequest=' . $id_solicitud . '" class="btn btn-primary">Aceptar</a>
-                                <a href="request?acceptRequest=' . $id_solicitud . '" class="btn btn-danger">Rechazar</a>
+                            <div class="col-md-3"><strong>Cliente:</strong> ' . $usuario . '</div>
+                            <div class="col-md-4"><strong>Dirección:</strong> ' . $direccion . '</div>
+                            <div class="col-md-3"><strong>Fecha:</strong> ' . $fecha . '</div>
+                            <div class="col-md-2">
+                                <a href="request?request_tech=' . $id_solicitud . '" class="btn btn-primary">Empezar</a>
                             </div>
                         </div>
                     </div>

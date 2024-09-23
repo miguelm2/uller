@@ -12,14 +12,18 @@ class ServiceService extends System
          $html = '';
          foreach ($modelResponse as $equipo => $services) {
             $html_aux = $imagen =  '';
+            $cont = 0;
             foreach ($services as $service) {
-               if ($service->getCantidad() != 0) {
-                  $imagen = $service->getEquipoTipoDTO()->getImagen();
-                  $html_aux .= '<h6 class="text-black">' . $service->getTipoServicioDTO()->getNombre() . '</h6>';
-                  $html_aux .= '<p class="text-black"><strong>Cantidad:</strong> ' . $service->getCantidad() . '</p><hr>';
+               if ($service->getCantidad() == 0) {
+                  $cont++;
                }
+               $imagen = $service->getEquipoTipoDTO()->getImagen();
+               $html_aux .= '<h6 class="text-black">' . $service->getTipoServicioDTO()->getNombre() . '</h6>';
+               $html_aux .= '<p class="text-black"><strong>Cantidad:</strong> ' . $service->getCantidad() . '</p><hr>';
             }
-            $html .= Elements::cardsTypeEquipment($equipo, $imagen, $html_aux);
+            if ($cont < 4) {
+               $html .= Elements::cardsTypeEquipment($equipo, $imagen, $html_aux);
+            }
          }
          return $html;
       } catch (\Exception $e) {
@@ -66,6 +70,43 @@ class ServiceService extends System
       try {
          $id_servicio = parent::limpiarString($id_servicio);
          $cantidad = parent::limpiarString($cantidad);
+         $response = Servicio::setService($id_servicio, $cantidad);
+         return $response;
+      } catch (\Exception $e) {
+         throw new Exception($e->getMessage());
+      }
+   }
+   public static function getServiceByRequestTech($id_solicitud)
+   {
+      try {
+         $id_solicitud = parent::limpiarString($id_solicitud);
+         $modelResponse = Servicio::listServiceByRequest($id_solicitud);
+         $html = '';
+         foreach ($modelResponse as $equipo => $services) {
+            foreach ($services as $service) {
+               if ($service->getCantidad() != 0) {
+                  $html .= '<tr>';
+                  $html .= '<td>' . $service->getSolicitudDTO()->getUsuarioDTO()->getId_usuario() . '</td>';
+                  $html .= '<td>' . $service->getSolicitudDTO()->getUsuarioDTO()->getNombre() . '</td>';
+                  $html .= '<td>' . $service->getTipoServicioDTO()->getNombre() . '</td>';
+                  $html .= '<td>' . $service->getCantidad() . '</td>';
+                  $html .= '<td>' . $service->getFecha_registro() . '</td>';
+                  $html .= '<td>' . Elements::crearBotonVer("service", $service->getId_servicio()) . '</td>';
+                  $html .= '</tr>';
+               }
+            }
+         }
+         return $html;
+      } catch (\Exception $e) {
+         throw new Exception($e->getMessage());
+      }
+   }
+   public static function getService($id_servicio)
+   {
+      try {
+         $id_servicio = parent::limpiarString($id_servicio);
+         $servicioDTO = Servicio::getService($id_servicio);
+         return $servicioDTO;
       } catch (\Exception $e) {
          throw new Exception($e->getMessage());
       }

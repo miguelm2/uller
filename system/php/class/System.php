@@ -143,16 +143,17 @@ abstract  class System
         }
         if ($usuario != null) {
             session_start();
-            $_SESSION['id']     =   $usuario->getId_usuario();
-            $_SESSION['nombre'] =   $usuario->getNombre();
-            $_SESSION['correo'] =   $usuario->getCorreo();
-            $_SESSION['cedula'] =   $usuario->getCedula();
-            $_SESSION['telefono'] = $usuario->getTelefono();
-            $_SESSION['direccion'] = $usuario->getDireccion();
-            $_SESSION['ciudad'] = $usuario->getCiudad();
-            $_SESSION['tipo']   =   $usuario->getTipo();
-            $_SESSION['fecha_registro'] = $usuario->getFecha_registro();
-            $_SESSION['usuario'] = "Usuario";
+            $_SESSION['id']             =   $usuario->getId_usuario();
+            $_SESSION['nombre']         =   $usuario->getNombre();
+            $_SESSION['correo']         =   $usuario->getCorreo();
+            $_SESSION['cedula']         =   $usuario->getCedula();
+            $_SESSION['telefono']       =   $usuario->getTelefono();
+            $_SESSION['direccion']      =   $usuario->getDireccion();
+            $_SESSION['ciudad']         =   $usuario->getCiudad();
+            $_SESSION['departamento']   =   $usuario->getDepartamento();
+            $_SESSION['tipo']           =   $usuario->getTipo();
+            $_SESSION['fecha_registro'] =   $usuario->getFecha_registro();
+            $_SESSION['usuario']        =   "Usuario";
 
             $text = "INICIO SESION ----> " . $_SESSION['id'] . " - " . $_SESSION['nombre'];
             self::setLog($text);

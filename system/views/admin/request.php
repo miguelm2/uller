@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Admin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,27 +55,56 @@
                             <div class="col-md-10">
                                 <h5 class="text-primary">Añadir servicio</h5>
                             </div>
+                            <div class="col-md-2 text-right d-grid">
+                                <a href="requests" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left-circle"></i>
+                                    <span class="text"> Atras</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3 text-center mt-3 pb-2" method="post">
                             <?= $tableAddService ?>
+                            <div class="col-md-4 text-start">
+                                <label for="valor">Valor del servicio</label>
+                                <input type="number" name="valor" class="form-control" placeholder="Valor del servicio" value="<?= $requestInfo->getValor() ?>" required>
+                            </div>
+                            <div class="col-md-4 text-start">
+                                <label for="fecha">Fecha del servicio</label>
+                                <input type="date" name="fecha" id="fecha" class="form-control" value="<?= $requestInfo->getFecha() ?>" required>
+                            </div>
+                            <div class="col-md-4 text-start">
+                                <label for="fecha">Fecha del servicio</label>
+                                <select name="estado" id="estado" class="form-select" required>
+                                    <option value="<?= $requestInfo->getEstado()[0] ?>"><?= $requestInfo->getEstado()[1] ?></option>
+                                    <option value="1">Solicitado</option>
+                                    <option value="2">Asignado</option>
+                                    <option value="3">En proceso</option>
+                                    <option value="4">Finalizado</option>
+                                    <option value="5">Rechazado</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <label for="valor">Usuario</label>
+                                <p>
+                                    <?= $requestInfo->getUsuarioDTO()->getNombre() ?>
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-start">
+                                <label for="tecnico">Técnico</label>
+                                <select name="tecnico" id="tecnico" class="form-select">
+                                    <option value="">Seleccione una opción</option>
+                                    <?= $selectTecnicos ?>
+                                </select>
+                            </div>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4 d-grid">
-                                        <button type="submit" class="btn btn-primary" name="addService">
-                                            <i class="bi bi-check2-all"></i> Cambiar servicios
+                                    <div class="col-md-12 d-grid">
+                                        <button type="submit" class="btn btn-primary" name="addServiceAdmin">
+                                            <i class="bi bi-floppy"></i> Guardar Información
                                         </button>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a href="resumeService?request=<?= $_GET['add_service']?>" class="btn btn-info">Confirmar servicios</a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                                        vivo en <?= $_SESSION['direccion'] ?>, <?=$_SESSION['ciudad']?>, necesito ayuda con un servicio" target="_blank">
-                                            <i class="bi bi-person-fill-gear"></i> Ayuda de agente
-                                        </a>
                                     </div>
                                 </div>
                             </div>

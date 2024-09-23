@@ -53,6 +53,57 @@ class ServiceRequest extends System
             throw new Exception($e->getMessage());
         }
     }
+    public static function newRequestAdmin($services, $valor, $id_usuario, $id_tecnico, $fecha)
+    {
+        try {
+            $id_usuario     = parent::limpiarString($id_usuario);
+            $id_tecnico     = parent::limpiarString($id_tecnico);
+            $valor          = parent::limpiarString($valor);
+            $fecha          = parent::limpiarString($fecha);
+            $estado         = parent::limpiarString(2);
+            $fecha_registro = date('Y-m-d H:i:s');
+
+            $result = Solicitud::newRequestAdmin($id_usuario, $id_tecnico, $valor, $fecha,  $estado, $fecha_registro);
+            if ($result) {
+                $lastRequest = Solicitud::getLastRequestByUser($id_usuario);
+                foreach ($services as $serviceType => $serviceData) {
+                    $id_equipo_tipo = 0;
+                    switch ($serviceType) {
+                        case 'mini': {
+                                $id_equipo_tipo = 1;
+                                break;
+                            }
+                        case 'split': {
+                                $id_equipo_tipo = 2;
+                                break;
+                            }
+                        case 'cassette': {
+                                $id_equipo_tipo = 3;
+                                break;
+                            }
+                        case 'floor': {
+                                $id_equipo_tipo = 4;
+                                break;
+                            }
+                        case 'window': {
+                                $id_equipo_tipo = 5;
+                                break;
+                            }
+                        case 'other': {
+                                $id_equipo_tipo = 6;
+                                break;
+                            }
+                    }
+                    $responnse = self::newService($lastRequest->getId_solicitud(), $serviceData, $id_equipo_tipo);
+                }
+                if ($responnse) {
+                    header('Location:resumeService?request=' . $lastRequest->getId_solicitud());
+                }
+            }
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
     private static function newService($id_solicitud, $serviceData, $id_equipo_tipo)
     {
         $result = false;
@@ -147,15 +198,38 @@ class ServiceRequest extends System
     {
         try {
             $html = '';
-            $modelResponse = Solicitud::listRequestEstate();
-            foreach ($modelResponse as $valor) {
-                $html .= Elements::getCardTechnical(
-                    $valor->getUsuarioDTO()->getNombre(),
-                    $valor->getUsuarioDTO()->getDireccion(),
-                    $valor->getId_solicitud()
-                );
+            $id_tecnico = $_SESSION['id'];
+            $modelResponse = Solicitud::listRequestEstateByTecnico($id_tecnico);
+            if($modelResponse){
+                foreach ($modelResponse as $valor) {
+                    $html .= Elements::getCardTechnical(
+                        $valor->getUsuarioDTO()->getNombre(),
+                        $valor->getUsuarioDTO()->getDireccion(),
+                        $valor->getId_solicitud(),
+                        $valor->getFecha()
+                    );
+                }
+            }else{
+                return '<div class="mt-4"><h5>No hay solicitudes en este momento</h5></div>';
             }
+            
             return $html;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    public static function setRequest($id_tecnico, $estado, $valor, $fecha, $id_solicitud)
+    {
+        try {
+            $id_tecnico     = parent::limpiarString($id_tecnico);
+            $valor          = parent::limpiarString($valor);
+            $fecha          = parent::limpiarString($fecha);
+            $estado         = parent::limpiarString($estado);
+            $id_solicitud   = parent::limpiarString($id_solicitud);
+            if ($id_tecnico && $estado != 2) {
+                $estado = 2;
+            }
+            return Solicitud::setRequest($id_solicitud, $id_tecnico, $fecha, $estado, $valor);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

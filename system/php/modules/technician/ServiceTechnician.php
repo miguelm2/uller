@@ -211,16 +211,14 @@ class ServiceTechnician extends System
 
     public static function getSelectTechnicians()
     {
-        if (basename($_SERVER['PHP_SELF']) == 'tickets.php' || basename($_SERVER['PHP_SELF']) == 'ticket.php') {
-            $tableHtml = "";
+        $tableHtml = "";
 
-            $modelResponse = Tecnico::listTecnicosActivos();
+        $modelResponse = Tecnico::listTecnicosActivos();
 
-            foreach ($modelResponse as $valor) {
-                $tableHtml .= '<option value="' . $valor->getId_tecnico() . '">' . $valor->getNombre() . '</option>';
-            }
-            return $tableHtml;
+        foreach ($modelResponse as $valor) {
+            $tableHtml .= '<option value="' . $valor->getId_tecnico() . '">' . $valor->getNombre() . '</option>';
         }
+        return $tableHtml;
     }
 
     public static function getSelectTechniciansById()
