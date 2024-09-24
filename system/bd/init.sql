@@ -1061,14 +1061,14 @@ CREATE TABLE `Equipo` (
   `nombre` varchar(255) NOT NULL,
   `marca` VARCHAR(255) NOT NULL,
   `modelo` VARCHAR(255) NOT NULL,
-  `year_fabricacion` YEAR NOT NULL,
   `serial_interior` VARCHAR(255) NOT NULL,
   `serial_exterior` VARCHAR(255) NOT NULL,
-  `tipo_equipo` VARCHAR(255) NOT NULL,
+  `id_equipo_tipo` INT(11) NOT NULL,
   `capacidad_btuh` FLOAT NOT NULL,
-  `voltaje_fases` VARCHAR(255) NOT NULL,
+  `conexion_electrica` INT(11) NOT NULL,
   `refrigerante` VARCHAR(255) NOT NULL,
-  `descripcion` varchar(255) NOT NULL,
+  `descripcion` VARCHAR(255) NOT NULL,
+  `fecha_instalacion` DATE NOT NULL,
   `imagen_placa_interior` varchar(255) NOT NULL,
   `imagen_placa_exterior` varchar(255) NOT NULL,
   `inverter` VARCHAR(4) NOT NULL,
@@ -1080,11 +1080,66 @@ CREATE TABLE `Equipo` (
 ALTER TABLE
   `Equipo`
 ADD
-  PRIMARY KEY (`id_tipo`);
+  PRIMARY KEY (`id_equipo`);
 --
 -- AUTO_INCREMENT de la tabla `Equipo`
 --
 ALTER TABLE
   `Equipo`
 MODIFY
-  `id_tipo` int(11) NOT NULL AUTO_INCREMENT;
+  `id_equipo` int(11) NOT NULL AUTO_INCREMENT;
+
+-- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `ReporteFinalSolicitud`
+--
+CREATE TABLE `ReporteFinalSolicitud` (
+  `id_reporte_final` int(11) NOT NULL,
+  `id_servicio` int(11) NOT NULL,
+  `id_equipo` int(11) NOT NULL,
+  `fecha_servicio` date NOT NULL,
+  `ubicacion` INT(11) NOT NULL,
+  `tipo_uso` INT(11) NOT NULL,
+  `presion_alta` varchar(255) NOT NULL,
+  `presion_baja` varchar(255) NOT NULL,
+  `presion_reposo` varchar(255) NOT NULL,
+  `temperatura_salida` varchar(255) NOT NULL,
+  `temperatura_entrada` varchar(255) NOT NULL,
+  `temperatura_ret` varchar(255) NOT NULL,
+  `temperatura_sum` varchar(255) NOT NULL,
+  `voltaje` varchar(255) NOT NULL,
+  `amperaje` varchar(255) NOT NULL,
+  `fases` varchar(255) NOT NULL,
+  `estado_equipo` INT(11) NOT NULL,
+  `comentario_estado_equipo` varchar(255) NOT NULL,
+  `equipo_opera_inicio` int(11) NOT NULL,
+  `limpieza_general` int(11) NOT NULL,
+  `limpieza_filtros` int(11) NOT NULL,
+  `limpieza_serpentin` int(11) NOT NULL,
+  `limpieza_bandeja` int(11) NOT NULL,
+  `serpentin_condensador` int(11) NOT NULL,
+  `limpieza_drenaje` int(11) NOT NULL,
+  `verificacion` int(11) NOT NULL,
+  `estado_carcasa_interior` int(11) NOT NULL,
+  `estado_equipo_exterior` int(11) NOT NULL,
+  `equipo_opera_fin` int(11) NOT NULL,
+  `diagnostico_mant_corr` varchar(255) NOT NULL,
+  `observaciones` text NOT NULL,
+  `prox_servicio` DATE NOT NULL,
+  `firma` text DEFAULT NULL,
+  `fecha_registro` int(11) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+--
+-- Indices de la tabla `ReporteFinalSolicitud`
+--
+ALTER TABLE
+  `ReporteFinalSolicitud`
+ADD
+  PRIMARY KEY (`id_reporte_final`);
+  --
+-- AUTO_INCREMENT de la tabla `ReporteFinalSolicitud`
+--
+ALTER TABLE
+  `ReporteFinalSolicitud`
+MODIFY
+  `id_reporte_final` int(11) NOT NULL AUTO_INCREMENT;

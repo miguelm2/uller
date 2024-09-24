@@ -73,6 +73,31 @@
                      </div>
                      <div class="row g-1" id="" style="margin-top:10pt;">
                         <div class="col-md-6">
+                           <label for="ubicacion">Ubicación</label>
+                           <select name="ubicacion" id="ubicacion" class="form-select" required>
+                              <option value="">Seleccione una opción</option>
+                              <option value="1">Sala</option>
+                              <option value="2">Comedor</option>
+                              <option value="3">Habitación principal</option>
+                              <option value="4">Habitacion 1</option>
+                              <option value="5">Habitación 2</option>
+                              <option value="6">Habitación 3</option>
+                              <option value="7">Estudio</option>
+                              <option value="8">Family</option>
+                              <option value="9">Otro</option>
+                           </select>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="tipo_uso">Tipo de uso</label>
+                           <select name="tipo_uso" id="tipo_uso" class="form-select" required>
+                              <option value="">Seleccione una opción</option>
+                              <option value="1">Comercial</option>
+                              <option value="2">Residencial</option>
+                              <option value="3">Industrial</option>
+                              <option value="4">Otro</option>
+                           </select>
+                        </div>
+                        <div class="col-md-6">
                            <label for="presion_alta">Presión Alta (psig)</label>
                            <input type="text" name="presion_alta" id="presion_alta" class="form-control" required>
                         </div>
@@ -90,7 +115,7 @@
                         </div>
                         <div class="col-md-6">
                            <label for="temperatura_salida">Temperatura Salida Condensadora(°C)</label>
-                           <input type="text" name="temperatura_entrada" id="temperatura_entrada" class="form-control" required>
+                           <input type="text" name="temperatura_salida" id="temperatura_salida" class="form-control" required>
                         </div>
                         <div class="col-md-6">
                            <label for="temperatura_ret">Temperatura Ret Evap(°C)</label>
@@ -103,6 +128,10 @@
                         <div class="col-md-6">
                            <label for="voltaje">Voltaje (V)</label>
                            <input type="number" name="voltaje" id="voltaje" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="fases">Fases</label>
+                           <input type="number" name="fases" id="fases" class="form-control" min="1" max="3" required>
                         </div>
                         <div class="col-md-6">
                            <label for="amperaje">Amperaje (A)</label>
@@ -256,7 +285,7 @@
                            <hr>
                         </div>
                         <div class="col-md-12 d-grid gap-2 mt-3">
-                           <button type="submit" class="btn btn-success" name="newInformTicket"><i class="bi bi-plus-square"></i> Crear Informe</button>
+                           <button type="submit" class="btn btn-success" name="newInformRequest"><i class="bi bi-plus-square"></i> Crear Informe</button>
                         </div>
                      </div>
                   </form>

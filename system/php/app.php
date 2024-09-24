@@ -57,4 +57,5 @@ class Constants
     static $TECHNICIAN_ASSIGN   = "Técnico asignado correctamente";
     static $MESSAGE_NEW_BLOG    = "Artículo creado exitosamente";
     static $DIR_IMAGE_BLOG      = '/system/img/blog/';
+    static $IMAGE_UPDATE        = "Imagen actualizada correctamente";
 }
