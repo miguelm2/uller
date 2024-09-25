@@ -1,4 +1,4 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/User.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/routing/Admin.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+    <?php include '../../assets/html/sidebar-admin.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -52,49 +52,42 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-10">
-                                <h5 class="text-primary">Resumen del servicio</h5>
+                            <div class="col-md-12">
+                                <h5 class="text-primary">Servicios</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <div class="card shadow mt-2">
-                            <div class="row">
-                                <div class="col-md-6 mt-3">
-                                    <h6 class="ms-3"><strong>Cliente:</strong> #<?= $_SESSION['id'] ?></h6>
-                                    <h6 class="ms-3"><strong>Nombre:</strong> #<?= $_SESSION['nombre'] ?></h6>
-                                    <h6 class="ms-3"><strong>Dirección:</strong> <?= $_SESSION['direccion'] ?></h6>
-                                    <h6 class="ms-3"><strong>Ciudad:</strong> <?= $_SESSION['ciudad'] ?></h6>
-                                    <h6 class="ms-3"><strong>Departamento:</strong> <?= $_SESSION['departamento'] ?></h6>
-                                    <h6 class="ms-3"><strong>Celular:</strong> <?= $_SESSION['telefono'] ?></h6>
-                                </div>
-                                <div class="col-md-6 mt-3">
-                                    <h6><strong>Total:</strong>Sin asignar</h6>
-                                    <h6><strong>Fecha del servicio:</strong>Sin asignar</h6>
-                                </div>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo de servicio</th>
+                                        <th>Cantidad</th>
+                                        <th>Fecha registro</th>
+                                        <th width="10px">Ver</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo de servicio</th>
+                                        <th>Cantidad</th>
+                                        <th>Fecha registro</th>
+                                        <th width="10px">Ver</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <?= $tableServiceRequest; ?>
+                                </tbody>
+                            </table>
                         </div>
-                        <!-- Vertical Form -->
-                        <form class="row g-3 text-center mt-3 pb-2" method="post">
-                            <?= $cardService ?>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6 d-grid">
-                                        <a href="requests" class="btn btn-primary">
-                                            <i class="bi bi-check2-all"></i> Finalizar proceso
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 d-grid">
-                                        <a class="btn btn-success" href="https://wa.me/57<?= $information->getWp() ?>?text=Hola, soy <?= $_SESSION['nombre'] ?>, 
-                                        vivo en <?= $_SESSION['direccion'] ?>, <?= $_SESSION['ciudad'] ?>, necesito ayuda con un servicio" target="_blank">
-                                            <i class="bi bi-person-fill-gear"></i> Ayuda de agente
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form><!-- Vertical Form -->
                     </div>
                 </div>
+
             </div>
 
         </section>
@@ -123,13 +116,9 @@
     <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="../../js/demo/datatables-demo.js"></script>
 
-    <!-- Js page -->
-    <script src="../../js/selectRepeat.js"></script>
-
     <!-- Template Main JS File -->
     <script src="../../assets/js/main.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/system/js/new_service.js"></script>
     <?= $response ?>
 </body>
 

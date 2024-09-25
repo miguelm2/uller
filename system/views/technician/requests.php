@@ -53,12 +53,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-12">
-                                <h5 class="text-primary">Solicitudes</h5>
+                                <h5 class="text-primary">Mis servicios</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
-                        <h5 class="text-primary">Todas las solicitudes</h5>
                         <?= $cardRequestTechinal?>
                     </div>
                 </div>

@@ -1074,6 +1074,7 @@ CREATE TABLE `Equipo` (
   `inverter` VARCHAR(4) NOT NULL,
   `fecha_registro` datetime NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
 --
 -- Indices de la tabla `Equipo`
 --
@@ -1081,6 +1082,7 @@ ALTER TABLE
   `Equipo`
 ADD
   PRIMARY KEY (`id_equipo`);
+
 --
 -- AUTO_INCREMENT de la tabla `Equipo`
 --
@@ -1099,6 +1101,7 @@ CREATE TABLE `ReporteFinalSolicitud` (
   `id_equipo` int(11) NOT NULL,
   `fecha_servicio` date NOT NULL,
   `ubicacion` INT(11) NOT NULL,
+  `otra_ubicacion` VARCHAR(255) NULL,
   `tipo_uso` INT(11) NOT NULL,
   `presion_alta` varchar(255) NOT NULL,
   `presion_baja` varchar(255) NOT NULL,
@@ -1126,9 +1129,14 @@ CREATE TABLE `ReporteFinalSolicitud` (
   `diagnostico_mant_corr` varchar(255) NOT NULL,
   `observaciones` text NOT NULL,
   `prox_servicio` DATE NOT NULL,
+  `evidencia_antes_interior` varchar(255) NOT NULL,
+  `evidencia_antes_exterior` varchar(255) NOT NULL,
+  `evidencia_despues_interior` varchar(255) NOT NULL,
+  `evidencia_despues_exterior` varchar(255) NOT NULL,
   `firma` text DEFAULT NULL,
   `fecha_registro` int(11) NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
 --
 -- Indices de la tabla `ReporteFinalSolicitud`
 --
@@ -1136,7 +1144,8 @@ ALTER TABLE
   `ReporteFinalSolicitud`
 ADD
   PRIMARY KEY (`id_reporte_final`);
-  --
+
+--
 -- AUTO_INCREMENT de la tabla `ReporteFinalSolicitud`
 --
 ALTER TABLE

@@ -40,7 +40,7 @@
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
-    <?php include '../../assets/html/sidebar-user.php'; ?>
+    <?php include '../../assets/html/sidebar-admin.php'; ?>
     <!-- End Sidebar-->
 
     <main id="main" class="main">
@@ -53,7 +53,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Añadir servicio</h5>
+                                <h5 class="text-primary">Resumen de servicio</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
                                 <a href="requests" class="btn btn-secondary">
@@ -65,8 +65,7 @@
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
-                        <form class="row g-3 text-center mt-3 pb-2" method="post">
-                            <?= $tableAddService ?>
+                        <form class="row g-3 text-center pb-2" method="post">
                             <div class="col-md-4 text-start">
                                 <label for="valor">Valor del servicio</label>
                                 <input type="number" name="valor" class="form-control" placeholder="Valor del servicio" value="<?= $requestInfo->getValor() ?>" required>
@@ -76,7 +75,7 @@
                                 <input type="date" name="fecha" id="fecha" class="form-control" value="<?= $requestInfo->getFecha() ?>" required>
                             </div>
                             <div class="col-md-4 text-start">
-                                <label for="fecha">Fecha del servicio</label>
+                                <label for="fecha">Estado</label>
                                 <select name="estado" id="estado" class="form-select" required>
                                     <option value="<?= $requestInfo->getEstado()[0] ?>"><?= $requestInfo->getEstado()[1] ?></option>
                                     <option value="1">Solicitado</option>
@@ -86,19 +85,34 @@
                                     <option value="5">Rechazado</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 text-start">
-                                <label for="valor">Usuario</label>
-                                <p>
-                                    <?= $requestInfo->getUsuarioDTO()->getNombre() ?>
-                                </p>
-                            </div>
-                            <div class="col-md-6 text-start">
+                            <div class="col-md-12 text-start">
                                 <label for="tecnico">Técnico</label>
                                 <select name="tecnico" id="tecnico" class="form-select">
                                     <option value="">Seleccione una opción</option>
                                     <?= $selectTecnicos ?>
                                 </select>
                             </div>
+                            <div class="col-md-4 text-start">
+                                <label for="valor">Usuario</label>
+                                <p>
+                                    <?= $requestInfo->getUsuarioDTO()->getNombre() ?>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-start">
+                                <label for="">Ciudad</label>
+                                <p>
+                                    <?= $requestInfo->getUsuarioDTO()->getCiudad() ?>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-start">
+                                <label for="">Dirección</label>
+                                <p>
+                                    <?= $requestInfo->getUsuarioDTO()->getDireccion() ?>
+                                </p>
+                            </div>
+                            <hr>
+                            <?= $tableAddService ?>
+                            <hr>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12 d-grid">

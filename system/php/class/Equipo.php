@@ -24,7 +24,7 @@ class Equipo extends System
     ) {
         $dbh  = parent::Conexion();
         $stmt = $dbh->prepare("INSERT INTO Equipo (id_usuario, nombre, marca, modelo, year_fabricacion, serial_interior, serial_exterior, 
-                            id_equipo_tipo, capacidad_btuh, conexion_electrica, refrigerante, inverter, descripcion, fecha_instalacion
+                            id_equipo_tipo, capacidad_btuh, conexion_electrica, refrigerante, inverter, descripcion, fecha_instalacion,
                             imagen_placa_interior, imagen_placa_exterior, fecha_registro) 
                                 VALUES (:id_usuario, :nombre, :marca, :modelo, :year_fabricacion, :serial_interior, :serial_exterior, 
                                 :id_equipo_tipo, :capacidad_btuh, :conexion_electrica, :refrigerante, :inverter, :descripcion, 

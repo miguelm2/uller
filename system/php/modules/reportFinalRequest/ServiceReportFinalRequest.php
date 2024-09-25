@@ -21,6 +21,7 @@ class ServiceReportFinalRequest extends System
       $id_equipo,
       $fecha_servicio,
       $ubicacion,
+      $otra_ubicacion,
       $tipo_uso,
       $presion_alta,
       $presion_baja,
@@ -54,6 +55,7 @@ class ServiceReportFinalRequest extends System
          $id_equipo                  = parent::limpiarString($id_equipo);
          $fecha_servicio             = parent::limpiarString($fecha_servicio);
          $ubicacion                  = parent::limpiarString($ubicacion);
+         $otra_ubicacion             = parent::limpiarString($otra_ubicacion);
          $tipo_uso                   = parent::limpiarString($tipo_uso);
          $presion_alta               = parent::limpiarString($presion_alta);
          $presion_baja               = parent::limpiarString($presion_baja);
@@ -84,6 +86,11 @@ class ServiceReportFinalRequest extends System
          $prox_servicio              = parent::limpiarString($prox_servicio);
          $fecha_registro = date('Y-m-d H:i:s');
 
+         $evidencia_antes_interior     = self::validateImageMaintenance("evidencia_antes_interior",  "evidencia_antes_interior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_antes_exterior     = self::validateImageMaintenance("evidencia_antes_exterior",  "evidencia_antes_exterior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_despues_interior   = self::validateImageMaintenance("evidencia_despues_interior",  "evidencia_despues_interior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_despues_exterior   = self::validateImageMaintenance("evidencia_despues_exterior",  "evidencia_despues_exterior", Path::$DIR_IMAGE_MANTEINCE);
+
          $reporteDTO = ReporteFinalSolicitud::getReportFinalRequestByServiceAndEquipment($id_equipo, $id_servicio);
          if (!$reporteDTO) {
             $modelResponse = ReporteFinalSolicitud::newReportFinalRequest(
@@ -91,6 +98,7 @@ class ServiceReportFinalRequest extends System
                $id_equipo,
                $fecha_servicio,
                $ubicacion,
+               $otra_ubicacion,
                $tipo_uso,
                $presion_alta,
                $presion_baja,
@@ -118,18 +126,23 @@ class ServiceReportFinalRequest extends System
                $diagnostico_mant_corr,
                $observaciones,
                $prox_servicio,
+               $evidencia_antes_interior,
+               $evidencia_antes_exterior,
+               $evidencia_despues_interior,
+               $evidencia_despues_exterior,
                $fecha_registro
             );
 
             if ($modelResponse) {
                $lastReport = ReporteFinalSolicitud::getIdLastReportFinalRequest();
-               header('Location:add_signature?report=' . $lastReport.'&new');
+               header('Location:add_signature?report=' . $lastReport . '&new');
             }
          } else {
             return self::setInformTicket(
                $reporteDTO->getId_reporrte_final(),
                $fecha_servicio,
                $ubicacion,
+               $otra_ubicacion,
                $tipo_uso,
                $presion_alta,
                $presion_baja,
@@ -163,11 +176,35 @@ class ServiceReportFinalRequest extends System
          throw new Exception($e->getMessage());
       }
    }
+   private static function validateImageMaintenance($nombreFile, $tipo, $ruta)
+   {
+      $source         = $_FILES[$nombreFile]['tmp_name'];
+      $filename       = $_FILES[$nombreFile]['name'];
+      $fileSize       = $_FILES[$nombreFile]['size'];
+      $imagen = '';
+
+      if ($fileSize > 100 && $filename != '') {
+         $dirImagen = $_SERVER['DOCUMENT_ROOT'] . $ruta;
+
+         if (!file_exists($dirImagen)) mkdir($dirImagen, 0777, true);
+
+         $dir         = opendir($dirImagen); //Abrimos el directorio de destino
+         $trozo1      = explode(".", $filename);
+         $imagen      = $tipo . '_'  . date('Y-m-d') . '_' . rand() . '.' . end($trozo1);
+         $target_path = $dirImagen . $imagen; //Indicamos la ruta de destino, así como el nombre del archivo
+         move_uploaded_file($source, $target_path);
+         closedir($dir);
+      }
+
+      return $imagen;
+   }
+
 
    public static function setInformTicket(
       $id_reporte_final,
       $fecha_servicio,
       $ubicacion,
+      $otra_ubicacion,
       $tipo_uso,
       $presion_alta,
       $presion_baja,
@@ -196,9 +233,10 @@ class ServiceReportFinalRequest extends System
       $observaciones,
       $prox_servicio
    ) {
-      $id_reporte_final             = parent::limpiarString($id_reporte_final);
+      $id_reporte_final           = parent::limpiarString($id_reporte_final);
       $fecha_servicio             = parent::limpiarString($fecha_servicio);
       $ubicacion                  = parent::limpiarString($ubicacion);
+      $otra_ubicacion             = parent::limpiarString($otra_ubicacion);
       $tipo_uso                   = parent::limpiarString($tipo_uso);
       $presion_alta               = parent::limpiarString($presion_alta);
       $presion_baja               = parent::limpiarString($presion_baja);
@@ -233,6 +271,7 @@ class ServiceReportFinalRequest extends System
             $id_reporte_final,
             $fecha_servicio,
             $ubicacion,
+            $otra_ubicacion,
             $tipo_uso,
             $presion_alta,
             $presion_baja,
@@ -264,7 +303,7 @@ class ServiceReportFinalRequest extends System
 
          if ($modelResponse) {
             $lastReport = ReporteFinalSolicitud::getIdLastReportFinalRequest();
-            header('Location:add_signature?report=' . $lastReport.'&new');
+            header('Location:add_signature?report=' . $lastReport . '&new');
          }
       } catch (\Exception $e) {
          throw new Exception($e->getMessage());
@@ -277,24 +316,24 @@ class ServiceReportFinalRequest extends System
          $firma            = parent::limpiarString($firma);
          $modelResponse = ReporteFinalSolicitud::setFirmaReportFinalRequest($id_reporte_final, $firma);
          if ($modelResponse) {
-            header('Location:pdf_inform?pdf_inform='. $id_reporte_final);
+            header('Location:pdf_inform?pdf_inform=' . $id_reporte_final);
          };
       } catch (\Exception $e) {
          throw new Exception($e->getMessage());
       }
    }
-   public static function getPdfInform($id_servicio)
+   public static function getPdfInform($id_reporte_final)
    {
       try {
-         $id_servicio = parent::limpiarString($id_servicio);
+         $id_reporte_final = parent::limpiarString($id_reporte_final);
 
          $perfilDTO        = Informacion::getInformacion();
-         $reporteFinalDTO  = ReporteFinalSolicitud::getReportFinalRequestByService($id_servicio);
-         $servicioDTO      = Servicio::getService($id_servicio);
+         $reporteFinalDTO  = ReporteFinalSolicitud::getReportFinalRequest($id_reporte_final);
+         $servicioDTO      = Servicio::getService($reporteFinalDTO->getId_servicio());
          $tecnicoDTO       = $servicioDTO->getSolicitudDTO()->getTecnicoDTO();
          $solicitudDTO     = $servicioDTO->getSolicitudDTO();
-         echo $reporteFinalDTO->getId_equipo();
          $equipoDTO        = Equipo::getEquipmet($reporteFinalDTO->getId_equipo());
+         Solicitud::setEstateRequest($servicioDTO->getSolicitudDTO()->getId_solicitud(), 4);
          ReportInformeFinalSolicitud::generatePdf(
             $perfilDTO,
             $reporteFinalDTO,

@@ -10,6 +10,14 @@ class Elements
     {
         return '<a href="' . $link . '?' . $link . '=' . $valor . '" class="btn btn-info rounded-circle btn-sm"><i class="bi bi-info-circle"></i></a>';
     }
+    public static function crearBotonEditar($link, $valor)
+    {
+        return '<a href="' . $link . '?' . $link . '=' . $valor . '" class="btn btn-info rounded-circle btn-sm"><i class="bi bi-pen-fill"></i></a>';
+    }
+    public static function crearBotonVerPdfMantenimiento($valor)
+    {
+        return '<a href="ppdf_inform?pdf_inform=' . $valor . '" class="btn btn-info rounded-circle btn-sm mt-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Reporte Mantenimiento"><i class="bi bi-filetype-pdf"></i></i></a>';
+    }
 
     public static function crearBotonVerTwoLink($link1, $valor1, $link2, $valor2)
     {
@@ -274,16 +282,23 @@ class Elements
                     </div>
                 </div>';
     }
-    public static function getCardTechnical($usuario, $direccion, $id_solicitud, $fecha)
+    public static function getCardTechnical($usuario, $direccion, $id_solicitud, $fecha, $ciudad)
     {
-        return '<div class="col-md-12">
+        return '<div class="col-md-12 mt-2">
                     <div class="card shadow">
-                        <div class="row m-2">
-                            <div class="col-md-3"><strong>Cliente:</strong> ' . $usuario . '</div>
-                            <div class="col-md-4"><strong>Dirección:</strong> ' . $direccion . '</div>
-                            <div class="col-md-3"><strong>Fecha:</strong> ' . $fecha . '</div>
-                            <div class="col-md-2">
-                                <a href="request?request_tech=' . $id_solicitud . '" class="btn btn-primary">Empezar</a>
+                        <div class="row">
+                            <div class="col-md-9 pb-2">
+                                <div class="row m-2">
+                                    <div class="col-md-6 mt-2"><strong>Cliente:</strong> ' . $usuario . '</div>
+                                    <div class="col-md-6 mt-2"><strong>Dirección:</strong> ' . $direccion . '</div>
+                                    <div class="col-md-6 mt-2"><strong>Fecha:</strong> ' . $fecha . '</div>
+                                    <div class="col-md-6 mt-2"><strong>Ciudad:</strong> ' . $ciudad . '</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-12 mt-4">
+                                    <a href="request?request_tech=' . $id_solicitud . '" class="btn btn-primary"><i class="bi bi-play-circle-fill"></i> Empezar</a>
+                                </div>
                             </div>
                         </div>
                     </div>

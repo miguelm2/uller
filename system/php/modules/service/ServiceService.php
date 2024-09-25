@@ -16,10 +16,11 @@ class ServiceService extends System
             foreach ($services as $service) {
                if ($service->getCantidad() == 0) {
                   $cont++;
+               } else {
+                  $imagen = $service->getEquipoTipoDTO()->getImagen();
+                  $html_aux .= '<h6 class="text-black">' . $service->getTipoServicioDTO()->getNombre() . '</h6>';
+                  $html_aux .= '<p class="text-black"><strong>Cantidad:</strong> ' . $service->getCantidad() . '</p><hr>';
                }
-               $imagen = $service->getEquipoTipoDTO()->getImagen();
-               $html_aux .= '<h6 class="text-black">' . $service->getTipoServicioDTO()->getNombre() . '</h6>';
-               $html_aux .= '<p class="text-black"><strong>Cantidad:</strong> ' . $service->getCantidad() . '</p><hr>';
             }
             if ($cont < 4) {
                $html .= Elements::cardsTypeEquipment($equipo, $imagen, $html_aux);
@@ -91,7 +92,7 @@ class ServiceService extends System
                   $html .= '<td>' . $service->getTipoServicioDTO()->getNombre() . '</td>';
                   $html .= '<td>' . $service->getCantidad() . '</td>';
                   $html .= '<td>' . $service->getFecha_registro() . '</td>';
-                  $html .= '<td>' . Elements::crearBotonVer("service", $service->getId_servicio()) . '</td>';
+                  $html .= '<td>' . Elements::crearBotonVer("service", $service->getId_servicio()) .'</td>';
                   $html .= '</tr>';
                }
             }

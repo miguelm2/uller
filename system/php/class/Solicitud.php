@@ -40,6 +40,16 @@ class Solicitud extends System
       $stmt->bindParam(':valor', $valor);
       return  $stmt->execute();
    }
+   public static function setEstateRequest($id_solicitud, $estado)
+   {
+      $dbh  = parent::Conexion();
+      $stmt = $dbh->prepare("UPDATE Solicitud 
+                              SET estado = :estado
+                              WHERE id_solicitud = :id_solicitud");
+      $stmt->bindParam(':id_solicitud', $id_solicitud);
+      $stmt->bindParam(':estado', $estado);
+      return  $stmt->execute();
+   }
    public static function getRequest($id_solicitud)
    {
       $dbh             = parent::Conexion();
@@ -52,6 +62,7 @@ class Solicitud extends System
          $solicitudDTO = new SolicitudDTO();
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setTecnicoDTO(Tecnico::getTecnicoById($result['id_tecnico']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setValor($result['valor']);
          $solicitudDTO->setFecha($result['fecha']);
@@ -74,6 +85,7 @@ class Solicitud extends System
          $solicitudDTO = new SolicitudDTO();
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setTecnicoDTO(Tecnico::getTecnicoById($result['id_tecnico']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setValor($result['valor']);
          $solicitudDTO->setFecha($result['fecha']);
@@ -101,6 +113,7 @@ class Solicitud extends System
          $solicitudDTO = new SolicitudDTO();
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setTecnicoDTO(Tecnico::getTecnicoById($result['id_tecnico']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setValor($result['valor']);
          $solicitudDTO->setFecha($result['fecha']);
@@ -125,6 +138,7 @@ class Solicitud extends System
          $solicitudDTO = new SolicitudDTO();
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setTecnicoDTO(Tecnico::getTecnicoById($result['id_tecnico']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setValor($result['valor']);
          $solicitudDTO->setFecha($result['fecha']);
@@ -157,6 +171,7 @@ class Solicitud extends System
          $solicitudDTO = new SolicitudDTO();
          $solicitudDTO->setId_solicitud($result['id_solicitud']);
          $solicitudDTO->setUsuarioDTO(Usuario::getUserById($result['id_usuario']));
+         $solicitudDTO->setTecnicoDTO(Tecnico::getTecnicoById($result['id_tecnico']));
          $solicitudDTO->setEstado($result['estado']);
          $solicitudDTO->setValor($result['valor']);
          $solicitudDTO->setFecha($result['fecha']);

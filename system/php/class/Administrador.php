@@ -60,8 +60,6 @@ class Administrador extends System
         $stmt->execute();
         return  $stmt->fetch();
     }
-
-
     public static function listAdministrador($id_administrador)
     {
         $dbh             = parent::Conexion();
@@ -71,8 +69,14 @@ class Administrador extends System
         $stmt->execute();
         return  $stmt->fetchAll();
     }
-
-
+    public static function listAllAdministrador()
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("SELECT * FROM Administrador");
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'AdministradorDTO');
+        $stmt->execute();
+        return  $stmt->fetchAll();
+    }
     public static function getAdministradorByCedula($cedula)
     {
         $dbh             = parent::Conexion();

@@ -70,7 +70,7 @@
                               <th>Usuario</th>
                               <th>Estado</th>
                               <th>Fecha registro</th>
-                              <th width="10px">Ver</th>
+                              <th width="20px">Ver</th>
                            </tr>
                         </thead>
                         <tfoot>
@@ -79,7 +79,7 @@
                               <th>Usuario</th>
                               <th>Estado</th>
                               <th>Fecha registro</th>
-                              <th width="10px">Ver</th>
+                              <th width="20px">Ver</th>
                            </tr>
                         </tfoot>
                         <tbody>

@@ -8,6 +8,7 @@ class ReporteFinalSolicitud extends System
         $id_equipo,
         $fecha_servicio,
         $ubicacion,
+        $otra_ubicacion,
         $tipo_uso,
         $presion_alta,
         $presion_baja,
@@ -35,28 +36,35 @@ class ReporteFinalSolicitud extends System
         $diagnostico_mant_corr,
         $observaciones,
         $prox_servicio,
+        $evidencia_antes_interior,
+        $evidencia_antes_exterior,
+        $evidencia_despues_interior,
+        $evidencia_despues_exterior,
         $fecha_registro
     ) {
         $dbh  = parent::Conexion();
-        $stmt = $dbh->prepare("INSERT INTO ReporteFinalSolicitud (id_servicio, id_equipo, fecha_servicio, ubicacion, tipo_uso,
+        $stmt = $dbh->prepare("INSERT INTO ReporteFinalSolicitud (id_servicio, id_equipo, fecha_servicio, ubicacion, otra_ubicacion, tipo_uso,
                             presion_alta, presion_baja, presion_reposo, temperatura_salida, temperatura_entrada, temperatura_ret,
                             temperatura_sum, voltaje, amperaje, fases, estado_equipo, comentario_estado_equipo,
                             equipo_opera_inicio, limpieza_general, limpieza_filtros,
                             limpieza_serpentin, limpieza_bandeja, serpentin_condensador, limpieza_drenaje, verificacion,
                             estado_carcasa_interior, estado_equipo_exterior, equipo_opera_fin, 
-                            diagnostico_mant_corr, prox_servicio, observaciones, fecha_registro) 
-                            VALUES (:id_servicio, :id_equipo, :fecha_servicio, :ubicacion, :tipo_uso, :presion_alta, :presion_baja,
+                            diagnostico_mant_corr, observaciones, prox_servicio, evidencia_antes_interior, evidencia_antes_exterior, 
+                            evidencia_despues_interior, evidencia_despues_exterior,  fecha_registro) 
+                            VALUES (:id_servicio, :id_equipo, :fecha_servicio, :ubicacion, :otra_ubicacion, :tipo_uso, :presion_alta, :presion_baja,
                                     :presion_reposo, :temperatura_salida, :temperatura_entrada, :temperatura_ret, :temperatura_sum,
                                     :voltaje, :amperaje, :fases, :estado_equipo, :comentario_estado_equipo,
                                     :equipo_opera_inicio, :limpieza_general, :limpieza_filtros,
                                     :limpieza_serpentin, :limpieza_bandeja, :serpentin_condensador, :limpieza_drenaje, :verificacion,
                                     :estado_carcasa_interior, :estado_equipo_exterior, :equipo_opera_fin, 
-                                    :diagnostico_mant_corr, :observaciones, :prox_servicio, :fecha_registro)");
+                                    :diagnostico_mant_corr, :observaciones, :prox_servicio, :evidencia_antes_interior,
+                                    :evidencia_antes_exterior, :evidencia_despues_interior, :evidencia_despues_exterior, :fecha_registro)");
 
         $stmt->bindParam(':id_servicio', $id_servicio);
         $stmt->bindParam(':id_equipo', $id_equipo);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
         $stmt->bindParam(':ubicacion', $ubicacion);
+        $stmt->bindParam(':otra_ubicacion', $otra_ubicacion);
         $stmt->bindParam(':tipo_uso', $tipo_uso);
         $stmt->bindParam(':presion_alta', $presion_alta);
         $stmt->bindParam(':presion_baja', $presion_baja);
@@ -84,6 +92,10 @@ class ReporteFinalSolicitud extends System
         $stmt->bindParam(':diagnostico_mant_corr', $diagnostico_mant_corr);
         $stmt->bindParam(':observaciones', $observaciones);
         $stmt->bindParam(':prox_servicio', $prox_servicio);
+        $stmt->bindParam(':evidencia_antes_interior', $evidencia_antes_interior);
+        $stmt->bindParam(':evidencia_antes_exterior', $evidencia_antes_exterior);
+        $stmt->bindParam(':evidencia_despues_interior', $evidencia_despues_interior);
+        $stmt->bindParam(':evidencia_despues_exterior', $evidencia_despues_exterior);
         $stmt->bindParam(':fecha_registro', $fecha_registro);
 
         return  $stmt->execute();
@@ -93,6 +105,7 @@ class ReporteFinalSolicitud extends System
         $id_reporte_final,
         $fecha_servicio,
         $ubicacion,
+        $otra_ubicacion,
         $tipo_uso,
         $presion_alta,
         $presion_baja,
@@ -123,8 +136,8 @@ class ReporteFinalSolicitud extends System
     ) {
         $dbh  = parent::Conexion();
         $stmt = $dbh->prepare("UPDATE ReporteFinalSolicitud
-                            SET fecha_servicio = :fecha_servicio, ubicacion = :ubicacion, tipo_uso = :tipo_uso, presion_alta = :presion_alta,
-                                presion_baja = :presion_baja, presion_reposo = :presion_reposo, temperatura_salida = :temperatura_salida,
+                            SET fecha_servicio = :fecha_servicio, ubicacion = :ubicacion, otra_ubicacion = :otra_ubicacion, tipo_uso = :tipo_uso, 
+                                presion_alta = :presion_alta, presion_baja = :presion_baja, presion_reposo = :presion_reposo, temperatura_salida = :temperatura_salida,
                                 temperatura_entrada = :temperatura_entrada, temperatura_ret = :temperatura_ret, temperatura_sum = :temperatura_sum,
                                 voltaje = :voltaje, amperaje = :amperaje, fases = :fases, estado_equipo = :estado_equipo,
                                 comentario_estado_equipo = :comentario_estado_equipo, equipo_opera_inicio = :equipo_opera_inicio, 
@@ -136,6 +149,7 @@ class ReporteFinalSolicitud extends System
                             WHERE id_reporte_final = :id_reporte_final");
         $stmt->bindParam(':id_reporte_final', $id_reporte_final);
         $stmt->bindParam(':fecha_servicio', $fecha_servicio);
+        $stmt->bindParam(':otra_ubicacion', $otra_ubicacion);
         $stmt->bindParam(':ubicacion', $ubicacion);
         $stmt->bindParam(':tipo_uso', $tipo_uso);
         $stmt->bindParam(':presion_alta', $presion_alta);
@@ -255,9 +269,8 @@ class ReporteFinalSolicitud extends System
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("SELECT * FROM ReporteFinalSolicitud WHERE id_reporte_final = :id_reporte_final");
         $stmt->bindParam(':id_reporte_final', $id_reporte_final);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'ReporteFinalSolicitudDTO');
         $stmt->execute();
-        $result =  $stmt->fetch();
-
-        return $result['firma'];
+        return $stmt->fetch();
     }
 }
