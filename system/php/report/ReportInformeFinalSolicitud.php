@@ -147,7 +147,7 @@ abstract class ReportInformeFinalSolicitud
                         Ciudad
                     </td>
                     <td>
-                        ' . $tecnicoDTO()->getCiudad() . '
+                        ' . $tecnicoDTO->getCiudad() . '
                     </td>
                 </tr>
             </table>
@@ -168,6 +168,23 @@ abstract class ReportInformeFinalSolicitud
     {
         $html = '';
         $count = 0;
+        $dir_imagen_placa_interior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_interior();
+        $imagen_placa_interior = System::converterImageToBase64($dir_imagen_placa_interior);
+
+        $dir_imagen_placa_exterior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_exterior();
+        $imagen_placa_exterior = System::converterImageToBase64($dir_imagen_placa_exterior);
+
+        $dir_evidencia_interior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_interior();
+        $imagen_evidencia_antes_interior = System::converterImageToBase64($dir_evidencia_interior_antes);
+
+        $dir_evidencia_exterior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_exterior();
+        $imagen_evidencia_antes_exterior  = System::converterImageToBase64($dir_evidencia_exterior_antes);
+
+        $dir_evidencia_interior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_interior();
+        $imagen_evidencia_despues_interior = System::converterImageToBase64($dir_evidencia_interior_despues);
+
+        $dir_evidencia_exterior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_exterior();
+        $imagen_evidencia_despues_exterior = System::converterImageToBase64($dir_evidencia_exterior_despues);
 
         $html .= '
             <br>
@@ -182,7 +199,7 @@ abstract class ReportInformeFinalSolicitud
             <br>
             <table class="default" style="width:100%">
                 <tr>
-                    <th colspan="8">
+                    <th colspan="4">
                         Datos de los equipos
                     </th>
                 </tr>
@@ -199,6 +216,14 @@ abstract class ReportInformeFinalSolicitud
                     <th>
                         Tipo
                     </th>
+                </tr>
+                <tr>
+                    <td>' . $equipoDTO->getNombre() . '</td>
+                    <td>' . $equipoDTO->getMarca() . '</td>
+                    <td>' . $equipoDTO->getModelo() . '</td>
+                    <td>' . $servicioDTO->getTipoServicioDTO()->getNombre() . '</td>
+                </tr>
+                <tr>
                     <th>
                         Serial interior
                     </th>
@@ -213,14 +238,50 @@ abstract class ReportInformeFinalSolicitud
                     </th>
                 </tr>
                 <tr>
-                    <td>' . $equipoDTO->getNombre() . '</td>
-                    <td>' . $equipoDTO->getMarca() . '</td>
-                    <td>' . $equipoDTO->getModelo() . '</td>
-                    <td>' . $equipoDTO->getTipoServicioDTO()->getNombre() . '</td>
                     <td>' . $equipoDTO->getSerial_interior() . '</td>
                     <td>' . $equipoDTO->getSerial_exterior() . '</td>
                     <td>' . $equipoDTO->getCapacidad_btuh() . '</td>
-                    <td>' . $equipoDTO->getConexionElectrica()[1] . '</td>
+                    <td>' . $equipoDTO->getConexion_electrica()[1] . '</td>
+                </tr>
+                <tr>
+                    <th>
+                        Refrigerante
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Fecha instalación
+                    </th>
+                    <th>
+                        Inverter
+                    </th>
+                </tr>
+                <tr>
+                    <td>' . $equipoDTO->getRefrigerante() . '</td>
+                    <td>' . $equipoDTO->getDescripcion() . '</td>
+                    <td>' . $equipoDTO->getFecha_instalacion() . '</td>
+                    <td>' . $equipoDTO->getInverter() . '</td>
+                </tr>
+            </table>
+            <br>
+            <table class="default" style="width:100%">
+                <tr>
+                    <th colspan="2">
+                        REGISTRO FOTOGRÁFICO DEL EQUIPO
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        PLACA EQUIPO INTERIOR
+                    </th>
+                    <th>
+                        PLACA EQUIPO EXTERIOR
+                    </th>
+                </tr>
+                <tr>
+                    <td><img src="' . $imagen_placa_interior . '" style="max-width: 200px"></td>
+                    <td><img src="' . $imagen_placa_exterior . '" style="max-width: 200px"></td>
                 </tr>
             </table>
             <br>
@@ -231,33 +292,101 @@ abstract class ReportInformeFinalSolicitud
                     </th>
                 </tr>
                 <tr>
-                    <td class="negrilla" width="20%">
+                    <th>
                         Ubicación del equipo
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getUbicacion()[1] . '
                     </td>
-                    <td width="30%">
-                        ' . $reporteDTO->getUbicacion() . '
-                    </td>
-                    <td class="negrilla" width="20%">
+                    <th>
                         Tipo de uso
-                    </td>
-                    <td width="30%">
+                    </th>
+                    <td>
                         ' . $reporteDTO->getTipo_uso()[1] . '
                     </td>
                 </tr>
                 <tr>
-                    <td class="negrilla" colspan="2">
+                    <th>
                         Fecha de servicio
-                    </td>
-                    <td colspan="2">
+                    </th>
+                    <td>
                         ' . $reporteDTO->getFecha_servicio() . '
+                    </td>
+                    <th>
+                        Servicio
+                    </th>
+                    <td>
+                        <span>' . $servicioDTO->getTipoServicioDTO()->getNombre() . '</span>
                     </td>
                 </tr>
                 <tr>
-                    <td class="negrilla" colspan="2">
-                        Servicio
+                    <th>
+                        Presión Alta (psig)
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getPresion_alta() . '
                     </td>
-                    <td colspan="2">
-                        <span>' . $servicioDTO->getTipoServicioDTO()->getNombre() . '</span>
+                    <th>
+                        Presión Baja (psig)
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getPresion_baja() . '
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Presión Reposo (psig)
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getPresion_reposo() . '
+                    </td>
+                    <th>
+                        Estado general del Equipo
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getEstado_equipo()[1] . '
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Temperatura Salida/Entrada condensadora (°C)
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getTemperatura_salida() . ' / ' . $reporteDTO->getTemperatura_entrada() . ' 
+                    </td>
+                    <th>
+                        Tempe Ret y Sum Evap (°C)
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getTemperatura_ret() . ' / ' . $reporteDTO->getTemperatura_sum() . ' 
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Voltaje
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getVoltaje() .  '
+                    </td>
+                    <th>
+                        Amperaje
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getAmperaje() . '
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Fases
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getFases() . '
+                    </td>
+                    <th>
+                        Comentarios estado de equipo
+                    </th>
+                    <td>
+                        ' . $reporteDTO->getComentario_estado_equipo() . '
                     </td>
                 </tr>
             </table>';
@@ -370,10 +499,10 @@ abstract class ReportInformeFinalSolicitud
                                 Estado carcasa interior
                             </td>
                             <td colspan="1">
-                                ' . self::validateSi($reporteDTO->getEstado_carcasa()[0]) . '
+                                ' . self::validateSi($reporteDTO->getEstado_carcasa_interior()[0]) . '
                             </td>
                             <td colspan="1">
-                                ' . self::validateNo($reporteDTO->getEstado_carcasa()[0]) . '
+                                ' . self::validateNo($reporteDTO->getEstado_carcasa_interior()[0]) . '
                             </td>
                         </tr>
                         <tr>
@@ -381,10 +510,10 @@ abstract class ReportInformeFinalSolicitud
                                 Estado equipo exterior
                             </td>
                             <td colspan="1">
-                                ' . self::validateSi($reporteDTO->getEstado_equipo()[0]) . '
+                                ' . self::validateSi($reporteDTO->getEstado_equipo_exterior()[0]) . '
                             </td>
                             <td colspan="1">
-                                ' . self::validateNo($reporteDTO->getEstado_equipo()[0]) . '
+                                ' . self::validateNo($reporteDTO->getEstado_equipo_exterior()[0]) . '
                             </td>
                         </tr>
                         <tr>
@@ -438,6 +567,38 @@ abstract class ReportInformeFinalSolicitud
                         <td>
                             <p class="justificar" style="margin:5px;">' . $reporteDTO->getObservaciones() . '</p>
                         </td>
+                    </tr>
+                </table>
+                <br>
+                <table class="default" style="width:100%">
+                    <tr>
+                        <th colspan="2">
+                            REGISTRO FOTOGRÁFICO DEL SERVICIO
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            EQUIPO INTERIOR ANTES DEL SERVICIO
+                        </th>
+                        <th>
+                            EQUIPO EXTERIOR ANTES DEL SERVICIO
+                        </th>
+                    </tr>
+                    <tr>                   
+                        <td><img src="' . $imagen_evidencia_antes_interior . '" style="max-width: 200px"></td>
+                        <td><img src="' . $imagen_evidencia_antes_exterior . '" style="max-width: 200px"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            EQUIPO INTERIOR DESPUÉS DEL SERVICIO
+                        </th>
+                        <th>
+                            EQUIPO EXTERIOR DESPUÉS DEL SERVICIO
+                        </th>
+                    </tr>
+                    <tr>                    
+                        <td><img src="' . $imagen_evidencia_despues_interior . '" style="max-width: 200px"></td>
+                        <td><img src="' . $imagen_evidencia_despues_exterior . '" style="max-width: 200px"></td>
                     </tr>
                 </table>
                 ';

@@ -46,6 +46,17 @@ class ServiceRequest extends System
                     $responnse = self::newService($lastRequest->getId_solicitud(), $serviceData, $id_equipo_tipo);
                 }
                 if ($responnse) {
+                    $asunto = '¡Nuevo servicio creado en el sistema!';
+                    $mensaje = 'Hola,<br><br>
+                    Queremos avisarte que se ha creado un nuevo servicio en el sistema.<br><br>
+                    Detalles:<br>
+                    Nombre del usuario: ' . $_SESSION['nombre'] . '<br>
+                    Fecha de creación: ' . $fecha_registro . '<br>
+                    Te invitamos a darle un vistazo y asegurarte de que todo esté bien.';
+                    $listAdministradores = Administrador::listAllAdministrador();
+                    foreach ($listAdministradores as $admin) {
+                        Mail::sendEmail($asunto, $mensaje, $admin->getCorreo());
+                    }
                     header('Location:resumeService?request=' . $lastRequest->getId_solicitud());
                 }
             }
@@ -186,7 +197,8 @@ class ServiceRequest extends System
                 $tableHtml .= '<td>' . $valor->getUsuarioDTO()->getNombre() . '</td>';
                 $tableHtml .= '<td><small class="alert alert-' . $style . ' p-1">' . $valor->getEstado()[1] . '</small></td>';
                 $tableHtml .= '<td>' . $valor->getFecha_registro() . '</td>';
-                $tableHtml .= '<td>' . Elements::crearBotonVer("request", $valor->getId_solicitud()) . '</td>';
+                $tableHtml .= '<td>' . Elements::crearBotonVer("request_tech", $valor->getId_solicitud()) .
+                    Elements::crearBotonEditar("request", $valor->getId_solicitud()) . '</td>';
                 $tableHtml .= '</tr>';
             }
             return $tableHtml;
@@ -200,19 +212,20 @@ class ServiceRequest extends System
             $html = '';
             $id_tecnico = $_SESSION['id'];
             $modelResponse = Solicitud::listRequestEstateByTecnico($id_tecnico);
-            if($modelResponse){
+            if ($modelResponse) {
                 foreach ($modelResponse as $valor) {
                     $html .= Elements::getCardTechnical(
                         $valor->getUsuarioDTO()->getNombre(),
                         $valor->getUsuarioDTO()->getDireccion(),
                         $valor->getId_solicitud(),
-                        $valor->getFecha()
+                        $valor->getFecha(),
+                        $valor->getUsuarioDTO()->getCiudad()
                     );
                 }
-            }else{
+            } else {
                 return '<div class="mt-4"><h5>No hay solicitudes en este momento</h5></div>';
             }
-            
+
             return $html;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

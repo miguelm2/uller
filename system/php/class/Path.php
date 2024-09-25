@@ -6,4 +6,5 @@ class Path
     static $DIR_LOG_TECNICO     = "/system/php/logs/log_tecnico.log";
     static $DIR_IMAGE_BLOG      = '/system/img/blog/';
     static $DIR_IMAGE_EQUIPMENT  = '/system/img/equipos/';
+    static $DIR_IMAGE_MANTEINCE  = '/system/img/mantenimiento/';
 }

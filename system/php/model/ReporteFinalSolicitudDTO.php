@@ -6,6 +6,7 @@ class ReporteFinalSolicitudDTO
     protected $id_equipo;
     protected $fecha_servicio;
     protected $ubicacion;
+    protected $otra_ubicacion;
     protected $tipo_uso;
     protected $presion_alta;
     protected $presion_baja;
@@ -34,6 +35,10 @@ class ReporteFinalSolicitudDTO
     protected $observaciones;
     protected $prox_servicio;
     protected $firma;
+    protected $evidencia_antes_interior;
+    protected $evidencia_antes_exterior;
+    protected $evidencia_despues_interior;
+    protected $evidencia_despues_exterior;
     protected $fecha_registro;
 
     /**
@@ -762,6 +767,106 @@ class ReporteFinalSolicitudDTO
     public function setId_servicio($id_servicio)
     {
         $this->id_servicio = $id_servicio;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evidencia_antes_interior
+     */
+    public function getEvidencia_antes_interior()
+    {
+        return $this->evidencia_antes_interior;
+    }
+
+    /**
+     * Set the value of evidencia_antes_interior
+     *
+     * @return  self
+     */
+    public function setEvidencia_antes_interior($evidencia_antes_interior)
+    {
+        $this->evidencia_antes_interior = $evidencia_antes_interior;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evidencia_antes_exterior
+     */
+    public function getEvidencia_antes_exterior()
+    {
+        return $this->evidencia_antes_exterior;
+    }
+
+    /**
+     * Set the value of evidencia_antes_exterior
+     *
+     * @return  self
+     */
+    public function setEvidencia_antes_exterior($evidencia_antes_exterior)
+    {
+        $this->evidencia_antes_exterior = $evidencia_antes_exterior;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evidencia_despues_interior
+     */
+    public function getEvidencia_despues_interior()
+    {
+        return $this->evidencia_despues_interior;
+    }
+
+    /**
+     * Set the value of evidencia_despues_interior
+     *
+     * @return  self
+     */
+    public function setEvidencia_despues_interior($evidencia_despues_interior)
+    {
+        $this->evidencia_despues_interior = $evidencia_despues_interior;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of evidencia_despues_exterior
+     */
+    public function getEvidencia_despues_exterior()
+    {
+        return $this->evidencia_despues_exterior;
+    }
+
+    /**
+     * Set the value of evidencia_despues_exterior
+     *
+     * @return  self
+     */
+    public function setEvidencia_despues_exterior($evidencia_despues_exterior)
+    {
+        $this->evidencia_despues_exterior = $evidencia_despues_exterior;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of otra_ubicacion
+     */ 
+    public function getOtra_ubicacion()
+    {
+        return $this->otra_ubicacion;
+    }
+
+    /**
+     * Set the value of otra_ubicacion
+     *
+     * @return  self
+     */ 
+    public function setOtra_ubicacion($otra_ubicacion)
+    {
+        $this->otra_ubicacion = $otra_ubicacion;
 
         return $this;
     }

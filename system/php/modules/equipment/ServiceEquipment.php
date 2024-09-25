@@ -225,7 +225,8 @@ class ServiceEquipment extends System
         if (basename($_SERVER['PHP_SELF']) == 'service.php') {
             $id_servicio = parent::limpiarString($id_servicio);
             $tableHtml = "";
-            $id_usuario = $_SESSION['id'];
+            $servicioDTO = Servicio::getService($id_servicio);
+            $id_usuario = $servicioDTO->getSolicitudDTO()->getUsuarioDTO()->getId_usuario();
             $item = 1;
 
             $modelResponse = Equipo::listEquipmentByUser($id_usuario);
@@ -237,7 +238,8 @@ class ServiceEquipment extends System
                 $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
                 $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getEquipoTipoDTO()->getNombre() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonVerTwoLink("service_inform", $id_servicio, "equipment", $valor->getId_equipo()) . '</td>';
+                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditar("equip", $valor->getId_equipo()) .
+                    Elements::crearBotonVerTwoLink("service_inform", $id_servicio, "equipment", $valor->getId_equipo()) . '</td>';
                 $tableHtml .= '</tr>';
 
                 $item++;

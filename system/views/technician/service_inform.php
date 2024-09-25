@@ -64,15 +64,13 @@
                   </div>
                </div>
                <div class="card-body" style="padding-top: 5px;">
-                  <form method="POST">
-                     <div class="row g-3">
-                        <div class="col-md-12 form-group">
+                  <form method="POST" enctype="multipart/form-data">
+                     <div class="row g-1" id="" style="margin-top:10pt;">
+                        <div class="col-md-6 form-group">
                            <label for="fecha_servicio">Fecha servicio</label>
                            <input type="date" class="form-control" name="fecha_servicio" required>
                         </div>
-                     </div>
-                     <div class="row g-1" id="" style="margin-top:10pt;">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                            <label for="ubicacion">Ubicación</label>
                            <select name="ubicacion" id="ubicacion" class="form-select" required>
                               <option value="">Seleccione una opción</option>
@@ -86,6 +84,10 @@
                               <option value="8">Family</option>
                               <option value="9">Otro</option>
                            </select>
+                        </div>
+                        <div class="col-md-3">
+                           <label for="otra_ubicacion">Otra ubicación</label>
+                           <input type="text" name="otra_ubicacion" id="otra_ubicacion" class="form-control" disabled>
                         </div>
                         <div class="col-md-6">
                            <label for="tipo_uso">Tipo de uso</label>
@@ -131,7 +133,12 @@
                         </div>
                         <div class="col-md-6">
                            <label for="fases">Fases</label>
-                           <input type="number" name="fases" id="fases" class="form-control" min="1" max="3" required>
+                           <select name="fases" id="fases" class="form-select" required>
+                              <option value="">Seleccione una opción</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                           </select>
                         </div>
                         <div class="col-md-6">
                            <label for="amperaje">Amperaje (A)</label>
@@ -253,7 +260,7 @@
                               <option value="3">Recomienda cambio</option>
                            </select>
                         </div>
-                        
+
                         <div class="col-md-6 form-group">
                            <label for="proximo_servicio">Próximo servicio Recomendado</label>
                            <input type="date" class="form-control" name="proximo_servicio">
@@ -274,12 +281,20 @@
                            <textarea class="form-control" name="observaciones" rows="3" maxlength="500" required></textarea>
                         </div>
                         <div class="col-md-6">
-                           <label for="evidencia_antes">Evidencia Antes</label>
-                           <input type="file" name="evidencia_antes" id="evidencia_antes" class="form-control" required>
+                           <label for="evidencia_antes_interior">Equipo Interior Antes</label>
+                           <input type="file" name="evidencia_antes_interior" id="evidencia_antes_interior" class="form-control" accept="image/*" required>
                         </div>
                         <div class="col-md-6">
-                           <label for="evidencia_despues">Evidencia Después</label>
-                           <input type="file" name="evidencia_despues" id="evidencia_despues" class="form-control" required>
+                           <label for="evidencia_antes_exterior">Equipo Exterior Antes</label>
+                           <input type="file" name="evidencia_antes_exterior" id="evidencia_antes_exterior" class="form-control" accept="image/*" required>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="evidencia_despues_interior">Equipo Interior Después</label>
+                           <input type="file" name="evidencia_despues_interior" id="evidencia_despues_interior" class="form-control" accept="image/*" required>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="evidencia_despues_exterior">Equipo Exterior Después</label>
+                           <input type="file" name="evidencia_despues_exterior" id="evidencia_despues_exterior" class="form-control" accept="image/*" required>
                         </div>
                         <div class="col-md-12">
                            <hr>
@@ -326,6 +341,7 @@
    <!-- Template Main JS File -->
    <script src="../../assets/js/main.js"></script>
    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="/system/js/function_ubication.js"></script>
    <?= $response ?>
 </body>
 

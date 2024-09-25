@@ -13,11 +13,12 @@ if (isset($_POST['newInformRequest'])) {
    $estado_equipo          = (isset($_POST['estado_equipo'])) ? '1' : '0';
    $equipo_opera_fin       = (isset($_POST['equipo_opera_fin'])) ? '1' : '0';
 
-   $response = ServiceReportFinalRequest::newInformTicket(
+   ServiceReportFinalRequest::newInformTicket(
       $_GET['service_inform'],
       $_GET['equipment'],
       $_POST['fecha_servicio'],
       $_POST['ubicacion'],
+      $_POST['otra_ubicacion'],
       $_POST['tipo_uso'],
       $_POST['presion_alta'],
       $_POST['presion_baja'],
@@ -66,6 +67,7 @@ if (isset($_POST['setInformTicket'])) {
       $_POST['fecha_servicio'],
       $_POST['ubicacion'],
       $_POST['tipo_uso'],
+      $_POST['otra_ubicacion'],
       $_POST['presion_alta'],
       $_POST['presion_baja'],
       $_POST['presion_reposo'],
@@ -96,7 +98,7 @@ if (isset($_POST['setInformTicket'])) {
 }
 
 if (isset($_POST['setFirmaElectronic'])) {
-   $response = ServiceReportFinalRequest::addFirmaReport($_GET['report'], $_POST['firma']);
+   ServiceReportFinalRequest::addFirmaReport($_GET['report'], $_POST['firma']);
 }
 
 if (isset($_POST['getPdfInform'])) {

@@ -5,7 +5,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/service/ServiceSer
 if (isset($_POST['newEquipment'])) {
     $service = ServiceService::getService($_GET['service']);
     $id_usuario = $service->getSolicitudDTO()->getUsuarioDTO()->getId_usuario();
-    $id_equipo_tipo = $service->getTipoServicioDTO()->getId_tipo_servicio();
+    $id_equipo_tipo = $service->getTipoServicioDTO()->getId_tipo();
 
     $inverter = (empty($_POST['inverter'])) ? '' : $_POST['inverter'];
 
@@ -59,6 +59,9 @@ if (isset($_GET['equipment'])) {
     if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
         $backPageEqui = ServiceEquipment::getBackButton("user", $_GET['user_equipment']);
     }
+}
+if (isset($_GET['equip'])) {
+    $equip    = ServiceEquipment::getEquipment($_GET['equip']);
 }
 
 if (isset($_POST['deleteEquipment'])) {
