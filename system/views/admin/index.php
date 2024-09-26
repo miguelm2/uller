@@ -60,85 +60,93 @@
 
         <!-- Administradores Card -->
         <div class="col-md-3">
-          <div class="card info-card revenue-card">
-            <div class="card-body">
-              <h5 class="card-title">Administradores</h5>
+          <a href="administrators">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Administradores</h5>
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-person-fill-check"></i>
-                </div>
-                <div class="ps-3">
-                  <h6><?= $dashboarAdmin[0]; ?></h6>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-fill-check"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?= $dashboarAdmin[0]; ?></h6>
 
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          </a>
         </div>
         <!-- End Administradores Card -->
 
         <!-- Usuarios Card -->
         <div class="col-md-3">
-          <div class="card info-card revenue-card">
-            <div class="card-body">
-              <h5 class="card-title">Usuarios</h5>
+          <a href="users">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Usuarios</h5>
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-person-fill"></i>
-                </div>
-                <div class="ps-3">
-                  <h6><?= $dashboarAdmin[1]; ?></h6>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-fill"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?= $dashboarAdmin[1]; ?></h6>
 
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          </a>
         </div>
         <!-- End Usuarios Card -->
 
         <!-- Tecnicos Card -->
         <div class="col-md-3">
-          <div class="card info-card revenue-card">
-            <div class="card-body">
-              <h5 class="card-title">Técnicos</h5>
+          <a href="technicians">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Técnicos</h5>
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-person-fill-gear"></i>
-                </div>
-                <div class="ps-3">
-                  <h6><?= $dashboarAdmin[2]; ?></h6>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-person-fill-gear"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?= $dashboarAdmin[2]; ?></h6>
 
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          </a>
         </div>
         <!-- End Tecnicos Card -->
 
         <!-- Servicios Card -->
         <div class="col-md-3">
-          <div class="card info-card revenue-card">
-            <div class="card-body">
-              <h5 class="card-title">Servicios</h5>
+          <a href="requests">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Servicios</h5>
 
-              <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-card-checklist"></i>
-                </div>
-                <div class="ps-3">
-                  <h6><?= $dashboarAdmin[3]; ?></h6>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-card-checklist"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><?= $dashboarAdmin[3]; ?></h6>
 
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          </a>
         </div>
         <!-- End Servicios Card -->
 

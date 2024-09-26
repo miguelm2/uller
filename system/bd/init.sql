@@ -1072,6 +1072,7 @@ CREATE TABLE `Equipo` (
   `imagen_placa_interior` varchar(255) NOT NULL,
   `imagen_placa_exterior` varchar(255) NOT NULL,
   `inverter` VARCHAR(4) NOT NULL,
+  `year_fabricacion` YEAR NOT NULL,
   `fecha_registro` datetime NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
