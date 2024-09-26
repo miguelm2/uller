@@ -232,13 +232,17 @@ class ServiceEquipment extends System
             $modelResponse = Equipo::listEquipmentByUser($id_usuario);
 
             foreach ($modelResponse as $valor) {
+                $btn = '';
+                if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
+                    $btn = Elements::crearBotonEditar("equip", $valor->getId_equipo());
+                }
                 $tableHtml .= '<tr>';
                 $tableHtml .= '<td>' . $item . '</td>';
                 $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
                 $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
                 $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getEquipoTipoDTO()->getNombre() . '</td>';
-                $tableHtml .= '<td style="text-align:center;">' . Elements::crearBotonEditar("equip", $valor->getId_equipo()) .
+                $tableHtml .= '<td style="text-align:center;">' . $btn .
                     Elements::crearBotonVerTwoLink("service_inform", $id_servicio, "equipment", $valor->getId_equipo()) . '</td>';
                 $tableHtml .= '</tr>';
 

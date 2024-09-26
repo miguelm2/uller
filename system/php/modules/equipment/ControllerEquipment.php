@@ -29,7 +29,7 @@ if (isset($_POST['newEquipment'])) {
 
 if (isset($_POST['setEquipment'])) {
     $response = ServiceEquipment::setEquipment(
-        $_GET['equipment'],
+        $_GET['equip'],
         $_POST['nombre'],
         $_POST['marca'],
         $_POST['modelo'],
@@ -37,10 +37,11 @@ if (isset($_POST['setEquipment'])) {
         $_POST['serial_interior'],
         $_POST['serial_exterior'],
         $_POST['capacidad_btuh'],
-        $_POST['voltaje_fases'],
+        $_POST['conexion_electrica'],
         $_POST['refrigerante'],
         $_POST['inverter'],
-        $_POST['descripcion'], $_POST['fecha_instalacion']
+        $_POST['descripcion'],
+        $_POST['fecha_instalacion']
     );
 }
 
@@ -62,15 +63,11 @@ if (isset($_GET['equipment'])) {
 }
 if (isset($_GET['equip'])) {
     $equip    = ServiceEquipment::getEquipment($_GET['equip']);
+    $listInverter = ServiceEquipment::getValidateInverter($equip);
 }
 
 if (isset($_POST['deleteEquipment'])) {
-
-    if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
-        $response = ServiceEquipment::deleteEquipment($_GET['equipment'], $_GET['user_equipment']);
-    } else {
-        $response = ServiceEquipment::deleteEquipmentUser($_GET['equipment']);
-    }
+    $response = ServiceEquipment::deleteEquipmentUser($_GET['equip']);
 }
 
 if (isset($_GET['service'])) {

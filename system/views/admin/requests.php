@@ -56,7 +56,7 @@
                         <h5 class="text-primary">Solicitudes</h5>
                      </div>
                      <div class="col-md-3 text-right d-grid">
-                        <a href="newService" class="btn btn-success" ><i class="bi bi-plus-square"></i> Nueva Solicitud</a>
+                        <a href="newService" class="btn btn-success"><i class="bi bi-plus-square"></i> Nueva Solicitud</a>
                      </div>
                   </div>
                </div>
@@ -70,7 +70,7 @@
                               <th>Usuario</th>
                               <th>Estado</th>
                               <th>Fecha registro</th>
-                              <th width="20px">Ver</th>
+                              <th width="20px">Opciones</th>
                            </tr>
                         </thead>
                         <tfoot>
@@ -79,7 +79,7 @@
                               <th>Usuario</th>
                               <th>Estado</th>
                               <th>Fecha registro</th>
-                              <th width="20px">Ver</th>
+                              <th width="20px">Opciones</th>
                            </tr>
                         </tfoot>
                         <tbody>

@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Equipo</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?= $backPageEqui ?>" class="btn btn-secondary">
+                                <a href="service?service=" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -66,7 +66,7 @@
                     <div class="card-body" style="padding-top: 5px;">
                         <!-- Vertical Form -->
                         <form class="row g-3" method="post">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-12 form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" name="nombre" maxlength="255" required value="<?= $equip->getNombre() ?>">
                             </div>
@@ -88,6 +88,10 @@
                             <div class="col-md-6 form-group">
                                 <label for="year_fabricacion">Año de fabricación</label>
                                 <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" value="<?= $equip->getYear_fabricacion() ?>">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="fecha_instalacion">Fecha de instalación estimada</label>
+                                <input type="date" class="form-control" name="fecha_instalacion" required value="<?= $equip->getFecha_instalacion() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="serial_interior">Serial unidad interior</label>
@@ -125,10 +129,6 @@
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="voltaje_fases">Voltaje / Fases</label>
-                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" value="<?= $equip->getVoltaje_fases() ?>">
-                            </div>
-                            <div class="col-md-6 form-group">
                                 <label for="refrigerante">Refrigerante</label>
                                 <select class="form-select" name="refrigerante" id="refrigerante">
                                     <option><?= $equip->getRefrigerante() ?></option>
@@ -157,7 +157,7 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-success" name="setequipType"><i class="bi bi-save"></i> Actualizar Registro</button>
+                                <button type="submit" class="btn btn-success" name="setEquipment"><i class="bi bi-save"></i> Actualizar Registro</button>
                             </div>
                             <div class="col-md-6 d-grid gap-2 mt-3">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="deleteequipType" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                            <button type="submit" name="deleteEquipment" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                         </div>
                     </div>
                 </div>
