@@ -40,8 +40,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/payment/Controller
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/blog/ControllerBlog.php';
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ControllerRequest.php';
-
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/service/ControllerService.php';
+
+include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ControllerRequest.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/equipment/ControllerEquipment.php';
