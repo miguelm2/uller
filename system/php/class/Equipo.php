@@ -58,7 +58,7 @@ class Equipo extends System
         $serial_interior,
         $serial_exterior,
         $capacidad_btuh,
-        $voltaje_fases,
+        $conexion_electrica,
         $refrigerante,
         $inverter,
         $descripcion,
@@ -67,7 +67,7 @@ class Equipo extends System
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("UPDATE Equipo 
                             SET nombre = :nombre, marca = :marca, modelo = :modelo, year_fabricacion = :year_fabricacion, serial_interior = :serial_interior,  
-                            serial_exterior = :serial_exterior, capacidad_btuh = :capacidad_btuh, voltaje_fases = :voltaje_fases,
+                            serial_exterior = :serial_exterior, capacidad_btuh = :capacidad_btuh, conexion_electrica = :conexion_electrica,
                             refrigerante = :refrigerante, inverter = :inverter, descripcion = :descripcion, fecha_instalacion = :fecha_instalacion
                             WHERE id_equipo = :id_equipo");
         $stmt->bindParam(':id_equipo', $id_equipo);
@@ -78,10 +78,11 @@ class Equipo extends System
         $stmt->bindParam(':serial_interior', $serial_interior);
         $stmt->bindParam(':serial_exterior', $serial_exterior);
         $stmt->bindParam(':capacidad_btuh', $capacidad_btuh);
-        $stmt->bindParam(':voltaje_fases', $voltaje_fases);
+        $stmt->bindParam(':conexion_electrica', $conexion_electrica);
         $stmt->bindParam(':refrigerante', $refrigerante);
         $stmt->bindParam(':inverter', $inverter);
         $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':fecha_instalacion', $fecha_instalacion);
         return  $stmt->execute();
     }
     public static function setEquipmentImagenInnerPlate($id_equipo, $imagen_placa_interior)
@@ -129,6 +130,8 @@ class Equipo extends System
             $equipoDTO->setDescripcion($result['descripcion']);
             $equipoDTO->setImagen_placa_interior($result['imagen_placa_interior']);
             $equipoDTO->setImagen_placa_exterior($result['imagen_placa_exterior']);
+            $equipoDTO->setFecha_instalacion($result['fecha_instalacion']);
+            $equipoDTO->setFecha_instalacion($result['fecha_instalacion']);
             $equipoDTO->setFecha_registro($result['fecha_registro']);
 
             return $equipoDTO;
@@ -161,6 +164,7 @@ class Equipo extends System
             $equipoDTO->setDescripcion($result['descripcion']);
             $equipoDTO->setImagen_placa_interior($result['imagen_placa_interior']);
             $equipoDTO->setImagen_placa_exterior($result['imagen_placa_exterior']);
+            $equipoDTO->setFecha_instalacion($result['fecha_instalacion']);
             $equipoDTO->setFecha_registro($result['fecha_registro']);
             $list[$cont] = $equipoDTO;
             $cont++;
@@ -195,6 +199,7 @@ class Equipo extends System
             $equipoDTO->setDescripcion($result['descripcion']);
             $equipoDTO->setImagen_placa_interior($result['imagen_placa_interior']);
             $equipoDTO->setImagen_placa_exterior($result['imagen_placa_exterior']);
+            $equipoDTO->setFecha_instalacion($result['fecha_instalacion']);
             $equipoDTO->setFecha_registro($result['fecha_registro']);
             $list[$cont] = $equipoDTO;
             $cont++;
