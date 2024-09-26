@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/model/ServicioDTO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Solicitud.php';
 
 class Servicio extends System
 {

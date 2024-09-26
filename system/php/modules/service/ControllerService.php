@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/service/ServiceService.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/request/ServiceRequest.php';
 
 if (isset($_POST['addService'])) {
    $listService = ServiceService::listServiceByRequest($_GET['add_service']);
