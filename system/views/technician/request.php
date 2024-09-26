@@ -52,8 +52,14 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="text-primary">Servicios</h5>
+                            <div class="col-md-10">
+                                <h5 class="text-primary">Solicitud N°<?= $_GET['request_tech'] ?></h5>
+                            </div>
+                            <div class="col-md-2 text-right d-grid">
+                                <a href="requests" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left-circle"></i>
+                                    <span class="text"> Atras</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -65,7 +71,7 @@
                                         <th>ID</th>
                                         <th>Usuario</th>
                                         <th>Tipo de servicio</th>
-                                        <th>Cantidad</th>
+                                        <th>Tipo Equipo</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>
@@ -75,7 +81,7 @@
                                         <th>ID</th>
                                         <th>Usuario</th>
                                         <th>Tipo de servicio</th>
-                                        <th>Cantidad</th>
+                                        <th>Tipo Equipo</th>
                                         <th>Fecha registro</th>
                                         <th width="10px">Ver</th>
                                     </tr>

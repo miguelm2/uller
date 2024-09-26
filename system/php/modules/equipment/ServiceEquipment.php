@@ -243,7 +243,7 @@ class ServiceEquipment extends System
                 $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
                 $tableHtml .= '<td>' . $valor->getEquipoTipoDTO()->getNombre() . '</td>';
                 $tableHtml .= '<td style="text-align:center;">' . $btn .
-                    Elements::crearBotonVerTwoLink("service_inform", $id_servicio, "equipment", $valor->getId_equipo()) . '</td>';
+                    Elements::crearBotonVerTwoLinkService("service_inform", $id_servicio, "equipment", $valor->getId_equipo()) . '</td>';
                 $tableHtml .= '</tr>';
 
                 $item++;
@@ -275,5 +275,28 @@ class ServiceEquipment extends System
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
+    }
+    public static function getTableEquipmentByUser($id_usuario)
+    {
+        $id_usuario = parent::limpiarString($id_usuario);
+        $tableHtml = "";
+        $item = 1;
+
+        $modelResponse = Equipo::listEquipmentByUser($id_usuario);
+
+        foreach ($modelResponse as $valor) {
+            $tableHtml .= '<tr>';
+            $tableHtml .= '<td>' . $item . '</td>';
+            $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
+            $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
+            $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
+            $tableHtml .= '<td>' . $valor->getEquipoTipoDTO()->getNombre() . '</td>';
+            $tableHtml .= '<td style="text-align:center;">' . 
+                Elements::crearBotonVer( "equipment", $valor->getId_equipo()) . '</td>';
+            $tableHtml .= '</tr>';
+
+            $item++;
+        }
+        return $tableHtml;
     }
 }

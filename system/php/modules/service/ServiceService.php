@@ -90,7 +90,7 @@ class ServiceService extends System
                   $html .= '<td>' . $service->getSolicitudDTO()->getUsuarioDTO()->getId_usuario() . '</td>';
                   $html .= '<td>' . $service->getSolicitudDTO()->getUsuarioDTO()->getNombre() . '</td>';
                   $html .= '<td>' . $service->getTipoServicioDTO()->getNombre() . '</td>';
-                  $html .= '<td>' . $service->getCantidad() . '</td>';
+                  $html .= '<td>' . $service->getEquipoTipoDTO()->getNombre() . '</td>';
                   $html .= '<td>' . $service->getFecha_registro() . '</td>';
                   $html .= '<td>' . Elements::crearBotonVer("service", $service->getId_servicio()) .'</td>';
                   $html .= '</tr>';

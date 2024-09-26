@@ -184,7 +184,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    <?= $tablaEquipos; ?>
+                                    <?= $tableEquipmentUser; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -255,7 +255,7 @@
 
 
         <!-- ======= Nuevo Equipo ======= -->
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="modal fade" id="newType" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -281,35 +281,27 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="modelo">Modelo</label>
-                                    <input type="text" class="form-control" name="modelo" maxlength="255">
+                                    <input type="text" class="form-control" name="modelo" maxlength="255" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="year_fabricacion">Año de fabricación</label>
-                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" >
+                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="fecha_instalacion">Fecha de instalación estimada</label>
+                                    <input type="date" class="form-control" name="fecha_instalacion" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_interior">Serial unidad interior</label>
-                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" >
+                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_exterior">Serial unidad exterior</label>
-                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" >
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="tipo_equipo">Tipo de equipo</label>
-                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                    <option value="">Seleccione un iipo de equipo</option>
-                                        <option>Mini split</option>
-                                        <option>Split</option>
-                                        <option>Paquete CxW</option>
-                                        <option>Ventana</option>
-                                        <option>Mini split techo</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="capacidad_btuh">Capacidad (BTUH)</label>
                                     <select class="form-select" name="capacidad_btuh" id="capacidad_btuh">
-                                        <option value="">Seleccione una Capacidad (BTUH)</option>
                                         <option>12000</option>
                                         <option>18000</option>
                                         <option>24000</option>
@@ -319,13 +311,29 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label for="voltaje_fases">Voltaje / Fases</label>
-                                    <input type="text" class="form-control" name="voltaje_fases" maxlength="20" >
+                                    <label for="conexion_electrica">Conexión electrica</label>
+                                    <select class="form-select" name="conexion_electrica" id="conexion_electrica" required>
+                                        <option value="">Seleccione una opcion</option>
+                                        <option value="1">220/1/60</option>
+                                        <option value="2">115/1/60</option>
+                                        <option value="3">220/2/60</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="tipo_equipo">Conexión electrica</label>
+                                    <select class="form-select" name="tipo_equipo" id="tipo_equipo" required>
+                                        <option value="">Seleccione una opcion</option>
+                                        <option value="1">Mini-split</option>
+                                        <option value="2">Split - Central</option>
+                                        <option value="3">Cassette</option>
+                                        <option value="4">Piso techo</option>
+                                        <option value="5">Ventana</option>
+                                        <option value="6">Otro</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="refrigerante">Refrigerante</label>
                                     <select class="form-select" name="refrigerante" id="refrigerante">
-                                        <option value="">Seleccione un refrigerante</option>
                                         <option>R22</option>
                                         <option>R410</option>
                                     </select>
@@ -334,7 +342,7 @@
                                     <label for="inverter">Inverter</label>
                                     <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si">
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required>
                                         <label class="form-check-label" for="inverter_si">Si</label>
                                     </div>
                                     <div class="form-check">
@@ -342,15 +350,23 @@
                                         <label class="form-check-label" for="inverter_no">No</label>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <label for="placa_interior">Imagen placa interior</label>
+                                    <input type="file" name="placa_interior" id="placa_interior" class="form-control" accept="/*image">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="placa_exteriror">Imagen placa exterior</label>
+                                    <input type="file" name="placa_exterior" id="placa_interior" class="form-control" accept="/*image">
+                                </div>
                                 <div class="col-md-12 form-group">
                                     <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" ></textarea>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newEquipmentType" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
+                            <button type="submit" name="newEquipmentAdmin" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
                         </div>
                     </div>
                 </div>

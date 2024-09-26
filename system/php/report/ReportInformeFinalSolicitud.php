@@ -166,25 +166,47 @@ abstract class ReportInformeFinalSolicitud
 
     private static function getEquipos($equipoDTO, $servicioDTO, $reporteDTO)
     {
-        $html = '';
+        $html = $img_placa = $img_placa_ext = $img_antes_ext = $img_antes_int = $img_desp_int = $img_desp_ext = '';
         $count = 0;
-        $dir_imagen_placa_interior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_interior();
-        $imagen_placa_interior = System::converterImageToBase64($dir_imagen_placa_interior);
+        if (!empty($equipoDTO->getImagen_placa_interior())) {
+            $dir_imagen_placa_interior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_interior();
+            $imagen_placa_interior = System::converterImageToBase64($dir_imagen_placa_interior);
+            $img_placa = '<img src="' . $imagen_placa_interior . '" style="max-width: 200px">';
+        }
 
-        $dir_imagen_placa_exterior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_exterior();
-        $imagen_placa_exterior = System::converterImageToBase64($dir_imagen_placa_exterior);
+        if (!empty($equipoDTO->getImagen_placa_exterior())) {
+            $dir_imagen_placa_exterior = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_EQUIPMENT . $equipoDTO->getImagen_placa_exterior();
+            $imagen_placa_exterior = System::converterImageToBase64($dir_imagen_placa_exterior);
+            $img_placa_ext = '<img src="' . $imagen_placa_exterior . '" style="max-width: 200px">';
+        }
+        if (!empty($reporteDTO->getEvidencia_antes_interior())) {
+            $dir_evidencia_interior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_interior();
+            $imagen_evidencia_antes_interior = System::converterImageToBase64($dir_evidencia_interior_antes);
+            $img_antes_int = '<img src="' . $imagen_evidencia_antes_interior . '" style="max-width: 200px">';
+        }
 
-        $dir_evidencia_interior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_interior();
-        $imagen_evidencia_antes_interior = System::converterImageToBase64($dir_evidencia_interior_antes);
+        if (!empty($reporteDTO->getEvidencia_antes_exterior())) {
+            $dir_evidencia_exterior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_exterior();
+            $imagen_evidencia_antes_exterior  = System::converterImageToBase64($dir_evidencia_exterior_antes);
+            $img_antes_ext = '<img src="' . $imagen_evidencia_antes_exterior . '" style="max-width: 200px">';
+        }
 
-        $dir_evidencia_exterior_antes = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_antes_exterior();
-        $imagen_evidencia_antes_exterior  = System::converterImageToBase64($dir_evidencia_exterior_antes);
+        if (!empty($reporteDTO->getEvidencia_despues_interior())) {
+            $dir_evidencia_interior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_interior();
+            $imagen_evidencia_despues_interior = System::converterImageToBase64($dir_evidencia_interior_despues);
+            $img_desp_int = '<img src="' . $imagen_evidencia_despues_interior . '" style="max-width: 200px">';
+        }
 
-        $dir_evidencia_interior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_interior();
-        $imagen_evidencia_despues_interior = System::converterImageToBase64($dir_evidencia_interior_despues);
-
-        $dir_evidencia_exterior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_exterior();
-        $imagen_evidencia_despues_exterior = System::converterImageToBase64($dir_evidencia_exterior_despues);
+        if (!empty($reporteDTO->getEvidencia_despues_exterior())) {
+            $dir_evidencia_exterior_despues = $_SERVER['DOCUMENT_ROOT'] . Path::$DIR_IMAGE_MANTEINCE . $reporteDTO->getEvidencia_despues_exterior();
+            $imagen_evidencia_despues_exterior = System::converterImageToBase64($dir_evidencia_exterior_despues);
+            $img_desp_ext = '<img src="' . $imagen_evidencia_despues_exterior . '" style="max-width: 200px">';
+        }
+        if ($reporteDTO->getUbicacion()[0] == 9) {
+            $ubicacion = $reporteDTO->getUbicacion()[1] . ' - ' . $reporteDTO->getOtra_ubicacion();
+        } else {
+            $ubicacion = $reporteDTO->getUbicacion()[1];
+        }
 
         $html .= '
             <br>
@@ -280,8 +302,8 @@ abstract class ReportInformeFinalSolicitud
                     </th>
                 </tr>
                 <tr>
-                    <td><img src="' . $imagen_placa_interior . '" style="max-width: 200px"></td>
-                    <td><img src="' . $imagen_placa_exterior . '" style="max-width: 200px"></td>
+                    <td>' . $img_placa . '</td>
+                    <td>' . $img_placa_ext .  '</td>
                 </tr>
             </table>
             <br>
@@ -296,7 +318,7 @@ abstract class ReportInformeFinalSolicitud
                         Ubicación del equipo
                     </th>
                     <td>
-                        ' . $reporteDTO->getUbicacion()[1] . '
+                        ' . $ubicacion . '
                     </td>
                     <th>
                         Tipo de uso
@@ -585,8 +607,8 @@ abstract class ReportInformeFinalSolicitud
                         </th>
                     </tr>
                     <tr>                   
-                        <td><img src="' . $imagen_evidencia_antes_interior . '" style="max-width: 200px"></td>
-                        <td><img src="' . $imagen_evidencia_antes_exterior . '" style="max-width: 200px"></td>
+                        <td>' . $img_antes_int . '</td>
+                        <td>' . $img_antes_ext . '</td>
                     </tr>
                     <tr>
                         <th>
@@ -597,8 +619,8 @@ abstract class ReportInformeFinalSolicitud
                         </th>
                     </tr>
                     <tr>                    
-                        <td><img src="' . $imagen_evidencia_despues_interior . '" style="max-width: 200px"></td>
-                        <td><img src="' . $imagen_evidencia_despues_exterior . '" style="max-width: 200px"></td>
+                        <td>' . $img_desp_int . '</td>
+                        <td>' . $img_desp_ext . '</td>
                     </tr>
                 </table>
                 ';

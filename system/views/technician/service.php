@@ -53,10 +53,10 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Servicio</h5>
+                                <h5 class="text-primary">Servicio N°<?= $servicio->getId_servicio()?></h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="tickets" class="btn btn-secondary">
+                                <a href="request?request_tech=<?= $servicio->getSolicitudDTO()->getId_solicitud() ?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -94,8 +94,8 @@
                                 <input type="text" class="form-control" disabled value="<?= $servicio->getTipoServicioDTO()->getNombre() ?>">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="estado">Estado</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getEstado()[1] ?>">
+                                <label for="estado">Tipo Equipo</label>
+                                <input type="text" class="form-control" disabled value="<?= $servicio->getEquipoTipoDTO()->getNombre() ?>">
                             </div>
                         </div>
                     </div>

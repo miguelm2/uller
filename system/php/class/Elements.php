@@ -23,6 +23,10 @@ class Elements
     {
         return '<a href="' . $link1 . '?' . $link1 . '=' . $valor1 . '&' . $link2 . '=' . $valor2 . '" class="btn btn-info rounded-circle btn-sm"><i class="bi bi-info-circle"></i></a>';
     }
+    public static function crearBotonVerTwoLinkService($link1, $valor1, $link2, $valor2)
+    {
+        return '<a href="' . $link1 . '?' . $link1 . '=' . $valor1 . '&' . $link2 . '=' . $valor2 . '" class="btn btn-info btn-sm"><i <i class="bi bi-play-circle"></i> Iniciar Servicio</i></a>';
+    }
 
     public static function crearBotonEliminar($link, $link2, $valor)
     {

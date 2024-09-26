@@ -86,10 +86,10 @@ class ServiceReportFinalRequest extends System
          $prox_servicio              = parent::limpiarString($prox_servicio);
          $fecha_registro = date('Y-m-d H:i:s');
 
-         $evidencia_antes_interior     = self::validateImageMaintenance("evidencia_antes_interior",  "evidencia_antes_interior", Path::$DIR_IMAGE_MANTEINCE);
-         $evidencia_antes_exterior     = self::validateImageMaintenance("evidencia_antes_exterior",  "evidencia_antes_exterior", Path::$DIR_IMAGE_MANTEINCE);
-         $evidencia_despues_interior   = self::validateImageMaintenance("evidencia_despues_interior",  "evidencia_despues_interior", Path::$DIR_IMAGE_MANTEINCE);
-         $evidencia_despues_exterior   = self::validateImageMaintenance("evidencia_despues_exterior",  "evidencia_despues_exterior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_antes_interior     = self::validateImageMaintenance("evidencia_antes_interior",  "antes_interior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_antes_exterior     = self::validateImageMaintenance("evidencia_antes_exterior",  "antes_exterior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_despues_interior   = self::validateImageMaintenance("evidencia_despues_interior",  "despues_interior", Path::$DIR_IMAGE_MANTEINCE);
+         $evidencia_despues_exterior   = self::validateImageMaintenance("evidencia_despues_exterior",  "despues_exterior", Path::$DIR_IMAGE_MANTEINCE);
 
          $reporteDTO = ReporteFinalSolicitud::getReportFinalRequestByServiceAndEquipment($id_equipo, $id_servicio);
          if (!$reporteDTO) {
@@ -139,7 +139,7 @@ class ServiceReportFinalRequest extends System
             }
          } else {
             return self::setInformTicket(
-               $reporteDTO->getId_reporrte_final(),
+               $reporteDTO->getId_reporte_final(),
                $fecha_servicio,
                $ubicacion,
                $otra_ubicacion,

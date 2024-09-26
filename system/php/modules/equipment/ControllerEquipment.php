@@ -26,6 +26,27 @@ if (isset($_POST['newEquipment'])) {
         $_POST['fecha_instalacion']
     );
 }
+if (isset($_POST['newEquipmentAdmin'])) {
+
+    $inverter = (empty($_POST['inverter'])) ? '' : $_POST['inverter'];
+
+    $response = ServiceEquipment::newEquipment(
+        $_GET['user'],
+        $_POST['nombre'],
+        $_POST['marca'],
+        $_POST['modelo'],
+        $_POST['year_fabricacion'],
+        $_POST['serial_interior'],
+        $_POST['serial_exterior'],
+        $_POST['tipo_equipo'],
+        $_POST['capacidad_btuh'],
+        $_POST['conexion_electrica'],
+        $_POST['refrigerante'],
+        $inverter,
+        $_POST['descripcion'],
+        $_POST['fecha_instalacion']
+    );
+}
 
 if (isset($_POST['setEquipment'])) {
     $response = ServiceEquipment::setEquipment(
@@ -60,6 +81,10 @@ if (isset($_GET['equipment'])) {
     if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
         $backPageEqui = ServiceEquipment::getBackButton("user", $_GET['user_equipment']);
     }
+}
+
+if(isset($_GET['user'])){
+    $tableEquipmentUser = ServiceEquipment::getTableEquipmentByUser($_GET['user']);
 }
 if (isset($_GET['equip'])) {
     $equip    = ServiceEquipment::getEquipment($_GET['equip']);
