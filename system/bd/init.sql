@@ -821,14 +821,14 @@ AFTER
   `id_ticket`;
 
 ALTER TABLE
-  `ReporteFinalticket`
+  `ReporteFinalTicket`
 ADD
   `id_tipo` INT NOT NULL
 AFTER
   `id_ticket`;
 
 ALTER TABLE
-  `Tiposervicio`
+  `TipoServicio`
 ADD
   `valor` DOUBLE NOT NULL
 AFTER
