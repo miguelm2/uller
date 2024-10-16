@@ -120,6 +120,6 @@ if (isset($_GET['service'])) {
     $tablaEquiposUser  = ServiceEquipment::getTableEquipment($_GET['service']);
 }
 
-if(isset($_GET)){
-    $tableEquipmentUserByUser = ServiceEquipment::getTableEquipmentByUser($_GET['user']);
+if (isset($_GET)) {
+    $tableEquipmentUserByUser = ServiceEquipment::getTableEquipmentUserByUser();
 }
