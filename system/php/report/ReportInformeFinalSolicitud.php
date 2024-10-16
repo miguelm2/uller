@@ -1,6 +1,6 @@
 <?php
 //require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/src/Autoloader.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/dompdf/autoload.inc.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/libs/Dompdf/autoload.inc.php';
 
 abstract class ReportInformeFinalSolicitud
 {

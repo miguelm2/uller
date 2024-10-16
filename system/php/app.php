@@ -9,9 +9,9 @@ class Constants
 
 
     // Configuracion bd
-    static $USUARIO_BD = "ullerco_bd_user";
-    static $PASS_BD    = "POkJBca3_jE[";
-    static $NOMBRE_BD  = "ullerco_uller_bd";
+    static $USUARIO_BD = "uller_bd_user";
+    static $PASS_BD    = "~R7FRVar.f7D";
+    static $NOMBRE_BD  = "uller_bd";
     static $IP_BD      = "localhost";
 
 
