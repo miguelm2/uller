@@ -56,7 +56,7 @@
                                 <h5 class="text-primary">Equipo</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="<?= $backPageEqui ?>" class="btn btn-secondary">
+                                <a href="user?user=<?= $equipment->getUsuarioDTO()->getId_usuario() ?>" class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -99,14 +99,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_equipo">Tipo de equipo</label>
-                                <select class="form-select" name="tipo_equipo" id="tipo_equipo">
-                                    <option><?= $equipment->getTipo_equipo() ?></option>
-                                    <option>Mini split</option>
-                                    <option>Split</option>
-                                    <option>Paquete CxW</option>
-                                    <option>Ventana</option>
-                                    <option>Mini split techo</option>
-                                </select>
+                                <input type="text" class="form-control" value="<?= $equipment->getEquipoTipoDTO()->getNombre() ?>" disabled>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="capacidad_btuh">Capacidad (BTUH)</label>
@@ -121,10 +114,6 @@
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="voltaje_fases">Voltaje / Fases</label>
-                                <input type="text" class="form-control" name="voltaje_fases" maxlength="20" value="<?= $equipment->getVoltaje_fases() ?>">
-                            </div>
-                            <div class="col-md-6 form-group">
                                 <label for="refrigerante">Refrigerante</label>
                                 <select class="form-select" name="refrigerante" id="refrigerante">
                                     <option><?= $equipment->getRefrigerante() ?></option>
@@ -132,6 +121,15 @@
                                     <option>R410</option>
                                 </select>
                             </div>
+                            <div class="col-md-6 form-group">
+                                    <label for="conexion_electrica">Conexión electrica</label>
+                                    <select class="form-select" name="conexion_electrica" id="conexion_electrica" required>
+                                        <option value="<?= $equipment->getConexion_electrica()[0] ?>"><?= $equipment->getConexion_electrica()[1] ?></option>
+                                        <option value="1">220/1/60</option>
+                                        <option value="2">115/1/60</option>
+                                        <option value="3">220/2/60</option>
+                                    </select>
+                                </div>
                             <div class="col-md-12 form-group">
                                 <label for="inverter">Inverter</label>
                                 <br>
