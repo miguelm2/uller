@@ -77,10 +77,6 @@ if (isset($_POST['setImagenExteriorPlate'])) {
 if (isset($_GET['equipment'])) {
     $equipment    = ServiceEquipment::getEquipment($_GET['equipment']);
     $listInverter = ServiceEquipment::getValidateInverter($equipment);
-
-    if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
-        $backPageEqui = ServiceEquipment::getBackButton("user", $_GET['user_equipment']);
-    }
 }
 
 if(isset($_GET['user'])){
