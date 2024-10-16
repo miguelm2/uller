@@ -856,10 +856,50 @@ ALTER TABLE `TipoServicio`
 --
 -- AUTO_INCREMENT de la tabla `Usuario`
 --
-ALTER TABLE `Usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE
+  `ReporteFinalSolicitud`
+MODIFY
+  `id_reporte_final` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+INSERT INTO
+  `TipoServicio` (
+    `id_tipo`,
+    `nombre`,
+    `descripcion`,
+    `valor`,
+    `fecha_registro`
+  )
+VALUES
+  (
+    '3',
+    'Preventivo',
+    'Mantenimiento preventivo',
+    '1000000',
+    '2024-10-16 23:41:25.000000'
+  ),
+  (
+    '4',
+    'Correctivo',
+    'Mantenimiento Correctivo',
+    '100000',
+    '2024-10-16 23:41:25.000000'
+  ),
+  (
+    '6',
+    'Instalación',
+    'Instalación de equipo',
+    '100000',
+    '2024-10-16 23:41:25.000000'
+  ),
+  (
+    '7',
+    'Desinstalación',
+    'Desinstalación de equipo',
+    '1000000',
+    '2024-10-16 23:41:25.000000'
+  )
+
+

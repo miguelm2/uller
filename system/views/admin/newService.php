@@ -69,31 +69,6 @@
                      <div class="col-md-4">
                         <div class="card shadow-lg">
                            <div class="card-header pb-0">
-                              <div class="card-title p-0">Split / Central</div>
-                           </div>
-                           <div class="card-body pb-0">
-                              <img src="/assets/img/equipos/split_central.png" alt="Split/Central" class="img-fluid" style="height: 200px;">
-                           </div>
-                           <div class="card-footer">
-                              <table class="table table-bordered justify-content-center">
-                                 <tbody id="service-table-split">
-                                    <tr>
-                                       <td><input type="number" class="form-control" name="split_preventive" placeholder="Cantidad"></td>
-                                       <td>Preventivo</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="number" class="form-control" name="split_corrective" placeholder="Cantidad"></td>
-                                       <td>Correctivo</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                              <button type="button" name="add_split" id="add_split" class="btn btn-outline-dark"><i class="bi bi-plus-lg"></i> Mostrar más</button>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="card shadow-lg">
-                           <div class="card-header pb-0">
                               <div class="card-title p-0">Minisplit</div>
                            </div>
                            <div class="card-body pb-0">
@@ -113,6 +88,31 @@
                                  </tbody>
                               </table>
                               <button type="button" name="add_mini" id="add_mini" class="btn btn-outline-dark"><i class="bi bi-plus-lg"></i> Mostrar más</button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="card shadow-lg">
+                           <div class="card-header pb-0">
+                              <div class="card-title p-0">Split / Central</div>
+                           </div>
+                           <div class="card-body pb-0">
+                              <img src="/assets/img/equipos/split_central.png" alt="Split/Central" class="img-fluid" style="height: 200px;">
+                           </div>
+                           <div class="card-footer">
+                              <table class="table table-bordered justify-content-center">
+                                 <tbody id="service-table-split">
+                                    <tr>
+                                       <td><input type="number" class="form-control" name="split_preventive" placeholder="Cantidad"></td>
+                                       <td>Preventivo</td>
+                                    </tr>
+                                    <tr>
+                                       <td><input type="number" class="form-control" name="split_corrective" placeholder="Cantidad"></td>
+                                       <td>Correctivo</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                              <button type="button" name="add_split" id="add_split" class="btn btn-outline-dark"><i class="bi bi-plus-lg"></i> Mostrar más</button>
                            </div>
                         </div>
                      </div>
