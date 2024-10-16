@@ -12,7 +12,7 @@ System::validarSession();
 
 ServiceUser::validateSessionUser();
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/equipmentType/ControllerEquipmentType.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/equipment/ControllerEquipment.php';
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/modules/serviceType/ControllerServiceType.php';
 

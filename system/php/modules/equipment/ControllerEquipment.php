@@ -26,6 +26,30 @@ if (isset($_POST['newEquipment'])) {
         $_POST['fecha_instalacion']
     );
 }
+if (isset($_POST['newEquipmentUser'])) {
+    $service = ServiceService::getService($_GET['service']);
+    $id_usuario = $_SESSION['id'];
+
+    $inverter = (empty($_POST['inverter'])) ? '' : $_POST['inverter'];
+
+    $response = ServiceEquipment::newEquipment(
+        $id_usuario,
+        $_POST['nombre'],
+        $_POST['marca'],
+        $_POST['modelo'],
+        $_POST['year_fabricacion'],
+        $_POST['serial_interior'],
+        $_POST['serial_exterior'],
+
+        $_POST['tipo_equipo'],
+        $_POST['capacidad_btuh'],
+        $_POST['conexion_electrica'],
+        $_POST['refrigerante'],
+        $inverter,
+        $_POST['descripcion'],
+        $_POST['fecha_instalacion']
+    );
+}
 if (isset($_POST['newEquipmentAdmin'])) {
 
     $inverter = (empty($_POST['inverter'])) ? '' : $_POST['inverter'];
@@ -79,9 +103,10 @@ if (isset($_GET['equipment'])) {
     $listInverter = ServiceEquipment::getValidateInverter($equipment);
 }
 
-if(isset($_GET['user'])){
+if (isset($_GET['user'])) {
     $tableEquipmentUser = ServiceEquipment::getTableEquipmentByUser($_GET['user']);
 }
+
 if (isset($_GET['equip'])) {
     $equip    = ServiceEquipment::getEquipment($_GET['equip']);
     $listInverter = ServiceEquipment::getValidateInverter($equip);
@@ -93,4 +118,8 @@ if (isset($_POST['deleteEquipment'])) {
 
 if (isset($_GET['service'])) {
     $tablaEquiposUser  = ServiceEquipment::getTableEquipment($_GET['service']);
+}
+
+if(isset($_GET)){
+    $tableEquipmentUserByUser = ServiceEquipment::getTableEquipmentByUser($_GET['user']);
 }
