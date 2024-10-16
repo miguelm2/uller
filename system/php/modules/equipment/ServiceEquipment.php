@@ -299,4 +299,27 @@ class ServiceEquipment extends System
         }
         return $tableHtml;
     }
+    public static function getTableEquipmentUserByUser()
+    {
+        $id_usuario = $_SESSION['id'];
+        $tableHtml = "";
+        $item = 1;
+
+        $modelResponse = Equipo::listEquipmentByUser($id_usuario);
+
+        foreach ($modelResponse as $valor) {
+            $tableHtml .= '<tr>';
+            $tableHtml .= '<td>' . $item . '</td>';
+            $tableHtml .= '<td>' . $valor->getNombre() . '</td>';
+            $tableHtml .= '<td>' . $valor->getMarca() . '</td>';
+            $tableHtml .= '<td>' . $valor->getModelo() . '</td>';
+            $tableHtml .= '<td>' . $valor->getEquipoTipoDTO()->getNombre() . '</td>';
+            $tableHtml .= '<td style="text-align:center;">' . 
+                Elements::crearBotonVer( "equipment", $valor->getId_equipo()) . '</td>';
+            $tableHtml .= '</tr>';
+
+            $item++;
+        }
+        return $tableHtml;
+    }
 }
