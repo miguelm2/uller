@@ -115,10 +115,13 @@
                             <hr>
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12 d-grid">
+                                    <div class="col-md-6 d-grid">
                                         <button type="submit" class="btn btn-primary" name="addServiceAdmin">
-                                            <i class="bi bi-floppy"></i> Guardar Información
+                                            <i class="bi bi-save"></i> Guardar Información
                                         </button>
+                                    </div>
+                                    <div class="col-md-6 d-grid">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminar"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +131,28 @@
             </div>
 
         </section>
-
+        <!-- Modal Eliminar Registro-->
+        <!-- ======= Basic Modal ======= -->
+        <form method="post">
+            <div class="modal fade" id="eliminar" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Eliminar Registro</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">¿Esta seguro que desea eliminar el registro?</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="deleteRequest" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Eliminar Registro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Basic Modal-->
 
     </main><!-- End #main -->
 

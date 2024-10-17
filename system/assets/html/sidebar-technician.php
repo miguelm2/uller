@@ -24,13 +24,6 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="../technician/tickets">
-        <i class="bi bi-ticket-detailed"></i>
-        <span>Servicios</span>
-      </a>
-    </li>
-
-    <li class="nav-item">
       <a class="nav-link collapsed" href="../technician/requests">
         <i class="bi bi-ticket-detailed"></i>
         <span>Solicitudes</span>
