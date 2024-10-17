@@ -105,12 +105,18 @@ class Servicio extends System
         return $list;
     }
 
-
     public static function deleteService($id_servicio)
     {
         $dbh             = parent::Conexion();
         $stmt = $dbh->prepare("DELETE FROM Servicio WHERE id_servicio = :id_servicio");
         $stmt->bindParam(':id_servicio', $id_servicio);
+        return  $stmt->execute();
+    }
+    public static function deleteServiceByRequest($id_solicitud)
+    {
+        $dbh             = parent::Conexion();
+        $stmt = $dbh->prepare("DELETE FROM Servicio WHERE id_solicitud = :id_solicitud");
+        $stmt->bindParam(':id_solicitud', $id_solicitud);
         return  $stmt->execute();
     }
 }

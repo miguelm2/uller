@@ -83,6 +83,9 @@ if (isset($_POST['newRequestAdmin'])) {
    ];
    ServiceRequest::newRequestAdmin($services, $_POST['valor'], $_POST['usuario'], $_POST['tecnico'], $_POST['fecha']);
 }
+if (isset($_POST['deleteRequest'])) {
+   ServiceRequest::deleteRequest($_GET['request']);
+}
 
 if (isset($_GET['request'])) {
    $requestInfo = ServiceRequest::getRequest($_GET['request']);

@@ -160,7 +160,8 @@ class ServiceRequest extends System
             $id_solicitud = parent::limpiarString($id_solicitud);
             $result = Solicitud::deleteRequest($id_solicitud);
             if ($result) {
-                return '<script>swal("' . Constants::$REGISTER_DELETE . '", "", "success");</script>';
+                Servicio::deleteServiceByRequest($id_solicitud);
+                header('Location:requests?delete');
             }
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
