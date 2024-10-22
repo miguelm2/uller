@@ -160,6 +160,20 @@
                                         <option>Samsung</option>
                                         <option>Panasonic</option>
                                         <option>Carrier</option>
+                                        <option>Electrolux</option>
+                                        <option>Innova</option>
+                                        <option>Trane</option>
+                                        <option>York</option>
+                                        <option>Royal</option>
+                                        <option>Confortfresh</option>
+                                        <option>Simply</option>
+                                        <option>Conforlife </option>
+                                        <option>Midea</option>
+                                        <option>Mabel</option>
+                                        <option>Lenox</option>
+                                        <option>Mirage</option>
+                                        <option>Dainkin</option>
+                                        <option>Otro</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 form-group">
