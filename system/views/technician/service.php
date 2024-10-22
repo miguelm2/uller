@@ -16,7 +16,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -53,10 +55,11 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h5 class="text-primary">Servicio N°<?= $servicio->getId_servicio()?></h5>
+                                <h5 class="text-primary">Servicio N°<?= $servicio->getId_servicio() ?></h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="request?request_tech=<?= $servicio->getSolicitudDTO()->getId_solicitud() ?>" class="btn btn-secondary">
+                                <a href="request?request_tech=<?= $servicio->getSolicitudDTO()->getId_solicitud() ?>"
+                                    class="btn btn-secondary">
                                     <i class="bi bi-arrow-left-circle"></i>
                                     <span class="text"> Atras</span>
                                 </a>
@@ -67,35 +70,43 @@
                         <div class="row g-2">
                             <div class="col-md-6 form-group">
                                 <label for="nombre_cliente">Nombre cliente</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getNombre() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getNombre() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="documento">Documento</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getCedula() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getCedula() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="telefono">Telefono</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getTelefono() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getTelefono() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="direccion">Dirección</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getDireccion() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getDireccion() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="ciudad">Ciudad</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getCiudad() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getCiudad() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="departamento">Departamento</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getDepartamento() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getSolicitudDTO()->getUsuarioDTO()->getDepartamento() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="tipo_servicio">Tipo de servicio</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getTipoServicioDTO()->getNombre() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getTipoServicioDTO()->getNombre() ?>">
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="estado">Tipo Equipo</label>
-                                <input type="text" class="form-control" disabled value="<?= $servicio->getEquipoTipoDTO()->getNombre() ?>">
+                                <input type="text" class="form-control" disabled
+                                    value="<?= $servicio->getEquipoTipoDTO()->getNombre() ?>">
                             </div>
                         </div>
                     </div>
@@ -108,13 +119,15 @@
                                 <h5 class="text-primary">Equipos</h5>
                             </div>
                             <div class="col-md-3 text-right d-grid">
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newType"><i
+                                        class="bi bi-plus-square"></i> Nuevo Equipo</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" style="padding-top: 5px;">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Item</th>
@@ -155,24 +168,24 @@
                                 <div class="col-md-6 form-group">
                                     <label for="marca">Marca</label>
                                     <select class="form-select" name="marca" id="marca">
-                                        <option>Olimpo</option>
-                                        <option>LG</option>
-                                        <option>Samsung</option>
-                                        <option>Panasonic</option>
                                         <option>Carrier</option>
+                                        <option>Conforlife</option>
+                                        <option>Confortfresh</option>
+                                        <option>Dainkin</option>
                                         <option>Electrolux</option>
                                         <option>Innova</option>
+                                        <option>LG</option>
+                                        <option>Lenox</option>
+                                        <option>Mabel</option>
+                                        <option>Midea</option>
+                                        <option>Mirage</option>
+                                        <option>Olimpo</option>
+                                        <option>Panasonic</option>
+                                        <option>Royal</option>
+                                        <option>Samsung</option>
+                                        <option>Simply</option>
                                         <option>Trane</option>
                                         <option>York</option>
-                                        <option>Royal</option>
-                                        <option>Confortfresh</option>
-                                        <option>Simply</option>
-                                        <option>Conforlife </option>
-                                        <option>Midea</option>
-                                        <option>Mabel</option>
-                                        <option>Lenox</option>
-                                        <option>Mirage</option>
-                                        <option>Dainkin</option>
                                         <option>Otro</option>
                                     </select>
                                 </div>
@@ -182,7 +195,8 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="year_fabricacion">Año de fabricación</label>
-                                    <input type="number" class="form-control" name="year_fabricacion" min="1900" max="3000" required>
+                                    <input type="number" class="form-control" name="year_fabricacion" min="1900"
+                                        max="3000" required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="fecha_instalacion">Fecha de instalación estimada</label>
@@ -190,11 +204,13 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_interior">Serial unidad interior</label>
-                                    <input type="text" class="form-control" name="serial_interior" maxlength="255" required>
+                                    <input type="text" class="form-control" name="serial_interior" maxlength="255"
+                                        required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="serial_exterior">Serial unidad exterior</label>
-                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255" required>
+                                    <input type="text" class="form-control" name="serial_exterior" maxlength="255"
+                                        required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="capacidad_btuh">Capacidad (BTUH)</label>
@@ -209,7 +225,8 @@
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="conexion_electrica">Conexión electrica</label>
-                                    <select class="form-select" name="conexion_electrica" id="conexion_electrica" required>
+                                    <select class="form-select" name="conexion_electrica" id="conexion_electrica"
+                                        required>
                                         <option value="">Seleccione una opcion</option>
                                         <option value="1">220/1/60</option>
                                         <option value="2">115/1/60</option>
@@ -227,31 +244,37 @@
                                     <label for="inverter">Inverter</label>
                                     <br>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si" value="Si" required>
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_si"
+                                            value="Si" required>
                                         <label class="form-check-label" for="inverter_si">Si</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_no" value="No">
+                                        <input class="form-check-input" type="radio" name="inverter" id="inverter_no"
+                                            value="No">
                                         <label class="form-check-label" for="inverter_no">No</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="placa_interior">Imagen placa interior</label>
-                                    <input type="file" name="placa_interior" id="placa_interior" class="form-control" accept="/*image">
+                                    <input type="file" name="placa_interior" id="placa_interior" class="form-control"
+                                        accept="/*image">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="placa_exteriror">Imagen placa exterior</label>
-                                    <input type="file" name="placa_exterior" id="placa_interior" class="form-control" accept="/*image">
+                                    <input type="file" name="placa_exterior" id="placa_interior" class="form-control"
+                                        accept="/*image">
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3" maxlength="255" required></textarea>
+                                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3"
+                                        maxlength="255" required></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" name="newEquipment" class="btn btn-success"><i class="bi bi-plus-square"></i> Nuevo Equipo</button>
+                            <button type="submit" name="newEquipment" class="btn btn-success"><i
+                                    class="bi bi-plus-square"></i> Nuevo Equipo</button>
                         </div>
                     </div>
                 </div>
@@ -266,7 +289,8 @@
     <?php include_once '../../assets/html/footer.html'; ?>
     <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="../../assets/vendor/jquery/jquery.min.js"></script>
