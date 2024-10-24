@@ -234,7 +234,7 @@ class ServiceEquipment extends System
             foreach ($modelResponse as $valor) {
                 $btn = '';
                 if ($_SESSION['tipo'] == 0 || $_SESSION['tipo'] == 5) {
-                    $btn = Elements::crearBotonEditar("equip", $valor->getId_equipo());
+                    $btn = Elements::crearBotonVerTwoLinkEditar("equip", $valor->getId_equipo(), "id_service", $id_servicio);
                 }
                 $tableHtml .= '<tr>';
                 $tableHtml .= '<td>' . $item . '</td>';
@@ -266,16 +266,6 @@ class ServiceEquipment extends System
         }
     }
 
-    public static function getBackButton($link, $value)
-    {
-        try {
-            $value = parent::limpiarString($value);
-
-            return $link . "?" . $link . "=" . $value;
-        } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
     public static function getTableEquipmentByUser($id_usuario)
     {
         $id_usuario = parent::limpiarString($id_usuario);
@@ -321,5 +311,15 @@ class ServiceEquipment extends System
             $item++;
         }
         return $tableHtml;
+    }
+
+    public static function getBackButton($id_service)
+    {
+        try {
+            $id_service = parent::limpiarString($id_service);
+            return Elements::getBackToServiceButton($id_service);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

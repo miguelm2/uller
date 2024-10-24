@@ -56,10 +56,7 @@
                                 <h5 class="text-primary">Equipo</h5>
                             </div>
                             <div class="col-md-2 text-right d-grid">
-                                <a href="service?service=" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left-circle"></i>
-                                    <span class="text"> Atras</span>
-                                </a>
+                                <?= $backButton ?>
                             </div>
                         </div>
                     </div>

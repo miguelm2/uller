@@ -110,6 +110,7 @@ if (isset($_GET['user'])) {
 if (isset($_GET['equip'])) {
     $equip    = ServiceEquipment::getEquipment($_GET['equip']);
     $listInverter = ServiceEquipment::getValidateInverter($equip);
+    $backButton = ServiceEquipment::getBackButton($_GET['id_service']);
 }
 
 if (isset($_POST['deleteEquipment'])) {
