@@ -308,4 +308,14 @@ class Elements
                     </div>
                 </div>';
     }
+
+    public static function getBackToServiceButton($id_servicio)
+    {
+        return <<<HTML
+            <a href="service?service={$id_servicio}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i>
+                <span class="text"> Atras</span>
+            </a>
+        HTML;
+    }
 }

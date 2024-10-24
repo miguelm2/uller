@@ -1,4 +1,3 @@
-
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/System.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/system/php/class/Ticket.php';
@@ -342,6 +341,16 @@ class ServiceReportFinalRequest extends System
             $servicioDTO,
             $equipoDTO
          );
+      } catch (\Exception $e) {
+         throw new Exception($e->getMessage());
+      }
+   }
+   public static function getBackButton($id_servicio)
+   {
+      try {
+         $id_servicio = parent::limpiarString($id_servicio);
+
+         return Elements::getBackToServiceButton($id_servicio);
       } catch (\Exception $e) {
          throw new Exception($e->getMessage());
       }
