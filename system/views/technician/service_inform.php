@@ -56,10 +56,7 @@
                         <h5 class="text-primary">Nuevo Informe de Servicio</h5>
                      </div>
                      <div class="col-md-2 text-right d-grid">
-                        <a href="service?service=1" class="btn btn-secondary">
-                           <i class="bi bi-arrow-left-circle"></i>
-                           <span class="text"> Atras</span>
-                        </a>
+                        <?= $backButton ?>
                      </div>
                   </div>
                </div>
@@ -142,7 +139,7 @@
                         </div>
                         <div class="col-md-6">
                            <label for="amperaje">Amperaje (A)</label>
-                           <input type="number" name="amperaje" id="amperaje" class="form-control" required>
+                           <input type="number" name="amperaje" id="amperaje" step=".01" class="form-control" required>
                         </div>
                         <div class="col-md-6">
                            <label for="estado_equipo">Estado Equipo</label>

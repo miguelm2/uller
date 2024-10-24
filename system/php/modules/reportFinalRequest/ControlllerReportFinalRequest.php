@@ -107,3 +107,6 @@ if (isset($_POST['getPdfInform'])) {
 if (isset($_GET['pdf_inform'])) {
    ServiceReportFinalRequest::getPdfInform($_GET['pdf_inform']);
 }
+if (isset($_GET['service_inform'])) {
+   $backButton = ServiceReportFinalRequest::getBackButton($_GET['service_inform']);
+}
